@@ -7,7 +7,7 @@ final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 138, 57, 0),
   ),
-  textTheme: GoogleFonts.latoTextTheme(),
+  textTheme: GoogleFonts.poppinsTextTheme(),
 );
 
 void main() {
