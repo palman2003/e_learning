@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'package:e_learning/page/auth.dart';
 
 class SplashPage extends StatefulWidget {
-  SplashPage({super.key});
+  const SplashPage({super.key});
   @override
   State<SplashPage> createState() {
     return _SplashPageState();
@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
       () => {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
+          MaterialPageRoute(builder: (context) => AuthPage()),
         )
       },
     );
