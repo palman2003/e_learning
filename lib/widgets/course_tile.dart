@@ -13,7 +13,7 @@ class CourseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+      margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       width: double.infinity,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -40,7 +40,7 @@ class CourseTile extends StatelessWidget {
                 width: 100,
                 height: 100,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               Text(
                 title,
                 style: Theme.of(context).textTheme.headlineLarge!.copyWith(
@@ -56,83 +56,77 @@ class CourseTile extends StatelessWidget {
                       color: const Color.fromARGB(210, 255, 255, 255),
                     ),
               ),
-            ],
-          ),
-          Positioned(
-            bottom: 30,
-            right: 40,
-            child: Material(
-              color: Colors.transparent,
-              child: Ink(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    // Handle the click event here
-                  },
-                  borderRadius: BorderRadius.circular(30),
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                    child: Text(
-                      "Play",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: const Color.fromARGB(255, 255, 110, 7),
-                          fontWeight: FontWeight.bold),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 0, right: 10),
+                      padding: const EdgeInsets.fromLTRB(25, 10, 20, 10),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            '200',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    color:
+                                        const Color.fromARGB(255, 255, 110, 7),
+                                    fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(width: 5),
+                          Image.asset(
+                            'assets/images/appbar_icon.png',
+                            height: 20,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                    const Spacer(),
+                    Material(
+                      type: MaterialType.transparency,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            // Handle the click event here
+                          },
+                          borderRadius: BorderRadius.circular(30),
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+                            child: Text(
+                              "Enroll",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: const Color.fromARGB(
+                                          255, 255, 110, 7),
+                                      fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),
     );
-
-    // return Container(
-    //   margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-    //   child: InkWell(
-    //     borderRadius: const BorderRadius.all(
-    //       Radius.circular(20.0),
-    //     ),
-    //     onTap: () {
-    //       print('Container tapped!');
-    //     },
-    //     child: Ink(
-    //       width: double.infinity,
-    //       height: 325,
-    //       padding: const EdgeInsets.all(30),
-    //       decoration: BoxDecoration(
-    //         gradient: LinearGradient(
-    //           colors: gradientColors,
-    //           begin: Alignment.topLeft,
-    //           end: Alignment.bottomRight,
-    //         ),
-    //         borderRadius: const BorderRadius.all(
-    //           Radius.circular(20.0),
-    //         ),
-    //       ),
-    //       child: Stack(
-    //         children: [
-    //           Positioned(
-    //             width: 100,
-    //             height: 100,
-    //             child: Image.asset("assets/images/splash.png",),
-    //           ),
-    //           Positioned(
-    //             child: Text(
-    //               title,
-    //               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-    //                     fontWeight: FontWeight.w700,
-    //                   ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
