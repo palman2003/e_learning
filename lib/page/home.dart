@@ -20,14 +20,18 @@ class _HomePageState extends State<HomePage> {
       drawer: const Drawer(),
       body: const Column(
         children: [
-          CourseTile(
-            margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-            gradientColors: [
-              Color.fromARGB(255, 127, 198, 255),
-              Color.fromARGB(255, 185, 144, 255),
+          Row(
+            children: [
+              CourseTile(
+                margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                gradientColors: [
+                  Color.fromARGB(255, 127, 198, 255),
+                  Color.fromARGB(255, 185, 144, 255),
+                ],
+                title: "Introduction",
+                width: double.infinity,
+              ),
             ],
-            title: "Introduction",
-            width: double.infinity,
           ),
           Row(
             children: [
@@ -41,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 width: 175,
               ),
               CourseTile(
-                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
                 gradientColors: [
                   Color.fromARGB(255, 133, 255, 137),
                   Color.fromARGB(255, 243, 255, 133),
@@ -63,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 width: 175,
               ),
               CourseTile(
-                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
                 gradientColors: [
                   Color.fromARGB(255, 148, 207, 255),
                   Color.fromARGB(255, 150, 255, 206),
