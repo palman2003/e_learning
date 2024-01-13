@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class CourseTile extends StatelessWidget {
   const CourseTile({
     required this.gradientColors,
-    required this.width,
     required this.title,
     this.margin,
     super.key,
   });
 
   final List<Color> gradientColors;
-  final double width;
   final String title;
   final EdgeInsets? margin;
 
