@@ -23,9 +23,7 @@ class CourseTile extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(20.0),
           ),
-          onTap: () {
-            print('Container tapped!');
-          },
+          onTap: () {},
           child: Ink(
             width: double.infinity,
             height: 175,

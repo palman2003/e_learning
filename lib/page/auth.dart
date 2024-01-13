@@ -40,7 +40,7 @@ class _AuthPageState extends State<AuthPage> {
         padding: const EdgeInsets.all(20),
         child: Center(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +54,7 @@ class _AuthPageState extends State<AuthPage> {
                         .headlineMedium!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 30), //_isSignup ? 30 : 30),
+                  const SizedBox(height: 30),
                   Form(
                     key: _authFormKey,
                     child: Column(
@@ -84,7 +84,7 @@ class _AuthPageState extends State<AuthPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 15), // Increased height
+                        const SizedBox(height: 15),
                         Visibility(
                           visible: _isSignup,
                           child: Column(
@@ -113,7 +113,7 @@ class _AuthPageState extends State<AuthPage> {
                                   return null;
                                 },
                               ),
-                              const SizedBox(height: 15), // Increased height
+                              const SizedBox(height: 15),
                             ],
                           ),
                         ),
@@ -141,7 +141,7 @@ class _AuthPageState extends State<AuthPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 15), // Increased height
+                        const SizedBox(height: 15),
                         Visibility(
                           visible: _isSignup,
                           child: Column(
@@ -158,7 +158,7 @@ class _AuthPageState extends State<AuthPage> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   labelText: "Confirm Password",
-                                  prefixIcon: Icon(Icons.lock_outline),
+                                  prefixIcon: const Icon(Icons.lock_outline),
                                 ),
                                 validator: (password) {
                                   if (password == null) {
@@ -173,7 +173,7 @@ class _AuthPageState extends State<AuthPage> {
                                   return null;
                                 },
                               ),
-                              const SizedBox(height: 15), // Increased height
+                              const SizedBox(height: 15),
                               TextFormField(
                                 controller: _collegeController,
                                 decoration: InputDecoration(
@@ -188,7 +188,7 @@ class _AuthPageState extends State<AuthPage> {
                                   prefixIcon: const Icon(Icons.school_outlined),
                                 ),
                               ),
-                              const SizedBox(height: 15), // Increased height
+                              const SizedBox(height: 15),
                               TextFormField(
                                 controller: _branchController,
                                 decoration: InputDecoration(
@@ -203,7 +203,7 @@ class _AuthPageState extends State<AuthPage> {
                                   prefixIcon: const Icon(Icons.book_outlined),
                                 ),
                               ),
-                              const SizedBox(height: 15), // Increased height
+                              const SizedBox(height: 15),
                             ],
                           ),
                         ),
@@ -232,8 +232,7 @@ class _AuthPageState extends State<AuthPage> {
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 10), // Increased height
+                        const SizedBox(height: 10),
                         TextButton(
                           onPressed: () {
                             setState(() {
