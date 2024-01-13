@@ -4,6 +4,7 @@ import 'package:e_learning/utils/validators.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
+
   @override
   State<AuthPage> createState() {
     return _AuthPageState();
@@ -36,203 +37,220 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(50),
+        padding: const EdgeInsets.all(20),
         child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  _isSignup ? "Create an account!" : "Welcome\nBack!",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall!
-                      .copyWith(fontWeight: FontWeight.w600),
-                ),
-                SizedBox(height: _isSignup ? 20 : 50),
-                Form(
-                  key: _authFormKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextFormField(
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    _isSignup ? "Create an \naccount!" : "Welcome\nBack!",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 30),
+                  Form(
+                    key: _authFormKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 15,
                             ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            labelText: "Email",
+                            prefixIcon: const Icon(Icons.email_outlined),
                           ),
-                          labelText: "Email",
-                          prefixIcon: Icon(Icons.email_outlined),
+                          validator: (email) {
+                            if (email == null) {
+                              return "The email should not be empty";
+                            }
+                            if (!isEmail(email.trim())) {
+                              return "Enter a valid email";
+                            }
+                            return null;
+                          },
                         ),
-                        validator: (email) {
-                          if (email == null) {
-                            return "The email should not be empty";
-                          }
-                          if (!isEmail(email.trim())) {
-                            return "Enter a valid email";
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      Visibility(
-                        visible: _isSignup,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: _phoneNumberController,
-                              keyboardType: TextInputType.phone,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
+                        const SizedBox(height: 15),
+                        Visibility(
+                          visible: _isSignup,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: _phoneNumberController,
+                                keyboardType: TextInputType.phone,
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15,
+                                    horizontal: 15,
                                   ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  labelText: "Phone Number",
+                                  prefixIcon: const Icon(Icons.phone),
                                 ),
-                                labelText: "Phone Number",
-                                prefixIcon: Icon(Icons.numbers),
+                                validator: (number) {
+                                  if (number == null) {
+                                    return "The Phone number should not be empty";
+                                  }
+                                  if (!isPhoneNumber(number.trim())) {
+                                    return "Enter a valid phone number";
+                                  }
+                                  return null;
+                                },
                               ),
-                              validator: (number) {
-                                if (number == null) {
-                                  return "The Phone number should not be empty";
-                                }
-                                if (!isPhoneNumber(number.trim())) {
-                                  return "Enter a valid phone number";
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 20),
-                          ],
-                        ),
-                      ),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
+                              const SizedBox(height: 15),
+                            ],
                           ),
-                          labelText: "Password",
-                          prefixIcon: Icon(Icons.lock_outline),
                         ),
-                        validator: (password) {
-                          if (password == null) {
-                            return "The password should not be empty";
-                          }
-                          if (!isPassword(password.trim())) {
-                            return "The password must have atleast 6 characters";
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      Visibility(
-                        visible: _isSignup,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: _confirmPasswordController,
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                labelText: "Confirm Password",
-                                prefixIcon: Icon(Icons.lock_outline),
-                              ),
-                              validator: (password) {
-                                if (password == null) {
-                                  return "The password should not be empty";
-                                }
-                                if (!isPassword(password.trim())) {
-                                  return "The password must have atleast 6 characters";
-                                }
-                                if (_passwordController.text != password) {
-                                  return "The passwords do not match";
-                                }
-                                return null;
-                              },
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 15,
                             ),
-                            const SizedBox(height: 20),
-                            TextFormField(
-                              controller: _collegeController,
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                labelText: "College",
-                                prefixIcon: Icon(Icons.school_outlined),
-                              ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            const SizedBox(height: 20),
-                            TextFormField(
-                              controller: _branchController,
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                labelText: "Branch",
-                                prefixIcon: Icon(Icons.book_outlined),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                          ],
-                        ),
-                      ),
-                      Ink(
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            border: Border.all(color: Colors.grey)),
-                        child: InkWell(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
+                            labelText: "Password",
+                            prefixIcon: const Icon(Icons.lock_outline),
                           ),
+                          validator: (password) {
+                            if (password == null) {
+                              return "The password should not be empty";
+                            }
+                            if (!isPassword(password.trim())) {
+                              return "The password must have at least 6 characters";
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        Visibility(
+                          visible: _isSignup,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: _confirmPasswordController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15,
+                                    horizontal: 15,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  labelText: "Confirm Password",
+                                  prefixIcon: const Icon(Icons.lock_outline),
+                                ),
+                                validator: (password) {
+                                  if (password == null) {
+                                    return "The password should not be empty";
+                                  }
+                                  if (!isPassword(password.trim())) {
+                                    return "The password must have at least 6 characters";
+                                  }
+                                  if (_passwordController.text != password) {
+                                    return "The passwords do not match";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: _collegeController,
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15,
+                                    horizontal: 15,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  labelText: "College",
+                                  prefixIcon: const Icon(Icons.school_outlined),
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: _branchController,
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15,
+                                    horizontal: 15,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  labelText: "Branch",
+                                  prefixIcon: const Icon(Icons.book_outlined),
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(8),
                           onTap: _isSignup ? signup : login,
                           child: Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: const Color.fromARGB(113, 187, 0, 255)
+                                  .withOpacity(0.5),
+                            ),
+                            width: MediaQuery.of(context).size.width - 225,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                            ),
                             child: Center(
                               child: Text(
                                 _isSignup ? "Signup" : "Login",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _isSignup = !_isSignup;
-                          });
-                        },
-                        child: Text(_isSignup
-                            ? "Already a User?   Login!"
-                            : "New to E Learning?   Signup!"),
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _isSignup = !_isSignup;
+                            });
+                          },
+                          child: Text(
+                            _isSignup
+                                ? "Already a User?   Login!"
+                                : "New to E Learning?   Signup!",
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -5,7 +5,8 @@ import 'package:e_learning/page/splash.dart';
 
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
-    seedColor: Color.fromARGB(255, 187, 0, 255),
+    seedColor: const Color.fromARGB(255, 187, 0, 255),
+
   ),
   textTheme: GoogleFonts.poppinsTextTheme(),
 );
