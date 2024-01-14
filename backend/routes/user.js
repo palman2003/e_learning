@@ -32,19 +32,27 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-      const { email, password, phno, college, branch} = req.body;
+      const { email, phno, college, branch} = req.body;
+      let {password}=req.body;
+
+    
   
       // Check if username already exists
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ message: 'Username already exists' });
       }
+
+      
+      const hashedPassword=await bcrypt.hash(password,10);
+      password=hashedPassword
   
       const newUser = new User({ email, password, phno, college, branch});
       await newUser.save();
       console.log("user registered");
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: 'Internal server error' });
     }
   });
