@@ -1,3 +1,4 @@
+import 'package:e_learning/page/quiz.dart';
 import 'package:flutter/material.dart';
 
 class CourseTile extends StatelessWidget {
@@ -100,7 +101,12 @@ class CourseTile extends StatelessWidget {
                         ),
                         child: InkWell(
                           onTap: () {
-                            // Handle the click event here
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QuizPage(),
+                              ),
+                            );
                           },
                           borderRadius: BorderRadius.circular(30),
                           child: Container(

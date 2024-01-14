@@ -14,14 +14,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(170),
+        preferredSize: const Size.fromHeight(160),
         child: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: const Color.fromARGB(255, 187, 0, 255),
+          foregroundColor: const Color.fromARGB(255, 238, 238, 238),
+          backgroundColor: const Color.fromARGB(255, 156, 27, 255),
           title: Text(
             "Hi Subash!",
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 238, 238, 238),
                   fontWeight: FontWeight.w600,
                 ),
           ),
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.only(top: 0, right: 10),
               padding: const EdgeInsets.fromLTRB(20, 8, 10, 8),
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: const Color.fromARGB(255, 238, 238, 238),
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
@@ -69,21 +69,24 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     'Your Progress',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 238, 238, 238),
                         ),
                   ),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width - 100,
-                  height: 20,
+                  height: 15,
                   margin:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(35),
                     child: const LinearProgressIndicator(
-                      backgroundColor: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      backgroundColor: Color.fromARGB(108, 236, 190, 255),
                       valueColor: AlwaysStoppedAnimation<Color>(
-                        Color.fromARGB(255, 185, 144, 255),
+                        Color.fromARGB(255, 238, 238, 238),
                       ),
                       value: 0.5,
                     ),
