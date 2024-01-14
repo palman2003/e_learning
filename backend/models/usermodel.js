@@ -16,7 +16,7 @@ const userSchema = new schema({
         required:true
     },
     phno:{
-        type:Number,
+        type:String,
         required:true
     },
     password:{
