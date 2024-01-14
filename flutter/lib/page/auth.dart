@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:e_learning/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -23,30 +26,87 @@ class _AuthPageState extends State<AuthPage> {
   final TextEditingController _collegeController = TextEditingController();
   final TextEditingController _branchController = TextEditingController();
   bool _isSignup = true;
+  late SharedPreferences prefs;
 
-  void login() {
+  void login() async {
+    prefs = await SharedPreferences.getInstance();
+    
     if (!_authFormKey.currentState!.validate()) {
       return;
     }
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomePage(),
-      ),
-    );
+
+    try {
+      var response = await http.post(
+        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/login"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            "email": _emailController.text,
+            "password": _passwordController.text,
+          },
+        ),
+      );
+
+      var responseData = jsonDecode(response.body);
+
+      if (response.statusCode > 399) {
+        throw responseData["message"];
+      }
+
+      await prefs.setString("token", responseData["token"]);
+
+      if (!mounted) {
+        return;
+      }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      );
+    } catch (error) {
+      print('Error: $error');
+    }
   }
 
-  void signup() {
-    print(dotenv.env['BACKEND_API_BASE_URL']);
+  void signup() async {
     if (!_authFormKey.currentState!.validate()) {
       return;
     }
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomePage(),
-      ),
-    );
+
+    try {
+      var response = await http.post(
+        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/register"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            "email": _emailController.text,
+            "password": _passwordController.text,
+            "phno": _phoneNumberController.text,
+            "college": _collegeController.text,
+            "branch": _branchController.text
+          },
+        ),
+      );
+
+      var responseData = jsonDecode(response.body);
+
+      if (response.statusCode > 399) {
+        throw responseData["message"];
+      }
+
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _emailController.text = "";
+        _passwordController.text = "";
+        _isSignup = false;
+      });
+    } catch (error) {
+      print("Error: $error");
+    }
   }
 
   @override

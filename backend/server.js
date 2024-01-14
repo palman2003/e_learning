@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 const user = require("./routes/user");
 const mongoose = require("mongoose");
 const app = express();
+const cors = require("cors");
+
+app.use(cors());
 
 //express middleware
 app.use(express.json());
