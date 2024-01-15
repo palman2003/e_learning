@@ -6,6 +6,9 @@ const user = require("./routes/user");
 const mongoose = require("mongoose");
 const reset=require('./routes/reset');
 const app = express();
+const cors = require("cors");
+
+app.use(cors());
 
 //express middleware
 app.use(express.json());

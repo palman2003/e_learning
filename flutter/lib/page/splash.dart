@@ -1,5 +1,7 @@
+import 'package:e_learning/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/page/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -10,20 +12,38 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  late SharedPreferences prefs;
+
+  void checkToken() async {
+    prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("token");
+
+    if (!mounted) {
+      return;
+    }
+
+    if (token == null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => const AuthPage()),
+        ),
+      );
+      return;
+    }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => const HomePage()),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 4),
-      () => {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: ((context) => const AuthPage()),
-          ),
-        )
-      },
-    );
+    checkToken();
   }
 
   @override
