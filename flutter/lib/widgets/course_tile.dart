@@ -1,29 +1,56 @@
 import 'package:e_learning/model/quiz_data.dart';
 import 'package:e_learning/page/quiz.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CourseTile extends StatelessWidget {
-  const CourseTile({
-    required this.gradientColors,
+  CourseTile({
     required this.title,
+    required this.index,
     this.quizDataList,
-    this.margin,
     super.key,
   });
 
-  final List<Color> gradientColors;
   final List<QuizData>? quizDataList;
   final String title;
-  final EdgeInsets? margin;
+  final int index;
+
+  final List<Color> mainColors = [
+    const Color.fromARGB(255, 147, 232, 146),
+    const Color.fromARGB(255, 255, 182, 199),
+    const Color.fromARGB(255, 255, 242, 146),
+    const Color.fromARGB(255, 193, 193, 255),
+    const Color.fromARGB(255, 201, 248, 254),
+    const Color.fromARGB(255, 255, 237, 237),
+    const Color.fromARGB(255, 254, 241, 222),
+    const Color.fromARGB(255, 186, 239, 229),
+  ];
+
+  final List<Color> boxColors = [
+    const Color.fromARGB(255, 139, 216, 137),
+    const Color.fromARGB(255, 255, 167, 188),
+    const Color.fromARGB(255, 254, 238, 97),
+    const Color.fromARGB(255, 178, 175, 254),
+    const Color.fromARGB(255, 164, 241, 251),
+    const Color.fromARGB(255, 255, 211, 212),
+    const Color.fromARGB(255, 255, 225, 184),
+    const Color.fromARGB(255, 109, 214, 198),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    int colorSelector = index-1;
+
+    if (index >= boxColors.length) {
+      colorSelector = index % boxColors.length;
+    }
+
     return Expanded(
       child: Container(
-        margin: margin,
+        margin: const EdgeInsets.all(10),
         child: InkWell(
           borderRadius: const BorderRadius.all(
-            Radius.circular(20.0),
+            Radius.circular(5.0),
           ),
           onTap: () {
             Navigator.push(
@@ -36,52 +63,59 @@ class CourseTile extends StatelessWidget {
           child: Ink(
             width: double.infinity,
             height: 175,
-            padding: const EdgeInsets.all(25),
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: gradientColors,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+              color: mainColors[colorSelector],
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5.0),
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0, 1),
+                  blurRadius: 5,
                 ),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: gradientColors[1],
-                      offset: const Offset(5, 5),
-                      blurRadius: 1)
-                ]),
+              ],
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                ),
                 const Spacer(),
-                Row(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          '200',
-                          style:
-                              Theme.of(context).textTheme.labelLarge!.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                        Image.asset(
-                          'assets/images/appbar_icon.png',
-                          height: 20,
-                        ),
-                      ],
+                Container(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(10),
                     ),
-                  ],
+                    color: boxColors[colorSelector],
+                  ),
+                  child: Text(
+                    index < 10 ? "0$index" : index.toString(),
+                    style: GoogleFonts.playfairDisplay().copyWith(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 37, 37, 37),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 60,
+                  padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(5),
+                    ),
+                    color: Colors.white,
+                  ),
+                  child: Text(
+                    "Stock Market Basics sldfnl kndlfihnlk sdnsudh ",
+                    maxLines: 2,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                  ),
                 )
               ],
             ),

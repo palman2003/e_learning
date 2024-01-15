@@ -7,7 +7,7 @@ final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 156, 27, 255),
   ),
-  textTheme: GoogleFonts.poppinsTextTheme(),
+  textTheme: GoogleFonts.ptSansTextTheme(),
 );
 
 void main() async {

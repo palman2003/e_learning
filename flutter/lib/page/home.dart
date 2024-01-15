@@ -188,62 +188,74 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: const Drawer(),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                CourseTile(
-                  quizDataList: quizDataList,
-                  margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                  gradientColors: const [
-                    Color.fromARGB(255, 127, 198, 255),
-                    Color.fromARGB(255, 185, 144, 255),
-                  ],
-                  title: "Introduction",
-                ),
-              ],
-            ),
-            const Row(
-              children: [
-                CourseTile(
-                  margin: EdgeInsets.fromLTRB(20, 10, 10, 10),
-                  gradientColors: [
-                    Color.fromARGB(255, 255, 197, 110),
-                    Color.fromARGB(255, 255, 121, 111),
-                  ],
-                  title: "Module 1",
-                ),
-                CourseTile(
-                  margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
-                  gradientColors: [
-                    Color.fromARGB(255, 243, 255, 133),
-                    Color.fromARGB(255, 133, 255, 137),
-                  ],
-                  title: "Module 2",
-                ),
-              ],
-            ),
-            const Row(
-              children: [
-                CourseTile(
-                  margin: EdgeInsets.fromLTRB(20, 10, 10, 10),
-                  gradientColors: [
-                    Color.fromARGB(255, 255, 170, 206),
-                    Color.fromARGB(255, 255, 123, 123),
-                  ],
-                  title: "Module 3",
-                ),
-                CourseTile(
-                  margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
-                  gradientColors: [
-                    Color.fromARGB(255, 150, 255, 206),
-                    Color.fromARGB(255, 148, 207, 255),
-                  ],
-                  title: "Module 4",
-                ),
-              ],
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  CourseTile(
+                    quizDataList: quizDataList,
+                    title: "Introduction",
+                    index: 01,
+                  ),
+                  CourseTile(
+                    index: 02,
+                    quizDataList: quizDataList,
+                    title: "Introduction",
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  CourseTile(
+                    index: 03,
+                    title: "Module 1",
+                  ),
+                  CourseTile(
+                    index: 04,
+                    title: "Module 2",
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  CourseTile(
+                    index: 05,
+                    title: "Module 3",
+                  ),
+                  CourseTile(
+                    index: 06,
+                    title: "Module 4",
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  CourseTile(
+                    index: 07,
+                    title: "Module 3",
+                  ),
+                  CourseTile(
+                    index: 08,
+                    title: "Module 4",
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  CourseTile(
+                    index: 09,
+                    title: "Module 3",
+                  ),
+                  CourseTile(
+                    index: 10,
+                    title: "Module 4",
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
