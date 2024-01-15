@@ -1,6 +1,16 @@
+import 'package:e_learning/model/quiz_data.dart';
+import 'package:e_learning/widgets/quiz_options.dart';
 import 'package:flutter/material.dart';
+import 'package:e_learning/model/quiz_state.dart';
 
 class QuizPage extends StatefulWidget {
+  const QuizPage({
+    required this.quizDataList,
+    super.key,
+  });
+
+  final List<QuizData> quizDataList;
+
   @override
   State<StatefulWidget> createState() {
     return _QuizPageState();
@@ -8,7 +18,117 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  var _selectedQuizValue = 1;
+  // ignore: avoid_init_to_null
+  var _selectedQuizValue = null;
+  var _quizIndex = 0;
+
+  List<QuizState> quizState = [];
+
+  void selectedValueHandler(int value) {
+    setState(() {
+      _selectedQuizValue = value;
+    });
+  }
+
+  void quizIndexHandler(value) {
+    if (value == 1) {
+      if (_selectedQuizValue == null) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Please select an answer"),
+          ),
+        );
+        return;
+      }
+
+      for (var element in quizState) {
+        if (_quizIndex == element.questionIndex) {
+          if (widget.quizDataList[_quizIndex].options
+                  .indexOf(element.selectedAnswer) !=
+              _selectedQuizValue) {
+            setState(() {
+              element.selectedAnswer =
+                  widget.quizDataList[_quizIndex].options[_selectedQuizValue];
+            });
+          }
+        }
+      }
+
+      if (_quizIndex == widget.quizDataList.length - 1) {
+        quizState.add(
+          QuizState(
+            correctAnswer: widget.quizDataList[_quizIndex].answer,
+            questionIndex: _quizIndex,
+            selectedAnswer:
+                widget.quizDataList[_quizIndex].options[_selectedQuizValue],
+          ),
+        );
+        int score = 0;
+
+        for (var element in quizState) {
+          if (element.correctAnswer == element.selectedAnswer) {
+            ++score;
+          }
+        }
+
+        print("$score/${widget.quizDataList.length}");
+
+        return;
+      }
+
+      for (var element in quizState) {
+        if (_quizIndex + 1 == element.questionIndex) {
+          setState(() {
+            _selectedQuizValue = widget.quizDataList[_quizIndex + 1].options
+                .indexOf(element.selectedAnswer);
+            _quizIndex++;
+          });
+          return;
+        }
+      }
+
+      quizState.add(
+        QuizState(
+          correctAnswer: widget.quizDataList[_quizIndex].answer,
+          questionIndex: _quizIndex,
+          selectedAnswer:
+              widget.quizDataList[_quizIndex].options[_selectedQuizValue],
+        ),
+      );
+      setState(() {
+        _selectedQuizValue = null;
+        _quizIndex++;
+      });
+    } else if (value == -1) {
+      for (var element in quizState) {
+        if (_quizIndex == element.questionIndex) {
+          if (widget.quizDataList[_quizIndex].options
+                  .indexOf(element.selectedAnswer) !=
+              _selectedQuizValue) {
+            setState(() {
+              element.selectedAnswer =
+                  widget.quizDataList[_quizIndex].options[_selectedQuizValue];
+            });
+          }
+        }
+      }
+
+      if (_quizIndex == 0) {
+        Navigator.pop(context);
+      }
+
+      for (var element in quizState) {
+        if (_quizIndex - 1 == element.questionIndex) {
+          setState(() {
+            _selectedQuizValue = widget.quizDataList[_quizIndex - 1].options
+                .indexOf(element.selectedAnswer);
+            --_quizIndex;
+          });
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,191 +220,53 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    "2. Which programming language is commonly used for AI?",
+                    widget.quizDataList[_quizIndex].question,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                   ),
                   const SizedBox(height: 20),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    width: double.infinity,
-                    height: 60,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 255, 221, 210),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color.fromARGB(255, 236, 185, 169),
-                            offset: Offset(0, 5),
-                            blurRadius: 1)
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Python",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 79, 79, 79),
-                              ),
-                        ),
-                        const Spacer(),
-                        Radio(
-                          value: 1,
-                          groupValue: _selectedQuizValue,
-                          onChanged: ((value) {}),
-                        )
-                      ],
-                    ),
+                  QuizOptions(
+                    selectedValue: _selectedQuizValue,
+                    options: widget.quizDataList[_quizIndex].options,
+                    selectedValueHandler: selectedValueHandler,
                   ),
-                  const SizedBox(height: 20),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    width: double.infinity,
-                    height: 60,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 235, 221, 244),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color.fromARGB(255, 205, 182, 219),
-                            offset: Offset(0, 5),
-                            blurRadius: 1)
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Javascript",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 79, 79, 79),
-                              ),
-                        ),
-                        const Spacer(),
-                        Radio(
-                          value: 2,
-                          groupValue: _selectedQuizValue,
-                          onChanged: ((value) {}),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    width: double.infinity,
-                    height: 60,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 217, 240, 192),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color.fromARGB(255, 176, 202, 148),
-                            offset: Offset(0, 5),
-                            blurRadius: 1)
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "C++",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 79, 79, 79),
-                              ),
-                        ),
-                        const Spacer(),
-                        Radio(
-                          value: 3,
-                          groupValue: _selectedQuizValue,
-                          onChanged: ((value) {}),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    width: double.infinity,
-                    height: 60,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 237, 246, 255),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color.fromARGB(255, 170, 195, 220),
-                            offset: Offset(0, 5),
-                            blurRadius: 1)
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Java",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 79, 79, 79),
-                              ),
-                        ),
-                        const Spacer(),
-                        Radio(
-                          value: 4,
-                          groupValue: _selectedQuizValue,
-                          onChanged: ((value) {}),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
+                  // ignore: prefer_const_constructors
+                  Spacer(),
                   Row(
                     children: [
                       const SizedBox(width: 30),
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15),
-                          ),
-                        ),
-                        padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
-                        child: Text(
-                          "Back",
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ),
-                      const Spacer(),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          quizIndexHandler(-1);
+                        },
                         child: Container(
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(
                               Radius.circular(15),
                             ),
+                          ),
+                          padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
+                          child: Text(
+                            "Back",
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () {
+                          quizIndexHandler(1);
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
                             color: Color.fromARGB(255, 255, 118, 32),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
                             boxShadow: [
                               BoxShadow(
                                 color: Color.fromARGB(255, 230, 88, 0),
@@ -294,7 +276,9 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
                           child: Text(
-                            "Next",
+                            _quizIndex == widget.quizDataList.length - 1
+                                ? "Complete"
+                                : "Next",
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       fontWeight: FontWeight.bold,
@@ -305,7 +289,8 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                       const SizedBox(width: 30),
                     ],
-                  )
+                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),

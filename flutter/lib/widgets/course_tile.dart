@@ -1,15 +1,16 @@
+import 'package:e_learning/model/quiz_data.dart';
 import 'package:e_learning/page/quiz.dart';
 import 'package:flutter/material.dart';
 
 class CourseTile extends StatelessWidget {
   const CourseTile({
-    required this.gradientColors,
+    this.quizDataList,
     required this.title,
     super.key,
   });
 
-  final List<Color> gradientColors;
   final String title;
+  final List<QuizData>? quizDataList;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +105,8 @@ class CourseTile extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => QuizPage(),
+                                builder: (context) =>
+                                    QuizPage(quizDataList: quizDataList!),
                               ),
                             );
                           },
