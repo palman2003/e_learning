@@ -104,13 +104,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(160),
+        preferredSize: const Size.fromHeight(130),
         child: AppBar(
           foregroundColor: const Color.fromARGB(255, 238, 238, 238),
           backgroundColor: const Color.fromARGB(255, 156, 27, 255),
           title: Text(
             "Hi Subash!",
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   color: const Color.fromARGB(255, 238, 238, 238),
                   fontWeight: FontWeight.w600,
                 ),
@@ -123,19 +123,19 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             Container(
-              margin: const EdgeInsets.only(top: 0, right: 10),
-              padding: const EdgeInsets.fromLTRB(20, 8, 10, 8),
+              margin: const EdgeInsets.only(top: 0, right: 15),
+              padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),
               decoration: const BoxDecoration(
-                color: const Color.fromARGB(255, 238, 238, 238),
+                color: Colors.white,
                 borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+                  Radius.circular(50),
                 ),
               ),
               child: Row(
                 children: [
                   Text(
                     '1240',
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 5),
                   Image.asset(
                     'assets/images/appbar_icon.png',
-                    height: 30,
+                    height: 20,
                   ),
                 ],
               ),
@@ -158,16 +158,15 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.only(left: 20, top: 10),
                   child: Text(
                     'Your Progress',
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: const Color.fromARGB(255, 238, 238, 238),
-                        ),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: const Color.fromARGB(255, 238, 238, 238),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width - 100,
-                  height: 15,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                  height: 5,
+                  margin: const EdgeInsets.fromLTRB(20, 15, 20, 20),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(35),
                     child: const LinearProgressIndicator(
@@ -191,9 +190,58 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CourseTile(
-              title: "Introduction",
-              quizDataList: quizDataList,
+            Row(
+              children: [
+                CourseTile(
+                  quizDataList: quizDataList,
+                  margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                  gradientColors: const [
+                    Color.fromARGB(255, 127, 198, 255),
+                    Color.fromARGB(255, 185, 144, 255),
+                  ],
+                  title: "Introduction",
+                ),
+              ],
+            ),
+            const Row(
+              children: [
+                CourseTile(
+                  margin: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                  gradientColors: [
+                    Color.fromARGB(255, 255, 197, 110),
+                    Color.fromARGB(255, 255, 121, 111),
+                  ],
+                  title: "Module 1",
+                ),
+                CourseTile(
+                  margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                  gradientColors: [
+                    Color.fromARGB(255, 133, 255, 137),
+                    Color.fromARGB(255, 243, 255, 133),
+                  ],
+                  title: "Module 2",
+                ),
+              ],
+            ),
+            const Row(
+              children: [
+                CourseTile(
+                  margin: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                  gradientColors: [
+                    Color.fromARGB(255, 255, 123, 123),
+                    Color.fromARGB(255, 255, 170, 206),
+                  ],
+                  title: "Module 3",
+                ),
+                CourseTile(
+                  margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                  gradientColors: [
+                    Color.fromARGB(255, 148, 207, 255),
+                    Color.fromARGB(255, 150, 255, 206),
+                  ],
+                  title: "Module 4",
+                ),
+              ],
             ),
           ],
         ),

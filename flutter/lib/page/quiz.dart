@@ -137,7 +137,7 @@ class _QuizPageState extends State<QuizPage> {
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Row(
               children: [
                 const SizedBox(width: 20),
@@ -150,7 +150,7 @@ class _QuizPageState extends State<QuizPage> {
                     width: 45,
                     height: 50,
                     decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 238, 238, 238),
+                      color: Colors.white,
                       borderRadius: BorderRadius.all(
                         Radius.circular(100),
                       ),
@@ -160,43 +160,41 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 const Spacer(),
                 Text(
-                  "2 of 5",
+                  "${_quizIndex + 1} of ${widget.quizDataList.length}",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 238, 238, 238),
+                        color: Colors.white,
                       ),
                 ),
                 const Spacer(),
                 const SizedBox(width: 65)
               ],
             ),
-            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width - 150,
               height: 5,
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(35),
-                child: const LinearProgressIndicator(
-                  borderRadius: BorderRadius.all(
+                child: LinearProgressIndicator(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
-                  backgroundColor: Color.fromARGB(108, 187, 148, 255),
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Color.fromARGB(255, 238, 238, 238),
+                  backgroundColor: const Color.fromARGB(108, 187, 148, 255),
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    Colors.white,
                   ),
-                  value: 0.5,
+                  value: _quizIndex / widget.quizDataList.length,
                 ),
               ),
             ),
-            const SizedBox(height: 20),
             Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height - 250,
+              height: MediaQuery.of(context).size.height - 200,
               margin: const EdgeInsets.fromLTRB(10, 0, 15, 0),
               padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 238, 238, 238),
+                color: Colors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Color.fromARGB(255, 196, 118, 255),
@@ -219,23 +217,31 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Text(
-                    widget.quizDataList[_quizIndex].question,
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                  SizedBox(
+                    height: 440,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Text(
+                            widget.quizDataList[_quizIndex].question,
+                            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          const SizedBox(height: 20),
+                          QuizOptions(
+                            selectedValue: _selectedQuizValue,
+                            options: widget.quizDataList[_quizIndex].options,
+                            selectedValueHandler: selectedValueHandler,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 20),
-                  QuizOptions(
-                    selectedValue: _selectedQuizValue,
-                    options: widget.quizDataList[_quizIndex].options,
-                    selectedValueHandler: selectedValueHandler,
-                  ),
-                  // ignore: prefer_const_constructors
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     children: [
-                      const SizedBox(width: 30),
+                      const SizedBox(width: 20),
                       InkWell(
                         onTap: () {
                           quizIndexHandler(-1);
@@ -246,7 +252,7 @@ class _QuizPageState extends State<QuizPage> {
                               Radius.circular(15),
                             ),
                           ),
-                          padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
+                          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                           child: Text(
                             "Back",
                             style:
@@ -274,7 +280,7 @@ class _QuizPageState extends State<QuizPage> {
                               )
                             ],
                           ),
-                          padding: const EdgeInsets.fromLTRB(35, 15, 35, 15),
+                          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                           child: Text(
                             _quizIndex == widget.quizDataList.length - 1
                                 ? "Complete"
@@ -287,10 +293,10 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 30),
+                      const SizedBox(width: 20),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),

@@ -28,14 +28,15 @@ class _QuizOptionsState extends State<QuizOptions> {
           child: Container(
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
             width: double.infinity,
-            height: 60,
+            height: 50,
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 255, 221, 210),
               boxShadow: [
                 BoxShadow(
-                    color: Color.fromARGB(255, 236, 185, 169),
-                    offset: Offset(0, 5),
-                    blurRadius: 1)
+                  color: Color.fromARGB(255, 236, 185, 169),
+                  offset: Offset(0, 5),
+                  blurRadius: 1,
+                )
               ],
               borderRadius: BorderRadius.all(
                 Radius.circular(15),
@@ -78,7 +79,7 @@ class _QuizOptionsState extends State<QuizOptions> {
           child: Container(
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
             width: double.infinity,
-            height: 60,
+            height: 50,
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 235, 221, 244),
               boxShadow: [
@@ -109,12 +110,12 @@ class _QuizOptionsState extends State<QuizOptions> {
                 Radio(
                   value: 1,
                   groupValue: widget.selectedValue,
-                    onChanged: ((value) {
-                      if (value == null) {
-                        return;
-                      }
-                      widget.selectedValueHandler(value);
-                    }),
+                  onChanged: ((value) {
+                    if (value == null) {
+                      return;
+                    }
+                    widget.selectedValueHandler(value);
+                  }),
                 )
               ],
             ),
@@ -128,7 +129,7 @@ class _QuizOptionsState extends State<QuizOptions> {
           child: Container(
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
             width: double.infinity,
-            height: 60,
+            height: 50,
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 217, 240, 192),
               boxShadow: [
@@ -159,12 +160,12 @@ class _QuizOptionsState extends State<QuizOptions> {
                 Radio(
                   value: 2,
                   groupValue: widget.selectedValue,
-                    onChanged: ((value) {
-                      if (value == null) {
-                        return;
-                      }
-                      widget.selectedValueHandler(value);
-                    }),
+                  onChanged: ((value) {
+                    if (value == null) {
+                      return;
+                    }
+                    widget.selectedValueHandler(value);
+                  }),
                 )
               ],
             ),
@@ -178,7 +179,7 @@ class _QuizOptionsState extends State<QuizOptions> {
           child: Container(
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
             width: double.infinity,
-            height: 60,
+            height: 50,
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 237, 246, 255),
               boxShadow: [
@@ -209,17 +210,18 @@ class _QuizOptionsState extends State<QuizOptions> {
                 Radio(
                   value: 3,
                   groupValue: widget.selectedValue,
-                    onChanged: ((value) {
-                      if (value == null) {
-                        return;
-                      }
-                      widget.selectedValueHandler(value);
-                    }),
+                  onChanged: ((value) {
+                    if (value == null) {
+                      return;
+                    }
+                    widget.selectedValueHandler(value);
+                  }),
                 )
               ],
             ),
           ),
         ),
+        const SizedBox(height: 20)
       ],
     );
   }
