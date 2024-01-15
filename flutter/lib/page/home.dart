@@ -216,8 +216,8 @@ class _HomePageState extends State<HomePage> {
                 CourseTile(
                   margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
                   gradientColors: [
-                    Color.fromARGB(255, 133, 255, 137),
                     Color.fromARGB(255, 243, 255, 133),
+                    Color.fromARGB(255, 133, 255, 137),
                   ],
                   title: "Module 2",
                 ),
@@ -228,16 +228,16 @@ class _HomePageState extends State<HomePage> {
                 CourseTile(
                   margin: EdgeInsets.fromLTRB(20, 10, 10, 10),
                   gradientColors: [
-                    Color.fromARGB(255, 255, 123, 123),
                     Color.fromARGB(255, 255, 170, 206),
+                    Color.fromARGB(255, 255, 123, 123),
                   ],
                   title: "Module 3",
                 ),
                 CourseTile(
                   margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
                   gradientColors: [
-                    Color.fromARGB(255, 148, 207, 255),
                     Color.fromARGB(255, 150, 255, 206),
+                    Color.fromARGB(255, 148, 207, 255),
                   ],
                   title: "Module 4",
                 ),

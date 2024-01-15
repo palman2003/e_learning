@@ -38,15 +38,20 @@ class CourseTile extends StatelessWidget {
             height: 175,
             padding: const EdgeInsets.all(25),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: gradientColors,
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20.0),
-              ),
-            ),
+                gradient: LinearGradient(
+                  colors: gradientColors,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: gradientColors[1],
+                      offset: const Offset(5, 5),
+                      blurRadius: 1)
+                ]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
