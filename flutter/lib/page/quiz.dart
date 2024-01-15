@@ -72,7 +72,7 @@ class _QuizPageState extends State<QuizPage> {
           }
         }
 
-        print("$score/${widget.quizDataList.length}");
+        // print("$score/${widget.quizDataList.length}");
 
         return;
       }
@@ -145,7 +145,9 @@ class _QuizPageState extends State<QuizPage> {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(100),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                   child: Ink(
                     width: 45,
                     height: 50,

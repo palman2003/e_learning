@@ -52,7 +52,7 @@ class _QuizOptionsState extends State<QuizOptions> {
                     softWrap: false,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 79, 79, 79),
+                          color: Colors.black,
                         ),
                   ),
                 ),
@@ -102,7 +102,7 @@ class _QuizOptionsState extends State<QuizOptions> {
                     softWrap: false,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 79, 79, 79),
+                          color: Colors.black,
                         ),
                   ),
                 ),
@@ -152,7 +152,7 @@ class _QuizOptionsState extends State<QuizOptions> {
                     softWrap: false,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 79, 79, 79),
+                          color: Colors.black,
                         ),
                   ),
                 ),
@@ -202,7 +202,7 @@ class _QuizOptionsState extends State<QuizOptions> {
                     softWrap: false,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 79, 79, 79),
+                          color: Colors.black,
                         ),
                   ),
                 ),

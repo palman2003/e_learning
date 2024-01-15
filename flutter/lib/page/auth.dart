@@ -30,7 +30,7 @@ class _AuthPageState extends State<AuthPage> {
 
   void login() async {
     prefs = await SharedPreferences.getInstance();
-    
+
     if (!_authFormKey.currentState!.validate()) {
       return;
     }
@@ -65,7 +65,19 @@ class _AuthPageState extends State<AuthPage> {
         ),
       );
     } catch (error) {
-      print('Error: $error');
+
+      if (!mounted) {
+        return;
+      }
+      
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            error.toString(),
+          ),
+        ),
+      );
     }
   }
 
@@ -102,10 +114,23 @@ class _AuthPageState extends State<AuthPage> {
       setState(() {
         _emailController.text = "";
         _passwordController.text = "";
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Regsitration Successful. Please Login"),
+          ),
+        );
         _isSignup = false;
       });
     } catch (error) {
-      print("Error: $error");
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            error.toString(),
+          ),
+        ),
+      );
     }
   }
 
@@ -252,6 +277,7 @@ class _AuthPageState extends State<AuthPage> {
                               const SizedBox(height: 15),
                               TextFormField(
                                 controller: _collegeController,
+                                textCapitalization: TextCapitalization.characters,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15,
@@ -274,6 +300,7 @@ class _AuthPageState extends State<AuthPage> {
                               const SizedBox(height: 15),
                               TextFormField(
                                 controller: _branchController,
+                                textCapitalization: TextCapitalization.characters,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15,

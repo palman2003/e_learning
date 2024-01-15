@@ -18,6 +18,11 @@ class _SplashPageState extends State<SplashPage> {
     prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
 
+    await Future.delayed(
+      const Duration(seconds: 1),
+      () => {},
+    );
+
     if (!mounted) {
       return;
     }
@@ -49,24 +54,23 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Adjust the background color as needed
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/splash.png', // Replace with the path to your local image
-              width: 150, // Adjust the width as needed
-              height: 150, // Adjust the height as needed
+              'assets/images/splash.png',
+              width: 150,
+              height: 150,
             ),
-            const SizedBox(
-                height: 16), // Adjust the space between image and text
+            const SizedBox(height: 16),
             const Text(
               'E-Learning App',
               style: TextStyle(
-                fontSize: 24, // Adjust the font size as needed
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.black, // Adjust the text color as needed
+                color: Colors.black,
               ),
             ),
           ],
