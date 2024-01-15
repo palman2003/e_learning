@@ -26,16 +26,41 @@ router.post("/login", async (req, res) => {
       process.env.SECRET_KEY
     );
 
-    res.json({ token });
+    res.json({ token ,email:user.email, phno:user.phno, _id:user._id, college:user.college, branch:user.branch});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
-router.post("/register", async (req, res) => {
-  try {
-    const { email, password, phno, college, branch } = req.body;
+
+router.post('/register', async (req, res) => {
+    try {
+      const { email, phno, college, branch} = req.body;
+      let {password}=req.body;
+
+    
+  
+      // Check if username already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: 'Username already exists' });
+      }
+
+      
+      const hashedPassword=await bcrypt.hash(password,10);
+      password=hashedPassword
+  
+      const newUser = new User({ email, password, phno, college, branch});
+      await newUser.save();
+      console.log("user registered");
+      res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
 
     // Check if username already exists
     const existingUser = await User.findOne({ email });
