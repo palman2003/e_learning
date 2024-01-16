@@ -30,6 +30,7 @@ class _SplashPageState extends State<SplashPage> {
     if (token == null) {
       Navigator.pushReplacement(
         context,
+        // For testing its routed to HomePage
         MaterialPageRoute(
           builder: ((context) => const HomePage()),
         ),
