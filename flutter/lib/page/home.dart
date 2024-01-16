@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(18),
+              preferredSize: const Size.fromHeight(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -107,10 +107,14 @@ class _HomePageState extends State<HomePage> {
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return CourseTile(
-                    title: "Introduction",
-                    index: index + 1,
-                    moduleData: module1,
+                  return Hero(
+                    tag: "courseTile$index",
+                    child: CourseTile(
+                      title: "Introduction",
+                      index: index + 1,
+                      heroTag: "courseTile$index",
+                      moduleData: module1,
+                    ),
                   );
                 },
                 childCount: 10,

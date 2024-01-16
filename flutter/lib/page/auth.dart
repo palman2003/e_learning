@@ -330,8 +330,7 @@ class _AuthPageState extends State<AuthPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: const Color.fromARGB(113, 187, 0, 255)
-                                  .withOpacity(0.5),
+                              color: Color.fromARGB(58, 142, 66, 255),
                             ),
                             width: MediaQuery.of(context).size.width - 225,
                             padding: const EdgeInsets.symmetric(
@@ -340,8 +339,8 @@ class _AuthPageState extends State<AuthPage> {
                             child: Center(
                               child: Text(
                                 _isSignup ? "Signup" : "Login",
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  // color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

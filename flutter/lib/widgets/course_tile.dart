@@ -8,6 +8,7 @@ class CourseTile extends StatelessWidget {
     required this.title,
     required this.index,
     required this.moduleData,
+    required this.heroTag,
     this.quizDataList,
     super.key,
   });
@@ -15,6 +16,7 @@ class CourseTile extends StatelessWidget {
   final List<QuizData>? quizDataList;
   final List moduleData;
   final String title;
+  final String heroTag;
   final int index;
 
   final List<Color> mainColors = [
@@ -47,81 +49,76 @@ class CourseTile extends StatelessWidget {
       colorSelector = index % boxColors.length;
     }
 
-    return Container(
-      // margin: const EdgeInsets.all(10),
-      child: InkWell(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(5.0),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => ModulePage(
+                  heroTag: heroTag,
+                  moduleData: moduleData,
+                )),
+          ),
+        );
+      },
+      child: Container(
+        width: double.infinity,
+        height: 175,
+        decoration: BoxDecoration(
+          color: mainColors[colorSelector],
+          borderRadius: const BorderRadius.all(
+            Radius.circular(5.0),
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0, 1),
+              blurRadius: 5,
+            ),
+          ],
         ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: ((context) => ModulePage(
-                    moduleData: moduleData,
-                  )),
-            ),
-          );
-        },
-        child: Ink(
-          width: double.infinity,
-          height: 175,
-          decoration: BoxDecoration(
-            color: mainColors[colorSelector],
-            borderRadius: const BorderRadius.all(
-              Radius.circular(5.0),
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0, 1),
-                blurRadius: 5,
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
-                  ),
-                  color: boxColors[colorSelector],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10),
                 ),
-                child: Text(
-                  index < 10 ? "0$index" : index.toString(),
-                  style: GoogleFonts.playfairDisplay().copyWith(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(255, 37, 37, 37),
-                  ),
+                color: boxColors[colorSelector],
+              ),
+              child: Text(
+                index < 10 ? "0$index" : index.toString(),
+                style: GoogleFonts.playfairDisplay().copyWith(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 37, 37, 37),
                 ),
               ),
-              Container(
-                width: double.infinity,
-                height: 60,
-                padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(5),
-                    bottomLeft: Radius.circular(5),
-                  ),
-                  color: Colors.white,
+            ),
+            Container(
+              width: double.infinity,
+              height: 60,
+              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(5),
+                  bottomLeft: Radius.circular(5),
                 ),
-                child: Text(
-                  "Stock Market Basics sldfnl kndlfihnlk sdnsudh ",
-                  maxLines: 2,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                ),
-              )
-            ],
-          ),
+                color: Colors.white,
+              ),
+              child: Text(
+                "Stock Market Basics sldfnl kndlfihnlk sdnsudh ",
+                maxLines: 2,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+              ),
+            )
+          ],
         ),
       ),
     );
