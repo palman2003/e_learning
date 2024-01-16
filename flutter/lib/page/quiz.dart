@@ -72,7 +72,7 @@ class _QuizPageState extends State<QuizPage> {
           }
         }
 
-        // print("$score/${widget.quizDataList.length}");
+        print("$score/${widget.quizDataList.length}");
 
         return;
       }

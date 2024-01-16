@@ -1,5 +1,5 @@
 import 'package:e_learning/model/quiz_data.dart';
-import 'package:e_learning/page/quiz.dart';
+import 'package:e_learning/page/module.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,11 +7,13 @@ class CourseTile extends StatelessWidget {
   CourseTile({
     required this.title,
     required this.index,
+    required this.moduleData,
     this.quizDataList,
     super.key,
   });
 
   final List<QuizData>? quizDataList;
+  final List moduleData;
   final String title;
   final int index;
 
@@ -39,86 +41,86 @@ class CourseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int colorSelector = index-1;
+    int colorSelector = index - 1;
 
     if (index >= boxColors.length) {
       colorSelector = index % boxColors.length;
     }
 
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.all(10),
-        child: InkWell(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(5.0),
+    return Container(
+      // margin: const EdgeInsets.all(10),
+      child: InkWell(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(5.0),
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => ModulePage(
+                    moduleData: moduleData,
+                  )),
+            ),
+          );
+        },
+        child: Ink(
+          width: double.infinity,
+          height: 175,
+          decoration: BoxDecoration(
+            color: mainColors[colorSelector],
+            borderRadius: const BorderRadius.all(
+              Radius.circular(5.0),
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                offset: Offset(0, 1),
+                blurRadius: 5,
+              ),
+            ],
           ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: ((context) => QuizPage(quizDataList: quizDataList!)),
-              ),
-            );
-          },
-          child: Ink(
-            width: double.infinity,
-            height: 175,
-            decoration: BoxDecoration(
-              color: mainColors[colorSelector],
-              borderRadius: const BorderRadius.all(
-                Radius.circular(5.0),
-              ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0, 1),
-                  blurRadius: 5,
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(10),
-                    ),
-                    color: boxColors[colorSelector],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(10),
                   ),
-                  child: Text(
-                    index < 10 ? "0$index" : index.toString(),
-                    style: GoogleFonts.playfairDisplay().copyWith(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 37, 37, 37),
-                    ),
+                  color: boxColors[colorSelector],
+                ),
+                child: Text(
+                  index < 10 ? "0$index" : index.toString(),
+                  style: GoogleFonts.playfairDisplay().copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 37, 37, 37),
                   ),
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(5),
-                      bottomLeft: Radius.circular(5),
-                    ),
-                    color: Colors.white,
+              ),
+              Container(
+                width: double.infinity,
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(5),
+                    bottomLeft: Radius.circular(5),
                   ),
-                  child: Text(
-                    "Stock Market Basics sldfnl kndlfihnlk sdnsudh ",
-                    maxLines: 2,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                  ),
-                )
-              ],
-            ),
+                  color: Colors.white,
+                ),
+                child: Text(
+                  "Stock Market Basics sldfnl kndlfihnlk sdnsudh ",
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                ),
+              )
+            ],
           ),
         ),
       ),

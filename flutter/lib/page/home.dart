@@ -1,9 +1,10 @@
-import 'package:e_learning/widgets/course_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:e_learning/model/quiz_data.dart';
+import 'package:e_learning/widgets/course_tile.dart';
+import 'package:e_learning/data/module_data.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() {
     return _HomePageState();
@@ -11,252 +12,112 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<QuizData> quizDataList = [
-    const QuizData(
-      answer: "Natural Language Processing",
-      options: [
-        "Natural Language Processing",
-        "Neural Language Programming",
-        "Numeric Language Processing",
-        "None of the above"
-      ],
-      question: "1. What does NLP stand for?",
-    ),
-    const QuizData(
-      answer: "Python",
-      options: ["Python", "Java", "C++", "JavaScript"],
-      question: "2. Which programming language is commonly used for AI?",
-    ),
-    const QuizData(
-      answer: "Test the intelligence of a machine",
-      options: [
-        "Test the intelligence of a machine",
-        "Test the performance of a computer",
-        "Test the reliability of software",
-        "None of the above"
-      ],
-      question: "3. What is the Turing Test used for?",
-    ),
-    const QuizData(
-      answer: "To simulate the human brain",
-      options: [
-        "To simulate the human brain",
-        "To store large amounts of data",
-        "To perform complex calculations",
-        "None of the above"
-      ],
-      question: "4. What is the purpose of a neural network in AI?",
-    ),
-    const QuizData(
-      answer: "NLTK",
-      options: ["NLTK", "TensorFlow", "PyTorch", "Scikit-learn"],
-      question:
-          "5. Which library is commonly used for implementing NLP in Python?",
-    ),
-    const QuizData(
-      answer: "Long Short-Term Memory",
-      options: [
-        "Long Short-Term Memory",
-        "Linear System Time Model",
-        "Language Structure and Text Model",
-        "None of the above"
-      ],
-      question: "6. What does LSTM stand for in the context of AI?",
-    ),
-    const QuizData(
-      answer: "The phase where the model learns from data",
-      options: [
-        "The phase where the model learns from data",
-        "The phase where the model makes predictions",
-        "The phase where the model is evaluated",
-        "None of the above"
-      ],
-      question: "7. What is the 'training' phase in machine learning?",
-    ),
-    const QuizData(
-      answer: "John McCarthy",
-      options: ["Alan Turing", "Isaac Newton", "John McCarthy", "Elon Musk"],
-      question: "8. Who is known as the 'father of artificial intelligence'?",
-    ),
-    const QuizData(
-      answer: "To analyze the emotional tone in text",
-      options: [
-        "To classify text documents",
-        "To analyze the emotional tone in text",
-        "To identify parts of speech in a sentence",
-        "None of the above"
-      ],
-      question: "9. What is the main goal of sentiment analysis in NLP?",
-    ),
-    const QuizData(
-      answer: "Part of Speech",
-      options: [
-        "Part of Speech",
-        "Position of Speech",
-        "Processing of Sentiments",
-        "None of the above"
-      ],
-      question: "10. What does POS tagging refer to in NLP?",
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(130),
-        child: AppBar(
-          foregroundColor: const Color.fromARGB(255, 238, 238, 238),
-          backgroundColor: const Color.fromARGB(255, 156, 27, 255),
-          title: Text(
-            "Hi Subash!",
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: const Color.fromARGB(255, 238, 238, 238),
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-          ),
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(top: 0, right: 15),
-              padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(50),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    '1240',
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  const SizedBox(width: 5),
-                  Image.asset(
-                    'assets/images/appbar_icon.png',
-                    height: 20,
-                  ),
-                ],
-              ),
-            ),
-          ],
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 10),
-                  child: Text(
-                    'Your Progress',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: const Color.fromARGB(255, 238, 238, 238),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width - 100,
-                  height: 5,
-                  margin: const EdgeInsets.fromLTRB(20, 15, 20, 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(35),
-                    child: const LinearProgressIndicator(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      backgroundColor: Color.fromARGB(108, 236, 190, 255),
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Color.fromARGB(255, 238, 238, 238),
-                      ),
-                      value: 0.5,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
       drawer: const Drawer(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(5),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  CourseTile(
-                    quizDataList: quizDataList,
-                    title: "Introduction",
-                    index: 01,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 130,
+            floating: false,
+            pinned: true,
+            scrolledUnderElevation: 0,
+            title: Text(
+              "Hi Subash!",
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
-                  CourseTile(
-                    index: 02,
-                    quizDataList: quizDataList,
-                    title: "Introduction",
+            ),
+            actions: [
+              Container(
+                margin: const EdgeInsets.only(top: 0, right: 15),
+                padding: const EdgeInsets.fromLTRB(15, 8, 5, 8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  CourseTile(
-                    index: 03,
-                    title: "Module 1",
-                  ),
-                  CourseTile(
-                    index: 04,
-                    title: "Module 2",
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  CourseTile(
-                    index: 05,
-                    title: "Module 3",
-                  ),
-                  CourseTile(
-                    index: 06,
-                    title: "Module 4",
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  CourseTile(
-                    index: 07,
-                    title: "Module 3",
-                  ),
-                  CourseTile(
-                    index: 08,
-                    title: "Module 4",
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  CourseTile(
-                    index: 09,
-                    title: "Module 3",
-                  ),
-                  CourseTile(
-                    index: 10,
-                    title: "Module 4",
-                  ),
-                ],
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      '1240',
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
+                    ),
+                    const SizedBox(width: 5),
+                    Image.asset(
+                      'assets/images/appbar_icon.png',
+                      height: 20,
+                    ),
+                  ],
+                ),
               ),
             ],
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 10),
+                    child: Text(
+                      'Your Progress',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 100,
+                    height: 5,
+                    margin: const EdgeInsets.fromLTRB(20, 15, 20, 20),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(35),
+                      child: LinearProgressIndicator(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primaryContainer,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.primary,
+                        ),
+                        value: 0.5,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
+          SliverPadding(
+            padding: const EdgeInsets.all(20),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return CourseTile(
+                    title: "Introduction",
+                    index: index + 1,
+                    moduleData: module1,
+                  );
+                },
+                childCount: 10,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
