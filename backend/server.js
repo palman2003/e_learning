@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const user = require("./routes/user");
 const mongoose = require("mongoose");
+const reset=require('./routes/reset');
 const app = express();
 const cors = require("cors");
 
@@ -26,7 +27,9 @@ mongoose
   });
 
 //route configuration for user login
-app.use("/v1/api", user);
+app.use("/v1/api/user", user);
+
+app.use("/v1/api/reset", reset);
 
 //route configuration for password reset
 //app.use('/v1/api/reset',quiz);
