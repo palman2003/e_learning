@@ -186,7 +186,7 @@ class _QuizPageState extends State<QuizPage> {
                   valueColor: const AlwaysStoppedAnimation<Color>(
                     Colors.white,
                   ),
-                  value: _quizIndex / widget.quizDataList.length,
+                  value: (_quizIndex + 1) / widget.quizDataList.length,
                 ),
               ),
             ),
@@ -226,7 +226,10 @@ class _QuizPageState extends State<QuizPage> {
                         children: [
                           Text(
                             widget.quizDataList[_quizIndex].question,
-                            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),

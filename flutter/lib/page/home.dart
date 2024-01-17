@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(20),
+              preferredSize: const Size.fromHeight(18),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                   return Hero(
                     tag: "courseTile$index",
                     child: CourseTile(
-                      title: "Introduction",
+                      title: "Shelf Analytics",
                       index: index + 1,
                       heroTag: "courseTile$index",
                       moduleData: module1,

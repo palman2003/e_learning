@@ -1,4 +1,6 @@
 import 'package:e_learning/data/module_data.dart';
+import 'package:e_learning/data/quiz_data.dart';
+import 'package:e_learning/page/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,11 +8,15 @@ class ModulePage extends StatefulWidget {
   const ModulePage({
     required this.moduleData,
     required this.heroTag,
+    required this.appBarTitle,
+    required this.title,
     super.key,
   });
 
   final List moduleData;
   final String heroTag;
+  final String appBarTitle;
+  final String title;
 
   @override
   State<StatefulWidget> createState() {
@@ -23,14 +29,14 @@ class _ModulePageState extends State<ModulePage> {
     fontSize: 20,
     fontWeight: FontWeight.bold,
     color: Color.fromARGB(255, 48, 48, 48),
-    wordSpacing: 5,
+    // wordSpacing: 5,
   );
 
   final subHeadingStyle = GoogleFonts.merriweather().copyWith(
     fontSize: 17,
     fontWeight: FontWeight.bold,
     color: Color.fromARGB(255, 48, 48, 48),
-    wordSpacing: 5,
+    // wordSpacing: 5,
   );
 
   final bodyStyle = GoogleFonts.merriweather().copyWith(
@@ -38,7 +44,7 @@ class _ModulePageState extends State<ModulePage> {
     // color: Color.fromARGB(255, 64, 64, 64),
     // fontWeight: FontWeight.bold,
     color: Color.fromARGB(255, 48, 48, 48),
-    wordSpacing: 3,
+    // wordSpacing: 3,
   );
 
   @override
@@ -50,7 +56,7 @@ class _ModulePageState extends State<ModulePage> {
         appBar: AppBar(
           scrolledUnderElevation: 0,
           title: Text(
-            "Module 01",
+            widget.appBarTitle,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 64, 64, 64),
@@ -77,7 +83,14 @@ class _ModulePageState extends State<ModulePage> {
               Text("1/2"),
               Spacer(),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: ((context) =>
+                          QuizPage(quizDataList: quizDataList)),
+                    ),
+                  );
+                },
                 icon: Icon(Icons.arrow_forward_ios_rounded),
               ),
               SizedBox(width: 20),
@@ -102,7 +115,7 @@ class _ModulePageState extends State<ModulePage> {
                     padding: EdgeInsets.fromLTRB(
                         30, e.topPadding, 30, e.bottomPadding),
                     child: Text(
-                      "Stock Market Basics",
+                      widget.title,
                       style: headingStyle,
                     ),
                   );
@@ -125,8 +138,9 @@ class _ModulePageState extends State<ModulePage> {
                         30, e.topPadding, 30, e.bottomPadding),
                     child: Text(
                       '◉    ' + e.text,
-                      textAlign: TextAlign.start,
+                      // textAlign: TextAlign.start,
                       style: bodyStyle,
+                      textAlign: TextAlign.justify,
                     ),
                   );
                 } else if (e is Body) {
@@ -136,6 +150,7 @@ class _ModulePageState extends State<ModulePage> {
                     child: Text(
                       e.text,
                       style: bodyStyle,
+                      textAlign: TextAlign.justify,
                     ),
                   );
                 }
@@ -144,70 +159,6 @@ class _ModulePageState extends State<ModulePage> {
             ),
           ),
         ),
-        // body: CustomScrollView(
-        //   slivers: [
-        //     SliverAppBar(
-        //       expandedHeight: 100,
-        //       floating: false,
-        //       pinned: true,
-        //       scrolledUnderElevation: 0,
-      
-        //       title: Text(
-        //         "Module 01",
-        //         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-        //               fontWeight: FontWeight.bold,
-        //               color: Color.fromARGB(255, 64, 64, 64),
-        //             ),
-        //       ),
-        //       centerTitle: true,
-        //       bottom: PreferredSize(
-        //         preferredSize: const Size.fromHeight(6),
-        //         child: Column(
-        //           children: [
-        //             Padding(
-        //               padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-        //               child: Text(
-        //                 "Introduction",
-        //                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-        //                       fontWeight: FontWeight.bold,
-        //                       color: Color.fromARGB(255, 64, 64, 64),
-        //                     ),
-        //               ),
-        //             ),
-        //             LinearProgressIndicator(value: 0.5),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //     SliverToBoxAdapter(
-        //       child: GestureDetector(
-        //         onHorizontalDragEnd: (details) {
-        //           if (details.primaryVelocity! > 500) {
-        //             print('Strong swipe right');
-        //           } else if (details.primaryVelocity! < -500) {
-        //             print('Strong swipe left');
-        //           }
-        //         },
-        //         child: Column(
-        //           children: widget.moduleData.map((e) {
-        //             if (e is Heading) {
-        //               return Text(e.text, style: headingStyle);
-        //             } else if (e is SubHeading) {
-        //               return Text(e.text, style: subHeadingStyle);
-        //             } else if (e is BulletPoint) {
-        //               return Text('\u2022' + e.text,
-        //                   textAlign: TextAlign.start, style: bodyStyle);
-        //             } else if (e is Body) {
-        //               return Text(e.text,
-        //                   textAlign: TextAlign.start, style: bodyStyle);
-        //             }
-        //             return const SizedBox();
-        //           }).toList(),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }
