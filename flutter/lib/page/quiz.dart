@@ -2,6 +2,7 @@ import 'package:e_learning/model/quiz_data.dart';
 import 'package:e_learning/widgets/quiz_options.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/model/quiz_state.dart';
+import 'package:e_learning/page/score.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({
@@ -24,6 +25,7 @@ class _QuizPageState extends State<QuizPage> {
 
   List<QuizState> quizState = [];
 
+  int score = 0;
   void selectedValueHandler(int value) {
     setState(() {
       _selectedQuizValue = value;
@@ -64,16 +66,26 @@ class _QuizPageState extends State<QuizPage> {
                 widget.quizDataList[_quizIndex].options[_selectedQuizValue],
           ),
         );
-        int score = 0;
 
         for (var element in quizState) {
-          if (element.correctAnswer == element.selectedAnswer) {
+          if (element.selectedAnswer ==
+              widget.quizDataList[element.questionIndex].answer) {
             ++score;
           }
         }
-
         print("$score/${widget.quizDataList.length}");
-
+        // print("QuizState after all questions:");
+        // for (var element in quizState) {
+        //   print(
+        //       "QuestionIndex: ${element.questionIndex}, CorrectAnswer: ${element.correctAnswer}, SelectedAnswer: ${element.selectedAnswer}");
+        // }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScorePage(
+                score: score, totalQuestions: widget.quizDataList.length),
+          ),
+        );
         return;
       }
 
