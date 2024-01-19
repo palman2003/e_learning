@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const user = require("./routes/user");
 const mongoose = require("mongoose");
 const reset=require('./routes/reset');
+const cert = require("./routes/cert");
 const app = express();
 const cors = require("cors");
 
@@ -29,7 +30,8 @@ mongoose
 //route configuration for user login
 app.use("/v1/api/user", user);
 
+//route configuration for password reset
 app.use("/v1/api/reset", reset);
 
-//route configuration for password reset
-//app.use('/v1/api/reset',quiz);
+//route configuration for certificate generation
+app.use('/v1/api/certificate',cert);
