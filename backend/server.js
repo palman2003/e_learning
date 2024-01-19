@@ -8,7 +8,11 @@ const reset=require('./routes/reset');
 const cert = require("./routes/cert");
 const app = express();
 const cors = require("cors");
+const helmet=require('helmet');
 
+
+
+app.use(helmet());
 app.use(cors());
 
 //express middleware
