@@ -67,7 +67,7 @@ final List<dynamic> module1 = [
   const SubHeading(text: "Introuction"),
   const Body(
     text:
-        "FMCG, or Fast-Moving Consumer Goods, holds a pivotal role in shaping our daily experiences. These products are the essentials we reach for regularly, from toothpaste and snacks to cleaning supplies and personal care",
+        "FMCG, or 𝗙𝗮𝘀𝘁 𝗠𝗼𝘃𝗶𝗻𝗴 𝗖𝗼𝗻𝘀𝘂𝗺𝗲𝗿 𝗚𝗼𝗼𝗱𝘀, holds a pivotal role in shaping our daily experiences. These products are the essentials we reach for regularly, from toothpaste and snacks to cleaning supplies and personal care",
   ),
   const Body(
     text:

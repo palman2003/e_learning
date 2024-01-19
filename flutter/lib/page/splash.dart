@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
         context,
         // For testing its routed to HomePage
         MaterialPageRoute(
-          builder: ((context) => const HomePage()),
+          builder: ((context) => const AuthPage()),
         ),
       );
       return;
@@ -41,7 +41,7 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: ((context) => const HomePage()),
+        builder: ((context) => const AuthPage()),
       ),
     );
   }

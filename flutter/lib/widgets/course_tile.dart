@@ -57,6 +57,8 @@ class CourseTile extends StatelessWidget {
             builder: ((context) => ModulePage(
                   heroTag: heroTag,
                   moduleData: moduleData,
+                  appBarTitle: "Module $index",
+                  title: title,
                 )),
           ),
         );
@@ -110,7 +112,7 @@ class CourseTile extends StatelessWidget {
                 color: Colors.white,
               ),
               child: Text(
-                "Stock Market Basics sldfnl kndlfihnlk sdnsudh ",
+                title,
                 maxLines: 2,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontWeight: FontWeight.bold,

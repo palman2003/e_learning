@@ -37,7 +37,7 @@ class _AuthPageState extends State<AuthPage> {
 
     try {
       var response = await http.post(
-        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/login"),
+        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/user/login"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
@@ -65,11 +65,10 @@ class _AuthPageState extends State<AuthPage> {
         ),
       );
     } catch (error) {
-
       if (!mounted) {
         return;
       }
-      
+
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -88,7 +87,7 @@ class _AuthPageState extends State<AuthPage> {
 
     try {
       var response = await http.post(
-        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/register"),
+        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/user/register"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
@@ -277,7 +276,8 @@ class _AuthPageState extends State<AuthPage> {
                               const SizedBox(height: 15),
                               TextFormField(
                                 controller: _collegeController,
-                                textCapitalization: TextCapitalization.characters,
+                                textCapitalization:
+                                    TextCapitalization.characters,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15,
@@ -300,7 +300,8 @@ class _AuthPageState extends State<AuthPage> {
                               const SizedBox(height: 15),
                               TextFormField(
                                 controller: _branchController,
-                                textCapitalization: TextCapitalization.characters,
+                                textCapitalization:
+                                    TextCapitalization.characters,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15,
