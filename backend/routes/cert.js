@@ -10,6 +10,7 @@ const templatePath = 'Blue and Yellow Minimalist Employee of the Month Certifica
 router.get('/:userName/:college', (req, res) => {
     try {
         const userName = req.params.userName;
+
         const college = req.params.college;
 
         // Generate the certificate in-memory
