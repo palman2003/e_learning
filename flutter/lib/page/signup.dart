@@ -19,6 +19,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final GlobalKey<FormState> _signupFormKey = GlobalKey<FormState>();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -32,6 +33,7 @@ class _SignupPageState extends State<SignupPage> {
 
   String? enteredEmail;
   String? enteredPassword;
+  String? enteredUsername;
 
   void signup() async {
     if (!_signupFormKey.currentState!.validate()) {
@@ -44,6 +46,7 @@ class _SignupPageState extends State<SignupPage> {
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
+            "username": enteredUsername,
             "email": enteredEmail,
             "password": enteredPassword,
             "city": _cityController.text,
@@ -117,6 +120,36 @@ class _SignupPageState extends State<SignupPage> {
                           visible: !isFinalPage,
                           child: Column(
                             children: [
+                              TextFormField(
+                                controller: _usernameController,
+                                decoration: InputDecoration(
+                                  // contentPadding: const EdgeInsets.symmetric(
+                                  //   vertical: 15,
+                                  //   horizontal: 15,
+                                  // ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  labelText: "Username",
+                                  prefixIcon: const Icon(Icons.person),
+                                ),
+                                onSaved: (username) {
+                                  setState(() {
+                                    enteredUsername = username;
+                                  });
+                                },
+                                validator: (username) {
+                                  if (username == null ||
+                                      username.trim().isEmpty) {
+                                    return "The username should not be empty";
+                                  }
+                                  // if (!isEmail(username.trim())) {
+                                  //   return "Enter a valid username";
+                                  // }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
                               TextFormField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
@@ -301,7 +334,7 @@ class _SignupPageState extends State<SignupPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: Color.fromARGB(58, 142, 66, 255),
+                              color: const Color.fromARGB(58, 142, 66, 255),
                             ),
                             width: MediaQuery.of(context).size.width - 225,
                             padding: const EdgeInsets.symmetric(
@@ -310,7 +343,7 @@ class _SignupPageState extends State<SignupPage> {
                             child: Center(
                               child: Text(
                                 isFinalPage ? "Signup" : "Next",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   // color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -342,11 +375,11 @@ class _SignupPageState extends State<SignupPage> {
                           onPressed: () {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => HomePage(),
+                                builder: (context) => const HomePage(),
                               ),
                             );
                           },
-                          child: Text("Test Navigate"),
+                          child: const Text("Test Navigate"),
                         )
                       ],
                     ),
