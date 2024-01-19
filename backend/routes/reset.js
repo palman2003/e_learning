@@ -52,30 +52,46 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 
+router.post('/verify-otp', async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (!user.otpSecret) {
+      return res.status(400).json({ message: 'OTP secret not found' });
+    }
+
+    const isValidOTP = speakeasy.totp.verify({
+      secret: user.otpSecret,
+      encoding: 'base32',
+      token: otp,
+      window: 6,
+    });
+
+    if (!isValidOTP) {
+      return res.status(401).json({ message: 'Invalid OTP' });
+    }
+
+    res.json({ message: 'OTP verified successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 router.post('/reset-password', async (req, res) => {
-    try {
-      const { email, otp, password } = req.body;
-  
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-  
-      if (!user.otpSecret) {
-        return res.status(400).json({ message: 'OTP secret not found' });
-      }
-  
-      const isValidOTP = speakeasy.totp.verify({
-        secret: user.otpSecret,
-        encoding: 'base32',
-        token: otp,
-        window: 6, 
-      });
-      if (!isValidOTP) {
-        console.log(otp);
-        console.log(user.otpSecret)
-        return res.status(401).json({ message: 'Invalid OTP' });
-      }
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
   
       // Update password and clear OTP secret
       const salt=await bcrypt.genSalt(10);
@@ -91,5 +107,5 @@ router.post('/reset-password', async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
     }
-  });
+   } );
 module.exports = router;
