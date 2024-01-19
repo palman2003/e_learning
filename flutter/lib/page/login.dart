@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_learning/page/forget_password.dart';
 import 'package:e_learning/page/home.dart';
 import 'package:e_learning/page/signup.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,71 @@ class _LoginPageState extends State<LoginPage> {
         context,
         MaterialPageRoute(
           builder: (context) => const HomePage(),
+        ),
+      );
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            error.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  void forgetPassword() async {
+    if (_emailController.text == null || _emailController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please enter your email"),
+        ),
+      );
+      return;
+    }
+    if (!isEmail(_emailController.text)) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please enter valid email"),
+        ),
+      );
+      return;
+    }
+
+    try {
+      var response = await http.post(
+        Uri.parse(
+            "http://${dotenv.env["MY_IP"]}:3000/v1/api/reset/forgot-password"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            "email": _emailController.text,
+          },
+        ),
+      );
+
+      var responseData = jsonDecode(response.body);
+
+      if (response.statusCode > 399) {
+        throw responseData["message"];
+      }
+
+      if (!mounted) {
+        return;
+      }
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ForgetPassword(
+            email: _emailController.text,
+          ),
         ),
       );
     } catch (error) {
@@ -184,6 +250,14 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           child: const Text(
                             "New to E Learning?   Signup!",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        TextButton(
+                          onPressed: forgetPassword,
+                          child: const Text(
+                            "Forget Password",
                             style: TextStyle(fontSize: 12),
                           ),
                         ),
