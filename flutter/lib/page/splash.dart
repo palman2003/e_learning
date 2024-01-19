@@ -1,6 +1,6 @@
 import 'package:e_learning/page/home.dart';
+import 'package:e_learning/page/signup.dart';
 import 'package:flutter/material.dart';
-import 'package:e_learning/page/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
         context,
         // For testing its routed to HomePage
         MaterialPageRoute(
-          builder: ((context) => const AuthPage()),
+          builder: ((context) => const SignupPage()),
         ),
       );
       return;
@@ -41,7 +41,7 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: ((context) => const AuthPage()),
+        builder: ((context) => const SignupPage()),
       ),
     );
   }

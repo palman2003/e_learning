@@ -1,87 +1,40 @@
 import 'dart:convert';
 
 import 'package:e_learning/page/home.dart';
+import 'package:e_learning/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<AuthPage> createState() {
-    return _AuthPageState();
+  State<SignupPage> createState() {
+    return _SignupPageState();
   }
 }
 
-class _AuthPageState extends State<AuthPage> {
-  final GlobalKey<FormState> _authFormKey = GlobalKey<FormState>();
+class _SignupPageState extends State<SignupPage> {
+  final GlobalKey<FormState> _signupFormKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
   final TextEditingController _collegeController = TextEditingController();
   final TextEditingController _branchController = TextEditingController();
-  bool _isSignup = true;
   late SharedPreferences prefs;
 
-  void login() async {
-    prefs = await SharedPreferences.getInstance();
+  bool isFinalPage = false;
 
-    if (!_authFormKey.currentState!.validate()) {
-      return;
-    }
-
-    try {
-      var response = await http.post(
-        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/user/login"),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(
-          {
-            "email": _emailController.text,
-            "password": _passwordController.text,
-          },
-        ),
-      );
-
-      var responseData = jsonDecode(response.body);
-
-      if (response.statusCode > 399) {
-        throw responseData["message"];
-      }
-
-      await prefs.setString("token", responseData["token"]);
-
-      if (!mounted) {
-        return;
-      }
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      );
-    } catch (error) {
-      if (!mounted) {
-        return;
-      }
-
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            error.toString(),
-          ),
-        ),
-      );
-    }
-  }
+  String? enteredEmail;
+  String? enteredPassword;
 
   void signup() async {
-    if (!_authFormKey.currentState!.validate()) {
+    if (!_signupFormKey.currentState!.validate()) {
       return;
     }
 
@@ -91,9 +44,9 @@ class _AuthPageState extends State<AuthPage> {
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
-            "email": _emailController.text,
-            "password": _passwordController.text,
-            "phno": _phoneNumberController.text,
+            "email": enteredEmail,
+            "password": enteredPassword,
+            "city": _cityController.text,
             "college": _collegeController.text,
             "branch": _branchController.text
           },
@@ -113,14 +66,14 @@ class _AuthPageState extends State<AuthPage> {
       setState(() {
         _emailController.text = "";
         _passwordController.text = "";
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Regsitration Successful. Please Login"),
-          ),
-        );
-        _isSignup = false;
       });
+
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Regsitration Successful. Please Login"),
+        ),
+      );
     } catch (error) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -148,7 +101,7 @@ class _AuthPageState extends State<AuthPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    _isSignup ? "Create an \naccount!" : "Welcome\nBack!",
+                    "Create an \naccount!",
                     style: Theme.of(context)
                         .textTheme
                         .headlineMedium!
@@ -156,104 +109,82 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   const SizedBox(height: 30),
                   Form(
-                    key: _authFormKey,
+                    key: _signupFormKey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        TextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15,
-                              horizontal: 15,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            labelText: "Email",
-                            prefixIcon: const Icon(Icons.email_outlined),
-                          ),
-                          validator: (email) {
-                            if (email == null) {
-                              return "The email should not be empty";
-                            }
-                            if (!isEmail(email.trim())) {
-                              return "Enter a valid email";
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 15),
                         Visibility(
-                          visible: _isSignup,
+                          visible: !isFinalPage,
                           child: Column(
                             children: [
                               TextFormField(
-                                controller: _phoneNumberController,
-                                keyboardType: TextInputType.phone,
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15,
-                                    horizontal: 15,
-                                  ),
+                                  // contentPadding: const EdgeInsets.symmetric(
+                                  //   vertical: 15,
+                                  //   horizontal: 15,
+                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  labelText: "Phone Number",
-                                  prefixIcon: const Icon(Icons.phone),
+                                  labelText: "Email",
+                                  prefixIcon: const Icon(Icons.email_outlined),
                                 ),
-                                validator: (number) {
-                                  if (number == null) {
-                                    return "The Phone number should not be empty";
+                                onSaved: (email) {
+                                  setState(() {
+                                    enteredEmail = email;
+                                  });
+                                },
+                                validator: (email) {
+                                  if (email == null) {
+                                    return "The email should not be empty";
                                   }
-                                  if (!isPhoneNumber(number.trim())) {
-                                    return "Enter a valid phone number";
+                                  if (!isEmail(email.trim())) {
+                                    return "Enter a valid email";
                                   }
                                   return null;
                                 },
                               ),
                               const SizedBox(height: 15),
-                            ],
-                          ),
-                        ),
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15,
-                              horizontal: 15,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            labelText: "Password",
-                            prefixIcon: const Icon(Icons.lock_outline),
-                          ),
-                          validator: (password) {
-                            if (password == null) {
-                              return "The password should not be empty";
-                            }
-                            if (!isPassword(password.trim())) {
-                              return "The password must have at least 6 characters";
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 15),
-                        Visibility(
-                          visible: _isSignup,
-                          child: Column(
-                            children: [
+                              TextFormField(
+                                controller: _passwordController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  // contentPadding: const EdgeInsets.symmetric(
+                                  //   vertical: 15,
+                                  //   horizontal: 15,
+                                  // ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  labelText: "Password",
+                                  prefixIcon: const Icon(Icons.lock_outline),
+                                ),
+                                onSaved: (password) {
+                                  setState(() {
+                                    enteredPassword = password;
+                                  });
+                                },
+                                validator: (password) {
+                                  if (password == null) {
+                                    return "The password should not be empty";
+                                  }
+                                  if (!isPassword(password.trim())) {
+                                    return "The password must have at least 6 characters";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
                               TextFormField(
                                 controller: _confirmPasswordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15,
-                                    horizontal: 15,
-                                  ),
+                                  // contentPadding: const EdgeInsets.symmetric(
+                                  //   vertical: 15,
+                                  //   horizontal: 15,
+                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -274,15 +205,45 @@ class _AuthPageState extends State<AuthPage> {
                                 },
                               ),
                               const SizedBox(height: 15),
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: isFinalPage,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: _cityController,
+                                textCapitalization:
+                                    TextCapitalization.characters,
+                                decoration: InputDecoration(
+                                  // contentPadding: const EdgeInsets.symmetric(
+                                  //   vertical: 15,
+                                  //   horizontal: 15,
+                                  // ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  labelText: "Resident City",
+                                  prefixIcon: const Icon(Icons.location_city),
+                                ),
+                                validator: (city) {
+                                  if (city == null || city.trim().isEmpty) {
+                                    return "Please enter your city name";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
                               TextFormField(
                                 controller: _collegeController,
                                 textCapitalization:
                                     TextCapitalization.characters,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15,
-                                    horizontal: 15,
-                                  ),
+                                  // contentPadding: const EdgeInsets.symmetric(
+                                  //   vertical: 15,
+                                  //   horizontal: 15,
+                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -303,10 +264,10 @@ class _AuthPageState extends State<AuthPage> {
                                 textCapitalization:
                                     TextCapitalization.characters,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15,
-                                    horizontal: 15,
-                                  ),
+                                  // contentPadding: const EdgeInsets.symmetric(
+                                  //   vertical: 15,
+                                  //   horizontal: 15,
+                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -327,7 +288,16 @@ class _AuthPageState extends State<AuthPage> {
                         const SizedBox(height: 15),
                         InkWell(
                           borderRadius: BorderRadius.circular(8),
-                          onTap: _isSignup ? signup : login,
+                          onTap: isFinalPage
+                              ? signup
+                              : (() {
+                                  if (_signupFormKey.currentState!.validate()) {
+                                    _signupFormKey.currentState!.save();
+                                    setState(() {
+                                      isFinalPage = !isFinalPage;
+                                    });
+                                  }
+                                }),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
@@ -339,7 +309,7 @@ class _AuthPageState extends State<AuthPage> {
                             ),
                             child: Center(
                               child: Text(
-                                _isSignup ? "Signup" : "Login",
+                                isFinalPage ? "Signup" : "Next",
                                 style: TextStyle(
                                   // color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -350,18 +320,34 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                         const SizedBox(height: 10),
                         TextButton(
-                          onPressed: () {
-                            setState(() {
-                              _isSignup = !_isSignup;
-                            });
-                          },
+                          onPressed: isFinalPage
+                              ? () {
+                                  setState(() {
+                                    isFinalPage = !isFinalPage;
+                                  });
+                                }
+                              : () {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: ((context) => const LoginPage()),
+                                    ),
+                                  );
+                                },
                           child: Text(
-                            _isSignup
-                                ? "Already a User?   Login!"
-                                : "New to E Learning?   Signup!",
+                            isFinalPage ? "Back" : "Already a User?   Login!",
                             style: const TextStyle(fontSize: 12),
                           ),
                         ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
+                          },
+                          child: Text("Test Navigate"),
+                        )
                       ],
                     ),
                   ),
