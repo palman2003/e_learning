@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const user = require("./routes/user");
 const mongoose = require("mongoose");
 const reset=require('./routes/reset');
+const cert = require("./routes/cert");
 const app = express();
 const cors = require("cors");
 
