@@ -2,9 +2,9 @@ import 'package:e_learning/model/quiz_data.dart';
 
 final List<QuizData> quizDataList = [
   const QuizData(
-    answer: "Natural Language Processing",
+    answer: "Natural Language ProcessingNaturalLan",
     options: [
-      "Natural Language Processing",
+      "Natural Language ProcessingNaturalLan",
       "Neural Language Programming",
       "Numeric Language Processing",
       "None of the above"
