@@ -29,7 +29,8 @@ mongoose
 //route configuration for user login
 app.use("/v1/api/user", user);
 
+//route configuration for password reset
 app.use("/v1/api/reset", reset);
 
-//route configuration for password reset
-//app.use('/v1/api/reset',quiz);
+//route configuration for certificate generation
+app.use('/v1/api/certificate',cert);
