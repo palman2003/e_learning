@@ -63,7 +63,6 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) {
         return;
       }
-
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -79,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
     if (_emailController.text == null || _emailController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Please enter your email"),
         ),
       );
@@ -88,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
     if (!isEmail(_emailController.text)) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Please enter valid email"),
         ),
       );
