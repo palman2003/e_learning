@@ -24,6 +24,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _collegeController = TextEditingController();
   final TextEditingController _branchController = TextEditingController();
@@ -49,6 +50,7 @@ class _SignupPageState extends State<SignupPage> {
             "username": enteredUsername,
             "email": enteredEmail,
             "password": enteredPassword,
+            "phno": _phoneNumberController.text,
             "city": _cityController.text,
             "college": _collegeController.text,
             "branch": _branchController.text
@@ -75,6 +77,12 @@ class _SignupPageState extends State<SignupPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Regsitration Successful. Please Login"),
+        ),
+      );
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: ((context) => LoginPage()),
         ),
       );
     } catch (error) {
@@ -245,6 +253,27 @@ class _SignupPageState extends State<SignupPage> {
                           visible: isFinalPage,
                           child: Column(
                             children: [
+                              TextFormField(
+                                controller: _phoneNumberController,
+                                keyboardType: TextInputType.phone,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  labelText: "Phone Number",
+                                  prefixIcon: const Icon(Icons.phone),
+                                ),
+                                validator: (number) {
+                                  if (number == null) {
+                                    return "The Phone number should not be empty";
+                                  }
+                                  if (!isPhoneNumber(number.trim())) {
+                                    return "Enter a valid phone number";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
                               TextFormField(
                                 controller: _cityController,
                                 textCapitalization:
