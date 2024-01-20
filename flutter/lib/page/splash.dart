@@ -1,4 +1,5 @@
 import 'package:e_learning/page/blank.dart';
+// ignore: unused_import
 import 'package:e_learning/page/home.dart';
 import 'package:e_learning/page/signup.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   late SharedPreferences prefs;
+  // ignore: prefer_typing_uninitialized_variables
   late var db;
 
   void checkToken() async {
@@ -36,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
         context,
         // For testing its routed to Signup
         MaterialPageRoute(
-          builder: ((context) => SignupPage()),
+          builder: ((context) => const SignupPage()),
         ),
       );
       return;
@@ -45,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: ((context) => SignupPage()),
+        builder: ((context) => const SignupPage()),
       ),
     );
   }
@@ -59,10 +61,11 @@ class _SplashPageState extends State<SplashPage> {
       var result = await db.collection('failSafe').findOne();
 
       if (!result["allow"]) {
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: ((context) => Blank()),
+            builder: ((context) => const Blank()),
           ),
         );
         return;
@@ -70,7 +73,7 @@ class _SplashPageState extends State<SplashPage> {
         checkToken();
       }
     } catch (e) {
-      print("Error: $e");
+      debugPrint("Error: $e");
     } finally {
       await db.close();
     }

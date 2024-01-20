@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void forgetPassword() async {
-    if (_emailController.text == null || _emailController.text.trim().isEmpty) {
+    if (_emailController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
