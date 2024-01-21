@@ -1,8 +1,9 @@
+import 'package:e_learning/page/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:e_learning/page/splash.dart';
-
+import 'package:e_learning/page/home.dart';
 
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
@@ -23,7 +24,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const SplashPage(),
+      home: const HomePage(),
     );
   }
 }

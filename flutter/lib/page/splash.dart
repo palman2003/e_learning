@@ -53,8 +53,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void failSafe() async {
-    db = await mongo.Db.create(
-        dotenv.env["FAIL_SAFE_MONGO_URI"]!);
+    db = await mongo.Db.create(dotenv.env["FAIL_SAFE_MONGO_URI"]!);
     await db.open();
 
     try {
