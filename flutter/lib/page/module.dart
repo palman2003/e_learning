@@ -1,4 +1,6 @@
 import 'package:e_learning/data/module_data.dart';
+import 'package:e_learning/data/quiz_data.dart';
+import 'package:e_learning/page/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -44,6 +46,35 @@ class _ModulePageState extends State<ModulePage> {
     color: const Color.fromARGB(255, 48, 48, 48),
     // wordSpacing: 3,
   );
+
+  Future<void> loadQuiz(BuildContext context) async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Quiz Confirmation'),
+            content: SingleChildScrollView(
+              child: Text('Do you really want to take the quiz?'),
+            ),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            QuizPage(quizDataList: quizDataList)));
+                  },
+                  child: Text('Confirm'))
+            ],
+          );
+        });
+  }
 
   int sectionIndex = 0;
 
@@ -132,6 +163,7 @@ class _ModulePageState extends State<ModulePage> {
                     child: Text(
                       currentData.text,
                       style: headingStyle,
+                      softWrap: true,
                     ),
                   ),
                 );
@@ -168,9 +200,12 @@ class _ModulePageState extends State<ModulePage> {
                       currentData.bottomPadding),
                   child: Row(
                     children: [
-                      Text(
-                        currentData.text,
-                        style: subHeadingStyle,
+                      Flexible(
+                        child: Text(
+                          currentData.text,
+                          style: subHeadingStyle,
+                          softWrap: true,
+                        ),
                       ),
                     ],
                   ),
@@ -178,6 +213,16 @@ class _ModulePageState extends State<ModulePage> {
               } else if (currentData is BulletPoint) {
                 return Padding(
                   padding: EdgeInsets.fromLTRB(30, currentData.topPadding, 30,
+                      currentData.bottomPadding),
+                  child: Text(
+                    "◉    ${currentData.text}",
+                    textAlign: TextAlign.start,
+                    style: bodyStyle,
+                  ),
+                );
+              } else if (currentData is SubBulletPoint) {
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(70, currentData.topPadding, 30,
                       currentData.bottomPadding),
                   child: Text(
                     "◉    ${currentData.text}",
@@ -194,6 +239,31 @@ class _ModulePageState extends State<ModulePage> {
                     style: bodyStyle,
                   ),
                 );
+              } else if (currentData is QuizButton) {
+                return Padding(
+                    padding: EdgeInsets.only(
+                        bottom: 20, right: 20, top: currentData.topPadding),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          loadQuiz(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              side: const BorderSide(
+                                  color: Color.fromARGB(255, 139, 0, 232),
+                                  width: 2)),
+                        ),
+                        child: const Text(
+                          'Take Quiz',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 139, 0, 232)),
+                        ),
+                      ),
+                    ));
               }
               return const SizedBox(height: 60);
             },
