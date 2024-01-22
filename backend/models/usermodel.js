@@ -28,6 +28,13 @@ const userSchema = new schema({
     },
     otpSecret:{
         type:String,
+    },
+    Score:{
+        type:Number,
+    },
+    Module:{
+        type:Array,
+        default: Array(10).fill(false)
     }
     
 },{timestamps:true});
