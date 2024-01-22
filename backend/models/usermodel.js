@@ -22,6 +22,10 @@ const userSchema = new schema({
         type:String,
         required:true
     },
+    city:{
+        type:String,
+        required:true
+    },
     password:{
         type:String,
         required:true
@@ -36,4 +40,4 @@ const userSchema = new schema({
 
 
 
-module.exports=mongoose.model('Users',userSchema);
+module.exports=mongoose.model('test_users',userSchema);
