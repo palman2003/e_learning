@@ -154,7 +154,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 children: [
                   const Row(),
                   Text(
-                    "Verification",
+                    "OTP Verification",
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -168,9 +168,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                   const Text(
                     "naveen.akash0904@gmail.com",
-                    style: TextStyle(),
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 40),
+                  const Text(
+                    "OTP gets automatically verified after entered",
+                    style: TextStyle(
+                      color: Colors.grey
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: Pinput(
@@ -226,6 +232,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 100),
                 ],
               ),
             ),

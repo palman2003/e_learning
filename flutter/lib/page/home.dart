@@ -1,3 +1,4 @@
+import 'package:e_learning/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/widgets/course_tile.dart';
 import 'package:e_learning/data/module_data.dart';
@@ -15,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
+      drawer: CustomDrawer(),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -110,14 +111,14 @@ class _HomePageState extends State<HomePage> {
                   return Hero(
                     tag: "courseTile$index",
                     child: CourseTile(
-                      title: "Shelf Analytics",
+                      title: moduleTitle[index],
                       index: index + 1,
                       heroTag: "courseTile$index",
-                      moduleData: module1,
+                      moduleData: module[index],
                     ),
                   );
                 },
-                childCount: 10,
+                childCount: module.length,
               ),
             ),
           ),

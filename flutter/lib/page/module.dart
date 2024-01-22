@@ -28,14 +28,14 @@ class _ModulePageState extends State<ModulePage> {
   final headingStyle = GoogleFonts.merriweather().copyWith(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 48, 48, 48),
+    color: const Color.fromARGB(255, 48, 48, 48),
     // wordSpacing: 5,
   );
 
   final subHeadingStyle = GoogleFonts.merriweather().copyWith(
     fontSize: 17,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 48, 48, 48),
+    color: const Color.fromARGB(255, 48, 48, 48),
     // wordSpacing: 5,
   );
 
@@ -43,14 +43,49 @@ class _ModulePageState extends State<ModulePage> {
     fontSize: 14,
     // color: Color.fromARGB(255, 64, 64, 64),
     // fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 48, 48, 48),
+    color: const Color.fromARGB(255, 48, 48, 48),
     // wordSpacing: 3,
   );
+
+  Future<void> loadQuiz(BuildContext context) async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Quiz Confirmation'),
+            content: const SingleChildScrollView(
+              child: Text('Do you really want to take the quiz?'),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          QuizPage(quizDataList: quizDataList1),
+                    ),
+                  );
+                },
+                child: const Text('Confirm'),
+              )
+            ],
+          );
+        });
+  }
+
+  int sectionIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      // tag: "courseTile${index+1}",
       tag: widget.heroTag,
       child: Scaffold(
         appBar: AppBar(
@@ -59,13 +94,14 @@ class _ModulePageState extends State<ModulePage> {
             widget.appBarTitle,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 64, 64, 64),
+                  color: const Color.fromARGB(255, 64, 64, 64),
                 ),
           ),
           centerTitle: true,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(0),
-            child: LinearProgressIndicator(value: 0.5),
+            preferredSize: const Size.fromHeight(0),
+            child: LinearProgressIndicator(
+                value: (sectionIndex + 1) / widget.moduleData.length),
           ),
         ),
         bottomSheet: Container(
@@ -74,89 +110,172 @@ class _ModulePageState extends State<ModulePage> {
           width: double.infinity,
           child: Row(
             children: [
-              SizedBox(width: 20),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.arrow_back_ios_new_rounded),
-              ),
-              Spacer(),
-              Text("1/2"),
-              Spacer(),
+              const SizedBox(width: 20),
               IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: ((context) =>
-                          QuizPage(quizDataList: quizDataList)),
-                    ),
-                  );
+                  if (!(sectionIndex == 0)) {
+                    setState(() {
+                      sectionIndex--;
+                    });
+                  }
                 },
-                icon: Icon(Icons.arrow_forward_ios_rounded),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
               ),
-              SizedBox(width: 20),
+              const Spacer(),
+              Text("${sectionIndex + 1}/${widget.moduleData.length}"),
+              const Spacer(),
+              IconButton(
+                onPressed: () {
+                  if (!(sectionIndex == widget.moduleData.length - 1)) {
+                    setState(() {
+                      sectionIndex++;
+                    });
+                  }
+                },
+                icon: const Icon(Icons.arrow_forward_ios_rounded),
+              ),
+              const SizedBox(width: 20),
             ],
           ),
         ),
-        body: SingleChildScrollView(
-          child: GestureDetector(
-            onHorizontalDragEnd: (details) {
-              if (details.primaryVelocity! > 300) {
-                print('Strong swipe right');
-              } else if (details.primaryVelocity! < -300) {
-                print('Strong swipe left');
+        body: GestureDetector(
+          onHorizontalDragEnd: (details) {
+            if (details.primaryVelocity! > 300) {
+              if (!(sectionIndex == 0)) {
+                setState(() {
+                  sectionIndex--;
+                });
               }
-            },
-            child: Column(
-              children: widget.moduleData.map((e) {
-                if (e is ImageContent) {
-                  return e.image;
-                } else if (e is Heading) {
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        30, e.topPadding, 30, e.bottomPadding),
+            } else if (details.primaryVelocity! < -300) {
+              if (!(sectionIndex == widget.moduleData.length - 1)) {
+                setState(() {
+                  sectionIndex++;
+                });
+              }
+            }
+          },
+          child: ListView.builder(
+            itemCount: widget.moduleData[sectionIndex].length,
+            itemBuilder: (context, index) {
+              var currentData = widget.moduleData[sectionIndex][index];
+              if (currentData is ImageContent) {
+                return currentData.image;
+              } else if (currentData is Heading) {
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(30, currentData.topPadding, 30,
+                      currentData.bottomPadding),
+                  child: Center(
                     child: Text(
-                      widget.title,
+                      currentData.text,
                       style: headingStyle,
+                      softWrap: true,
                     ),
-                  );
-                } else if (e is SubHeading) {
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        30, e.topPadding, 30, e.bottomPadding),
-                    child: Row(
-                      children: [
-                        Text(
-                          e.text,
+                  ),
+                );
+              } else if (currentData is TabularColumn) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  child: Table(
+                    border: TableBorder.all(),
+                    children: currentData.data.asMap().entries.map((entry) {
+                      final rowIndex = entry.key;
+                      final row = entry.value;
+                      return TableRow(
+                        children: row.map((cell) {
+                          return TableCell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                cell,
+                                style: rowIndex == 0
+                                    ? currentData.headerTextStyle
+                                    : currentData.cellTextStyle,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    }).toList(),
+                  ),
+                );
+              } else if (currentData is SubHeading) {
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(30, currentData.topPadding, 30,
+                      currentData.bottomPadding),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          currentData.text,
                           style: subHeadingStyle,
+                          softWrap: true,
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                );
+              } else if (currentData is BulletPoint) {
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(30, currentData.topPadding, 30,
+                      currentData.bottomPadding),
+                  child: Text(
+                    "◉    ${currentData.text}",
+                    textAlign: TextAlign.start,
+                    style: bodyStyle,
+                  ),
+                );
+              } else if (currentData is SubBulletPoint) {
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(70, currentData.topPadding, 30,
+                      currentData.bottomPadding),
+                  child: Text(
+                    "◉    ${currentData.text}",
+                    textAlign: TextAlign.start,
+                    style: bodyStyle,
+                  ),
+                );
+              } else if (currentData is Body) {
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(30, currentData.topPadding, 30,
+                      currentData.bottomPadding),
+                  child: Text(
+                    currentData.text,
+                    style: bodyStyle,
+                  ),
+                );
+              } else if (currentData is QuizButton) {
+                return Padding(
+                  padding:
+                      EdgeInsets.only(bottom: 20, top: currentData.topPadding),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        loadQuiz(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          side: const BorderSide(
+                            color: Color.fromARGB(255, 139, 0, 232),
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      child: const Text(
+                        'Take Quiz',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 139, 0, 232),
+                        ),
+                      ),
                     ),
-                  );
-                } else if (e is BulletPoint) {
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        30, e.topPadding, 30, e.bottomPadding),
-                    child: Text(
-                      '◉    ' + e.text,
-                      // textAlign: TextAlign.start,
-                      style: bodyStyle,
-                      textAlign: TextAlign.justify,
-                    ),
-                  );
-                } else if (e is Body) {
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        30, e.topPadding, 30, e.bottomPadding),
-                    child: Text(
-                      e.text,
-                      style: bodyStyle,
-                      textAlign: TextAlign.justify,
-                    ),
-                  );
-                }
-                return const SizedBox(height: 60);
-              }).toList(),
-            ),
+                  ),
+                );
+              }
+              return const SizedBox(height: 60);
+            },
           ),
         ),
       ),

@@ -1,90 +1,132 @@
 import 'package:e_learning/model/quiz_data.dart';
 
-final List<QuizData> quizDataList = [
+final List<QuizData> quizDataList1 = [
   const QuizData(
-    answer: "Natural Language ProcessingNaturalLan",
+    answer: "Hair Dryer",
     options: [
-      "Natural Language ProcessingNaturalLan",
-      "Neural Language Programming",
-      "Numeric Language Processing",
-      "None of the above"
+      "Hair Dryer",
+      "Hair Shampoo",
+      "Hair Conditioner",
+      "Detergent",
     ],
-    question: "1. What does NLP stand for?",
+    question: "1. Which one of the below is NOT an example for FMCG?",
   ),
   const QuizData(
-    answer: "Python",
-    options: ["Python", "Java", "C++", "JavaScript"],
-    question: "2. Which programming language is commonly used for AI?",
-  ),
-  const QuizData(
-    answer: "Test the intelligence of a machine",
+    answer: "Painkiller",
     options: [
-      "Test the intelligence of a machine",
-      "Test the performance of a computer",
-      "Test the reliability of software",
-      "None of the above"
+      "Painkiller",
+      "Shampoo",
+      "Toilet Paper",
+      "Toaster",
     ],
-    question: "3. What is the Turing Test used for?",
-  ),
-  const QuizData(
-    answer: "To simulate the human brain",
-    options: [
-      "To simulate the human brain",
-      "To store large amounts of data",
-      "To perform complex calculations",
-      "None of the above"
-    ],
-    question: "4. What is the purpose of a neural network in AI?",
-  ),
-  const QuizData(
-    answer: "NLTK",
-    options: ["NLTK", "TensorFlow", "PyTorch", "Scikit-learn"],
     question:
-        "5. Which library is commonly used for implementing NLP in Python?",
+        "2. Which one of the below is NOT an example for a Low Involvement Product?",
   ),
   const QuizData(
-    answer: "Long Short-Term Memory",
+    answer: "Information Search",
     options: [
-      "Long Short-Term Memory",
-      "Linear System Time Model",
-      "Language Structure and Text Model",
-      "None of the above"
+      "Package Design",
+      "Trigger to purchase",
+      "Information Search",
+      "None of the above",
     ],
-    question: "6. What does LSTM stand for in the context of AI?",
+    question:
+        "3. Which one of the below is a step involved in the purchase of a High Involvement Product?",
   ),
   const QuizData(
-    answer: "The phase where the model learns from data",
+    answer: "Complex Buying Behaviour",
     options: [
-      "The phase where the model learns from data",
-      "The phase where the model makes predictions",
-      "The phase where the model is evaluated",
-      "None of the above"
+      "Complex Buying Behaviour",
+      "Variety Seeking Behaviour",
+      "Habitual Buying Behaviour",
+      "Dissonance Reducing Buying Behaviour",
     ],
-    question: "7. What is the 'training' phase in machine learning?",
+    question:
+        "4. Which of the cases best describes High Involvement and Significant difference between brands?",
   ),
   const QuizData(
-    answer: "John McCarthy",
-    options: ["Alan Turing", "Isaac Newton", "John McCarthy", "Elon Musk"],
-    question: "8. Who is known as the 'father of artificial intelligence'?",
-  ),
-  const QuizData(
-    answer: "To analyze the emotional tone in text",
+    answer:
+        "Distribution involves the physical movement and transfer of goods from the manufacturer to the end consumer.",
     options: [
-      "To classify text documents",
-      "To analyze the emotional tone in text",
-      "To identify parts of speech in a sentence",
-      "None of the above"
+      "Distribution refers to the process of manufacturing a product.",
+      "Distribution involves the physical movement and transfer of goods from the manufacturer to the end consumer.",
+      "Distribution is the promotion of products through advertising and marketing channels.",
+      "Distribution signifies the pricing strategy employed for selling products in the market.",
     ],
-    question: "9. What is the main goal of sentiment analysis in NLP?",
+    question: "5. What is Distribution?",
   ),
   const QuizData(
-    answer: "Part of Speech",
+    answer: "Limited market coverage",
     options: [
-      "Part of Speech",
-      "Position of Speech",
-      "Processing of Sentiments",
-      "None of the above"
+      "The competition will be higher",
+      "Limited market coverage",
+      "Both A & B",
+      "None of the above",
     ],
-    question: "10. What does POS tagging refer to in NLP?",
+    question:
+        "6. What is a disadvantage of Indirect Distribution when compared to Direct Distribution?",
+  ),
+  const QuizData(
+    answer: "All of the above",
+    options: [
+      "Kirana Stores",
+      "Super Market",
+      "Cosmetic store",
+      "All of the above",
+    ],
+    question: "7. Which is the best outlet type to sell shampoo sachets?",
+  ),
+  const QuizData(
+    answer: "All of the above",
+    options: [
+      "Margin provided on the product",
+      "Fill rate",
+      "Credit provided",
+      "All of the above",
+    ],
+    question:
+        "8. What are some of the factors that affect Channel Satisfaction?",
+  ),
+  const QuizData(
+    answer:
+        "Promotion of the sale of goods that can employ pricing, special offer, display, & other techniques",
+    options: [
+      "Promotion of the sale of goods that can employ pricing, special offer, display, & other techniques",
+      "Choosing the name of the brand in such a way that the products can be sold to the consumers",
+      "Selling products in an unbranded format to the consumers without giving any special offer, display & technique",
+      "None of the above",
+    ],
+    question: "9. What is the meaning of the term 'Merchandising'?",
+  ),
+  const QuizData(
+    answer: "To influence the shopper into purchasing the product",
+    options: [
+      "To influence the shopper into purchasing the product",
+      "To capture the attention of the shopper",
+      "Both A & B",
+      "None of the above",
+    ],
+    question: "10. What is the purpose of using a Point of Purchase Display?",
+  ),
+  const QuizData(
+    answer: "Eye Level",
+    options: [
+      "Eye Level",
+      "In top most shelf",
+      "In the bottom most shelf",
+      "The placement of product has 0 influence on the purchase",
+    ],
+    question:
+        "11. If you want a higher probability of selling the product, where should the product be placed?",
+  ),
+  const QuizData(
+    answer: "Products that are seen as soon as someone enters the shop",
+    options: [
+      "Products that are kept at the eye level",
+      "Products that are seen as soon as someone enters the shop",
+      "Products that kept along with other products of the same category",
+      "Products that are not seen in the first glance",
+    ],
+    question: "12. What is meant by Primary Visibility?",
   ),
 ];
