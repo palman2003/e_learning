@@ -27,7 +27,6 @@ class _QuizOptionsState extends State<QuizOptions> {
           },
           child: Container(
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-            width: double.infinity,
             // height: 55,
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 255, 221, 210),
@@ -46,10 +45,11 @@ class _QuizOptionsState extends State<QuizOptions> {
               children: [
                 Container(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  width: 258,
+                  width: MediaQuery.maybeSizeOf(context)!.width - 158,
                   child: Text(
                     widget.options[0],
                     overflow: TextOverflow.fade,
+                    softWrap: true,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -96,7 +96,7 @@ class _QuizOptionsState extends State<QuizOptions> {
               children: [
                 Container(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  width: 258,
+                  width: MediaQuery.maybeSizeOf(context)!.width - 158,
                   child: Text(
                     widget.options[1],
                     overflow: TextOverflow.fade,
@@ -146,7 +146,7 @@ class _QuizOptionsState extends State<QuizOptions> {
               children: [
                 Container(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  width: 258,
+                  width: MediaQuery.maybeSizeOf(context)!.width - 158,
                   child: Text(
                     widget.options[2],
                     overflow: TextOverflow.fade,
@@ -196,7 +196,7 @@ class _QuizOptionsState extends State<QuizOptions> {
               children: [
                 Container(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  width: 258,
+                  width: MediaQuery.maybeSizeOf(context)!.width - 158,
                   child: Text(
                     widget.options[3],
                     overflow: TextOverflow.fade,

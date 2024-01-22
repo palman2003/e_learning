@@ -567,14 +567,14 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      SizedBox(),
+      const SizedBox(),
       ImageContent(
         image: Image.asset(
           "assets/images/module1/visiblity_2.png",
           fit: BoxFit.fill,
         ),
       ),
-      SizedBox(),
+      const SizedBox(),
       ImageContent(
         image: Image.asset(
           "assets/images/module1/visiblity_3.png",
@@ -604,7 +604,7 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      SubHeading(text: 'Science behind Shelf utilization'),
+      const SubHeading(text: 'Science behind Shelf utilization'),
       const BulletPoint(text: 'Shelves can be divided in 4 various zones:'),
       const SubBulletPoint(
           text: 'Bottom most zone - very low chances of visibility'),

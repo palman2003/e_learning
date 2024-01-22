@@ -53,24 +53,29 @@ class _ModulePageState extends State<ModulePage> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Quiz Confirmation'),
-            content: SingleChildScrollView(
+            title: const Text('Quiz Confirmation'),
+            content: const SingleChildScrollView(
               child: Text('Do you really want to take the quiz?'),
             ),
-            actions: <Widget>[
+            actions: [
               TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Cancel')),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel'),
+              ),
               TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            QuizPage(quizDataList: quizDataList)));
-                  },
-                  child: Text('Confirm'))
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          QuizPage(quizDataList: quizDataList1),
+                    ),
+                  );
+                },
+                child: const Text('Confirm'),
+              )
             ],
           );
         });
@@ -241,29 +246,33 @@ class _ModulePageState extends State<ModulePage> {
                 );
               } else if (currentData is QuizButton) {
                 return Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 20, right: 20, top: currentData.topPadding),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          loadQuiz(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              side: const BorderSide(
-                                  color: Color.fromARGB(255, 139, 0, 232),
-                                  width: 2)),
-                        ),
-                        child: const Text(
-                          'Take Quiz',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 139, 0, 232)),
+                  padding:
+                      EdgeInsets.only(bottom: 20, top: currentData.topPadding),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        loadQuiz(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          side: const BorderSide(
+                            color: Color.fromARGB(255, 139, 0, 232),
+                            width: 2,
+                          ),
                         ),
                       ),
-                    ));
+                      child: const Text(
+                        'Take Quiz',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 139, 0, 232),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
               }
               return const SizedBox(height: 60);
             },

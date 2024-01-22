@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class ScorePage extends StatelessWidget {
   ScorePage({
     required this.score,
@@ -41,23 +42,19 @@ class ScorePage extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Card(
-              margin: const EdgeInsets.symmetric(
-                  horizontal: 16.0, vertical: 100.0),
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 100.0),
               color: Colors.white,
               child: SizedBox(
-                height: MediaQuery.of(context).size.height *
-                    0.8, // Adjust the height as needed
+                height: MediaQuery.of(context).size.height * 0.8,
                 child: Stack(
                   children: [
-                    // Background Image
                     Image.asset(
-                      'assets/images/poppers.png', // Replace with your image path
-                      height: MediaQuery.of(context).size.height *
-                          0.3, // 20% of card height
+                      'assets/images/poppers.png',
+                      height: MediaQuery.of(context).size.height * 0.3,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
-                    // Content Overlay
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 80),
@@ -65,7 +62,6 @@ class ScorePage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // Top Text
                           const Text(
                             'Result',
                             textAlign: TextAlign.center,
@@ -91,13 +87,13 @@ class ScorePage extends StatelessWidget {
                             height: 40,
                           ),
                           Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Image.asset(
-                                getImage(((score / totalQuestions) * 100)),
-                                height: 100,
-                                width: 100,
-                              )),
-                          // Congratulatory Text
+                            padding: const EdgeInsets.all(16.0),
+                            child: Image.asset(
+                              getImage(((score / totalQuestions) * 100)),
+                              height: 100,
+                              width: 100,
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
@@ -119,9 +115,7 @@ class ScorePage extends StatelessWidget {
                               color: Colors.black,
                             ),
                           ),
-                          // Your Score Text
                           const SizedBox(height: 25),
-                          // Thumbs Up Image
                           const Spacer(),
                         ],
                       ),
@@ -135,21 +129,20 @@ class ScorePage extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Container(
               padding: const EdgeInsets.only(bottom: 80),
-              width: MediaQuery.of(context).size.width *
-                  0.7, // Adjust the width as needed
+              width: MediaQuery.of(context).size.width * 0.7,
               child: ElevatedButton(
                 onPressed: isFinal
                     ? () async {
                         try {
                           var response = await http.get(Uri.parse(
                               "http://${dotenv.env["MY_IP"]}:3000/v1/api/certificate/Naveen Akash/SVCE/naveen.akash0904@gmail.com"));
-    
+
                           var responseData = jsonDecode(response.body);
-    
+
                           if (response.statusCode > 399) {
                             throw responseData["message"];
                           }
-                          
+
                           ScaffoldMessenger.of(context).clearSnackBars();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -160,13 +153,12 @@ class ScorePage extends StatelessWidget {
                           //   MaterialPageRoute(
                           //     builder: (context) => const HomePage(),
                           //   ),
-                          // );
+                          //
                         } catch (e) {
                           print(e);
                         }
                       }
                     : () {
-                        // Handle the button press
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (context) => const HomePage(),
@@ -183,7 +175,7 @@ class ScorePage extends StatelessWidget {
                 ),
                 child: Text(
                   isFinal ? "Generate Certificate" : 'Next Module',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
                     fontWeight: FontWeight.w800,

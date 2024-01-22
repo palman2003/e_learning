@@ -24,11 +24,6 @@ class _SplashPageState extends State<SplashPage> {
     prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
 
-    // await Future.delayed(
-    //   const Duration(seconds: 1),
-    //   () => {},
-    // );
-
     if (!mounted) {
       return;
     }
@@ -47,7 +42,7 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: ((context) => const SignupPage()),
+        builder: ((context) => const HomePage()),
       ),
     );
   }

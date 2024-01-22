@@ -51,15 +51,14 @@ class CourseTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
+        Navigator.of(context).push(
           MaterialPageRoute(
-            builder: ((context) => ModulePage(
-                  heroTag: heroTag,
-                  moduleData: moduleData,
-                  appBarTitle: "Module $index",
-                  title: title,
-                )),
+            builder: (context) => ModulePage(
+              heroTag: heroTag,
+              moduleData: moduleData,
+              appBarTitle: "Module $index",
+              title: title,
+            ),
           ),
         );
       },

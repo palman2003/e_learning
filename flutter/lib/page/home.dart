@@ -1,3 +1,4 @@
+import 'package:e_learning/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/widgets/course_tile.dart';
 import 'package:e_learning/data/module_data.dart';
@@ -15,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
+      drawer: CustomDrawer(),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(

@@ -1,6 +1,6 @@
 import 'package:e_learning/model/quiz_data.dart';
 
-final List<QuizData> quizDataList = [
+final List<QuizData> quizDataList1 = [
   const QuizData(
     answer: "Hair Dryer",
     options: [
