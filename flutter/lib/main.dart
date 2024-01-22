@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:e_learning/page/splash.dart';
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
@@ -11,6 +12,8 @@ final theme = ThemeData(
 );
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesManager.init();
   await dotenv.load();
   runApp(const App());
 }

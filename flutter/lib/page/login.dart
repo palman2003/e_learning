@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,14 +22,17 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  late SharedPreferences prefs;
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
+  bool isLoading = false;
 
   void login() async {
-    prefs = await SharedPreferences.getInstance();
-
     if (!_loginFormKey.currentState!.validate()) {
       return;
     }
+
+    setState(() {
+      isLoading = true;
+    });
 
     try {
       var response = await http.post(
@@ -48,7 +52,17 @@ class _LoginPageState extends State<LoginPage> {
         throw responseData["message"];
       }
 
-      await prefs.setString("token", responseData["token"]);
+      await prefs?.setString("token", responseData["token"]);
+      await prefs?.setString("email", responseData["email"]);
+      await prefs?.setString("username", responseData["username"]);
+      await prefs?.setString("phno", responseData["phno"]);
+      await prefs?.setString("city", responseData["city"]);
+      await prefs?.setString("college", responseData["college"]);
+      await prefs?.setString("branch", responseData["branch"]);
+
+      setState(() {
+        isLoading = false;
+      });
 
       if (!mounted) {
         return;
@@ -60,6 +74,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+
       if (!mounted) {
         return;
       }
@@ -218,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 15),
                         InkWell(
                           borderRadius: BorderRadius.circular(8),
-                          onTap: login,
+                          onTap: isLoading ? () {} : login,
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
@@ -228,13 +246,15 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.symmetric(
                               vertical: 15,
                             ),
-                            child: const Center(
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                            child: Center(
+                              child: isLoading
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      "Login",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),

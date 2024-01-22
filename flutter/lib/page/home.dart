@@ -1,20 +1,24 @@
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/widgets/course_tile.dart';
 import 'package:e_learning/data/module_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() {
-    return _HomePageState();
-  }
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
+
   @override
   Widget build(BuildContext context) {
+    final String? username = prefs?.getString("username");
+
     return Scaffold(
       drawer: CustomDrawer(),
       body: CustomScrollView(
@@ -25,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             pinned: true,
             scrolledUnderElevation: 0,
             title: Text(
-              "Hi Subash!",
+              "Hi $username!",
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

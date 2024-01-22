@@ -2,6 +2,7 @@ import 'package:e_learning/page/blank.dart';
 // ignore: unused_import
 import 'package:e_learning/page/home.dart';
 import 'package:e_learning/page/signup.dart';
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
@@ -16,13 +17,12 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  late SharedPreferences prefs;
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
   // ignore: prefer_typing_uninitialized_variables
   late var db;
 
-  void checkToken() async {
-    prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("token");
+  void checkToken() {
+    String? token = prefs?.getString("token");
 
     if (!mounted) {
       return;

@@ -26,33 +26,50 @@ router.post("/login", async (req, res) => {
       process.env.SECRET_KEY
     );
 
-    res.json({ token ,email:user.email, phno:user.phno, _id:user._id, college:user.college, branch:user.branch});
+    res.json({
+      token,
+      username: user.username,
+      email: user.email,
+      phno: user.phno,
+      userId: user._id,
+      college: user.college,
+      branch: user.branch,
+      city: user.city,
+    });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
+router.post("/register", async (req, res) => {
+  try {
+    const { username, email, phno, college, branch, city } = req.body;
+    let { password } = req.body;
 
-router.post('/register', async (req, res) => {
-    try {
-      const { username,email, phno, college, branch} = req.body;
-      let {password}=req.body;
+    // Check if username already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
 
-    
-  
-      // Check if username already exists
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({ message: 'Username already exists' });
-      }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    password = hashedPassword;
 
       
       const hashedPassword=await bcrypt.hash(password,10);
       password=hashedPassword
   
-      const newUser = new User({ username, 
-        email, password, phno, college, branch});
+          const newUser = new User({
+      username,
+      email,
+      password,
+      phno,
+      college,
+      branch,
+      city,
+    });
       await newUser.save();
       console.log("user registered");
       res.status(201).json({ message: 'User registered successfully' });
@@ -62,5 +79,14 @@ router.post('/register', async (req, res) => {
     }
   });
 
+
+    await newUser.save();
+    console.log("user registered");
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 module.exports = router;
