@@ -1,6 +1,7 @@
 import 'package:e_learning/page/login.dart';
 import 'package:e_learning/page/profile.dart';
 import 'package:e_learning/page/home.dart';
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,13 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({super.key});
 
-  late SharedPreferences prefs;
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
 
   @override
   Widget build(BuildContext context) {
     void logout() async {
-      prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
+      await prefs?.clear();
 
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(

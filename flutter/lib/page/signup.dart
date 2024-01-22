@@ -48,12 +48,12 @@ class _SignupPageState extends State<SignupPage> {
         body: jsonEncode(
           {
             "username": enteredUsername,
-            "email": enteredEmail,
+            "email": enteredEmail!.toLowerCase(),
             "password": enteredPassword,
             "phno": _phoneNumberController.text,
-            "city": _cityController.text,
-            "college": _collegeController.text,
-            "branch": _branchController.text
+            "city": _cityController.text.toUpperCase(),
+            "college": _collegeController.text.toUpperCase(),
+            "branch": _branchController.text.toUpperCase()
           },
         ),
       );
@@ -288,6 +288,7 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                   labelText: "Resident City",
                                   prefixIcon: const Icon(Icons.location_city),
+
                                 ),
                                 validator: (city) {
                                   if (city == null || city.trim().isEmpty) {
