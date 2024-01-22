@@ -1,6 +1,8 @@
 import 'package:e_learning/data/module_data.dart';
 import 'package:e_learning/data/quiz_data.dart';
+import 'package:e_learning/model/quiz_data.dart';
 import 'package:e_learning/page/quiz.dart';
+import 'package:e_learning/page/quiz_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,13 +12,19 @@ class ModulePage extends StatefulWidget {
     required this.heroTag,
     required this.appBarTitle,
     required this.title,
+    required this.isFinal,
+    required this.quizData,
+    required this.moduleIndex,
     super.key,
   });
 
   final List moduleData;
   final String heroTag;
   final String appBarTitle;
+  final bool isFinal;
   final String title;
+  final int moduleIndex;
+  final List<QuizData> quizData;
 
   @override
   State<StatefulWidget> createState() {
@@ -67,12 +75,27 @@ class _ModulePageState extends State<ModulePage> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          QuizPage(quizDataList: quizDataList1),
-                    ),
-                  );
+                  if (widget.isFinal) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => QuizSplash(
+                          quizData: widget.quizData,
+                          moduleIndex: widget.moduleIndex,
+                        ),
+                      ),
+                    );
+                  } else {
+                  Navigator.of(context).pop();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => QuizPage(
+                          quizData: widget.quizData,
+                          isFinal: widget.isFinal,
+                          moduleIndex: widget.moduleIndex,
+                        ),
+                      ),
+                    );
+                  }
                 },
                 child: const Text('Confirm'),
               )

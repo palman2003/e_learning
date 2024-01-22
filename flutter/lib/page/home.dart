@@ -1,3 +1,4 @@
+import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
@@ -112,13 +113,16 @@ class _HomePageState extends State<HomePage> {
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
+                  print(index == module.length - 1);
                   return Hero(
                     tag: "courseTile$index",
                     child: CourseTile(
                       title: moduleTitle[index],
-                      index: index + 1,
+                      moduleIndex: index + 1,
                       heroTag: "courseTile$index",
                       moduleData: module[index],
+                      quizData: quizDataList1,
+                      isFinal: index == module.length - 1,
                     ),
                   );
                 },

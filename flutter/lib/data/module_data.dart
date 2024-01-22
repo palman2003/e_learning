@@ -754,6 +754,8 @@ final List module = [
           //width: 100,
         ),
       ),
+      const QuizButton(),
+
       const SizedBox()
     ],
   ],
