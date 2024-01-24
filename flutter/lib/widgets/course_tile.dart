@@ -11,6 +11,7 @@ class CourseTile extends StatelessWidget {
     required this.heroTag,
     required this.quizData,
     required this.isFinal,
+    this.isIntro = false,
     super.key,
   });
 
@@ -20,6 +21,7 @@ class CourseTile extends StatelessWidget {
   final String heroTag;
   final int moduleIndex;
   final bool isFinal;
+  final bool isIntro;
 
   final List<Color> mainColors = [
     const Color.fromARGB(255, 147, 232, 146),
@@ -52,21 +54,23 @@ class CourseTile extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ModulePage(
-              heroTag: heroTag,
-              moduleData: moduleData,
-              appBarTitle: "Module $moduleIndex",
-              title: title,
-              quizData: quizData,
-              moduleIndex: moduleIndex,
-              isFinal: isFinal,
-            ),
-          ),
-        );
-      },
+      onTap: isIntro
+          ? () {}
+          : () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ModulePage(
+                    heroTag: heroTag,
+                    moduleData: moduleData,
+                    appBarTitle: "Module $moduleIndex",
+                    title: title,
+                    quizData: quizData,
+                    moduleIndex: moduleIndex,
+                    isFinal: isFinal,
+                  ),
+                ),
+              );
+            },
       child: Container(
         width: double.infinity,
         height: 175,

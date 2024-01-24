@@ -85,7 +85,7 @@ class _ModulePageState extends State<ModulePage> {
                       ),
                     );
                   } else {
-                  Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => QuizPage(
@@ -113,11 +113,14 @@ class _ModulePageState extends State<ModulePage> {
       child: Scaffold(
         appBar: AppBar(
           scrolledUnderElevation: 0,
+          backgroundColor: Color.fromARGB(255, 153, 0, 255),
+          foregroundColor: Colors.white,
           title: Text(
             widget.appBarTitle,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 64, 64, 64),
+                  // color: const Color.fromARGB(255, 64, 64, 64),
+                  color: Colors.white,
                 ),
           ),
           centerTitle: true,
@@ -128,9 +131,16 @@ class _ModulePageState extends State<ModulePage> {
           ),
         ),
         bottomSheet: Container(
-          color: Theme.of(context).colorScheme.background,
           height: 60,
           width: double.infinity,
+          color: Colors.white,
+          // decoration: const BoxDecoration(
+          // color: Color.fromARGB(255, 153, 0, 255),
+          //   borderRadius: BorderRadius.only(
+          //     topLeft: Radius.circular(20),
+          //     topRight: Radius.circular(20),
+          //   ),
+          // ),
           child: Row(
             children: [
               const SizedBox(width: 20),
@@ -142,10 +152,19 @@ class _ModulePageState extends State<ModulePage> {
                     });
                   }
                 },
-                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  // color: Colors.white,
+                ),
               ),
               const Spacer(),
-              Text("${sectionIndex + 1}/${widget.moduleData.length}"),
+              Text(
+                "${sectionIndex + 1}/${widget.moduleData.length}",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  // color: Colors.white,
+                ),
+              ),
               const Spacer(),
               IconButton(
                 onPressed: () {
@@ -155,7 +174,10 @@ class _ModulePageState extends State<ModulePage> {
                     });
                   }
                 },
-                icon: const Icon(Icons.arrow_forward_ios_rounded),
+                icon: const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  // color: Colors.white,
+                ),
               ),
               const SizedBox(width: 20),
             ],
@@ -181,7 +203,12 @@ class _ModulePageState extends State<ModulePage> {
             itemCount: widget.moduleData[sectionIndex].length,
             itemBuilder: (context, index) {
               var currentData = widget.moduleData[sectionIndex][index];
-              if (currentData is ImageContent) {
+              if (currentData is BodyImage) {
+                return Padding(
+                    padding: EdgeInsets.fromLTRB(30, currentData.topPadding, 30,
+                        currentData.bottomPadding),
+                    child: currentData.image);
+              } else if (currentData is HeadImage) {
                 return currentData.image;
               } else if (currentData is Heading) {
                 return Padding(
@@ -250,12 +277,24 @@ class _ModulePageState extends State<ModulePage> {
                 );
               } else if (currentData is SubBulletPoint) {
                 return Padding(
-                  padding: EdgeInsets.fromLTRB(70, currentData.topPadding, 30,
-                      currentData.bottomPadding),
+                  padding: EdgeInsets.fromLTRB(currentData.leftPadding + 30,
+                      currentData.topPadding, 30, currentData.bottomPadding),
                   child: Text(
                     "◉    ${currentData.text}",
                     textAlign: TextAlign.start,
                     style: bodyStyle,
+                  ),
+                );
+              } else if (currentData is Boxes) {
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    30,
+                    currentData.topPadding,
+                    30,
+                    currentData.bottomPadding,
+                  ),
+                  child: Column(
+                    children: [],
                   ),
                 );
               } else if (currentData is Body) {

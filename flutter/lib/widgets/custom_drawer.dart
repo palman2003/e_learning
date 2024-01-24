@@ -53,7 +53,7 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ProfilePage(),
+                  builder: (context) => ProfilePage(),
                 ),
               );
             },
