@@ -3,58 +3,66 @@ import 'package:flutter/material.dart';
 var width;
 
 class Heading {
-  const Heading({
-    required this.text,
-    this.topPadding = 20,
-    this.bottomPadding = 0,
-  });
+  const Heading(
+      {required this.text,
+      this.topPadding = 20,
+      this.bottomPadding = 0,
+      this.textColor = Colors.black});
   final String text;
+  final Color textColor;
   final double topPadding;
   final double bottomPadding;
 }
 
 class SubHeading {
-  const SubHeading({
-    required this.text,
-    this.topPadding = 20,
-    this.bottomPadding = 5,
-  });
+  const SubHeading(
+      {required this.text,
+      this.topPadding = 20,
+      this.bottomPadding = 5,
+      this.textColor = Colors.black});
   final String text;
   final double topPadding;
+  final Color textColor;
+
   final double bottomPadding;
 }
 
 class Body {
-  const Body({
-    required this.text,
-    this.topPadding = 10,
-    this.bottomPadding = 10,
-  });
+  const Body(
+      {required this.text,
+      this.topPadding = 10,
+      this.bottomPadding = 10,
+      this.textColor = Colors.black});
   final String text;
+  final Color textColor;
+
   final double topPadding;
   final double bottomPadding;
 }
 
 class BulletPoint {
-  const BulletPoint({
-    required this.text,
-    this.topPadding = 10,
-    this.bottomPadding = 10,
-  });
+  const BulletPoint(
+      {required this.text,
+      this.topPadding = 10,
+      this.bottomPadding = 10,
+      this.textColor = Colors.black});
   final String text;
   final double topPadding;
+  final Color textColor;
+
   final double bottomPadding;
 }
 
 class SubBulletPoint {
-  const SubBulletPoint({
-    required this.text,
-    this.topPadding = 0,
-    this.bottomPadding = 10,
-    this.leftPadding = 20,
-  });
+  const SubBulletPoint(
+      {required this.text,
+      this.topPadding = 0,
+      this.bottomPadding = 10,
+      this.leftPadding = 20,
+      this.textColor = Colors.black});
   final String text;
   final double topPadding;
+  final Color textColor;
   final double bottomPadding;
   final double leftPadding;
 }
@@ -115,6 +123,11 @@ class QuizButton {
     this.topPadding = 10,
   });
   final double topPadding;
+}
+
+class ImageSlider {
+  ImageSlider({required this.imageList});
+  final List<String> imageList;
 }
 
 final List moduleTitle = [
@@ -203,6 +216,13 @@ final List module = [
             "The main difference between the two is that FMCG products are consumable while FMCD products are non-durable and have a longer usage period. They also differ basis the buying decision. ",
       ),
       const SizedBox()
+    ],
+    [
+      ImageSlider(imageList: [
+        'assets/images/module1/buying_decisions.png',
+        'assets/images/module1/class_of_outlets.png',
+        'assets/images/module1/buying_decisions.png'
+      ])
     ],
     [
       const Heading(text: "Shelf Analytics"),
