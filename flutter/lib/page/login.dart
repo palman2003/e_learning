@@ -46,10 +46,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
 
-
-
       var responseData = jsonDecode(response.body);
-print(responseData);
+      print(responseData);
       if (response.statusCode > 399) {
         throw responseData["message"];
       }
