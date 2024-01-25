@@ -206,8 +206,7 @@ class _ModulePageState extends State<ModulePage> {
               var currentData = widget.moduleData[sectionIndex][index];
               if (currentData is BodyImage) {
                 return Padding(
-                    padding: EdgeInsets.fromLTRB(30, currentData.topPadding, 30,
-                        currentData.bottomPadding),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     child: currentData.image);
               } else if (currentData is HeadImage) {
                 return currentData.image;
@@ -353,27 +352,29 @@ class _ModulePageState extends State<ModulePage> {
                 );
               } else if (currentData is ImageSlider) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  padding: EdgeInsets.symmetric(
+                      vertical: currentData.verticalPadding),
                   child: CarouselSlider(
-                      items: currentData.imageList
-                          .map((e) => ClipRRect(
+                    items: currentData.imageList
+                        .map((e) => ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Stack(
-                                // fit: StackFit.expand,
-                                children: <Widget>[
-                                  Image.asset(
-                                    e,
-                                    // width: currentData.width,
-                                    height: currentData.height,
-                                    // fit: BoxFit.fill,
-                                  )
-                                ],
-                              )))
-                          .toList(),
-                      options: CarouselOptions(
-                          enlargeCenterPage: true,
-                          enableInfiniteScroll: false,
-                          autoPlay: true)),
+                              child: Container(
+                                height: currentData.height,
+                                child: Image.asset(
+                                  e,
+                                  height: currentData.height,
+                                  fit: BoxFit
+                                      .fitWidth, // You can set the fit property as needed
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    options: CarouselOptions(
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: false,
+                      autoPlay: true,
+                    ),
+                  ),
                 );
               }
               return const SizedBox(height: 60);
