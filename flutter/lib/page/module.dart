@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_learning/data/module_data.dart';
 import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/model/quiz_data.dart';
@@ -334,6 +335,30 @@ class _ModulePageState extends State<ModulePage> {
                       ),
                     ),
                   ),
+                );
+              } else if (currentData is ImageSlider) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  child: CarouselSlider(
+                      items: currentData.imageList
+                          .map((e) => ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Stack(
+                                fit: StackFit.expand,
+                                children: <Widget>[
+                                  Image.asset(
+                                    e,
+                                    width: 1050,
+                                    height: 350,
+                                    fit: BoxFit.fill,
+                                  )
+                                ],
+                              )))
+                          .toList(),
+                      options: CarouselOptions(
+                          enlargeCenterPage: true,
+                          enableInfiniteScroll: false,
+                          autoPlay: true)),
                 );
               }
               return const SizedBox(height: 60);
