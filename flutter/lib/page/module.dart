@@ -356,16 +356,15 @@ class _ModulePageState extends State<ModulePage> {
                       vertical: currentData.verticalPadding),
                   child: CarouselSlider(
                     items: currentData.imageList
-                        .map((e) => ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Container(
+                        .map((e) => Container(
+                              height: currentData.height,
+                              width: 100,
+                              child: Image.asset(
+                                e,
                                 height: currentData.height,
-                                child: Image.asset(
-                                  e,
-                                  height: currentData.height,
-                                  fit: BoxFit
-                                      .fitWidth, // You can set the fit property as needed
-                                ),
+                                width: 100,
+                                fit: BoxFit
+                                    .fitWidth, // You can set the fit property as needed
                               ),
                             ))
                         .toList(),
@@ -377,7 +376,7 @@ class _ModulePageState extends State<ModulePage> {
                   ),
                 );
               }
-              return const SizedBox(height: 60);
+              return const SizedBox(height: 65);
             },
           ),
         ),

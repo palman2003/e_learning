@@ -130,11 +130,11 @@ class ImageSlider {
   ImageSlider(
       {required this.imageList,
       required this.height,
-      //srequired this.width,
+      required this.width,
       required this.verticalPadding});
   final List<String> imageList;
   final double height;
-  // final double width;
+  final double width;
   final double verticalPadding;
 }
 
@@ -158,7 +158,7 @@ final List module = [
       HeadImage(
         image: Image.asset(
           "assets/images/module1/FMCG and FMCD.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -181,27 +181,34 @@ final List module = [
       BulletPoint(
           text:
               "Products that are non-durable and have a longer usage period. They also differ basis the buying decision.  "),
+      const SizedBox()
     ],
     [
       Heading(text: "Some Examples of FMCG and FMCD"),
-      SubHeading(text: "FMCG"),
-      ImageSlider(imageList: [
-        'assets/images/module1/eg1.png',
-        'assets/images/module1/eg2.png',
-        'assets/images/module1/eg3.png',
-        'assets/images/module1/eg4.png',
-      ], height: 100, verticalPadding: 10
-          //   width: double.infinity,
-          ),
-      SubHeading(text: "FMCD"),
-      ImageSlider(imageList: [
-        'assets/images/module1/eg5.png',
-        'assets/images/module1/eg6.png',
-        'assets/images/module1/eg7.png',
-        'assets/images/module1/eg8.png',
-      ], height: 100, verticalPadding: 10
-          //   width: double.infinity,
-          ),
+      SubHeading(text: "FMCG", bottomPadding: 0),
+      ImageSlider(
+        imageList: [
+          'assets/images/module1/eg1.png',
+          'assets/images/module1/eg2.png',
+          'assets/images/module1/eg3.png',
+          'assets/images/module1/eg4.png',
+        ],
+        height: 100,
+        verticalPadding: 10,
+        width: double.infinity,
+      ),
+      SubHeading(text: "FMCD", bottomPadding: 0, topPadding: 0),
+      ImageSlider(
+        imageList: [
+          'assets/images/module1/eg5.png',
+          'assets/images/module1/eg6.png',
+          'assets/images/module1/eg7.png',
+          'assets/images/module1/eg8.png',
+        ],
+        height: 100,
+        verticalPadding: 10,
+        width: double.infinity,
+      ),
       SubHeading(text: "Companies"),
       BulletPoint(text: "FMCG: Unilever, P&G, ITC, CavinKare, General Mills"),
       BulletPoint(text: "FMCD: HP, Whirlpool, Voltas, Philips, Hitachi"),
@@ -219,6 +226,7 @@ final List module = [
           text:
               "Household appliances  Washing Machine, Iron, Oven, Vacuum Cleaner etc"),
       SubBulletPoint(text: "Electronic gadgets  Smart Phones, Laptops etc"),
+      const SizedBox()
     ],
     [
       const Heading(text: "Buying Decision"),
@@ -267,6 +275,7 @@ final List module = [
       const BulletPoint(
           text:
               'This is applicable across various categories in the FMCG space'),
+      const SizedBox(),
     ],
     [
       Heading(text: "Low Involvement & High Involvement Purchase"),
@@ -296,6 +305,7 @@ final List module = [
           // height: 300,
         ),
       ),
+      const SizedBox(),
     ],
     [
       const Heading(text: 'Distribution'),
@@ -354,6 +364,7 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
+      const SizedBox()
     ],
     [
       const Heading(text: 'Importance of Distribution'),
@@ -377,6 +388,7 @@ final List module = [
       const BulletPoint(
           text:
               'Case 3 -> Product B is available and visible. Product B has higher chances of getting sold'),
+      const SizedBox()
     ],
     [
       Heading(text: "Importance of Distribution"),
@@ -411,6 +423,7 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
+      const SizedBox()
     ],
     [
       Heading(text: "General Trade vs Modern trade"),
@@ -475,14 +488,17 @@ final List module = [
     ],
     [
       Heading(text: "Some examples of Outlets"),
-      ImageSlider(imageList: [
-        "assets/images/module1/outlet1.png",
-        "assets/images/module1/outlet2.png",
-        "assets/images/module1/outlet3.png",
-        "assets/images/module1/outlet4.png",
-      ], height: 200, verticalPadding: 50
-          //   width: double.infinity,
-          ),
+      ImageSlider(
+        imageList: [
+          "assets/images/module1/outlet1.png",
+          "assets/images/module1/outlet2.png",
+          "assets/images/module1/outlet3.png",
+          "assets/images/module1/outlet4.png",
+        ],
+        height: 200,
+        verticalPadding: 50,
+        width: double.infinity,
+      ),
       const Heading(text: 'Channel Satisfaction'),
       const BulletPoint(
           text:
@@ -496,6 +512,7 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
+      const SizedBox()
     ],
     [
       Heading(text: "Factors affecting channel satisfaction"),
@@ -597,18 +614,22 @@ final List module = [
       const BulletPoint(
           text:
               'Display also helps the shopper in making it easier for them to self select'),
+      const SizedBox()
     ],
     [
       Heading(text: "Different types of Display Merchandize"),
-      ImageSlider(imageList: [
-        "assets/images/module1/merch1.png",
-        "assets/images/module1/merch2.png",
-        "assets/images/module1/merch3.png",
-        "assets/images/module1/merch4.png",
-        "assets/images/module1/merch5.png",
-      ], height: 300, verticalPadding: 50
-          //   width: double.infinity,
-          ),
+      ImageSlider(
+        imageList: [
+          "assets/images/module1/merch1.png",
+          "assets/images/module1/merch2.png",
+          "assets/images/module1/merch3.png",
+          "assets/images/module1/merch4.png",
+          "assets/images/module1/merch5.png",
+        ],
+        height: 300,
+        verticalPadding: 50,
+        width: double.infinity,
+      ),
       const BulletPoint(text: 'Different types of Display:'),
       const SubBulletPoint(text: 'Floor Stand'),
       const SubBulletPoint(text: 'Showcase'),
@@ -680,12 +701,15 @@ final List module = [
     [
       const Heading(text: 'Visibility'),
       const Body(text: 'Visibility -> Primary & Secondary'),
-      ImageSlider(imageList: [
-        "assets/images/module1/visiblity_1.png",
-        "assets/images/module1/visiblity_2.png"
-      ], height: 400, verticalPadding: 0
-          //   width: double.infinity,
-          ),
+      ImageSlider(
+        imageList: [
+          "assets/images/module1/visiblity_1.png",
+          "assets/images/module1/visiblity_2.png"
+        ],
+        height: 400,
+        verticalPadding: 0,
+        width: double.infinity,
+      ),
       const SizedBox(),
       BulletPoint(
           topPadding: 0,
@@ -761,7 +785,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -879,7 +903,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -997,7 +1021,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1115,7 +1139,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1233,7 +1257,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1351,7 +1375,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1469,7 +1493,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1587,7 +1611,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1705,7 +1729,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1823,7 +1847,7 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          //   width: double.infinity,
+          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),

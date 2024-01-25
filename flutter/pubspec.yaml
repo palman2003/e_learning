@@ -74,6 +74,7 @@ flutter:
     - assets/images/sample/
     - assets/images/module1/
     - assets/images/score/
+    - assets/images/profile/
     - .env
 
   
