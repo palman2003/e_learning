@@ -309,31 +309,46 @@ class _ModulePageState extends State<ModulePage> {
                 );
               } else if (currentData is QuizButton) {
                 return Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 20, top: currentData.topPadding),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        loadQuiz(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          side: const BorderSide(
+                  padding: EdgeInsets.only(
+                      bottom: 20,
+                      top: currentData.topPadding,
+                      right: 30,
+                      left: 30),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/module1/quiz.png",
+                        height: 300,
+                      ),
+                      Text(
+                        "Now that you have gone through the course content, you will have to take a quiz which will cover all the topics of this module. You will have a total of 17 questions out of which you should get at least 11 of them right to proceed to the next section.",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      SizedBox(height: 50),
+                      ElevatedButton(
+                        onPressed: () {
+                          loadQuiz(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            side: const BorderSide(
+                              color: Color.fromARGB(255, 139, 0, 232),
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          'Take Quiz',
+                          style: TextStyle(
                             color: Color.fromARGB(255, 139, 0, 232),
-                            width: 2,
                           ),
                         ),
                       ),
-                      child: const Text(
-                        'Take Quiz',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 139, 0, 232),
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 );
               } else if (currentData is ImageSlider) {
@@ -344,13 +359,13 @@ class _ModulePageState extends State<ModulePage> {
                           .map((e) => ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Stack(
-                                fit: StackFit.expand,
+                                // fit: StackFit.expand,
                                 children: <Widget>[
                                   Image.asset(
                                     e,
-                                    width: 1050,
-                                    height: 350,
-                                    fit: BoxFit.fill,
+                                    // width: currentData.width,
+                                    height: currentData.height,
+                                    // fit: BoxFit.fill,
                                   )
                                 ],
                               )))
