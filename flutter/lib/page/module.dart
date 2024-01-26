@@ -34,28 +34,6 @@ class ModulePage extends StatefulWidget {
 }
 
 class _ModulePageState extends State<ModulePage> {
-  final headingStyle = GoogleFonts.merriweather().copyWith(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-    color: const Color.fromARGB(255, 48, 48, 48),
-    // wordSpacing: 5,
-  );
-
-  final subHeadingStyle = GoogleFonts.merriweather().copyWith(
-    fontSize: 17,
-    fontWeight: FontWeight.bold,
-    color: const Color.fromARGB(255, 48, 48, 48),
-    // wordSpacing: 5,
-  );
-
-  final bodyStyle = GoogleFonts.merriweather().copyWith(
-    fontSize: 14,
-    // color: Color.fromARGB(255, 64, 64, 64),
-    // fontWeight: FontWeight.bold,
-    color: const Color.fromARGB(255, 48, 48, 48),
-    // wordSpacing: 3,
-  );
-
   Future<void> loadQuiz(BuildContext context) async {
     return showDialog(
         context: context,
@@ -217,7 +195,13 @@ class _ModulePageState extends State<ModulePage> {
                   child: Center(
                     child: Text(
                       currentData.text,
-                      style: headingStyle,
+                      style: GoogleFonts.merriweather().copyWith(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: currentData.textColor,
+                        backgroundColor: currentData.bgColor
+                        // wordSpacing: 5,
+                      ),
                       softWrap: true,
                     ),
                   ),
@@ -258,7 +242,13 @@ class _ModulePageState extends State<ModulePage> {
                       Flexible(
                         child: Text(
                           currentData.text,
-                          style: subHeadingStyle,
+                          style: GoogleFonts.merriweather().copyWith(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: currentData.textColor,
+                            backgroundColor: currentData.bgColor,
+                            // wordSpacing: 5,
+                          ),
                           softWrap: true,
                         ),
                       ),
@@ -272,7 +262,14 @@ class _ModulePageState extends State<ModulePage> {
                   child: Text(
                     "◉    ${currentData.text}",
                     textAlign: TextAlign.start,
-                    style: bodyStyle,
+                    style: GoogleFonts.merriweather().copyWith(
+                      fontSize: 14,
+                      // color: Color.fromARGB(255, 64, 64, 64),
+                      // fontWeight: FontWeight.bold,
+                      backgroundColor: currentData.bgColor,
+                      color: currentData.textColor,
+                      // wordSpacing: 3,
+                    ),
                   ),
                 );
               } else if (currentData is SubBulletPoint) {
@@ -282,7 +279,13 @@ class _ModulePageState extends State<ModulePage> {
                   child: Text(
                     "◉    ${currentData.text}",
                     textAlign: TextAlign.start,
-                    style: bodyStyle,
+                    style: GoogleFonts.merriweather().copyWith(
+                      fontSize: 14,
+                      // color: Color.fromARGB(255, 64, 64, 64),
+                      // fontWeight: FontWeight.bold,
+                      color: currentData.textColor,
+                      // wordSpacing: 3,
+                    ),
                   ),
                 );
               } else if (currentData is Boxes) {
@@ -303,7 +306,13 @@ class _ModulePageState extends State<ModulePage> {
                       currentData.bottomPadding),
                   child: Text(
                     currentData.text,
-                    style: bodyStyle,
+                    style: GoogleFonts.merriweather().copyWith(
+                      fontSize: 14,
+                      // color: Color.fromARGB(255, 64, 64, 64),
+                      // fontWeight: FontWeight.bold,
+                      color: currentData.textColor,
+                      // wordSpacing: 3,
+                    ),
                   ),
                 );
               } else if (currentData is QuizButton) {
