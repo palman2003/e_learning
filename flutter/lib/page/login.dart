@@ -60,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
       await prefs?.setString("city", responseData["city"]);
       await prefs?.setString("college", responseData["college"]);
       await prefs?.setString("branch", responseData["branch"]);
+      await prefs?.setInt("progress", responseData["progress"]);
 
       setState(() {
         isLoading = false;
@@ -68,12 +69,22 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) {
         return;
       }
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      );
+
+      if (responseData["intro"]) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Placeholder(),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+        );
+      }
     } catch (error) {
       setState(() {
         isLoading = false;

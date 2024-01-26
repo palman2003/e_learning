@@ -29,14 +29,12 @@ class _ScorePageState extends State<ScorePage> {
   bool isCertificateLoading = false;
 
   String getImage(double score) {
-    if (score >= 80 && score <= 100) {
+    if (score >= 90 && score <= 100) {
       return 'assets/images/score/excellent.webp';
-    } else if (score >= 60 && score <= 70) {
-      return 'assets/images/score/goodjob.webp';
-    } else if (score >= 50 && score <= 40) {
+    } else if (score >= 75 && score < 90) {
       return 'assets/images/score/welldone.webp';
-    } else if (score >= 30 && score <= 20) {
-      return 'assets/images/score/average.webp';
+    } else if (score >= 60 && score < 75) {
+      return 'assets/images/score/goodjob.webp';
     } else {
       return 'assets/images/score/needsimprovement.webp';
     }

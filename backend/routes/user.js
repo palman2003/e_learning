@@ -20,11 +20,23 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    
+
     // Generate a JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.SECRET_KEY
     );
+
+    let progress = 0;
+
+    user.Module.forEach((ele) => {
+      if(ele){
+        progress++;
+      }
+    });
+
+    console.log(progress);
 
     res.json({
       token,
@@ -34,8 +46,17 @@ router.post("/login", async (req, res) => {
       college: user.college,
       branch: user.branch,
       city: user.city,
+      intro: user.introduction,
       username: user.username,
+      progress: progress,
     });
+
+    //set the introduction to true
+
+    if(user.introduction==true){
+      user.introduction=false;
+      await user.save();
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

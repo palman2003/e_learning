@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_learning/data/module_data.dart';
 import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/model/quiz_data.dart';
 import 'package:e_learning/page/quiz.dart';
 import 'package:e_learning/page/quiz_splash.dart';
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ModulePage extends StatefulWidget {
   const ModulePage({
@@ -34,6 +40,8 @@ class ModulePage extends StatefulWidget {
 }
 
 class _ModulePageState extends State<ModulePage> {
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
+
   Future<void> loadQuiz(BuildContext context) async {
     return showDialog(
         context: context,
@@ -146,7 +154,43 @@ class _ModulePageState extends State<ModulePage> {
               ),
               const Spacer(),
               IconButton(
-                onPressed: () {
+                onPressed: () async {
+                  if (!(sectionIndex == widget.moduleData.length - 2)) {
+                    try {
+                      var response = await http.post(
+                        Uri.parse(
+                            "http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
+                        headers: {"Content-Type": "application/json"},
+                        body: jsonEncode(
+                          {
+                            "email": prefs!.getString("email"),
+                            "module": 1,
+                          },
+                        ),
+                      );
+
+                      var responseData = jsonDecode(response.body);
+
+                      if (response.statusCode > 399) {
+                        throw responseData["message"];
+                      }
+
+                      if (responseData["increment"]) {
+                        await prefs!.setInt(
+                            "progress", (prefs!.getInt("progress")!) + 1);
+                      }
+                    } catch (error) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            error.toString(),
+                          ),
+                        ),
+                      );
+                    }
+                  }
+                  
                   if (!(sectionIndex == widget.moduleData.length - 1)) {
                     setState(() {
                       sectionIndex++;
@@ -196,12 +240,12 @@ class _ModulePageState extends State<ModulePage> {
                     child: Text(
                       currentData.text,
                       style: GoogleFonts.merriweather().copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: currentData.textColor,
-                        backgroundColor: currentData.bgColor
-                        // wordSpacing: 5,
-                      ),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: currentData.textColor,
+                          backgroundColor: currentData.bgColor
+                          // wordSpacing: 5,
+                          ),
                       softWrap: true,
                     ),
                   ),
