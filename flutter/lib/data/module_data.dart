@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
 
 class Heading {
-  const Heading(
-      {required this.text,
-      this.topPadding = 20,
-      this.bottomPadding = 0,
-      this.textColor = Colors.black});
+  const Heading({
+    required this.text,
+    this.topPadding = 20,
+    this.bottomPadding = 0,
+    this.textColor = const Color.fromARGB(255, 48, 48, 48),
+    this.bgColor = Colors.transparent,
+  });
   final String text;
   final Color textColor;
+  final Color bgColor;
   final double topPadding;
   final double bottomPadding;
 }
 
 class SubHeading {
-  const SubHeading(
-      {required this.text,
-      this.topPadding = 20,
-      this.bottomPadding = 5,
-      this.textColor = Colors.black});
+  const SubHeading({
+    required this.text,
+    this.topPadding = 20,
+    this.bottomPadding = 5,
+    this.textColor = const Color.fromARGB(255, 48, 48, 48),
+    this.bgColor = Colors.transparent,
+  });
   final String text;
   final double topPadding;
   final Color textColor;
-
+  final Color bgColor;
   final double bottomPadding;
 }
 
 class Body {
-  const Body(
-      {required this.text,
-      this.topPadding = 10,
-      this.bottomPadding = 10,
-      this.textColor = Colors.black});
+  const Body({
+    required this.text,
+    this.topPadding = 10,
+    this.bottomPadding = 10,
+    this.textColor = const Color.fromARGB(255, 48, 48, 48),
+  });
   final String text;
   final Color textColor;
 
@@ -39,14 +45,17 @@ class Body {
 }
 
 class BulletPoint {
-  const BulletPoint(
-      {required this.text,
-      this.topPadding = 10,
-      this.bottomPadding = 10,
-      this.textColor = Colors.black});
+  const BulletPoint({
+    required this.text,
+    this.topPadding = 10,
+    this.bottomPadding = 10,
+    this.textColor = Colors.black,
+    this.bgColor = Colors.transparent,
+  });
   final String text;
   final double topPadding;
   final Color textColor;
+  final Color bgColor;
 
   final double bottomPadding;
 }
@@ -165,23 +174,31 @@ final List module = [
         "Discount and coupons",
         "Point of sale"
       ]),
-      const Heading(text: "FMCG and FMCD Industry"),
-      const SubHeading(text: "FMCG -> Fast Moving Consumer Goods"),
-      BulletPoint(text: "Products that are: "),
-      SubBulletPoint(text: "consumed at least once a month"),
-      SubBulletPoint(
+      const Heading(
+        text: "FMCG and FMCD Industry",
+      ),
+      const SubHeading(
+        text: "FMCG -> Fast Moving Consumer Goods",
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const BulletPoint(text: "Products that are: "),
+      const SubBulletPoint(text: "consumed at least once a month"),
+      const SubBulletPoint(
           text: "sold under the national brands in consumer packages"),
-      SubBulletPoint(text: "sold through a wide spared distribution network"),
-      SubBulletPoint(text: "consumed directly by the consumers."),
-      const SubHeading(text: "FMCD -> Fast Moving Consumer Durables"),
-      BulletPoint(
+      const SubBulletPoint(text: "sold through a wide spared distribution network"),
+      const SubBulletPoint(text: "consumed directly by the consumers."),
+      const SubHeading(
+        text: "FMCD -> Fast Moving Consumer Durables",
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const BulletPoint(
           text:
               "Products that are non-durable and have a longer usage period. They also differ basis the buying decision.  "),
       const SizedBox()
     ],
     [
-      Heading(text: "Some Examples of FMCG and FMCD"),
-      SubHeading(text: "FMCG", bottomPadding: 0),
+      const Heading(text: "Some Examples of FMCG and FMCD"),
+      const SubHeading(text: "FMCG", bottomPadding: 0),
       ImageSlider(
         imageList: [
           'assets/images/module1/eg1.png',
@@ -192,7 +209,7 @@ final List module = [
         height: 100,
         verticalPadding: 10,
       ),
-      SubHeading(text: "FMCD", bottomPadding: 0, topPadding: 0),
+      const SubHeading(text: "FMCD", bottomPadding: 0, topPadding: 0),
       ImageSlider(
         imageList: [
           'assets/images/module1/eg5.png',
@@ -203,48 +220,50 @@ final List module = [
         height: 100,
         verticalPadding: 10,
       ),
-      SubHeading(text: "Companies"),
-      BulletPoint(text: "FMCG: Unilever, P&G, ITC, CavinKare, General Mills"),
-      BulletPoint(text: "FMCD: HP, Whirlpool, Voltas, Philips, Hitachi"),
-      SubHeading(text: "Products"),
-      BulletPoint(text: "FMCG"),
-      SubBulletPoint(
+      const SizedBox()
+    ],
+    [
+      const SubHeading(text: "Companies"),
+      const BulletPoint(text: "FMCG: Unilever, P&G, ITC, CavinKare, General Mills"),
+      const BulletPoint(text: "FMCD: HP, Whirlpool, Voltas, Philips, Hitachi"),
+      const SubHeading(text: "Products"),
+      const BulletPoint(text: "FMCG"),
+      const SubBulletPoint(
           text: "Personal Care products -> Shampoo, Face Wash, Soap etc"),
-      SubBulletPoint(
+      const SubBulletPoint(
           text:
               "Packaged Food & Beverages  Chips, Juices, Carbonated drinks etc"),
-      SubBulletPoint(text: "Laundry  Detergent etc"),
-      BulletPoint(text: "FMCD"),
-      SubBulletPoint(text: "Automobile  Cars, Bikes, Trucks etc"),
-      SubBulletPoint(
+      const SubBulletPoint(text: "Laundry  Detergent etc"),
+      const BulletPoint(text: "FMCD"),
+      const SubBulletPoint(text: "Automobile  Cars, Bikes, Trucks etc"),
+      const SubBulletPoint(
           text:
               "Household appliances  Washing Machine, Iron, Oven, Vacuum Cleaner etc"),
-      SubBulletPoint(text: "Electronic gadgets  Smart Phones, Laptops etc"),
-      const SizedBox()
+      const SubBulletPoint(text: "Electronic gadgets  Smart Phones, Laptops etc"),
     ],
     [
       const Heading(text: "Buying Decision"),
       BodyImage(
           image: Image.asset("assets/images/module1/buying_decision.png")),
-      BulletPoint(
+      const BulletPoint(
           text:
               "While FMCG and FMCD companies will have products to sell, but how a person ends up buying is still a blackbox"),
-      BulletPoint(
+      const BulletPoint(
           text:
               "We do NOT know what all went into purchasing a particular product."),
-      BulletPoint(text: "However, in general it consists of 6 steps:"),
-      SubBulletPoint(text: "Need recognition"),
-      SubBulletPoint(text: "Information search"),
-      SubBulletPoint(text: "Alternative evaluation"),
-      SubBulletPoint(text: "Purchase decision"),
-      SubBulletPoint(text: "Completing the purchase"),
-      SubBulletPoint(text: "Post purchase evaluation"),
+      const BulletPoint(text: "However, in general it consists of 6 steps:"),
+      const SubBulletPoint(text: "Need recognition"),
+      const SubBulletPoint(text: "Information search"),
+      const SubBulletPoint(text: "Alternative evaluation"),
+      const SubBulletPoint(text: "Purchase decision"),
+      const SubBulletPoint(text: "Completing the purchase"),
+      const SubBulletPoint(text: "Post purchase evaluation"),
       //
       const SizedBox()
     ],
     [
       const Heading(text: "Buying Decision in context of FMCG and FMCD"),
-      SubHeading(text: "Types of buying decision"),
+      const SubHeading(text: "Types of buying decision"),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/buying_decisions_types.png",
@@ -253,16 +272,24 @@ final List module = [
           height: 300,
         ),
       ),
-      BulletPoint(
+      const BulletPoint(
           text:
               "Steps involved in decision making would also depend on the type of product"),
       const BulletPoint(text: 'Basis the same, products can be classified as'),
+      const BulletPoint(
+        text: 'Low Involvement (LIP):',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
       const SubBulletPoint(
           text:
-              'Low Involvement (LIP): products which are bought frequently and with a minimum of thought and effort'),
+              'products which are bought frequently and with a minimum of thought and effort'),
+      const BulletPoint(
+        text: 'High Involvement (HIP):',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
       const SubBulletPoint(
           text:
-              'High Involvement (HIP): products for which the buyer is prepared to spend considerable time and effort in searching.'),
+              'products for which the buyer is prepared to spend considerable time and effort in searching.'),
       const BulletPoint(
           text:
               'Generally, LIP -> FMCG products, while HIP -> Durable & Luxury products'),
@@ -272,7 +299,7 @@ final List module = [
       const SizedBox(),
     ],
     [
-      Heading(text: "Low Involvement & High Involvement Purchase"),
+      const Heading(text: "Low Involvement & High Involvement Purchase"),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/buying_decisions.png",
@@ -317,6 +344,24 @@ final List module = [
       const BulletPoint(
           text:
               'Two types ->  Direct and Indirect Distribution (Majority of the FMCG entities follow Indirect Distribution '),
+      const SubHeading(text: "Direct Distribution - Schematics"),
+      BodyImage(
+        image: Image.asset(
+          'assets/images/module1/direct_distribution.png',
+          fit: BoxFit.fill,
+        ),
+      ),
+      const SubHeading(text: "Indirect Distribution - Schematics"),
+      BodyImage(
+        image: Image.asset(
+          'assets/images/module1/indirect_distribution.png',
+          fit: BoxFit.fill,
+          height: 75,
+        ),
+      ),
+      const SizedBox()
+    ],
+    [
       const SubHeading(text: 'Direct Distribution'),
       const BulletPoint(text: 'Pros'),
       const SubBulletPoint(
@@ -328,9 +373,6 @@ final List module = [
       const SubBulletPoint(
           text: 'More time-consuming and expensive for some business owners'),
       const SubBulletPoint(text: 'Limited market coverage.'),
-      const SizedBox()
-    ],
-    [
       const SubHeading(text: 'Indirect Distribution'),
       const BulletPoint(text: 'Pros'),
       const SubBulletPoint(
@@ -345,19 +387,6 @@ final List module = [
       const SubBulletPoint(
           text:
               'Retailers may sell your competitors’ products alongside yours.'),
-      Heading(text: "Direct & Indirect Distribution - Schematics"),
-      BodyImage(
-        image: Image.asset(
-          'assets/images/module1/direct_distribution.png',
-          fit: BoxFit.fill,
-        ),
-      ),
-      BodyImage(
-        image: Image.asset(
-          'assets/images/module1/indirect_distribution.png',
-          fit: BoxFit.fill,
-        ),
-      ),
       const SizedBox()
     ],
     [
@@ -367,7 +396,7 @@ final List module = [
               'For a product to be sold – it should be available and visible'),
       BodyImage(
         image: Image.asset(
-          "assets/images/module1/importance_of_distribution.png",
+          "assets/images/module1/case1.png",
           fit: BoxFit.fill,
           // width: 100,
           // height: 300,
@@ -376,23 +405,39 @@ final List module = [
       const BulletPoint(
           text:
               'Case 1 -> Product A & B available, but only Product A is visible. Product A has higher chances of getting sold'),
+      BodyImage(
+        image: Image.asset(
+          "assets/images/module1/case2.png",
+          fit: BoxFit.fill,
+          // width: 100,
+          // height: 300,
+        ),
+      ),
       const BulletPoint(
           text:
               'Case 2 -> Product A is available but not visible. Product B is not available. Product A has slightly lower chances of getting sold (solely due to availability)'),
+      BodyImage(
+        image: Image.asset(
+          "assets/images/module1/case3.png",
+          fit: BoxFit.fill,
+          // width: 100,
+          // height: 300,
+        ),
+      ),
       const BulletPoint(
           text:
               'Case 3 -> Product B is available and visible. Product B has higher chances of getting sold'),
       const SizedBox()
     ],
     [
-      Heading(text: "Importance of Distribution"),
+      const Heading(text: "Importance of Distribution"),
       const BulletPoint(
           text:
               'Being just available is not enough  it should be available in the right places/outlets'),
       const BulletPoint(
           text:
               'An example of proper distribution is placing products where there has been consistent sales historically.'),
-      SubBulletPoint(
+      const SubBulletPoint(
           text:
               "If Chik is best sold in UP, it makes sense to have a good distribution system than entering a market where the penetration is low"),
       BodyImage(
@@ -401,10 +446,10 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      BulletPoint(
+      const BulletPoint(
           text:
               "Another example would be availability in the right outlets  like how sachets are best sold in Kirana stores and Bottles in Super Market"),
-      BulletPoint(
+      const BulletPoint(
           text:
               "Kirana stores and Super Markets are not the only types of outlets available – next we will look at the different types of outlets"),
       const SizedBox()
@@ -420,14 +465,14 @@ final List module = [
       const SizedBox()
     ],
     [
-      Heading(text: "General Trade vs Modern trade"),
+      const Heading(text: "General Trade vs Modern trade"),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/trade.png",
           fit: BoxFit.fill,
         ),
       ),
-      TabularColumn(
+      const TabularColumn(
         data: [
           ["General Trade", "Modern Trade"],
           [
@@ -448,17 +493,17 @@ final List module = [
           ],
         ],
       ),
-      SizedBox()
+      const SizedBox()
     ],
     [
-      Heading(text: "As per Nielsen – types of outlets"),
+      const Heading(text: "As per Nielsen – types of outlets"),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/nielsen.png",
           fit: BoxFit.fill,
         ),
       ),
-      Body(
+      const Body(
           text:
               "Nielsen is a global company that provides valuable insights into consumer behavior and marketing information by collecting data that measures what consumers watch and what they buy. This is how they classify outlets:"),
       const BulletPoint(
@@ -481,7 +526,7 @@ final List module = [
       const SizedBox()
     ],
     [
-      Heading(text: "Some examples of Outlets"),
+      const Heading(text: "Some examples of Outlets"),
       ImageSlider(
         imageList: [
           "assets/images/module1/outlet1.png",
@@ -508,15 +553,14 @@ final List module = [
       const SizedBox()
     ],
     [
-      Heading(text: "Factors affecting channel satisfaction"),
+      const Heading(text: "Factors affecting channel satisfaction"),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/channel_satisfaction.png",
           fit: BoxFit.fill,
         ),
       ),
-      const SubHeading(
-          text: 'Some factors that affect the satisfaction level:'),
+      const Body(text: 'Some factors that affect the satisfaction level:'),
       const BulletPoint(text: 'Margin provided on the product'),
       const BulletPoint(
           text:
@@ -549,7 +593,7 @@ final List module = [
       const SizedBox()
     ],
     [
-      Heading(text: "Different strategies for Merchandizing"),
+      const Heading(text: "Different strategies for Merchandizing"),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/merchandizing.png",
@@ -560,31 +604,13 @@ final List module = [
     ],
     [
       const Heading(text: 'Important KPIs in Merchandizing'),
-      const BulletPoint(
-          text:
-              'Merchandizing -> promotion of the sale of goods that can employ pricing, special offer, display, & other techniques '),
-      const BulletPoint(text: 'Sales per square foot'),
-      const BulletPoint(text: 'Out of stock rate'),
-      const BulletPoint(text: 'Stock-to-sales ratio'),
-      const BulletPoint(
-          text:
-              'SKU level Data Tracking for - availability and Out of Stock scenarios'),
-      const BulletPoint(text: 'Visibility Share by Brand / SKUs'),
-      const BulletPoint(text: 'Contribution of Category in-store/s'),
-      const BulletPoint(text: 'Share of Display Unit/s'),
-      const BulletPoint(
-          text: 'Share on Featured Creatures@ PoSMs (Leaflet / Flyers)'),
-      const BulletPoint(text: 'Eye Level (Above-Eye Level-Below Eye Level)'),
-      const BulletPoint(
-          text: 'Share of Shelf (Unit Dimensionacquired by brand)'),
-      const BulletPoint(text: 'Classificationof Displays (FSUs, Hangers etc.)'),
-      const BulletPoint(text: 'Brand Logo - impression% in category'),
-      const BulletPoint(
-          text: 'Coordinate on the Shelf (Left to Right / Top to Bottom)'),
-      const BulletPoint(text: 'Color (Brand Block) in-store'),
-      const BulletPoint(
-          text: 'Brand Alignment and Arrangement checks i.e. Planogram'),
-      const BulletPoint(text: 'Category x sub-category level tracking'),
+      BodyImage(
+        image: Image.asset(
+          "assets/images/module1/kpi.png",
+          fit: BoxFit.fill,
+          height: 500,
+        ),
+      ),
       const SizedBox()
     ],
     [
@@ -610,7 +636,7 @@ final List module = [
       const SizedBox()
     ],
     [
-      Heading(text: "Different types of Display Merchandize"),
+      const Heading(text: "Different types of Display Merchandize"),
       ImageSlider(
         imageList: [
           "assets/images/module1/merch1.png",
@@ -643,14 +669,14 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      BulletPoint(text: "POS - Point of Sale"),
-      BulletPoint(
+      const BulletPoint(text: "POS - Point of Sale"),
+      const BulletPoint(
           text:
               "Point of Sale Display is used to influence a shopper’s decision"),
-      BulletPoint(text: "It is present only in specific spaces"),
-      BulletPoint(text: "Ideally away from the category"),
-      BulletPoint(text: "It is targeted to influence a specific group"),
-      BulletPoint(
+      const BulletPoint(text: "It is present only in specific spaces"),
+      const BulletPoint(text: "Ideally away from the category"),
+      const BulletPoint(text: "It is targeted to influence a specific group"),
+      const BulletPoint(
           text:
               "Best for individually packaged items like food & confectioneries"),
       const SizedBox(),
@@ -663,15 +689,15 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      BulletPoint(text: "POP - Point of Purchase"),
-      BulletPoint(
+      const BulletPoint(text: "POP - Point of Purchase"),
+      const BulletPoint(
           text:
               "Point of Purchase Display is used to capture the attention of shopper"),
-      BulletPoint(text: "It can be placed anywhere in the store"),
-      BulletPoint(
+      const BulletPoint(text: "It can be placed anywhere in the store"),
+      const BulletPoint(
           text: "Usually placed next to the space of the same category."),
-      BulletPoint(text: "Offers flexibility in targeting different groups"),
-      BulletPoint(text: "Suitable for a wide variety of products"),
+      const BulletPoint(text: "Offers flexibility in targeting different groups"),
+      const BulletPoint(text: "Suitable for a wide variety of products"),
       const SizedBox(),
     ],
     [
@@ -702,14 +728,14 @@ final List module = [
         verticalPadding: 0,
       ),
       const SizedBox(),
-      BulletPoint(
+      const BulletPoint(
           topPadding: 0,
           text:
               "We looked into how availability and visibility is important for better sales. "),
-      BulletPoint(
+      const BulletPoint(
           text:
               "In addition to these – we should also be cognizant about the different types of visibility"),
-      BulletPoint(
+      const BulletPoint(
           text: "They are broadly classified into Primary and Secondary"),
       const BulletPoint(
           text:
@@ -733,14 +759,14 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      const SubHeading(text: 'Science behind Shelf utilization'),
-      const BulletPoint(text: 'Shelves can be divided in 4 various zones:'),
-      const SubBulletPoint(
-          text: 'Bottom most zone - very low chances of visibility'),
-      const SubBulletPoint(text: 'Zone II - slightly higher chances'),
-      const SubBulletPoint(text: 'Golden Zone - best chances of visibility '),
-      const SubBulletPoint(
-          text: 'Top most zone - slightly lesser as compared to Golden'),
+      // const SubHeading(text: 'Science behind Shelf utilization'),
+      // const BulletPoint(text: 'Shelves can be divided in 4 various zones:'),
+      // const SubBulletPoint(
+      //     text: 'Bottom most zone - very low chances of visibility'),
+      // const SubBulletPoint(text: 'Zone II - slightly higher chances'),
+      // const SubBulletPoint(text: 'Golden Zone - best chances of visibility '),
+      // const SubBulletPoint(
+      //     text: 'Top most zone - slightly lesser as compared to Golden'),
       const BulletPoint(
           text:
               'For a shopkeeper -> he want to drive sales: at times he might place top selling products at eye-level'),
@@ -865,8 +891,8 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/module1/buying_decisions_types.png",
-          fit: BoxFit.fitWidth,
-          width: 100,
+          fit: BoxFit.fill,
+          // width: 100,
         ),
       ),
       const SizedBox()

@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: introTap,
                 child: Container(
                   width: double.infinity,
-                  height: 175,
+                  height: 150,
                   decoration: BoxDecoration(
                     color: mainColors[0],
                     borderRadius: const BorderRadius.all(
@@ -173,10 +173,11 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
                         decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(10),
-                            ),
-                            color: boxColors[0]),
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(10),
+                          ),
+                          color: boxColors[0],
+                        ),
                         child: Text(
                           "01",
                           style: GoogleFonts.playfairDisplay().copyWith(
@@ -188,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Container(
                         width: double.infinity,
-                        height: 60,
+                        height: 45,
                         padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -218,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                     child: GestureDetector(
                       onTap: contentTap,
                       child: Container(
-                        height: 175,
+                        height: 150,
                         decoration: BoxDecoration(
                           color: mainColors[1],
                           borderRadius: const BorderRadius.all(
@@ -255,7 +256,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Container(
                               width: double.infinity,
-                              height: 60,
+                              height: 45,
                               padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                               decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
@@ -286,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                     child: GestureDetector(
                       onTap: quiz1Tap,
                       child: Container(
-                        height: 175,
+                        height: 150,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5.0),
@@ -323,7 +324,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Container(
                               width: double.infinity,
-                              height: 60,
+                              height: 45,
                               padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                               decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
@@ -360,7 +361,7 @@ class _HomePageState extends State<HomePage> {
                     child: GestureDetector(
                       onTap: quiz2Tap,
                       child: Container(
-                        height: 175,
+                        height: 150,
                         decoration: BoxDecoration(
                           color: mainColors[3],
                           borderRadius: const BorderRadius.all(
@@ -397,7 +398,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Container(
                               width: double.infinity,
-                              height: 60,
+                              height: 45,
                               padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                               decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
@@ -428,7 +429,7 @@ class _HomePageState extends State<HomePage> {
                     child: GestureDetector(
                       onTap: caseStudyTap,
                       child: Container(
-                        height: 175,
+                        height: 150,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5.0),
@@ -465,7 +466,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Container(
                               width: double.infinity,
-                              height: 60,
+                              height: 45,
                               padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                               decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
