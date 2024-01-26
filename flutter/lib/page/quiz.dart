@@ -1,16 +1,26 @@
+import 'dart:convert';
+
 import 'package:e_learning/model/quiz_data.dart';
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/widgets/quiz_options.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/model/quiz_state.dart';
 import 'package:e_learning/page/score.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({
-    required this.quizDataList,
+    required this.quizData,
+    required this.isFinal,
+    required this.moduleIndex,
     super.key,
   });
 
-  final List<QuizData> quizDataList;
+  final List<QuizData> quizData;
+  final bool isFinal;
+  final int moduleIndex;
 
   @override
   State<StatefulWidget> createState() {
@@ -22,6 +32,9 @@ class _QuizPageState extends State<QuizPage> {
   // ignore: avoid_init_to_null
   var _selectedQuizValue = null;
   var _quizIndex = 0;
+  bool isLoading = false;
+
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
 
   List<QuizState> quizState = [];
 
@@ -30,6 +43,128 @@ class _QuizPageState extends State<QuizPage> {
     setState(() {
       _selectedQuizValue = value;
     });
+  }
+
+  void updateProgress(String email, int score) async {
+    if (!widget.isFinal) {
+      try {
+        setState(() {
+          isLoading = true;
+        });
+
+        var response = await http.post(
+          Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
+          headers: {"Content-Type": "application/json"},
+          body: json.encode(
+            {
+              "email": email,
+              "module": widget.moduleIndex - 1,
+            },
+          ),
+        );
+
+        setState(() {
+          isLoading = false;
+        });
+
+        var responseData = jsonDecode(response.body);
+
+        if (response.statusCode > 399) {
+          throw responseData["message"];
+        }
+
+        if (!mounted) {
+          return;
+        }
+
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScorePage(
+              score: score,
+              totalQuestions: widget.quizData.length,
+              isFinal: widget.isFinal,
+            ),
+          ),
+        );
+      } catch (error) {
+        setState(() {
+          isLoading = false;
+        });
+
+        if (!mounted) {
+          return;
+        }
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error.toString(),
+            ),
+          ),
+        );
+      }
+    } else {
+      try {
+        setState(() {
+          isLoading = true;
+        });
+
+        var response = await http.post(
+          Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/result"),
+          headers: {"Content-Type": "application/json"},
+          body: json.encode(
+            {
+              "email": email,
+              "score": score,
+            },
+          ),
+        );
+
+        setState(() {
+          isLoading = false;
+        });
+
+        var responseData = jsonDecode(response.body);
+
+        if (response.statusCode > 399) {
+          throw responseData["message"];
+        }
+
+        if (!mounted) {
+          return;
+        }
+
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScorePage(
+              score: score,
+              totalQuestions: widget.quizData.length,
+              isFinal: widget.isFinal,
+            ),
+          ),
+        );
+      } catch (error) {
+        setState(() {
+          isLoading = false;
+        });
+
+        if (!mounted) {
+          return;
+        }
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error.toString(),
+            ),
+          ),
+        );
+      }
+    }
   }
 
   void quizIndexHandler(value) {
@@ -46,34 +181,34 @@ class _QuizPageState extends State<QuizPage> {
 
       for (var element in quizState) {
         if (_quizIndex == element.questionIndex) {
-          if (widget.quizDataList[_quizIndex].options
+          if (widget.quizData[_quizIndex].options
                   .indexOf(element.selectedAnswer) !=
               _selectedQuizValue) {
             setState(() {
               element.selectedAnswer =
-                  widget.quizDataList[_quizIndex].options[_selectedQuizValue];
+                  widget.quizData[_quizIndex].options[_selectedQuizValue];
             });
           }
         }
       }
 
-      if (_quizIndex == widget.quizDataList.length - 1) {
+      if (_quizIndex == widget.quizData.length - 1) {
         quizState.add(
           QuizState(
-            correctAnswer: widget.quizDataList[_quizIndex].answer,
+            correctAnswer: widget.quizData[_quizIndex].answer,
             questionIndex: _quizIndex,
             selectedAnswer:
-                widget.quizDataList[_quizIndex].options[_selectedQuizValue],
+                widget.quizData[_quizIndex].options[_selectedQuizValue],
           ),
         );
 
         for (var element in quizState) {
           if (element.selectedAnswer ==
-              widget.quizDataList[element.questionIndex].answer) {
+              widget.quizData[element.questionIndex].answer) {
             ++score;
           }
         }
-        print("$score/${widget.quizDataList.length}");
+        print("$score/${widget.quizData.length}");
         // print("QuizState after all questions:");
         // for (var element in quizState) {
         //   print(
@@ -85,8 +220,8 @@ class _QuizPageState extends State<QuizPage> {
           MaterialPageRoute(
             builder: (context) => ScorePage(
               score: score,
-              totalQuestions: widget.quizDataList.length,
-              isFinal: true,
+              totalQuestions: widget.quizData.length,
+              isFinal: widget.isFinal,
             ),
           ),
         );
@@ -96,7 +231,7 @@ class _QuizPageState extends State<QuizPage> {
       for (var element in quizState) {
         if (_quizIndex + 1 == element.questionIndex) {
           setState(() {
-            _selectedQuizValue = widget.quizDataList[_quizIndex + 1].options
+            _selectedQuizValue = widget.quizData[_quizIndex + 1].options
                 .indexOf(element.selectedAnswer);
             _quizIndex++;
           });
@@ -106,10 +241,10 @@ class _QuizPageState extends State<QuizPage> {
 
       quizState.add(
         QuizState(
-          correctAnswer: widget.quizDataList[_quizIndex].answer,
+          correctAnswer: widget.quizData[_quizIndex].answer,
           questionIndex: _quizIndex,
           selectedAnswer:
-              widget.quizDataList[_quizIndex].options[_selectedQuizValue],
+              widget.quizData[_quizIndex].options[_selectedQuizValue],
         ),
       );
       setState(() {
@@ -119,12 +254,12 @@ class _QuizPageState extends State<QuizPage> {
     } else if (value == -1) {
       for (var element in quizState) {
         if (_quizIndex == element.questionIndex) {
-          if (widget.quizDataList[_quizIndex].options
+          if (widget.quizData[_quizIndex].options
                   .indexOf(element.selectedAnswer) !=
               _selectedQuizValue) {
             setState(() {
               element.selectedAnswer =
-                  widget.quizDataList[_quizIndex].options[_selectedQuizValue];
+                  widget.quizData[_quizIndex].options[_selectedQuizValue];
             });
           }
         }
@@ -137,7 +272,7 @@ class _QuizPageState extends State<QuizPage> {
       for (var element in quizState) {
         if (_quizIndex - 1 == element.questionIndex) {
           setState(() {
-            _selectedQuizValue = widget.quizDataList[_quizIndex - 1].options
+            _selectedQuizValue = widget.quizData[_quizIndex - 1].options
                 .indexOf(element.selectedAnswer);
             --_quizIndex;
           });
@@ -148,6 +283,8 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
+    final String? email = prefs?.getString("email");
+
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -180,7 +317,7 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                   const Spacer(),
                   Text(
-                    "${_quizIndex + 1} of ${widget.quizDataList.length}",
+                    "${_quizIndex + 1} of ${widget.quizData.length}",
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -205,7 +342,7 @@ class _QuizPageState extends State<QuizPage> {
                     valueColor: const AlwaysStoppedAnimation<Color>(
                       Colors.white,
                     ),
-                    value: (_quizIndex + 1) / widget.quizDataList.length,
+                    value: (_quizIndex + 1) / widget.quizData.length,
                   ),
                 ),
               ),
@@ -244,7 +381,7 @@ class _QuizPageState extends State<QuizPage> {
                         child: Column(
                           children: [
                             Text(
-                              widget.quizDataList[_quizIndex].question,
+                              widget.quizData[_quizIndex].question,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -255,7 +392,7 @@ class _QuizPageState extends State<QuizPage> {
                             const SizedBox(height: 20),
                             QuizOptions(
                               selectedValue: _selectedQuizValue,
-                              options: widget.quizDataList[_quizIndex].options,
+                              options: widget.quizData[_quizIndex].options,
                               selectedValueHandler: selectedValueHandler,
                             ),
                           ],
@@ -290,9 +427,13 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                         const Spacer(),
                         InkWell(
-                          onTap: () {
-                            quizIndexHandler(1);
-                          },
+                          onTap: _quizIndex == widget.quizData.length - 1
+                              ? () {
+                                  updateProgress(email!, score);
+                                }
+                              : () {
+                                  quizIndexHandler(1);
+                                },
                           child: Container(
                             decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 255, 118, 32),
@@ -308,7 +449,7 @@ class _QuizPageState extends State<QuizPage> {
                             ),
                             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                             child: Text(
-                              _quizIndex == widget.quizDataList.length - 1
+                              _quizIndex == widget.quizData.length - 1
                                   ? "Complete"
                                   : "Next",
                               style: Theme.of(context)

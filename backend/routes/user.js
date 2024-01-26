@@ -36,7 +36,8 @@ router.post("/login", async (req, res) => {
       college: user.college,
       branch: user.branch,
       city: user.city,
-      intro: user.introduction
+      intro: user.introduction,
+      username: user.username,
     });
 
     //set the introduction to true
@@ -45,7 +46,6 @@ router.post("/login", async (req, res) => {
       user.introduction=true;
       await user.save();
     }
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -73,7 +73,7 @@ router.post("/register", async (req, res) => {
       phno,
       college,
       branch,
-      city
+      city,
     });
     await newUser.save();
     console.log("user registered");
