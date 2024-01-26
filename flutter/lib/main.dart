@@ -7,6 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:e_learning/page/splash.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
@@ -30,6 +31,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       home: HomePage(),
+      // home: Builder(
+      //     builder: (context) => ShowCaseWidget(
+      //         builder: Builder(builder: (context) => HomePage()))),
     );
   }
 }

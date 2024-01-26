@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-
-var width;
 
 class Heading {
   const Heading(
