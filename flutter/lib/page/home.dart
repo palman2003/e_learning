@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:e_learning/data/module_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,6 +19,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
+  final GlobalKey _one = GlobalKey();
+  final GlobalKey _two = GlobalKey();
+  final GlobalKey _three = GlobalKey();
 
   final List<Color> mainColors = [
     const Color.fromARGB(255, 147, 232, 146),
@@ -40,6 +44,14 @@ class _HomePageState extends State<HomePage> {
     const Color.fromARGB(255, 255, 225, 184),
     const Color.fromARGB(255, 109, 214, 198),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ShowCaseWidget.of(context).startShowCase([_one, _two, _three]);
+    });
+  }
 
   void introTap() {
     Navigator.of(context)
@@ -81,30 +93,36 @@ class _HomePageState extends State<HomePage> {
               ),
         ),
         actions: [
-          Container(
-            margin: const EdgeInsets.only(top: 0, right: 15),
-            padding: const EdgeInsets.fromLTRB(15, 8, 5, 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(50),
+          Showcase(
+            description: "sdfsdfsdf",
+            title: "adasdfdf",
+            key: _one,
+            child: Container(
+              margin: const EdgeInsets.only(top: 0, right: 15),
+              padding: const EdgeInsets.fromLTRB(15, 8, 5, 8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(50),
+                ),
               ),
-            ),
-            child: Row(
-              children: [
-                Text(
-                  '1240',
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      ),
-                ),
-                const SizedBox(width: 5),
-                Image.asset(
-                  'assets/images/appbar_icon.png',
-                  height: 20,
-                ),
-              ],
+              child: Row(
+                children: [
+                  Text(
+                    '1240',
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                  ),
+                  const SizedBox(width: 5),
+                  Image.asset(
+                    'assets/images/appbar_icon.png',
+                    height: 20,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -146,355 +164,378 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: introTap,
-                child: Container(
-                  width: double.infinity,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: mainColors[0],
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5.0),
+          child: Showcase(
+            description: "sdfsdfsd",
+            title: "ddsdfsd",
+            key: _three,
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: introTap,
+                  child: Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: mainColors[0],
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5.0),
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0, 1),
+                          blurRadius: 5,
+                        ),
+                      ],
                     ),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0, 1),
-                        blurRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Spacer(),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(10),
+                            ),
+                            color: boxColors[0],
                           ),
-                          color: boxColors[0],
-                        ),
-                        child: Text(
-                          "01",
-                          style: GoogleFonts.playfairDisplay().copyWith(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: const Color.fromARGB(255, 37, 37, 37),
+                          child: Text(
+                            "01",
+                            style: GoogleFonts.playfairDisplay().copyWith(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: const Color.fromARGB(255, 37, 37, 37),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 45,
-                        padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(5),
-                            bottomLeft: Radius.circular(5),
+                        Container(
+                          width: double.infinity,
+                          height: 45,
+                          padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(5),
+                              bottomLeft: Radius.circular(5),
+                            ),
+                            color: Colors.white,
                           ),
-                          color: Colors.white,
-                        ),
-                        child: Text(
-                          "Introduction",
-                          maxLines: 2,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                        ),
-                      )
-                    ],
+                          child: Text(
+                            "Introduction",
+                            maxLines: 2,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: contentTap,
-                      child: Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: mainColors[1],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5.0),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: contentTap,
+                        child: Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            color: mainColors[1],
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5.0),
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0, 1),
+                                blurRadius: 5,
+                              ),
+                            ],
                           ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 1),
-                              blurRadius: 5,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Spacer(),
-                            Container(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Spacer(),
+                              Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 0, 50, 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(10),
+                                  ),
+                                  color: boxColors[1],
                                 ),
-                                color: boxColors[1],
-                              ),
-                              child: Text(
-                                "02",
-                                style: GoogleFonts.playfairDisplay().copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                child: Text(
+                                  "02",
+                                  style: GoogleFonts.playfairDisplay().copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        const Color.fromARGB(255, 37, 37, 37),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 45,
-                              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(5),
-                                  bottomLeft: Radius.circular(5),
+                              Container(
+                                width: double.infinity,
+                                height: 45,
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(5),
+                                  ),
+                                  color: Colors.white,
                                 ),
-                                color: Colors.white,
-                              ),
-                              child: Text(
-                                "Content",
-                                maxLines: 2,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                              ),
-                            )
-                          ],
+                                child: Text(
+                                  "Content",
+                                  maxLines: 2,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: quiz1Tap,
-                      child: Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5.0),
-                          ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 1),
-                              blurRadius: 5,
+                    SizedBox(width: 20),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: quiz1Tap,
+                        child: Showcase(
+                          key: _two,
+                          title: "ssdfdsf",
+                          description: "sfsdfsdf",
+                          child: Container(
+                            height: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(0, 1),
+                                  blurRadius: 5,
+                                ),
+                              ],
+                              color: mainColors[2],
                             ),
-                          ],
-                          color: mainColors[2],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Spacer(),
-                            Container(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                ),
-                                color: boxColors[2],
-                              ),
-                              child: Text(
-                                "03",
-                                style: GoogleFonts.playfairDisplay().copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color.fromARGB(255, 37, 37, 37),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 45,
-                              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(5),
-                                  bottomLeft: Radius.circular(5),
-                                ),
-                                color: Colors.white,
-                              ),
-                              child: Text(
-                                "Quiz",
-                                maxLines: 2,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      overflow: TextOverflow.ellipsis,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Spacer(),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 50, 5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(10),
                                     ),
-                              ),
-                            )
-                          ],
+                                    color: boxColors[2],
+                                  ),
+                                  child: Text(
+                                    "03",
+                                    style:
+                                        GoogleFonts.playfairDisplay().copyWith(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          const Color.fromARGB(255, 37, 37, 37),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 45,
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(5),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: Text(
+                                    "Quiz",
+                                    maxLines: 2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              ImageProgress(progress: 0.25),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: quiz2Tap,
-                      child: Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: mainColors[3],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5.0),
+                  ],
+                ),
+                SizedBox(height: 20),
+                ImageProgress(progress: 0.25),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: quiz2Tap,
+                        child: Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            color: mainColors[3],
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5.0),
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0, 1),
+                                blurRadius: 5,
+                              ),
+                            ],
                           ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 1),
-                              blurRadius: 5,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Spacer(),
-                            Container(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Spacer(),
+                              Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 0, 50, 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(10),
+                                  ),
+                                  color: boxColors[3],
                                 ),
-                                color: boxColors[3],
-                              ),
-                              child: Text(
-                                "04",
-                                style: GoogleFonts.playfairDisplay().copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                child: Text(
+                                  "04",
+                                  style: GoogleFonts.playfairDisplay().copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        const Color.fromARGB(255, 37, 37, 37),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 45,
-                              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(5),
-                                  bottomLeft: Radius.circular(5),
+                              Container(
+                                width: double.infinity,
+                                height: 45,
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(5),
+                                  ),
+                                  color: Colors.white,
                                 ),
-                                color: Colors.white,
-                              ),
-                              child: Text(
-                                "Quiz 2",
-                                maxLines: 2,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                              ),
-                            )
-                          ],
+                                child: Text(
+                                  "Quiz 2",
+                                  maxLines: 2,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: caseStudyTap,
-                      child: Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5.0),
+                    SizedBox(width: 20),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: caseStudyTap,
+                        child: Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5.0),
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0, 1),
+                                blurRadius: 5,
+                              ),
+                            ],
+                            color: mainColors[4],
                           ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 1),
-                              blurRadius: 5,
-                            ),
-                          ],
-                          color: mainColors[4],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Spacer(),
-                            Container(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Spacer(),
+                              Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 0, 50, 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(10),
+                                  ),
+                                  color: boxColors[4],
                                 ),
-                                color: boxColors[4],
-                              ),
-                              child: Text(
-                                "05",
-                                style: GoogleFonts.playfairDisplay().copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                child: Text(
+                                  "05",
+                                  style: GoogleFonts.playfairDisplay().copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        const Color.fromARGB(255, 37, 37, 37),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 45,
-                              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(5),
-                                  bottomLeft: Radius.circular(5),
+                              Container(
+                                width: double.infinity,
+                                height: 45,
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(5),
+                                  ),
+                                  color: Colors.white,
                                 ),
-                                color: Colors.white,
-                              ),
-                              child: Text(
-                                "Case Study",
-                                maxLines: 2,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                              ),
-                            )
-                          ],
+                                child: Text(
+                                  "Case Study",
+                                  maxLines: 2,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -30,10 +30,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: HomePage(),
-      // home: Builder(
-      //     builder: (context) => ShowCaseWidget(
-      //         builder: Builder(builder: (context) => HomePage()))),
+      home: ShowCaseWidget(
+        builder: Builder(builder: (context) => HomePage()),
+      ),
     );
   }
 }
