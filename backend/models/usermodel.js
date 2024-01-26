@@ -39,7 +39,7 @@ const userSchema = new schema(
     },
     Module: {
       type: Array,
-      default: Array(10).fill(false),
+      default: Array(5).fill(false),
     },
   },
   { timestamps: true }

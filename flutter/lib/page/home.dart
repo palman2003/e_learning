@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
+  late int progress = prefs!.getInt("progress")!;
 
   final List<Color> mainColors = [
     const Color.fromARGB(255, 147, 232, 146),
@@ -41,23 +42,33 @@ class _HomePageState extends State<HomePage> {
     const Color.fromARGB(255, 109, 214, 198),
   ];
 
-  void introTap() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => IntroPage()));
+  void introTap() async {
+    dynamic data = await Navigator.of(context).push<int>(
+      MaterialPageRoute(
+        builder: (context) => IntroPage(),
+      ),
+    );
+    if (data is int) {
+      setState(() {
+        progress = data;
+      });
+    }
   }
 
-  void contentTap() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: ((context) => ModulePage(
-                moduleData: module[0],
-                heroTag: "heroTag",
-                appBarTitle: "Module 1",
-                title: "Hello",
-                isFinal: false,
-                quizData: quizDataList1,
-                moduleIndex: 1))));
+  void contentTap() async {
+    Navigator.push<int>(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => ModulePage(
+            moduleData: module[0],
+            heroTag: "heroTag",
+            appBarTitle: "Module 1",
+            title: "Hello",
+            isFinal: false,
+            quizData: quizDataList1,
+            moduleIndex: 1)),
+      ),
+    );
   }
 
   void quiz1Tap() {}
@@ -67,6 +78,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final String? username = prefs?.getString("username");
+    int progress = prefs!.getInt("progress")!;
 
     return Scaffold(
       drawer: CustomDrawer(),
@@ -135,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                     valueColor: AlwaysStoppedAnimation<Color>(
                       Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
-                    value: 0.5,
+                    value: progress / 5,
                   ),
                 ),
               ),

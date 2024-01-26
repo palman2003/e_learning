@@ -26,6 +26,16 @@ router.post("/login", async (req, res) => {
       process.env.SECRET_KEY
     );
 
+    let progress = 0;
+
+    user.Module.forEach((ele) => {
+      if(ele){
+        progress++;
+      }
+    });
+
+    console.log(progress);
+
     res.json({
       token,
       email: user.email,
@@ -35,6 +45,7 @@ router.post("/login", async (req, res) => {
       branch: user.branch,
       city: user.city,
       username: user.username,
+      progress: progress,
     });
   } catch (error) {
     console.error(error);

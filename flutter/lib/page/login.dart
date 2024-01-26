@@ -60,6 +60,9 @@ class _LoginPageState extends State<LoginPage> {
       await prefs?.setString("city", responseData["city"]);
       await prefs?.setString("college", responseData["college"]);
       await prefs?.setString("branch", responseData["branch"]);
+      await prefs?.setInt("progress", responseData["progress"]);
+
+      
 
       setState(() {
         isLoading = false;

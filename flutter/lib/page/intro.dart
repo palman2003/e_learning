@@ -1,7 +1,16 @@
+import 'dart:convert';
+
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatelessWidget {
-  const IntroPage({super.key});
+  IntroPage({super.key});
+
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,9 +82,79 @@ class IntroPage extends StatelessWidget {
                       style: TextStyle(fontSize: 16, color: Colors.black),
                     ),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  )
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Spacer(),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        onTap: () async {
+                          try {
+                            var response = await http.post(
+                              Uri.parse(
+                                  "http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
+                              headers: {"Content-Type": "application/json"},
+                              body: jsonEncode(
+                                {
+                                  "email": prefs!.getString("email"),
+                                  "module": 0,
+                                },
+                              ),
+                            );
+
+                            var responseData = jsonDecode(response.body);
+
+                            print(responseData);
+
+                            if (response.statusCode > 399) {
+                              throw responseData["message"];
+                            }
+
+                            if (responseData["increment"]) {
+                              await prefs!.setInt(
+                                  "progress", (prefs!.getInt("progress")!) + 1);
+                            }
+
+                            Navigator.of(context).pop(prefs!.getInt("progress")!);
+
+                          } catch (error) {
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  error.toString(),
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 255, 118, 32),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromARGB(255, 230, 88, 0),
+                                offset: Offset(0, 5),
+                              )
+                            ],
+                          ),
+                          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                          child: Text(
+                            "Lets get started    >",
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20)
                 ],
               ),
             ),

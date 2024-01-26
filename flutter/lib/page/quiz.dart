@@ -46,6 +46,38 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void updateProgress(String email, int score) async {
+    try {
+      var response = await http.post(
+        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            "email": prefs!.getString("email"),
+            "module": 2,
+          },
+        ),
+      );
+
+      var responseData = jsonDecode(response.body);
+
+      if (response.statusCode > 399) {
+        throw responseData["message"];
+      }
+
+      if (responseData["increment"]) {
+        await prefs!.setInt("progress", (prefs!.getInt("progress")!) + 1);
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            error.toString(),
+          ),
+        ),
+      );
+    }
+
     if (!widget.isFinal) {
       try {
         setState(() {
@@ -167,7 +199,7 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
-  void quizIndexHandler(value) {
+  void quizIndexHandler(value) async {
     if (value == 1) {
       if (_selectedQuizValue == null) {
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -190,42 +222,6 @@ class _QuizPageState extends State<QuizPage> {
             });
           }
         }
-      }
-
-      if (_quizIndex == widget.quizData.length - 1) {
-        quizState.add(
-          QuizState(
-            correctAnswer: widget.quizData[_quizIndex].answer,
-            questionIndex: _quizIndex,
-            selectedAnswer:
-                widget.quizData[_quizIndex].options[_selectedQuizValue],
-          ),
-        );
-
-        for (var element in quizState) {
-          if (element.selectedAnswer ==
-              widget.quizData[element.questionIndex].answer) {
-            ++score;
-          }
-        }
-        print("$score/${widget.quizData.length}");
-        // print("QuizState after all questions:");
-        // for (var element in quizState) {
-        //   print(
-        //       "QuestionIndex: ${element.questionIndex}, CorrectAnswer: ${element.correctAnswer}, SelectedAnswer: ${element.selectedAnswer}");
-        // }
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScorePage(
-              score: score,
-              totalQuestions: widget.quizData.length,
-              isFinal: widget.isFinal,
-            ),
-          ),
-        );
-        return;
       }
 
       for (var element in quizState) {

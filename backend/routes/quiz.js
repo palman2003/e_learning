@@ -28,9 +28,10 @@ router.post("/complete", async (req, res) => {
     if (user.Module[module] == false) {
       user.Module[module] = true;
       await user.save();
+      res.status(200).send({ increment: true });
+    } else {
+      res.status(200).send({ increment: false });
     }
-    console.log(user.Module);
-    res.status(200).json({ message: "Success" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "internal server error" });
