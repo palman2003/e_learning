@@ -20,6 +20,8 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    
+
     // Generate a JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email },
@@ -33,8 +35,16 @@ router.post("/login", async (req, res) => {
       userId: user._id,
       college: user.college,
       branch: user.branch,
-      city: user.city
+      city: user.city,
+      intro: user.introduction
     });
+
+    //set the introduction to true
+
+    if(user.introduction==false){
+      user.introduction=true;
+      await user.save();
+    }
 
   } catch (error) {
     console.error(error);

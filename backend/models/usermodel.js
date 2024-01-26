@@ -38,7 +38,11 @@ const userSchema = new schema({
     },
     Module:{
         type:Array,
-        default: Array(10).fill(false)
+        default: Array(4).fill(false)
+    },
+    introduction:{
+        type:Boolean,
+        default:false
     }
     
 },{timestamps:true});
@@ -47,4 +51,4 @@ const userSchema = new schema({
 
 
 
-module.exports=mongoose.model('test_users',userSchema);
+module.exports=mongoose.model('users',userSchema);
