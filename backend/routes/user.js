@@ -53,8 +53,8 @@ router.post("/login", async (req, res) => {
 
     //set the introduction to true
 
-    if(user.introduction==false){
-      user.introduction=true;
+    if(user.introduction==true){
+      user.introduction=false;
       await user.save();
     }
   } catch (error) {
