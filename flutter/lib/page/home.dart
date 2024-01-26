@@ -1,10 +1,10 @@
 import 'package:e_learning/data/quiz_data.dart';
+import 'package:e_learning/page/intro.dart';
 import 'package:e_learning/page/module.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/widgets/image_progress.dart';
 import 'package:e_learning/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:e_learning/widgets/course_tile.dart';
 import 'package:e_learning/data/module_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +41,11 @@ class _HomePageState extends State<HomePage> {
     const Color.fromARGB(255, 109, 214, 198),
   ];
 
-  void introTap() {}
+  void introTap() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => IntroPage()));
+  }
+
   void contentTap() {
     Navigator.push(
         context,
@@ -145,7 +149,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               GestureDetector(
-                onDoubleTap: introTap,
+                onTap: introTap,
                 child: Container(
                   width: double.infinity,
                   height: 175,

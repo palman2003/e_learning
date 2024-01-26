@@ -1,6 +1,8 @@
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/widgets/custom_drawer.dart';
+import 'package:e_learning/widgets/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -40,89 +42,93 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(30),
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: Row(
+              width: double.infinity,
+              // padding: EdgeInsets.all(30),
+              color: Color.fromARGB(255, 242, 242, 242),
+              child: Column(
                 children: [
-                  Spacer(),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Image.asset(
+                    'assets/images/profile/none.png',
+                    height: 150,
+                    width: 150,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   Text(
                     "$username",
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: GoogleFonts.alegreya(
+                      textStyle:
+                          Theme.of(context).textTheme.titleLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                    ),
                   ),
-                  Spacer(),
+                  const SizedBox(
+                    height: 16,
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 10, 30, 30),
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Email:              $email",
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                // fontWeight: FontWeight.bold,
-                                ),
-                      ),
-                    ],
+                  Text(
+                    'Account Information',
+                    style: GoogleFonts.lato(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: Color.fromARGB(255, 86, 86, 86))),
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Text(
-                        "Phone No:       $phno",
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                // fontWeight: FontWeight.bold,
-                                ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 12,
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Text(
-                        "City:                 $city",
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                // fontWeight: FontWeight.bold,
-                                ),
-                      ),
-                    ],
+                  ProfileData(
+                      path: "assets/images/profile/mail.png",
+                      attribute: "Email",
+                      value: "$email"),
+                  SizedBox(
+                    height: 12,
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Text(
-                        "College:           $college",
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                // fontWeight: FontWeight.bold,
-                                ),
-                      ),
-                    ],
+                  ProfileData(
+                      path: "assets/images/profile/phone.png",
+                      attribute: "Phone",
+                      value: "$phno"),
+                  SizedBox(
+                    height: 12,
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Text(
-                        "Branch:            $branch",
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                // fontWeight: FontWeight.bold,
-                                ),
-                      ),
-                    ],
+                  ProfileData(
+                      path: "assets/images/profile/location.png",
+                      attribute: "City",
+                      value: "$city"),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  ProfileData(
+                      path: "assets/images/profile/college.png",
+                      attribute: "College",
+                      value: "$college"),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  ProfileData(
+                      path: "assets/images/profile/book.png",
+                      attribute: "Branch",
+                      value: "$branch"),
+                  SizedBox(
+                    height: 12,
                   ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),
