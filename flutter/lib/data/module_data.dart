@@ -130,11 +130,11 @@ class ImageSlider {
   ImageSlider(
       {required this.imageList,
       required this.height,
-      required this.width,
+      // required this.width,
       required this.verticalPadding});
   final List<String> imageList;
   final double height;
-  final double width;
+  // final double width;
   final double verticalPadding;
 }
 
@@ -158,7 +158,6 @@ final List module = [
       HeadImage(
         image: Image.asset(
           "assets/images/module1/FMCG and FMCD.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -195,7 +194,6 @@ final List module = [
         ],
         height: 100,
         verticalPadding: 10,
-        width: double.infinity,
       ),
       SubHeading(text: "FMCD", bottomPadding: 0, topPadding: 0),
       ImageSlider(
@@ -207,7 +205,6 @@ final List module = [
         ],
         height: 100,
         verticalPadding: 10,
-        width: double.infinity,
       ),
       const SizedBox()
     ],
@@ -517,7 +514,6 @@ final List module = [
         ],
         height: 200,
         verticalPadding: 50,
-        width: double.infinity,
       ),
       const Heading(text: 'Channel Satisfaction'),
       const BulletPoint(
@@ -628,9 +624,8 @@ final List module = [
           "assets/images/module1/merch4.png",
           "assets/images/module1/merch5.png",
         ],
-        height: 300,
+        height: 200,
         verticalPadding: 50,
-        width: double.infinity,
       ),
       const BulletPoint(text: 'Different types of Display:'),
       const SubBulletPoint(text: 'Floor Stand'),
@@ -708,9 +703,8 @@ final List module = [
           "assets/images/module1/visiblity_1.png",
           "assets/images/module1/visiblity_2.png"
         ],
-        height: 400,
+        height: 200,
         verticalPadding: 0,
-        width: double.infinity,
       ),
       const SizedBox(),
       BulletPoint(
@@ -787,7 +781,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -906,7 +899,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1024,7 +1016,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1142,7 +1133,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1260,7 +1250,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1378,7 +1367,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1496,7 +1484,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1614,7 +1601,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1732,7 +1718,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -1850,7 +1835,6 @@ final List module = [
       BodyImage(
         image: Image.asset(
           "assets/images/sample/sample_2.png",
-          width: double.infinity,
           fit: BoxFit.fitWidth,
         ),
       ),
