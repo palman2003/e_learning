@@ -358,13 +358,10 @@ class _ModulePageState extends State<ModulePage> {
                     items: currentData.imageList
                         .map((e) => Container(
                               height: currentData.height,
-                              width: 100,
                               child: Image.asset(
                                 e,
                                 height: currentData.height,
-                                width: 100,
-                                fit: BoxFit
-                                    .fitWidth, // You can set the fit property as needed
+                                fit: BoxFit.contain,
                               ),
                             ))
                         .toList(),

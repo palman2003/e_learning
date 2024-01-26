@@ -12,36 +12,53 @@ class ProfileData extends StatelessWidget {
   final String value;
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Image.asset(
-          path,
-          height: 30,
-          width: 30,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Row(
+            children: [
+              Image.asset(
+                path,
+                height: 25,
+                width: 25,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    attribute,
+                    style: GoogleFonts.lato(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(
+                                color: Color.fromARGB(255, 112, 106, 106),
+                                fontSize: 14)),
+                  ),
+                  Text(
+                    value,
+                    style: GoogleFonts.lato(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: Color.fromARGB(255, 54, 53, 53))),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
         SizedBox(
-          width: 20,
+          height: 8,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              attribute,
-              style: GoogleFonts.lato(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Color.fromARGB(255, 112, 106, 106))),
-            ),
-            Text(
-              value,
-              style: GoogleFonts.lato(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Color.fromARGB(255, 1, 1, 1))),
-            )
-          ],
+        Container(
+          width: MediaQuery.of(context).size.width - 30,
+          height: 0.35,
+          color: Color.fromARGB(255, 102, 97, 97),
         )
       ],
     );

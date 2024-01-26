@@ -61,9 +61,9 @@ class ProfilePage extends StatelessWidget {
                   Text(
                     "$username",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.alegreya(
+                    style: GoogleFonts.lato(
                       textStyle:
-                          Theme.of(context).textTheme.titleLarge!.copyWith(
+                          Theme.of(context).textTheme.headlineLarge!.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                     ),
@@ -76,17 +76,21 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Account Information',
-                    style: GoogleFonts.lato(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: Color.fromARGB(255, 86, 86, 86))),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      'Account Information',
+                      style: GoogleFonts.lato(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Color.fromARGB(255, 86, 86, 86))),
+                    ),
                   ),
                   SizedBox(
                     height: 12,
