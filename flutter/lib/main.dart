@@ -3,6 +3,7 @@ import 'package:e_learning/page/profile.dart';
 import 'package:e_learning/page/intro.dart';
 import 'package:e_learning/page/score.dart';
 import 'package:e_learning/page/signup.dart';
+import 'package:e_learning/page/tour_intro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
