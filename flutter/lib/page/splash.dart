@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -41,7 +42,12 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: ((context) => const HomePage()),
+        builder: ((context) => ShowCaseWidget(
+                builder: Builder(
+              builder: (context) => const HomePage(
+                isFirstlogin: false,
+              ),
+            ))),
       ),
     );
   }

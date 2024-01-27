@@ -4,13 +4,12 @@ import 'package:e_learning/page/home.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 // ignore: must_be_immutable
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({super.key});
-
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
-
   @override
   Widget build(BuildContext context) {
     void logout() async {
@@ -41,7 +40,12 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomePage(),
+                  builder: (context) => ShowCaseWidget(
+                      builder: Builder(
+                    builder: (context) => const HomePage(
+                      isFirstlogin: false,
+                    ),
+                  )),
                 ),
               );
             },

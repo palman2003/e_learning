@@ -42,6 +42,7 @@ dependencies:
   mongo_dart: ^0.10.0
   pinput: ^3.0.1
   carousel_slider: ^4.2.1
+  showcaseview: ^2.0.3
 
 dev_dependencies:
   flutter_test:
