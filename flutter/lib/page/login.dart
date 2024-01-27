@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -74,14 +75,20 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => Placeholder(),
+            builder: (context) => ShowCaseWidget(
+                builder: Builder(
+                    builder: (context) =>
+                        HomePage(isFirstlogin: responseData["intro"]))),
           ),
         );
       } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => ShowCaseWidget(
+              builder: Builder(
+                  builder: (context) => const HomePage(isFirstlogin: false)),
+            ),
           ),
         );
       }
@@ -296,7 +303,14 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => const HomePage(),
+                                builder: (context) => ShowCaseWidget(
+                                    builder: Builder(
+                                        builder: (context) => ShowCaseWidget(
+                                                builder: Builder(
+                                              builder: (context) =>
+                                                  const HomePage(
+                                                      isFirstlogin: true),
+                                            )))),
                               ),
                             );
                           },

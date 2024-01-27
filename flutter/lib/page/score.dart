@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 // ignore: must_be_immutable
 class ScorePage extends StatefulWidget {
@@ -47,7 +48,7 @@ class _ScorePageState extends State<ScorePage> {
     final String? college = prefs?.getString("college");
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 22, 12, 80),
+      backgroundColor: Colors.white,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -56,85 +57,77 @@ class _ScorePageState extends State<ScorePage> {
             child: Card(
               margin:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 100.0),
-              color: Colors.white,
+              color: Color.fromARGB(255, 156, 27, 255),
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.8,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/images/poppers.png',
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 80),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Result',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Text(
-                            'Hurray $username! \n You have completed the module successfully',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Image.asset(
-                              getImage(
-                                ((widget.score / widget.totalQuestions) * 100),
-                              ),
-                              height: 100,
-                              width: 100,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              ' ${widget.score} / ${widget.totalQuestions} ',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            ' Points',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 25),
-                          const Spacer(),
-                        ],
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 80),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Result',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        (widget.score / widget.totalQuestions) * 100 >= 60
+                            ? 'Hurray $username! \n You have completed the module successfully'
+                            : 'Oops $username! \n You have failed the test.Goof luck at the next attempt\n Retires Remaining:3',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Image.asset(
+                          getImage(
+                            ((widget.score / widget.totalQuestions) * 100),
+                          ),
+                          height: 100,
+                          width: 100,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: Text(
+                          ' ${widget.score} / ${widget.totalQuestions} ',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        ' Points',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white,
+                        ),
+                      ),
+                      // const SizedBox(height: 15),
+                      const Spacer(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -181,7 +174,12 @@ class _ScorePageState extends State<ScorePage> {
                               );
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
+                                  builder: (context) => ShowCaseWidget(
+                                      builder: Builder(
+                                    builder: (context) => const HomePage(
+                                      isFirstlogin: false,
+                                    ),
+                                  )),
                                 ),
                               );
                             } catch (e) {
@@ -191,7 +189,12 @@ class _ScorePageState extends State<ScorePage> {
                         : () {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => const HomePage(),
+                                builder: (context) => ShowCaseWidget(
+                                    builder: Builder(
+                                  builder: (context) => const HomePage(
+                                    isFirstlogin: false,
+                                  ),
+                                )),
                               ),
                             );
                           },

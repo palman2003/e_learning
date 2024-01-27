@@ -1,6 +1,7 @@
 import 'package:e_learning/page/home.dart';
 import 'package:e_learning/page/profile.dart';
 import 'package:e_learning/page/intro.dart';
+import 'package:e_learning/page/score.dart';
 import 'package:e_learning/page/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -30,7 +31,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: HomePage(),
+      home: SignupPage(),
     );
   }
 }

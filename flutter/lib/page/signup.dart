@@ -7,6 +7,7 @@ import 'package:e_learning/utils/validators.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -288,7 +289,6 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                   labelText: "Resident City",
                                   prefixIcon: const Icon(Icons.location_city),
-
                                 ),
                                 validator: (city) {
                                   if (city == null || city.trim().isEmpty) {
@@ -405,7 +405,12 @@ class _SignupPageState extends State<SignupPage> {
                           onPressed: () {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => const HomePage(),
+                                builder: (context) => ShowCaseWidget(
+                                    builder: Builder(
+                                  builder: (context) => const HomePage(
+                                    isFirstlogin: true,
+                                  ),
+                                )),
                               ),
                             );
                           },
