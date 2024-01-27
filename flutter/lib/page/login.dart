@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:e_learning/page/forget_password.dart';
 import 'package:e_learning/page/home.dart';
-import 'package:e_learning/page/intro.dart';
 import 'package:e_learning/page/signup.dart';
 import 'package:e_learning/page/tour_intro.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       var responseData = jsonDecode(response.body);
-      print(responseData);
       if (response.statusCode > 399) {
         throw responseData["message"];
       }

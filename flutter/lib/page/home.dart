@@ -1,21 +1,16 @@
-import 'dart:convert';
 
 import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/page/intro.dart';
-import 'package:e_learning/page/login.dart';
 import 'package:e_learning/page/module.dart';
-import 'package:e_learning/page/profile.dart';
 import 'package:e_learning/page/quiz_splash.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/widgets/image_progress.dart';
 import 'package:e_learning/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/data/module_data.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.isFirstlogin});
@@ -129,9 +124,9 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 scaffoldKey.currentState?.openDrawer();
               },
-              icon: Icon(Icons.menu)),
+              icon: const Icon(Icons.menu)),
         ),
-        backgroundColor: Color.fromARGB(255, 153, 0, 255),
+        backgroundColor: const Color.fromARGB(255, 153, 0, 255),
         foregroundColor: Colors.white,
         title: Text(
           "Hi $username!",
@@ -283,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
@@ -365,7 +360,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Expanded(
                     child: GestureDetector(
                       onTap: quiz1Tap,
@@ -443,14 +438,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Showcase(
                 child: ImageProgress(total: 100, completed: 0),
                 title: 'Upload Progerss',
                 description: 'Keep Track of your image upload progress here',
                 key: _six,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
@@ -520,7 +515,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Expanded(
                     child: GestureDetector(
                       onTap: caseStudyTap,

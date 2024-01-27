@@ -1,3 +1,4 @@
+import 'package:e_learning/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,7 +13,6 @@ class TourIntro extends StatelessWidget {
         body: Padding(
       padding: const EdgeInsets.all(30.0),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
@@ -64,47 +64,45 @@ class TourIntro extends StatelessWidget {
                 textStyle: Theme.of(context).textTheme.titleMedium!.copyWith()),
           ),
           const SizedBox(height: 30),
-          Row(
-            children: [
-              Spacer(),
-              InkWell(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => ShowCaseWidget(
-                            builder: Builder(
-                              builder: (context) => const HomePage(
-                                isFirstlogin: true,
-                              ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: InkWell(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => ShowCaseWidget(
+                          builder: Builder(
+                            builder: (context) => const HomePage(
+                              isFirstlogin: true,
                             ),
-                          )),
-                    ),
-                  );
-                },
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                child: Ink(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 242, 211, 255),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
+                          ),
+                        )),
                   ),
-                  child: Text(
-                    "Let's Get Started",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                );
+              },
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+              child: Ink(
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 242, 211, 255),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  "Let's Get Started",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              SizedBox(width: 20),
-            ],
-          )
+            ),
+          ),
+          const SizedBox(width: 20)
         ],
       ),
     ));

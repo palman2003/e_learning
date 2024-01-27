@@ -51,7 +51,9 @@ class _QuizPageState extends State<QuizPage> {
         score++;
       }
     }
-
+    setState(() {
+      isLoading = true;
+    });
     try {
       var response = await http.post(
         Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
@@ -90,12 +92,16 @@ class _QuizPageState extends State<QuizPage> {
         body: json.encode(
           {
             "email": email,
-            "score": (score/widget.quizData.length) * 100,
+            "score": (score / widget.quizData.length) * 100,
           },
         ),
       );
 
-      if(!mounted){
+      setState(() {
+        isLoading = false;
+      });
+
+      if (!mounted) {
         return;
       }
 
@@ -329,8 +335,6 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    final String? email = prefs?.getString("email");
-
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -473,9 +477,11 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                         const Spacer(),
                         InkWell(
-                          onTap: () {
-                            quizIndexHandler(1);
-                          },
+                          onTap: isLoading
+                              ? () {}
+                              : () {
+                                  quizIndexHandler(1);
+                                },
                           child: Container(
                             decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 255, 118, 32),
@@ -490,7 +496,7 @@ class _QuizPageState extends State<QuizPage> {
                               ],
                             ),
                             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            child: Text(
+                            child: isLoading ? const CircularProgressIndicator() : Text(
                               _quizIndex == widget.quizData.length - 1
                                   ? "Complete"
                                   : "Next",

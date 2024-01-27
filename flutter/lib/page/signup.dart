@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-import 'package:e_learning/page/home.dart';
 import 'package:e_learning/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});

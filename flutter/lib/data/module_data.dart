@@ -208,10 +208,8 @@ final List module = [
       const SubHeading(text: "FMCG", bottomPadding: 0),
       ImageSlider(
         imageList: [
-          'assets/images/module1/eg1.png',
-          'assets/images/module1/eg2.png',
-          'assets/images/module1/eg3.png',
-          'assets/images/module1/eg4.png',
+          'assets/images/module1/fmcg1.png',
+          'assets/images/module1/fmcg2.png',
         ],
         height: 100,
         verticalPadding: 10,
@@ -219,10 +217,8 @@ final List module = [
       const SubHeading(text: "FMCD", bottomPadding: 0, topPadding: 0),
       ImageSlider(
         imageList: [
-          'assets/images/module1/eg5.png',
-          'assets/images/module1/eg6.png',
-          'assets/images/module1/eg7.png',
-          'assets/images/module1/eg8.png',
+          'assets/images/module1/fmcd1.png',
+          'assets/images/module1/fmcd2.png',
         ],
         height: 100,
         verticalPadding: 10,
@@ -464,10 +460,7 @@ final List module = [
       const BulletPoint(
           text:
               "Kirana stores and Super Markets are not the only types of outlets available – next we will look at the different types of outlets"),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Different types of Outlets"),
+      const SubHeading(text: "Different types of Outlets"),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/class_of_outlets.png",
@@ -613,9 +606,6 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      const SizedBox()
-    ],
-    [
       const Heading(text: 'Important KPIs in Merchandizing'),
       BodyImage(
         image: Image.asset(
@@ -807,14 +797,6 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      // const SubHeading(text: 'Science behind Shelf utilization'),
-      // const BulletPoint(text: 'Shelves can be divided in 4 various zones:'),
-      // const SubBulletPoint(
-      //     text: 'Bottom most zone - very low chances of visibility'),
-      // const SubBulletPoint(text: 'Zone II - slightly higher chances'),
-      // const SubBulletPoint(text: 'Golden Zone - best chances of visibility '),
-      // const SubBulletPoint(
-      //     text: 'Top most zone - slightly lesser as compared to Golden'),
       const BulletPoint(
           text:
               'For a shopkeeper -> he want to drive sales: at times he might place top selling products at eye-level'),
@@ -826,23 +808,5 @@ final List module = [
     [
       const QuizButton(),
     ]
-    // [
-    //   const Heading(text: "Shelf Analytics"),
-    //   const SubHeading(text: 'References'),
-    //   const BulletPoint(
-    //       text:
-    //           'FMCG Definition: An Overview of Fast Moving Consumer Goods (FMCG) of India, Rameshbhai G. Pawar1 , Dr. R. K. Dave2'),
-    //   const BulletPoint(
-    //       text:
-    //           'Direct & Indirect Distribution: https://smallbusinessresources.wf.com/direct-vs-indirect-distribution-channels-whats-best-for-you/#:~:text=Direct%20distribution%20means%20you%20take,can%20sell%20on%20your%20behalf.'),
-    //   const BulletPoint(text: 'Buying Decision - School of HTM'),
-    //   const BulletPoint(text: 'Categories within FMCG - Ashok Chakra'),
-    //   const BulletPoint(text: 'Low Involvement Products - Monarch University'),
-    //   const BulletPoint(text: 'HIP and LIP - Study Point, YouTube'),
-    //   const BulletPoint(text: 'Classification of Outlets - Nielsen'),
-    //   const BulletPoint(text: 'KPIs in Merchandizing -  Corp'),
-    //   const BulletPoint(text: 'Different types of Display - Pilotes'),
-    //   const SizedBox(),
-    // ],
   ],
 ];

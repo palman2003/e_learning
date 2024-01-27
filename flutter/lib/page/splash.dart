@@ -89,24 +89,28 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/splash.png',
-              width: 150,
-              height: 150,
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'E-Learning App',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/splash.png',
+                // width: 150,
+                // height: 150,
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              const Text(
+                "Let's Learn",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                  color: Color.fromARGB(255, 0, 69, 187),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
