@@ -13,12 +13,14 @@ class ScorePage extends StatefulWidget {
   ScorePage({
     required this.score,
     required this.totalQuestions,
+    required this.retry,
     this.isFinal = false,
     super.key,
   });
 
   bool isFinal;
   final int score;
+  final int retry;
   final int totalQuestions;
 
   @override
@@ -48,7 +50,7 @@ class _ScorePageState extends State<ScorePage> {
     final String? college = prefs?.getString("college");
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 156, 27, 255),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -57,7 +59,7 @@ class _ScorePageState extends State<ScorePage> {
             child: Card(
               margin:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 100.0),
-              color: Color.fromARGB(255, 156, 27, 255),
+              // color: Colors.black,
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: Container(
@@ -73,7 +75,7 @@ class _ScorePageState extends State<ScorePage> {
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          // color: Colors.black,
                         ),
                       ),
                       const SizedBox(
@@ -82,12 +84,12 @@ class _ScorePageState extends State<ScorePage> {
                       Text(
                         (widget.score / widget.totalQuestions) * 100 >= 60
                             ? 'Hurray $username! \n You have completed the module successfully'
-                            : 'Oops $username! \n You have failed the test.Goof luck at the next attempt\n Retires Remaining:3',
+                            : 'Oops $username! \n You have failed the test. Good luck at the next attempt\n Retires Remaining: ${widget.retry}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
-                          color: Colors.white,
+                          // color: Colors.black,
                         ),
                       ),
                       const SizedBox(
@@ -111,7 +113,7 @@ class _ScorePageState extends State<ScorePage> {
                           style: const TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            // color: Colors.black,
                           ),
                         ),
                       ),
@@ -121,7 +123,7 @@ class _ScorePageState extends State<ScorePage> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w300,
-                          color: Colors.white,
+                          // color: Colors.black,
                         ),
                       ),
                       // const SizedBox(height: 15),
@@ -209,10 +211,10 @@ class _ScorePageState extends State<ScorePage> {
                 child: isCertificateLoading
                     ? const CircularProgressIndicator()
                     : Text(
-                        widget.isFinal ? "Generate Certificate" : 'Next Module',
+                        widget.isFinal ? "Generate Certificate" : 'Continue',
                         style: const TextStyle(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.w800,
                         ),
                       ),

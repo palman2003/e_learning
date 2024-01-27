@@ -6,10 +6,12 @@ class QuizSplash extends StatefulWidget {
   const QuizSplash({
     required this.quizData,
     required this.moduleIndex,
+    required this.retry,
     super.key,
   });
 
   final int moduleIndex;
+  final int retry;
 
   final List<QuizData> quizData;
   @override
@@ -326,6 +328,7 @@ class _QuizSplashState extends State<QuizSplash> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => QuizPage(
+                      retry: widget.retry,
                       quizData: widget.quizData,
                       isFinal: true,
                       moduleIndex: widget.moduleIndex,

@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:e_learning/page/forget_password.dart';
 import 'package:e_learning/page/home.dart';
+import 'package:e_learning/page/intro.dart';
 import 'package:e_learning/page/signup.dart';
+import 'package:e_learning/page/tour_intro.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:http/http.dart' as http;
@@ -75,10 +77,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ShowCaseWidget(
-                builder: Builder(
-                    builder: (context) =>
-                        HomePage(isFirstlogin: responseData["intro"]))),
+            builder: ((context) => TourIntro()),
           ),
         );
       } else {
@@ -87,7 +86,10 @@ class _LoginPageState extends State<LoginPage> {
           MaterialPageRoute(
             builder: (context) => ShowCaseWidget(
               builder: Builder(
-                  builder: (context) => const HomePage(isFirstlogin: false)),
+                builder: (context) => const HomePage(
+                  isFirstlogin: false,
+                ),
+              ),
             ),
           ),
         );

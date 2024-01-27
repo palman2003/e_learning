@@ -279,69 +279,72 @@ class _HomePageState extends State<HomePage> {
                         title: 'Content',
                         description: 'Learn about Shelf Analytics here',
                         key: _four,
-                        child: Container(
-                          height: 150,
-                          decoration: BoxDecoration(
-                            color: mainColors[1],
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5.0),
+                        child: Hero(
+                          tag: "heroTag",
+                          child: Container(
+                            height: 150,
+                            decoration: BoxDecoration(
+                              color: mainColors[1],
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(0, 1),
+                                  blurRadius: 5,
+                                ),
+                              ],
                             ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0, 1),
-                                blurRadius: 5,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Spacer(),
-                              Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Spacer(),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 50, 5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                    ),
+                                    color: boxColors[1],
                                   ),
-                                  color: boxColors[1],
-                                ),
-                                child: Text(
-                                  "02",
-                                  style: GoogleFonts.playfairDisplay().copyWith(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        const Color.fromARGB(255, 37, 37, 37),
+                                  child: Text(
+                                    "02",
+                                    style: GoogleFonts.playfairDisplay().copyWith(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          const Color.fromARGB(255, 37, 37, 37),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 45,
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(5),
-                                    bottomLeft: Radius.circular(5),
+                                Container(
+                                  width: double.infinity,
+                                  height: 45,
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(5),
+                                    ),
+                                    color: Colors.white,
                                   ),
-                                  color: Colors.white,
-                                ),
-                                child: Text(
-                                  "Content",
-                                  maxLines: 2,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                ),
-                              )
-                            ],
+                                  child: Text(
+                                    "Content",
+                                    maxLines: 2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

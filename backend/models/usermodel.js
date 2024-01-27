@@ -45,6 +45,10 @@ const userSchema = new schema(
       type: Boolean,
       default: true,
     },
+    retries: {
+      type: Number,
+      default: 3,
+    }
   },
   { timestamps: true }
 );

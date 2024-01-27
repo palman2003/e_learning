@@ -43,11 +43,12 @@ class _SplashPageState extends State<SplashPage> {
       context,
       MaterialPageRoute(
         builder: ((context) => ShowCaseWidget(
-                builder: Builder(
-              builder: (context) => const HomePage(
-                isFirstlogin: false,
+              builder: Builder(
+                builder: (context) => const HomePage(
+                  isFirstlogin: false,
+                ),
               ),
-            ))),
+            )),
       ),
     );
   }

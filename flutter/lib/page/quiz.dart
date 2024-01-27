@@ -15,12 +15,14 @@ class QuizPage extends StatefulWidget {
     required this.quizData,
     required this.isFinal,
     required this.moduleIndex,
+    required this.retry,
     super.key,
   });
 
   final List<QuizData> quizData;
   final bool isFinal;
   final int moduleIndex;
+  final int retry;
 
   @override
   State<StatefulWidget> createState() {
@@ -45,7 +47,13 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
-  void updateProgress(String email, int score) async {
+  void updateProgress(String email) async {
+    for (var element in quizState) {
+      if(element.correctAnswer == element.selectedAnswer){
+        score++;
+      }
+    }
+
     try {
       var response = await http.post(
         Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
@@ -54,6 +62,17 @@ class _QuizPageState extends State<QuizPage> {
           {
             "email": prefs!.getString("email"),
             "module": 2,
+          },
+        ),
+      );
+
+      http.post(
+        Uri.parse(
+            "http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/retry-decrement"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            "email": prefs!.getString("email"),
           },
         ),
       );
@@ -117,6 +136,7 @@ class _QuizPageState extends State<QuizPage> {
               score: score,
               totalQuestions: widget.quizData.length,
               isFinal: widget.isFinal,
+              retry: widget.retry,
             ),
           ),
         );
@@ -176,6 +196,7 @@ class _QuizPageState extends State<QuizPage> {
               score: score,
               totalQuestions: widget.quizData.length,
               isFinal: widget.isFinal,
+              retry: widget.retry,
             ),
           ),
         );
@@ -243,10 +264,15 @@ class _QuizPageState extends State<QuizPage> {
               widget.quizData[_quizIndex].options[_selectedQuizValue],
         ),
       );
+      if (_quizIndex == widget.quizData.length-1) {
+        updateProgress(prefs!.getString('email')!);
+        return;
+      }
       setState(() {
         _selectedQuizValue = null;
         _quizIndex++;
       });
+
     } else if (value == -1) {
       for (var element in quizState) {
         if (_quizIndex == element.questionIndex) {
@@ -423,13 +449,9 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                         const Spacer(),
                         InkWell(
-                          onTap: _quizIndex == widget.quizData.length - 1
-                              ? () {
-                                  updateProgress(email!, score);
-                                }
-                              : () {
-                                  quizIndexHandler(1);
-                                },
+                          onTap: () {
+                            quizIndexHandler(1);
+                          },
                           child: Container(
                             decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 255, 118, 32),
