@@ -1,58 +1,112 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:showcaseview/showcaseview.dart';
+
 class TourIntro extends StatelessWidget {
   TourIntro({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 246, 227, 148),
+
         body: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/introsplash.png',
-                height: 400,
-                width: 400,
-              ),
-              Text(
-                'Learn about Sales and Marketing ',
-                style: GoogleFonts.lato(
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(fontWeight: FontWeight.bold)),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                'You will learn about how sales and marketing works',
-                style: GoogleFonts.lato(
-                    textStyle:
-                        Theme.of(context).textTheme.titleMedium!.copyWith()),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 224, 211, 141)),
-              )
-            ],
+      padding: const EdgeInsets.all(30.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: double.infinity,
+            height: 450,
+            // child: Stack(
+            //   children: [
+            //     Align(
+            //       alignment: Alignment.center,
+            //       child: Positioned(
+            //         child: Image.asset(
+            //           "assets/images/blobs/blob-haikei (1).png",
+            //           width: 300,
+            //           height: 550,
+            //         ),
+            //       ),
+            //     ),
+            //     Align(
+            //       alignment: Alignment.center,
+            //       child: Positioned(
+            //         top: 200,
+            //         child: Image.asset(
+            //           "assets/images/blobs/sample.png",
+            //           width: 200,
+            //           // width: ,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            child: Image.asset("assets/images/blobs/sketch.jpeg"),
           ),
-        ));
+          Text(
+            'Learn about Sales and Marketing ',
+            style: GoogleFonts.lato(
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(fontWeight: FontWeight.bold, fontSize: 40),
+            ),
+            textAlign: TextAlign.left,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            'You will learn about how sales and marketing works',
+            style: GoogleFonts.lato(
+                textStyle: Theme.of(context).textTheme.titleMedium!.copyWith()),
+          ),
+          const SizedBox(height: 30),
+          Row(
+            children: [
+              Spacer(),
+              InkWell(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => ShowCaseWidget(
+                            builder: Builder(
+                              builder: (context) => const HomePage(
+                                isFirstlogin: true,
+                              ),
+                            ),
+                          )),
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                child: Ink(
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 242, 211, 255),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    "Let's Get Started",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 20),
+            ],
+          )
+        ],
+      ),
+    ));
   }
 }

@@ -343,12 +343,22 @@ class _QuizSplashState extends State<QuizSplash> {
                       if (response.statusCode > 399) {
                         throw responseData["message"];
                       }
+
+                      if (!mounted) {
+                        return;
+                      }
+
+                      if (responseData['score'] > 60) {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("You have already passed this test"),
+                          ),
+                        );
+                        return;
+                      }
+
                       if (responseData['retry'] <= 0) {
-
-                        if (!mounted) {
-                          return;
-                        }
-
                         ScaffoldMessenger.of(context).clearSnackBars();
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

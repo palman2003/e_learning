@@ -90,7 +90,7 @@ class _QuizPageState extends State<QuizPage> {
         body: json.encode(
           {
             "email": email,
-            "score": score,
+            "score": (score/widget.quizData.length) * 100,
           },
         ),
       );

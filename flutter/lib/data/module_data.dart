@@ -316,8 +316,8 @@ final List module = [
         image: Image.asset(
           "assets/images/module1/buying_decisions.png",
           //fit: BoxFit.fitWidth,
-          width: 300,
-          height: 300,
+          // width: 300,
+          // height: 300,
         ),
       ),
     ],
@@ -369,7 +369,6 @@ final List module = [
         image: Image.asset(
           'assets/images/module1/indirect_distribution.png',
           fit: BoxFit.fill,
-          height: 75,
         ),
       ),
       const SizedBox()
@@ -622,7 +621,7 @@ final List module = [
         image: Image.asset(
           "assets/images/module1/kpi.png",
           fit: BoxFit.fill,
-          height: 500,
+          // height: 300,
         ),
       ),
       const SizedBox()
