@@ -31,14 +31,15 @@ class SubHeading {
 }
 
 class Body {
-  const Body({
-    required this.text,
-    this.topPadding = 10,
-    this.bottomPadding = 10,
-    this.textColor = const Color.fromARGB(255, 48, 48, 48),
-  });
+  const Body(
+      {required this.text,
+      this.topPadding = 10,
+      this.bottomPadding = 10,
+      this.textColor = const Color.fromARGB(255, 48, 48, 48),
+      this.bgColor = Colors.transparent});
   final String text;
   final Color textColor;
+  final Color bgColor;
 
   final double topPadding;
   final double bottomPadding;
@@ -66,10 +67,12 @@ class SubBulletPoint {
       this.topPadding = 0,
       this.bottomPadding = 10,
       this.leftPadding = 20,
+      this.bgColor = Colors.transparent,
       this.textColor = Colors.black});
   final String text;
   final double topPadding;
   final Color textColor;
+  final Color bgColor;
   final double bottomPadding;
   final double leftPadding;
 }
@@ -114,9 +117,10 @@ class TabularColumn {
     this.headerTextStyle = const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
+      backgroundColor: Colors.yellow,
     ),
     this.cellTextStyle = const TextStyle(
-      fontSize: 16,
+      fontSize: 14,
     ),
   });
 
@@ -182,18 +186,21 @@ final List module = [
         bgColor: Color.fromARGB(255, 255, 224, 130),
       ),
       const BulletPoint(text: "Products that are: "),
-      const SubBulletPoint(text: "consumed at least once a month"),
       const SubBulletPoint(
-          text: "sold under the national brands in consumer packages"),
-      const SubBulletPoint(text: "sold through a wide spared distribution network"),
-      const SubBulletPoint(text: "consumed directly by the consumers."),
+          text: "consumed 𝗮𝘁 𝗹𝗲𝗮𝘀𝘁 𝗼𝗻𝗰𝗲 𝗮 𝗺𝗼𝗻𝘁𝗵"),
+      const SubBulletPoint(text: "sold under the  in consumer packages"),
+      const SubBulletPoint(
+          text:
+              "sold through a wide spared 𝗱𝗶𝘀𝘁𝗿𝗶𝗯𝘂𝘁𝗶𝗼𝗻 𝗻𝗲𝘁𝘄𝗼𝗿𝗸"),
+      const SubBulletPoint(
+          text: "consumed 𝗱𝗶𝗿𝗲𝗰𝘁𝗹𝘆 𝗯𝘆 𝘁𝗵𝗲 𝗰𝗼𝗻𝘀𝘂𝗺𝗲𝗿𝘀."),
       const SubHeading(
         text: "FMCD -> Fast Moving Consumer Durables",
         bgColor: Color.fromARGB(255, 255, 224, 130),
       ),
       const BulletPoint(
           text:
-              "Products that are non-durable and have a longer usage period. They also differ basis the buying decision.  "),
+              "Products that are 𝗻𝗼𝗻-𝗱𝘂𝗿𝗮𝗯𝗹𝗲 and have a 𝗹𝗼𝗻𝗴𝗲𝗿 𝘂𝘀𝗮𝗴𝗲 𝗽𝗲𝗿𝗶𝗼𝗱. They also differ basis the buying decision."),
       const SizedBox()
     ],
     [
@@ -224,22 +231,27 @@ final List module = [
     ],
     [
       const SubHeading(text: "Companies"),
-      const BulletPoint(text: "FMCG: Unilever, P&G, ITC, CavinKare, General Mills"),
-      const BulletPoint(text: "FMCD: HP, Whirlpool, Voltas, Philips, Hitachi"),
+      const BulletPoint(
+          text:
+              "FMCG: 𝗨𝗻𝗶𝗹𝗲𝘃𝗲𝗿, 𝗣&𝗚, 𝗜𝗧𝗖, 𝗖𝗮𝘃𝗶𝗻𝗞𝗮𝗿𝗲, 𝗚𝗲𝗻𝗲𝗿𝗮𝗹 𝗠𝗶𝗹𝗹𝘀"),
+      const BulletPoint(
+          text:
+              "FMCD: 𝗛𝗣, 𝗪𝗵𝗶𝗿𝗹𝗽𝗼𝗼𝗹, 𝗩𝗼𝗹𝘁𝗮𝘀, 𝗣𝗵𝗶𝗹𝗶𝗽𝘀, 𝗛𝗶𝘁𝗮𝗰𝗵𝗶"),
       const SubHeading(text: "Products"),
-      const BulletPoint(text: "FMCG"),
+      const Body(text: "FMCG", bgColor: Color.fromARGB(255, 255, 224, 130)),
       const SubBulletPoint(
           text: "Personal Care products -> Shampoo, Face Wash, Soap etc"),
       const SubBulletPoint(
           text:
-              "Packaged Food & Beverages  Chips, Juices, Carbonated drinks etc"),
-      const SubBulletPoint(text: "Laundry  Detergent etc"),
-      const BulletPoint(text: "FMCD"),
-      const SubBulletPoint(text: "Automobile  Cars, Bikes, Trucks etc"),
+              "Packaged Food & Beverages -> Chips, Juices, Carbonated drinks etc"),
+      const SubBulletPoint(text: "Laundry -> Detergent etc"),
+      const Body(text: "FMCD", bgColor: Color.fromARGB(255, 255, 224, 130)),
+      const SubBulletPoint(text: "Automobile -> Cars, Bikes, Trucks etc"),
       const SubBulletPoint(
           text:
-              "Household appliances  Washing Machine, Iron, Oven, Vacuum Cleaner etc"),
-      const SubBulletPoint(text: "Electronic gadgets  Smart Phones, Laptops etc"),
+              "Household appliances -> Washing Machine, Iron, Oven, Vacuum Cleaner etc"),
+      const SubBulletPoint(
+          text: "Electronic gadgets -> Smart Phones, Laptops etc"),
     ],
     [
       const Heading(text: "Buying Decision"),
@@ -250,8 +262,8 @@ final List module = [
               "While FMCG and FMCD companies will have products to sell, but how a person ends up buying is still a blackbox"),
       const BulletPoint(
           text:
-              "We do NOT know what all went into purchasing a particular product."),
-      const BulletPoint(text: "However, in general it consists of 6 steps:"),
+              "We do 𝗡𝗢𝗧 know what all went into purchasing a particular product."),
+      const Body(text: "However, in general it consists of 𝟔 𝐬𝐭𝐞𝐩𝐬:"),
       const SubBulletPoint(text: "Need recognition"),
       const SubBulletPoint(text: "Information search"),
       const SubBulletPoint(text: "Alternative evaluation"),
@@ -276,20 +288,20 @@ final List module = [
           text:
               "Steps involved in decision making would also depend on the type of product"),
       const BulletPoint(text: 'Basis the same, products can be classified as'),
-      const BulletPoint(
+      const Body(
         text: 'Low Involvement (LIP):',
         bgColor: Color.fromARGB(255, 255, 224, 130),
       ),
       const SubBulletPoint(
           text:
-              'products which are bought frequently and with a minimum of thought and effort'),
-      const BulletPoint(
+              'Products which are 𝗯𝗼𝘂𝗴𝗵𝘁 𝗳𝗿𝗲𝗾𝘂𝗲𝗻𝘁𝗹𝘆 and with a minimum of thought and effort'),
+      const Body(
         text: 'High Involvement (HIP):',
         bgColor: Color.fromARGB(255, 255, 224, 130),
       ),
       const SubBulletPoint(
           text:
-              'products for which the buyer is prepared to spend considerable time and effort in searching.'),
+              'Products for which the buyer is prepared to 𝘀𝗽𝗲𝗻𝗱 𝗰𝗼𝗻𝘀𝗶𝗱𝗲𝗿𝗮𝗯𝗹𝗲 𝘁𝗶𝗺𝗲 and effort in searching.'),
       const BulletPoint(
           text:
               'Generally, LIP -> FMCG products, while HIP -> Durable & Luxury products'),
@@ -314,10 +326,10 @@ final List module = [
       const BulletPoint(
           text:
               'Now that we have seen the difference in buying decision, it should be noted that within FMCG itself – there are a lot of categories.'),
-      const BulletPoint(text: "CavinKare is an FMCG company."),
+      const BulletPoint(text: "𝗖𝗮𝘃𝗶𝗻𝗞𝗮𝗿𝗲 is an 𝗙𝗠𝗖𝗚 company."),
       const BulletPoint(
           text:
-              "Process of selling products under any category requires distribution – which we will see it in the next slide"),
+              "Process of selling products under any category requires distribution - which we will see it in the next slide"),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/fmcg_categories.png",
@@ -340,10 +352,11 @@ final List module = [
       ),
       const BulletPoint(
           text:
-              'Activity of selling products from manufacturers to the consumers'),
+              'Activity of selling products from manufacturers to the consumers',
+          bgColor: Color.fromARGB(255, 255, 224, 130)),
       const BulletPoint(
           text:
-              'Two types ->  Direct and Indirect Distribution (Majority of the FMCG entities follow Indirect Distribution '),
+              'Two types ->  𝗗𝗶𝗿𝗲𝗰𝘁 𝗮𝗻𝗱 𝗜𝗻𝗱𝗶𝗿𝗲𝗰𝘁 𝗗𝗶𝘀𝘁𝗿𝗶𝗯𝘂𝘁𝗶𝗼𝗻 (Majority of the FMCG entities follow Indirect Distribution '),
       const SubHeading(text: "Direct Distribution - Schematics"),
       BodyImage(
         image: Image.asset(
@@ -362,28 +375,28 @@ final List module = [
     ],
     [
       const SubHeading(text: 'Direct Distribution'),
-      const BulletPoint(text: 'Pros'),
-      const SubBulletPoint(
+      const Body(text: 'Pros', bgColor: Color.fromARGB(255, 255, 224, 130)),
+      const BulletPoint(
           text:
-              'You have total control over how the product is marketed and sold'),
-      const SubBulletPoint(
+              'You have 𝘁𝗼𝘁𝗮𝗹 𝗰𝗼𝗻𝘁𝗿𝗼𝗹 over how the product is marketed and sold'),
+      const BulletPoint(
           text: 'No fighting with competitors for shelf space at retailers.'),
-      const BulletPoint(text: 'Cons'),
-      const SubBulletPoint(
+      const Body(text: 'Cons', bgColor: Color.fromARGB(255, 255, 224, 130)),
+      const BulletPoint(
           text: 'More time-consuming and expensive for some business owners'),
-      const SubBulletPoint(text: 'Limited market coverage.'),
+      const BulletPoint(text: '𝗟𝗶𝗺𝗶𝘁𝗲𝗱 𝗺𝗮𝗿𝗸𝗲𝘁 𝗰𝗼𝘃𝗲𝗿𝗮𝗴𝗲.'),
       const SubHeading(text: 'Indirect Distribution'),
-      const BulletPoint(text: 'Pros'),
-      const SubBulletPoint(
+      const Body(text: 'Pros', bgColor: Color.fromARGB(255, 255, 224, 130)),
+      const BulletPoint(
           text:
               'Distribution agents specialize in getting products into as many markets as possible'),
-      const SubBulletPoint(
+      const BulletPoint(
           text:
               'Retailers know their local markets and how best to sell your product there'),
-      const BulletPoint(text: 'Cons'),
-      const SubBulletPoint(
+      const Body(text: 'Cons', bgColor: Color.fromARGB(255, 255, 224, 130)),
+      const BulletPoint(
           text: 'Distribution agents and retailers will share in your profits'),
-      const SubBulletPoint(
+      const BulletPoint(
           text:
               'Retailers may sell your competitors’ products alongside yours.'),
       const SizedBox()
@@ -403,7 +416,7 @@ final List module = [
       ),
       const BulletPoint(
           text:
-              'Case 1 -> Product A & B available, but only Product A is visible. Product A has higher chances of getting sold'),
+              '𝗖𝗮𝘀𝗲 𝟭 -> Product A & B available, but only Product A is visible. Product A has higher chances of getting sold'),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/case2.png",
@@ -414,7 +427,7 @@ final List module = [
       ),
       const BulletPoint(
           text:
-              'Case 2 -> Product A is available but not visible. Product B is not available. Product A has slightly lower chances of getting sold (solely due to availability)'),
+              '𝗖𝗮𝘀𝗲 𝟮 -> Product A is available but not visible. Product B is not available. Product A has slightly lower chances of getting sold (solely due to availability)'),
       BodyImage(
         image: Image.asset(
           "assets/images/module1/case3.png",
@@ -425,14 +438,14 @@ final List module = [
       ),
       const BulletPoint(
           text:
-              'Case 3 -> Product B is available and visible. Product B has higher chances of getting sold'),
+              '𝗖𝗮𝘀𝗲 𝟯 -> Product B is available and visible. Product B has higher chances of getting sold'),
       const SizedBox()
     ],
     [
       const Heading(text: "Importance of Distribution"),
       const BulletPoint(
           text:
-              'Being just available is not enough  it should be available in the right places/outlets'),
+              'Being just available is not enough -> it should be available in the 𝗿𝗶𝗴𝗵𝘁 𝗽𝗹𝗮𝗰𝗲𝘀/𝗼𝘂𝘁𝗹𝗲𝘁𝘀'),
       const BulletPoint(
           text:
               'An example of proper distribution is placing products where there has been consistent sales historically.'),
@@ -447,7 +460,7 @@ final List module = [
       ),
       const BulletPoint(
           text:
-              "Another example would be availability in the right outlets  like how sachets are best sold in Kirana stores and Bottles in Super Market"),
+              "Another example would be availability in the right outlets -> like how 𝘀𝗮𝗰𝗵𝗲𝘁𝘀 𝗮𝗿𝗲 𝗯𝗲𝘀𝘁 𝘀𝗼𝗹𝗱 𝗶𝗻 𝗞𝗶𝗿𝗮𝗻𝗮 𝘀𝘁𝗼𝗿𝗲𝘀 𝗮𝗻𝗱 𝗕𝗼𝘁𝘁𝗹𝗲𝘀 𝗶𝗻 𝗦𝘂𝗽𝗲𝗿 𝗠𝗮𝗿𝗸𝗲𝘁"),
       const BulletPoint(
           text:
               "Kirana stores and Super Markets are not the only types of outlets available – next we will look at the different types of outlets"),
@@ -507,21 +520,22 @@ final List module = [
               "Nielsen is a global company that provides valuable insights into consumer behavior and marketing information by collecting data that measures what consumers watch and what they buy. This is how they classify outlets:"),
       const BulletPoint(
           text:
-              'Grocers: A store primarily focused on selling food and consumable products.'),
+              '𝗚𝗿𝗼𝗰𝗲𝗿𝘀: A store primarily focused on selling food and consumable products.'),
       const BulletPoint(
           text:
-              'Chemist: shop where drugs and medicines are sold or given out, and where you can buy cosmetics and some household goods'),
-      const BulletPoint(
-          text: 'Cosmetics: shop where personal care products are sold'),
+              '𝗖𝗵𝗲𝗺𝗶𝘀𝘁: shop where drugs and medicines are sold or given out, and where you can buy cosmetics and some household goods'),
       const BulletPoint(
           text:
-              'Paan Plus: small scale Kirana store focussed in selling small SKUs and ready to eat snacks'),
+              '𝗖𝗼𝘀𝗺𝗲𝘁𝗶𝗰𝘀: shop where personal care products are sold'),
       const BulletPoint(
           text:
-              'Super Market: large shopping store where customers choose their products which are organized systematically into sections'),
+              '𝗣𝗮𝗮𝗻 𝗣𝗹𝘂𝘀: small scale Kirana store focussed in selling small SKUs and ready to eat snacks'),
       const BulletPoint(
           text:
-              'Hyper Market:  large retail establishments that are a culmination of departmental stores and supermarkets '),
+              '𝗦𝘂𝗽𝗲𝗿 𝗠𝗮𝗿𝗸𝗲𝘁: large shopping store where customers choose their products which are organized systematically into sections'),
+      const BulletPoint(
+          text:
+              '𝗛𝘆𝗽𝗲𝗿 𝗠𝗮𝗿𝗸𝗲𝘁:  large retail establishments that are a culmination of departmental stores and supermarkets '),
       const SizedBox()
     ],
     [
@@ -581,7 +595,7 @@ final List module = [
       const SubHeading(text: 'Importance of Merchandizing'),
       const Body(
           text:
-              '1. Enhanced visibility of the product \n 2.Improved shopping experience \n3.Increased sales \n4.Competitive advantage'),
+              '1. Enhanced visibility of the product \n2.Improved shopping experience \n3.Increased sales \n4.Competitive advantage'),
       const SubHeading(text: 'Different strategies for Merchandizing'),
       BodyImage(
         image: Image.asset(
@@ -622,10 +636,22 @@ final List module = [
         ),
       ),
       const BulletPoint(text: 'Display of product information makes easy to:'),
-      const SubBulletPoint(text: 'Introduce'),
-      const SubBulletPoint(text: 'Explain'),
-      const SubBulletPoint(text: 'Show'),
-      const SubBulletPoint(text: 'Sell'),
+      const SubBulletPoint(
+        text: 'Introduce',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const SubBulletPoint(
+        text: 'Explain',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const SubBulletPoint(
+        text: 'Show',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const SubBulletPoint(
+        text: 'Sell',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
       const BulletPoint(
           text:
               'Not just for the product, effective display helps establish, promote & enhance the store’s visual image '),
@@ -648,11 +674,26 @@ final List module = [
         verticalPadding: 50,
       ),
       const BulletPoint(text: 'Different types of Display:'),
-      const SubBulletPoint(text: 'Floor Stand'),
-      const SubBulletPoint(text: 'Showcase'),
-      const SubBulletPoint(text: 'End cap unit'),
-      const SubBulletPoint(text: 'Checkout display'),
-      const SubBulletPoint(text: 'Digital Pop display'),
+      const SubBulletPoint(
+        text: 'Floor Stand',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const SubBulletPoint(
+        text: 'Showcase',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const SubBulletPoint(
+        text: 'End cap unit',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const SubBulletPoint(
+        text: 'Checkout display',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
+      const SubBulletPoint(
+        text: 'Digital Pop display',
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
       const BulletPoint(
           text:
               'Display is majorly classified into two on the basis of its purpose:'),
@@ -668,7 +709,10 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      const BulletPoint(text: "POS - Point of Sale"),
+      const BulletPoint(
+        text: "POS - Point of Sale",
+        bgColor: Color.fromARGB(255, 255, 224, 130),
+      ),
       const BulletPoint(
           text:
               "Point of Sale Display is used to influence a shopper’s decision"),
@@ -688,14 +732,17 @@ final List module = [
           fit: BoxFit.fill,
         ),
       ),
-      const BulletPoint(text: "POP - Point of Purchase"),
+      const BulletPoint(
+          text: "POP - Point of Purchase",
+          bgColor: Color.fromARGB(255, 255, 224, 130)),
       const BulletPoint(
           text:
               "Point of Purchase Display is used to capture the attention of shopper"),
       const BulletPoint(text: "It can be placed anywhere in the store"),
       const BulletPoint(
           text: "Usually placed next to the space of the same category."),
-      const BulletPoint(text: "Offers flexibility in targeting different groups"),
+      const BulletPoint(
+          text: "Offers flexibility in targeting different groups"),
       const BulletPoint(text: "Suitable for a wide variety of products"),
       const SizedBox(),
     ],
@@ -717,7 +764,9 @@ final List module = [
     ],
     [
       const Heading(text: 'Visibility'),
-      const Body(text: 'Visibility -> Primary & Secondary'),
+      const Body(
+          text: 'Visibility -> Primary & Secondary',
+          bgColor: Color.fromARGB(255, 255, 224, 130)),
       ImageSlider(
         imageList: [
           "assets/images/module1/visiblity_1.png",

@@ -247,6 +247,9 @@ class _ModulePageState extends State<ModulePage> {
                     final rowIndex = entry.key;
                     final row = entry.value;
                     return TableRow(
+                      decoration: rowIndex == 0
+                          ? BoxDecoration(color: Colors.yellow)
+                          : null,
                       children: row.map((cell) {
                         return TableCell(
                           child: Padding(
@@ -311,12 +314,13 @@ class _ModulePageState extends State<ModulePage> {
                   "◉    ${currentData.text}",
                   textAlign: TextAlign.start,
                   style: GoogleFonts.merriweather().copyWith(
-                    fontSize: 14,
-                    // color: Color.fromARGB(255, 64, 64, 64),
-                    // fontWeight: FontWeight.bold,
-                    color: currentData.textColor,
-                    // wordSpacing: 3,
-                  ),
+                      fontSize: 14,
+                      // color: Color.fromARGB(255, 64, 64, 64),
+                      // fontWeight: FontWeight.bold,
+                      color: currentData.textColor,
+                      backgroundColor: currentData.bgColor
+                      // wordSpacing: 3,
+                      ),
                 ),
               );
             } else if (currentData is Boxes) {
@@ -340,6 +344,7 @@ class _ModulePageState extends State<ModulePage> {
                   style: GoogleFonts.merriweather().copyWith(
                     fontSize: 14,
                     // color: Color.fromARGB(255, 64, 64, 64),
+                    backgroundColor: currentData.bgColor,
                     // fontWeight: FontWeight.bold,
                     color: currentData.textColor,
                     // wordSpacing: 3,
