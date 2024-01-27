@@ -16,7 +16,6 @@ import 'package:http/http.dart' as http;
 class ModulePage extends StatefulWidget {
   const ModulePage({
     required this.moduleData,
-    required this.heroTag,
     required this.appBarTitle,
     required this.title,
     required this.isFinal,
@@ -26,7 +25,6 @@ class ModulePage extends StatefulWidget {
   });
 
   final List moduleData;
-  final String heroTag;
   final String appBarTitle;
   final bool isFinal;
   final String title;
@@ -43,95 +41,43 @@ class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
 
   Future<void> loadQuiz(BuildContext context) async {
-    try {
-      var response = await http.post(
-        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/retryCheck"),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(
-          {
-            "email": prefs!.getString("email"),
-          },
-        ),
-      );
-
-      var responseData = jsonDecode(response.body);
-
-      if (response.statusCode > 399) {
-        throw responseData["message"];
-      }
-      if (responseData['retry'] <= 0) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("You completed all your attempts"),
-          ),
-        );
-        return;
-      }
-
-      if (!mounted) {
-        return;
-      }
-
-      return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Quiz Confirmation'),
-            content: const SingleChildScrollView(
-              child: Text('Do you really want to take the quiz?'),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  if (widget.isFinal) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => QuizSplash(
-                          quizData: widget.quizData,
-                          moduleIndex: widget.moduleIndex,
-                          retry: responseData['retry'] -1,
-                        ),
-                      ),
-                    );
-                  } else {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => QuizPage(
-                          quizData: widget.quizData,
-                          isFinal: widget.isFinal,
-                          moduleIndex: widget.moduleIndex,
-                          retry: responseData['retry'] -1,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: const Text('Confirm'),
-              )
-            ],
-          );
-        },
-      );
-    } catch (error) {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            error.toString(),
-          ),
-        ),
-      );
+    if (!mounted) {
+      return;
     }
+
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Quiz Confirmation'),
+          content: const SingleChildScrollView(
+            child: Text('Do you really want to take the quiz?'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => QuizSplash(
+                      quizData: widget.quizData,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Confirm'),
+            )
+          ],
+        );
+      },
+    );
   }
 
   int sectionIndex = 0;
@@ -196,11 +142,11 @@ class _ModulePageState extends State<ModulePage> {
             const Spacer(),
             IconButton(
               onPressed: () async {
-                if (!(sectionIndex == widget.moduleData.length - 2)) {
+                if ((sectionIndex == widget.moduleData.length - 2)) {
                   try {
                     var response = await http.post(
                       Uri.parse(
-                          "http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
+                          "${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
                       headers: {"Content-Type": "application/json"},
                       body: jsonEncode(
                         {
@@ -209,13 +155,13 @@ class _ModulePageState extends State<ModulePage> {
                         },
                       ),
                     );
-    
+
                     var responseData = jsonDecode(response.body);
-    
+
                     if (response.statusCode > 399) {
                       throw responseData["message"];
                     }
-    
+
                     if (responseData["increment"]) {
                       await prefs!
                           .setInt("progress", (prefs!.getInt("progress")!) + 1);
@@ -231,7 +177,7 @@ class _ModulePageState extends State<ModulePage> {
                     );
                   }
                 }
-    
+
                 if (!(sectionIndex == widget.moduleData.length - 1)) {
                   setState(() {
                     sectionIndex++;

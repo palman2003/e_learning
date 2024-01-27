@@ -60,6 +60,7 @@ class _SplashPageState extends State<SplashPage> {
     try {
       var result = await db.collection('failSafe').findOne();
 
+      await db.close();
       if (!result["allow"]) {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
@@ -74,8 +75,6 @@ class _SplashPageState extends State<SplashPage> {
       }
     } catch (e) {
       debugPrint("Error: $e");
-    } finally {
-      await db.close();
     }
   }
 

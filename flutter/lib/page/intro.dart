@@ -92,7 +92,7 @@ class IntroPage extends StatelessWidget {
                           try {
                             var response = await http.post(
                               Uri.parse(
-                                  "http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
+                                  "${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
                               headers: {"Content-Type": "application/json"},
                               body: jsonEncode(
                                 {

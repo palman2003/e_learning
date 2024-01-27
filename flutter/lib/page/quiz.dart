@@ -14,14 +14,12 @@ class QuizPage extends StatefulWidget {
   const QuizPage({
     required this.quizData,
     required this.isFinal,
-    required this.moduleIndex,
     required this.retry,
     super.key,
   });
 
   final List<QuizData> quizData;
   final bool isFinal;
-  final int moduleIndex;
   final int retry;
 
   @override
@@ -49,14 +47,14 @@ class _QuizPageState extends State<QuizPage> {
 
   void updateProgress(String email) async {
     for (var element in quizState) {
-      if(element.correctAnswer == element.selectedAnswer){
+      if (element.correctAnswer == element.selectedAnswer) {
         score++;
       }
     }
 
     try {
       var response = await http.post(
-        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
@@ -67,8 +65,7 @@ class _QuizPageState extends State<QuizPage> {
       );
 
       http.post(
-        Uri.parse(
-            "http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/retry-decrement"),
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retry-decrement"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
@@ -86,6 +83,34 @@ class _QuizPageState extends State<QuizPage> {
       if (responseData["increment"]) {
         await prefs!.setInt("progress", (prefs!.getInt("progress")!) + 1);
       }
+
+      http.post(
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/result"),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(
+          {
+            "email": email,
+            "score": score,
+          },
+        ),
+      );
+
+      if(!mounted){
+        return;
+      }
+
+      // Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScorePage(
+            score: score,
+            totalQuestions: widget.quizData.length,
+            isFinal: widget.isFinal,
+            retry: widget.retry,
+          ),
+        ),
+      );
     } catch (error) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -97,127 +122,127 @@ class _QuizPageState extends State<QuizPage> {
       );
     }
 
-    if (!widget.isFinal) {
-      try {
-        setState(() {
-          isLoading = true;
-        });
+    // if (!widget.isFinal) {
+    //   try {
+    //     setState(() {
+    //       isLoading = true;
+    //     });
 
-        var response = await http.post(
-          Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
-          headers: {"Content-Type": "application/json"},
-          body: json.encode(
-            {
-              "email": email,
-              "module": widget.moduleIndex - 1,
-            },
-          ),
-        );
+    //     var response = await http.post(
+    //       Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+    //       headers: {"Content-Type": "application/json"},
+    //       body: json.encode(
+    //         {
+    //           "email": email,
+    //           "module": 0,
+    //         },
+    //       ),
+    //     );
 
-        setState(() {
-          isLoading = false;
-        });
+    //     setState(() {
+    //       isLoading = false;
+    //     });
 
-        var responseData = jsonDecode(response.body);
+    //     var responseData = jsonDecode(response.body);
 
-        if (response.statusCode > 399) {
-          throw responseData["message"];
-        }
+    //     if (response.statusCode > 399) {
+    //       throw responseData["message"];
+    //     }
 
-        if (!mounted) {
-          return;
-        }
+    //     if (!mounted) {
+    //       return;
+    //     }
 
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScorePage(
-              score: score,
-              totalQuestions: widget.quizData.length,
-              isFinal: widget.isFinal,
-              retry: widget.retry,
-            ),
-          ),
-        );
-      } catch (error) {
-        setState(() {
-          isLoading = false;
-        });
+    //     Navigator.pop(context);
+    //     Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (context) => ScorePage(
+    //           score: score,
+    //           totalQuestions: widget.quizData.length,
+    //           isFinal: widget.isFinal,
+    //           retry: widget.retry,
+    //         ),
+    //       ),
+    //     );
+    //   } catch (error) {
+    //     setState(() {
+    //       isLoading = false;
+    //     });
 
-        if (!mounted) {
-          return;
-        }
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              error.toString(),
-            ),
-          ),
-        );
-      }
-    } else {
-      try {
-        setState(() {
-          isLoading = true;
-        });
+    //     if (!mounted) {
+    //       return;
+    //     }
+    //     ScaffoldMessenger.of(context).clearSnackBars();
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text(
+    //           error.toString(),
+    //         ),
+    //       ),
+    //     );
+    //   }
+    // } else {
+    //   try {
+    //     setState(() {
+    //       isLoading = true;
+    //     });
 
-        var response = await http.post(
-          Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/result"),
-          headers: {"Content-Type": "application/json"},
-          body: json.encode(
-            {
-              "email": email,
-              "score": score,
-            },
-          ),
-        );
+    //     var response = await http.post(
+    //       Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/result"),
+    //       headers: {"Content-Type": "application/json"},
+    //       body: json.encode(
+    //         {
+    //           "email": email,
+    //           "score": score,
+    //         },
+    //       ),
+    //     );
 
-        setState(() {
-          isLoading = false;
-        });
+    //     setState(() {
+    //       isLoading = false;
+    //     });
 
-        var responseData = jsonDecode(response.body);
+    //     var responseData = jsonDecode(response.body);
 
-        if (response.statusCode > 399) {
-          throw responseData["message"];
-        }
+    //     if (response.statusCode > 399) {
+    //       throw responseData["message"];
+    //     }
 
-        if (!mounted) {
-          return;
-        }
+    //     if (!mounted) {
+    //       return;
+    //     }
 
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScorePage(
-              score: score,
-              totalQuestions: widget.quizData.length,
-              isFinal: widget.isFinal,
-              retry: widget.retry,
-            ),
-          ),
-        );
-      } catch (error) {
-        setState(() {
-          isLoading = false;
-        });
+    //     Navigator.pop(context);
+    //     Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (context) => ScorePage(
+    //           score: score,
+    //           totalQuestions: widget.quizData.length,
+    //           isFinal: widget.isFinal,
+    //           retry: widget.retry,
+    //         ),
+    //       ),
+    //     );
+    //   } catch (error) {
+    //     setState(() {
+    //       isLoading = false;
+    //     });
 
-        if (!mounted) {
-          return;
-        }
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              error.toString(),
-            ),
-          ),
-        );
-      }
-    }
+    //     if (!mounted) {
+    //       return;
+    //     }
+    //     ScaffoldMessenger.of(context).clearSnackBars();
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text(
+    //           error.toString(),
+    //         ),
+    //       ),
+    //     );
+    //   }
+    // }
   }
 
   void quizIndexHandler(value) async {
@@ -264,7 +289,7 @@ class _QuizPageState extends State<QuizPage> {
               widget.quizData[_quizIndex].options[_selectedQuizValue],
         ),
       );
-      if (_quizIndex == widget.quizData.length-1) {
+      if (_quizIndex == widget.quizData.length - 1) {
         updateProgress(prefs!.getString('email')!);
         return;
       }
@@ -272,7 +297,6 @@ class _QuizPageState extends State<QuizPage> {
         _selectedQuizValue = null;
         _quizIndex++;
       });
-
     } else if (value == -1) {
       for (var element in quizState) {
         if (_quizIndex == element.questionIndex) {
@@ -317,26 +341,26 @@ class _QuizPageState extends State<QuizPage> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  const SizedBox(width: 20),
-                  InkWell(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(100),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Ink(
-                      width: 45,
-                      height: 50,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        ),
-                      ),
-                      child: const Icon(Icons.arrow_back_ios_new_rounded),
-                    ),
-                  ),
+                  // const SizedBox(width: 20),
+                  // InkWell(
+                  //   borderRadius: const BorderRadius.all(
+                  //     Radius.circular(100),
+                  //   ),
+                  //   onTap: () {
+                  //     Navigator.pop(context);
+                  //   },
+                  //   child: Ink(
+                  //     width: 45,
+                  //     height: 50,
+                  //     decoration: const BoxDecoration(
+                  //       color: Colors.white,
+                  //       borderRadius: BorderRadius.all(
+                  //         Radius.circular(100),
+                  //       ),
+                  //     ),
+                  //     child: const Icon(Icons.arrow_back_ios_new_rounded),
+                  //   ),
+                  // ),
                   const Spacer(),
                   Text(
                     "${_quizIndex + 1} of ${widget.quizData.length}",
@@ -346,7 +370,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                   ),
                   const Spacer(),
-                  const SizedBox(width: 65)
+                  // const SizedBox(width: 65)
                 ],
               ),
               Container(

@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ImageProgress extends StatefulWidget {
-  ImageProgress({super.key, required this.progress});
-  double progress;
+  ImageProgress({
+    super.key,
+    required this.completed,
+    required this.total,
+  });
+  double completed;
+  double total;
   @override
   ImageProgressState createState() => ImageProgressState();
 }
@@ -38,7 +43,7 @@ class ImageProgressState extends State<ImageProgress> {
                 width: 100,
                 height: 100,
                 child: CustomPaint(
-                  painter: RoundedCircularProgressPainter(widget.progress),
+                  painter: RoundedCircularProgressPainter(widget.completed/widget.total),
                   child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -51,7 +56,7 @@ class ImageProgressState extends State<ImageProgress> {
                           ),
                         ),
                         Text(
-                          '25/100',
+                          '${widget.completed.toInt()}/${widget.total.toInt()}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 86, 86, 86),

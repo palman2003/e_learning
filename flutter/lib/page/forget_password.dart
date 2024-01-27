@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({
@@ -32,7 +34,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   void verifyOTP() async {
     var response = await http.post(
-      Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/reset/verify-otp"),
+      Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/reset/verify-otp"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(
         {
@@ -81,8 +83,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     }
 
     var response = await http.post(
-      Uri.parse(
-          "http://${dotenv.env["MY_IP"]}:3000/v1/api/reset/reset-password"),
+      Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/reset/reset-password"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(
         {
@@ -166,15 +167,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       color: Colors.grey,
                     ),
                   ),
-                  const Text(
-                    "naveen.akash0904@gmail.com",
+                  Text(
+                    widget.email,
                   ),
                   const SizedBox(height: 40),
                   const Text(
                     "OTP gets automatically verified after entered",
-                    style: TextStyle(
-                      color: Colors.grey
-                    ),
+                    style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 10),
                   Directionality(

@@ -1,16 +1,21 @@
+import 'dart:convert';
+
 import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/page/intro.dart';
 import 'package:e_learning/page/login.dart';
 import 'package:e_learning/page/module.dart';
 import 'package:e_learning/page/profile.dart';
+import 'package:e_learning/page/quiz_splash.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/widgets/image_progress.dart';
 import 'package:e_learning/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/data/module_data.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.isFirstlogin});
@@ -84,7 +89,6 @@ class _HomePageState extends State<HomePage> {
       MaterialPageRoute(
         builder: ((context) => ModulePage(
             moduleData: module[0],
-            heroTag: "heroTag",
             appBarTitle: "Module 1",
             title: "Hello",
             isFinal: false,
@@ -94,7 +98,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void quiz1Tap() {}
+  void quiz1Tap() async {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => QuizSplash(
+            quizData: quizDataList1,
+          ),
+        ),
+      );
+
+  }
+
   void quiz2Tap() {}
   void caseStudyTap() {}
 
@@ -311,7 +325,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   child: Text(
                                     "02",
-                                    style: GoogleFonts.playfairDisplay().copyWith(
+                                    style:
+                                        GoogleFonts.playfairDisplay().copyWith(
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
                                       color:
@@ -430,7 +445,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20),
               Showcase(
-                child: ImageProgress(progress: 0.25),
+                child: ImageProgress(total: 100, completed: 0),
                 title: 'Upload Progerss',
                 description: 'Keep Track of your image upload progress here',
                 key: _six,

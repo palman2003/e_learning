@@ -151,7 +151,7 @@ class _ScorePageState extends State<ScorePage> {
 
                               var response = await http.get(
                                 Uri.parse(
-                                    "http://${dotenv.env["MY_IP"]}:3000/v1/api/certificate/$username/$college/$email"),
+                                    "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/$username/$college/$email"),
                               );
 
                               setState(() {

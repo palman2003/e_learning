@@ -44,7 +44,7 @@ class _SignupPageState extends State<SignupPage> {
 
     try {
       var response = await http.post(
-        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/user/register"),
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/user/register"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
@@ -401,21 +401,6 @@ class _SignupPageState extends State<SignupPage> {
                             style: const TextStyle(fontSize: 12),
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => ShowCaseWidget(
-                                    builder: Builder(
-                                  builder: (context) => const HomePage(
-                                    isFirstlogin: true,
-                                  ),
-                                )),
-                              ),
-                            );
-                          },
-                          child: const Text("Test Navigate"),
-                        )
                       ],
                     ),
                   ),
