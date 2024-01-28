@@ -554,7 +554,7 @@ final List module = [
       const Heading(text: 'Channel Satisfaction'),
       const BulletPoint(
           text:
-              'Not just distribution strategy, keeping the outlets satisfied is equally important for the betterment of sales'),
+              'Not just distribution strategy, 𝗸𝗲𝗲𝗽𝗶𝗻𝗴 𝘁𝗵𝗲 𝗼𝘂𝘁𝗹𝗲𝘁𝘀 𝘀𝗮𝘁𝗶𝘀𝗳𝗶𝗲𝗱 is equally important for the betterment of sales'),
       const BulletPoint(
           text:
               'Hence, understanding the satisfaction levels of retailers that the distributors cater to is very important and this is done through channel satisfaction surveys'),
@@ -575,16 +575,16 @@ final List module = [
         ),
       ),
       const Body(text: 'Some factors that affect the satisfaction level:'),
-      const BulletPoint(text: 'Margin provided on the product'),
+      const BulletPoint(text: '𝗠𝗮𝗿𝗴𝗶𝗻 provided on the product'),
       const BulletPoint(
           text:
-              'Credit given to the outlet -> loan made between company and the retailer'),
+              '𝗖𝗿𝗲𝗱𝗶𝘁 𝗴𝗶𝘃𝗲𝗻 𝘁𝗼 𝘁𝗵𝗲 𝗼𝘂𝘁𝗹𝗲𝘁 -> loan made between company and the retailer'),
       const BulletPoint(
           text:
               'Damages/Returns -> Damaged goods returned back to company at no additional cost + returns'),
       const BulletPoint(
           text:
-              'Fill rate -> percentage of customer orders that are immediately fulfilled by available stock. Also known as demand satisfaction rate'),
+              '𝗙𝗶𝗹𝗹 𝗿𝗮𝘁𝗲 -> percentage of customer orders that are immediately fulfilled by available stock. Also known as demand satisfaction rate'),
       const BulletPoint(text: 'Stable market rates'),
       const SizedBox()
     ],
@@ -592,7 +592,7 @@ final List module = [
       const Heading(text: 'Merchandizing'),
       const BulletPoint(
           text:
-              'Merchandizing -> promotion of the sale of goods that can employ pricing, special offer, display, & other techniques '),
+              '𝗠𝗲𝗿𝗰𝗵𝗮𝗻𝗱𝗶𝘇𝗶𝗻𝗴 -> promotion of the sale of goods that can employ pricing, special offer, display, & other techniques '),
       const SubHeading(text: 'Importance of Merchandizing'),
       const Body(
           text:
@@ -638,20 +638,16 @@ final List module = [
       ),
       const BulletPoint(text: 'Display of product information makes easy to:'),
       const SubBulletPoint(
-        text: 'Introduce',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝐈𝐧𝐭𝐫𝐨𝐝𝐮𝐜𝐞',
       ),
       const SubBulletPoint(
-        text: 'Explain',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝗘𝘅𝗽𝗹𝗮𝗶𝗻',
       ),
       const SubBulletPoint(
-        text: 'Show',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝗦𝗵𝗼𝘄',
       ),
       const SubBulletPoint(
-        text: 'Sell',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝗦𝗲𝗹𝗹',
       ),
       const BulletPoint(
           text:
@@ -676,28 +672,23 @@ final List module = [
       ),
       const BulletPoint(text: 'Different types of Display:'),
       const SubBulletPoint(
-        text: 'Floor Stand',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝗙𝗹𝗼𝗼𝗿 𝗦𝘁𝗮𝗻𝗱',
       ),
       const SubBulletPoint(
-        text: 'Showcase',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝗦𝗵𝗼𝘄𝗰𝗮𝘀𝗲',
       ),
       const SubBulletPoint(
-        text: 'End cap unit',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝗘𝗻𝗱 𝗰𝗮𝗽 𝘂𝗻𝗶𝘁',
       ),
       const SubBulletPoint(
-        text: 'Checkout display',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝗖𝗵𝗲𝗰𝗸𝗼𝘂𝘁 𝗱𝗶𝘀𝗽𝗹𝗮𝘆',
       ),
       const SubBulletPoint(
-        text: 'Digital Pop display',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
+        text: '𝗗𝗶𝗴𝗶𝘁𝗮𝗹 𝗣𝗼𝗽 𝗱𝗶𝘀𝗽𝗹𝗮𝘆',
       ),
       const BulletPoint(
           text:
-              'Display is majorly classified into two on the basis of its purpose:'),
+              'Display is majorly classified into 𝘁𝘄𝗼 on the basis of its purpose:'),
       const SubBulletPoint(text: 'Point of Sale Display'),
       const SubBulletPoint(text: 'Point of Purchase Display'),
       const SizedBox()
@@ -716,8 +707,10 @@ final List module = [
       ),
       const BulletPoint(
           text:
-              "Point of Sale Display is used to influence a shopper’s decision"),
-      const BulletPoint(text: "It is present only in specific spaces"),
+              "Point of Sale Display is used to 𝗶𝗻𝗳𝗹𝘂𝗲𝗻𝗰𝗲 𝗮 𝘀𝗵𝗼𝗽𝗽𝗲𝗿’𝘀 𝗱𝗲𝗰𝗶𝘀𝗶𝗼𝗻"),
+      const BulletPoint(
+          text:
+              "𝗜𝘁 𝗶𝘀 𝗽𝗿𝗲𝘀𝗲𝗻𝘁 𝗼𝗻𝗹𝘆 𝗶𝗻 𝘀𝗽𝗲𝗰𝗶𝗳𝗶𝗰 𝘀𝗽𝗮𝗰𝗲𝘀"),
       const BulletPoint(text: "Ideally away from the category"),
       const BulletPoint(text: "It is targeted to influence a specific group"),
       const BulletPoint(
@@ -738,8 +731,9 @@ final List module = [
           bgColor: Color.fromARGB(255, 255, 224, 130)),
       const BulletPoint(
           text:
-              "Point of Purchase Display is used to capture the attention of shopper"),
-      const BulletPoint(text: "It can be placed anywhere in the store"),
+              "Point of Purchase Display is used to 𝗰𝗮𝗽𝘁𝘂𝗿𝗲 𝘁𝗵𝗲 𝗮𝘁𝘁𝗲𝗻𝘁𝗶𝗼𝗻 of shopper"),
+      const BulletPoint(
+          text: "It can be 𝗽𝗹𝗮𝗰𝗲𝗱 𝗮𝗻𝘆𝘄𝗵𝗲𝗿𝗲 in the store"),
       const BulletPoint(
           text: "Usually placed next to the space of the same category."),
       const BulletPoint(
@@ -757,10 +751,10 @@ final List module = [
       ),
       const Body(
           text:
-              'Companies take up Brand Blocking - for creating distinction by placing products together in block formation to enhance visibility'),
+              'Companies take up Brand Blocking - for 𝗰𝗿𝗲𝗮𝘁𝗶𝗻𝗴 𝗱𝗶𝘀𝘁𝗶𝗻𝗰𝘁𝗶𝗼𝗻 by placing products together in 𝗯𝗹𝗼𝗰𝗸 𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 to enhance visibility'),
       const Body(
           text:
-              'This strategy is very useful in the case of launching new variants of same product.'),
+              'This strategy is very useful in the case of launching 𝗻𝗲𝘄 𝘃𝗮𝗿𝗶𝗮𝗻𝘁𝘀 𝗼𝗳 𝘀𝗮𝗺𝗲 𝗽𝗿𝗼𝗱𝘂𝗰𝘁.'),
       const SizedBox(),
     ],
     [
@@ -785,10 +779,11 @@ final List module = [
           text:
               "In addition to these – we should also be cognizant about the different types of visibility"),
       const BulletPoint(
-          text: "They are broadly classified into Primary and Secondary"),
+          text:
+              "They are broadly classified into 𝗣𝗿𝗶𝗺𝗮𝗿𝘆 𝗮𝗻𝗱 𝗦𝗲𝗰𝗼𝗻𝗱𝗮𝗿𝘆"),
       const BulletPoint(
           text:
-              'Primary Visibility is when the product is kept along with the other products of the same category '),
+              'Primary Visibility is when the product is kept along with the 𝗼𝘁𝗵𝗲𝗿 𝗽𝗿𝗼𝗱𝘂𝗰𝘁𝘀 𝗼𝗳 𝘁𝗵𝗲 𝘀𝗮𝗺𝗲 𝗰𝗮𝘁𝗲𝗴𝗼𝗿𝘆y '),
       const SubBulletPoint(
           text:
               'The decision for this depends on various factors including Market Share/How well the product sells.'),
