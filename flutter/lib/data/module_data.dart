@@ -1,14 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
-class Heading {
-  const Heading({
+class Header {
+  const Header({
     required this.text,
-    this.topPadding = 20,
+    this.topPadding = 0,
+    this.fontSize = 40,
     this.bottomPadding = 0,
     this.textColor = const Color.fromARGB(255, 48, 48, 48),
     this.bgColor = Colors.transparent,
   });
   final String text;
+  final Color textColor;
+  final Color bgColor;
+  final double topPadding;
+  final double fontSize;
+  final double bottomPadding;
+}
+
+class Heading {
+  const Heading({
+    required this.text,
+    this.topPadding = 0,
+    this.bottomPadding = 0,
+    this.fontSize = 22,
+    this.textColor = const Color.fromARGB(255, 48, 48, 48),
+    this.bgColor = Colors.transparent,
+  });
+  final String text;
+  final double fontSize;
   final Color textColor;
   final Color bgColor;
   final double topPadding;
@@ -34,13 +54,16 @@ class Body {
   const Body(
       {required this.text,
       this.topPadding = 10,
+      this.align = TextAlign.start,
+      this.fontSize = 16,
       this.bottomPadding = 10,
       this.textColor = const Color.fromARGB(255, 48, 48, 48),
       this.bgColor = Colors.transparent});
   final String text;
   final Color textColor;
   final Color bgColor;
-
+  final double fontSize;
+  final TextAlign align;
   final double topPadding;
   final double bottomPadding;
 }
@@ -65,7 +88,7 @@ class SubBulletPoint {
   const SubBulletPoint(
       {required this.text,
       this.topPadding = 0,
-      this.bottomPadding = 10,
+      this.bottomPadding = 5,
       this.leftPadding = 20,
       this.bgColor = Colors.transparent,
       this.textColor = Colors.black});
@@ -117,10 +140,10 @@ class TabularColumn {
     this.headerTextStyle = const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
-      backgroundColor: Colors.yellow,
+      backgroundColor: Color.fromARGB(255, 151, 192, 232),
     ),
     this.cellTextStyle = const TextStyle(
-      fontSize: 14,
+      fontSize: 16,
     ),
   });
 
@@ -165,69 +188,189 @@ final List moduleTitle = [
 final List module = [
   [
     [
-      HeadImage(
-        image: Image.asset(
-          "assets/images/module1/FMCG and FMCD.png",
-          fit: BoxFit.fitWidth,
-        ),
+      const SizedBox(),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/fmcg.png',
+        height: 300,
+      )),
+      const Header(
+        text: 'FMCG\nCategory ',
+        //bgColor: Color.fromARGB(255, 151, 192, 232),
+        topPadding: 20,
+        bottomPadding: 20,
       ),
-      const Boxes(data: [
-        "Productive Display",
-        "Store design",
-        "Free Product sample",
-        "Discount and coupons",
-        "Point of sale"
-      ]),
-      const Heading(
-        text: "FMCG and FMCD Industry",
-      ),
-      const SubHeading(
-        text: "FMCG -> Fast Moving Consumer Goods",
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const BulletPoint(text: "Products that are: "),
-      const SubBulletPoint(
-          text: "consumed 𝗮𝘁 𝗹𝗲𝗮𝘀𝘁 𝗼𝗻𝗰𝗲 𝗮 𝗺𝗼𝗻𝘁𝗵"),
-      const SubBulletPoint(text: "sold under the  in consumer packages"),
-      const SubBulletPoint(
-          text:
-              "sold through a wide spared 𝗱𝗶𝘀𝘁𝗿𝗶𝗯𝘂𝘁𝗶𝗼𝗻 𝗻𝗲𝘁𝘄𝗼𝗿𝗸"),
-      const SubBulletPoint(
-          text: "consumed 𝗱𝗶𝗿𝗲𝗰𝘁𝗹𝘆 𝗯𝘆 𝘁𝗵𝗲 𝗰𝗼𝗻𝘀𝘂𝗺𝗲𝗿𝘀."),
-      const SubHeading(
-        text: "FMCD -> Fast Moving Consumer Durables",
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const BulletPoint(
-          text:
-              "Products that are 𝗻𝗼𝗻-𝗱𝘂𝗿𝗮𝗯𝗹𝗲 and have a 𝗹𝗼𝗻𝗴𝗲𝗿 𝘂𝘀𝗮𝗴𝗲 𝗽𝗲𝗿𝗶𝗼𝗱. They also differ basis the buying decision."),
       const SizedBox()
     ],
     [
-      const Heading(text: "Some Examples of FMCG and FMCD"),
-      const SubHeading(text: "FMCG", bottomPadding: 0),
-      ImageSlider(
-        imageList: [
-          'assets/images/module1/eg1.png',
-          'assets/images/module1/eg2.png',
-          'assets/images/module1/eg3.png',
-          'assets/images/module1/eg4.png',
-        ],
-        height: 100,
-        verticalPadding: 10,
+      const Header(
+        text: 'What is',
+        topPadding: 20,
+        textColor: Color.fromARGB(255, 151, 192, 232),
       ),
-      const SubHeading(text: "FMCD", bottomPadding: 0, topPadding: 0),
-      ImageSlider(
-        imageList: [
-          'assets/images/module1/eg5.png',
-          'assets/images/module1/eg6.png',
-          'assets/images/module1/eg7.png',
-          'assets/images/module1/eg8.png',
-        ],
-        height: 100,
-        verticalPadding: 10,
+      const Header(text: 'FMCG?', bottomPadding: 35),
+      const Heading(
+          text: 'Fast Moving Consumer Goods',
+          bgColor: Colors.yellow,
+          bottomPadding: 35),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg2.png',
+        height: 250,
+        width: double.infinity,
+      )),
+    ],
+    [
+      const Body(text: 'Examples :', fontSize: 24),
+      const BulletPoint(
+          text: 'Personal Care products -> Shampoo, Face Wash, Soap etc',
+          bottomPadding: 0),
+      const BulletPoint(
+          text:
+              'Packaged Food & Beverages -> Chips, Juices, Carbonated drinks etc',
+          bottomPadding: 0),
+      const BulletPoint(
+          text: 'Laundry -> Detergent etc, Over the counter Medicines'),
+      const Body(
+          text:
+              'The term FMCG has been defined to include products that are consumed at least once a month',
+          bgColor: Colors.yellow,
+          bottomPadding: 0),
+      const Body(
+        text:
+            'These are sold under  national brands in consumer packages, sold through a wide spared distribution network and consumed directly by the consumers.',
       ),
-      const SizedBox()
+      const Body(text: 'Top players in FMCG: ', fontSize: 18, bottomPadding: 0),
+      ImageSlider(imageList: [
+        'assets/images/module1/pg3_1.png',
+        'assets/images/module1/pg3_2.png',
+        'assets/images/module1/pg3_3.png',
+        'assets/images/module1/pg3_4.png',
+      ], height: 10, verticalPadding: 0),
+      const SizedBox(),
+    ],
+    [
+      const Heading(text: 'Classification', topPadding: 40),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg4.png',
+        height: 500,
+      ))
+    ],
+    [
+      const Heading(
+          text: 'How do consumers make choices? ',
+          fontSize: 25,
+          topPadding: 20,
+          bottomPadding: 10),
+      const Body(
+          text: 'Consumer buying decision varies based on product types  ',
+          // bgColor: Color.fromARGB(255, 112, 217, 255),
+          bgColor: Colors.yellow,
+          align: TextAlign.center,
+          bottomPadding: 20),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg5.png',
+        height: 350,
+      )),
+      SizedBox(),
+    ],
+    [
+      const Header(text: 'HIP and LIP', fontSize: 32, topPadding: 20),
+      const Heading(
+          text: 'High Involvement (HIP):', fontSize: 16, topPadding: 30),
+      const Body(
+          text:
+              'Products for which the buyer is prepared to spend considerable time and effort in searching.',
+          topPadding: 0),
+      const Heading(text: 'Low Involvement (LIP): ', fontSize: 16),
+      const Body(
+          text:
+              'Products which are bought frequently and with a minimum of thought and effort',
+          topPadding: 0),
+      const TabularColumn(data: [
+        ['High Involvement ', 'Low involvement'],
+        ['Similar Brand Offering ', 'Unique Brand Offering '],
+        ['Dissonance reducing buying behavior ', 'Complex buying behavior'],
+        ['Habitual Buying behavior', 'Variety seeking behavior']
+      ]),
+      SizedBox(),
+    ],
+    [
+      Heading(text: 'Distribution and Decision Making ', bottomPadding: 10),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg6.png',
+        height: 300,
+      )),
+      Body(
+          text:
+              'The distribution of Fast-Moving Consumer Goods (FMCG) involves getting products from manufacturers to end consumers as efficiently and effectively as possible.'),
+      Body(
+          text:
+              'Decision-making in FMCG distribution is crucial for ensuring products are available at the right time and place, optimizing supply chain efficiency, and meeting customer demands.',
+          bgColor: Colors.yellow),
+      SizedBox(),
+    ],
+    [
+      Heading(text: 'Types of Distribution', bottomPadding: 30),
+      BodyImage(image: Image.asset('assets/images/module1/pg8_1.png')),
+      Body(text: 'Direct Distribution', align: TextAlign.center, topPadding: 0),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg8_3.png',
+        height: 350,
+      )),
+      Body(
+          text: 'Indirect Distribution',
+          align: TextAlign.center,
+          topPadding: 0),
+    ],
+    [
+      const Heading(
+          text: 'Pros and Cons of Direct and Indirect distribution',
+          topPadding: 20,
+          bottomPadding: 15),
+      const Heading(
+          text: 'Direct Distribution', fontSize: 18, bgColor: Colors.yellow),
+      TabularColumn(data: [
+        ['Pros', 'Cons'],
+        [
+          'You have total control over how the product is marketed and sold',
+          'More time-consuming and expensive for some business owners'
+        ],
+        [
+          'No fighting with competitors for shelf space at retailers.',
+          'Limited market coverage.'
+        ]
+      ]),
+      const Heading(
+          text: 'Indirect Distribution', fontSize: 18, bgColor: Colors.yellow),
+      const TabularColumn(data: [
+        ['Pros', 'Cons'],
+        [
+          'Distribution agents specialize in getting products into as many markets as possible',
+          'Distribution agents and retailers will share in your profits'
+        ],
+        [
+          'Retailers know their local markets and how best to sell your product there.',
+          'Retailers may sell your competitors’ products alongside yours.'
+        ]
+      ]),
+      SizedBox(),
+    ],
+    [
+      Heading(
+          text: 'Key Consideration for Distribution ',
+          topPadding: 20,
+          bottomPadding: 20),
+      // Spacer(),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg9.png',
+        height: 500,
+      ))
     ],
     [
       const SubHeading(text: "Companies"),

@@ -99,14 +99,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void quiz1Tap() async {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => QuizSplash(
-            quizData: quizDataList1,
-          ),
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => QuizSplash(
+          quizData: quizDataList1,
         ),
-      );
-
+      ),
+    );
   }
 
   void quiz2Tap() {}
@@ -290,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                     child: GestureDetector(
                       onTap: contentTap,
                       child: Showcase(
-                        title: 'Content',
+                        title: 'Learning Module',
                         description: 'Learn about Shelf Analytics here',
                         key: _four,
                         child: Hero(
@@ -347,7 +346,7 @@ class _HomePageState extends State<HomePage> {
                                     color: Colors.white,
                                   ),
                                   child: Text(
-                                    "Content",
+                                    "Learning Module",
                                     maxLines: 2,
                                     style: Theme.of(context)
                                         .textTheme
@@ -370,7 +369,7 @@ class _HomePageState extends State<HomePage> {
                     child: GestureDetector(
                       onTap: quiz1Tap,
                       child: Showcase(
-                        title: 'Quiz',
+                        title: 'Introduction to the live project',
                         description: 'Take Quiz here',
                         key: _five,
                         child: Container(
@@ -424,7 +423,7 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.white,
                                 ),
                                 child: Text(
-                                  "Quiz",
+                                  "Introduction to the live project",
                                   maxLines: 2,
                                   style: Theme.of(context)
                                       .textTheme
@@ -504,7 +503,7 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.white,
                               ),
                               child: Text(
-                                "Quiz 2",
+                                "Test your Knowledge",
                                 maxLines: 2,
                                 style: Theme.of(context)
                                     .textTheme
@@ -572,7 +571,7 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.white,
                               ),
                               child: Text(
-                                "Case Study",
+                                "Test your Knowledge",
                                 maxLines: 2,
                                 style: Theme.of(context)
                                     .textTheme
