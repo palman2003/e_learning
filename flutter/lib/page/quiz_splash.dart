@@ -23,6 +23,7 @@ class QuizSplash extends StatefulWidget {
 
 class _QuizSplashState extends State<QuizSplash> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -325,57 +326,79 @@ class _QuizSplashState extends State<QuizSplash> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 30),
                 child: ElevatedButton(
-                  onPressed: () async {
-                    try {
-                      var response = await http.post(
-                        Uri.parse(
-                            "${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retryCheck"),
-                        headers: {"Content-Type": "application/json"},
-                        body: jsonEncode(
-                          {
-                            "email": prefs!.getString("email"),
-                          },
-                        ),
-                      );
+                  onPressed: isLoading
+                      ? () {}
+                      : () async {
+                          setState(() {
+                            isLoading = true;
+                          });
 
-                      var responseData = jsonDecode(response.body);
+                          try {
+                            var response = await http.post(
+                              Uri.parse(
+                                  "${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retryCheck"),
+                              headers: {"Content-Type": "application/json"},
+                              body: jsonEncode(
+                                {
+                                  "email": prefs!.getString("email"),
+                                },
+                              ),
+                            );
 
-                      if (response.statusCode > 399) {
-                        throw responseData["message"];
-                      }
-                      if (responseData['retry'] <= 0) {
+                            setState(() {
+                              isLoading = false;
+                            });
 
-                        if (!mounted) {
-                          return;
-                        }
+                            var responseData = jsonDecode(response.body);
 
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("You completed all your attempts"),
-                          ),
-                        );
-                        return;
-                      }
+                            if (response.statusCode > 399) {
+                              throw responseData["message"];
+                            }
 
-                      if (!mounted) {
-                        return;
-                      }
+                            if (!mounted) {
+                              return;
+                            }
 
-                      Navigator.of(context).pop();
+                            if (responseData['score'] > 60) {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text("You have already passed this test"),
+                                ),
+                              );
+                              return;
+                            }
 
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => QuizPage(
-                            retry: responseData['retry'],
-                            quizData: widget.quizData,
-                            isFinal: false,
-                          ),
-                        ),
-                      );
-                    } catch (e) {}
-                  },
+                            if (responseData['retry'] <= 0) {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text("You completed all your attempts"),
+                                ),
+                              );
+                              return;
+                            }
+
+                            if (!mounted) {
+                              return;
+                            }
+
+                            Navigator.of(context).pop();
+
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QuizPage(
+                                  retry: responseData['retry'],
+                                  quizData: widget.quizData,
+                                  isFinal: false,
+                                ),
+                              ),
+                            );
+                          } catch (e) {}
+                        },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -384,10 +407,16 @@ class _QuizSplashState extends State<QuizSplash> {
                           color: Color.fromARGB(255, 139, 0, 232), width: 2),
                     ),
                   ),
-                  child: const Text(
-                    'Take Quiz',
-                    style: TextStyle(color: Color.fromARGB(255, 139, 0, 232)),
-                  ),
+                  child: isLoading
+                      ? const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(),
+                        )
+                      : const Text(
+                          'Take Quiz',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 139, 0, 232)),
+                        ),
                 ),
               ),
             )

@@ -36,6 +36,7 @@ const userSchema = new schema(
     },
     Score: {
       type: Number,
+      default: 0,
     },
     Module: {
       type: Array,

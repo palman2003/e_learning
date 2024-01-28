@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
@@ -32,7 +33,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 153, 0, 255),
+          backgroundColor: const Color.fromARGB(255, 153, 0, 255),
           foregroundColor: Colors.white,
           title: const Text("Profile"),
           centerTitle: true,
@@ -44,7 +45,7 @@ class ProfilePage extends StatelessWidget {
             Container(
               width: double.infinity,
               // padding: EdgeInsets.all(30),
-              color: Color.fromARGB(255, 242, 242, 242),
+              color: const Color.fromARGB(255, 242, 242, 242),
               child: Column(
                 children: [
                   const SizedBox(
@@ -74,14 +75,14 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
                       'Account Information',
                       style: GoogleFonts.lato(
@@ -89,45 +90,45 @@ class ProfilePage extends StatelessWidget {
                               .textTheme
                               .titleSmall!
                               .copyWith(
-                                  color: Color.fromARGB(255, 86, 86, 86))),
+                                  color: const Color.fromARGB(255, 86, 86, 86))),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   ProfileData(
                       path: "assets/images/profile/mail.png",
                       attribute: "Email",
                       value: "$email"),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   ProfileData(
                       path: "assets/images/profile/phone.png",
                       attribute: "Phone",
                       value: "$phno"),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   ProfileData(
                       path: "assets/images/profile/location.png",
                       attribute: "City",
                       value: "$city"),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   ProfileData(
                       path: "assets/images/profile/college.png",
                       attribute: "College",
                       value: "$college"),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   ProfileData(
                       path: "assets/images/profile/book.png",
                       attribute: "Branch",
                       value: "$branch"),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                 ],

@@ -1,12 +1,10 @@
 import 'dart:convert';
 
-import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({

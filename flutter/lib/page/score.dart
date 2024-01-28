@@ -79,12 +79,27 @@ class _ScorePageState extends State<ScorePage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 40,
+                        height: 10,
+                      ),
+                      Text(
+                        (widget.score / widget.totalQuestions) * 100 >= 60
+                            ? 'Passed!'
+                            : 'Failed',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: (widget.score / widget.totalQuestions) * 100 >= 60 ? Colors.green : Colors.red
+                          // color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                       Text(
                         (widget.score / widget.totalQuestions) * 100 >= 60
                             ? 'Hurray $username! \n You have completed the module successfully'
-                            : 'Oops $username! \n You have failed the test. Good luck at the next attempt\n Retires Remaining: ${widget.retry}',
+                            : 'Oops $username! \n You have failed the test. Good luck at the next attempt\n Remaining attempts: ${widget.retry}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 18,

@@ -41,3 +41,7 @@ app.use("/v1/api/quiz", quiz);
 
 //route configuration for certificate generation
 app.use("/v1/api/certificate", cert);
+
+app.use("/test", (req, res) => {
+  res.json({ message: "Hello from server" });
+});

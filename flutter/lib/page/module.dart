@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_learning/data/module_data.dart';
-import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/model/quiz_data.dart';
-import 'package:e_learning/page/quiz.dart';
 import 'package:e_learning/page/quiz_splash.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +85,7 @@ class _ModulePageState extends State<ModulePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        backgroundColor: Color.fromARGB(255, 153, 0, 255),
+        backgroundColor: const Color.fromARGB(255, 153, 0, 255),
         foregroundColor: Colors.white,
         title: Text(
           widget.appBarTitle,
@@ -134,7 +132,7 @@ class _ModulePageState extends State<ModulePage> {
             const Spacer(),
             Text(
               "${sectionIndex + 1}/${widget.moduleData.length}",
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 // color: Colors.white,
               ),
@@ -357,7 +355,7 @@ class _ModulePageState extends State<ModulePage> {
                   30,
                   currentData.bottomPadding,
                 ),
-                child: Column(
+                child: const Column(
                   children: [],
                 ),
               );
@@ -397,7 +395,7 @@ class _ModulePageState extends State<ModulePage> {
                       "Now that you have gone through the course content, you will have to take a quiz which will cover all the topics of this module. You will have a total of 17 questions out of which you should get at least 11 of them right to proceed to the next section.",
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     ElevatedButton(
                       onPressed: () {
                         loadQuiz(context);

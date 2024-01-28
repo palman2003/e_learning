@@ -72,10 +72,10 @@ flutter:
     # - assets/images/appbar_icon.png
     # - assets/images/doodad.jpg
     - assets/images/
-    - assets/images/sample/
     - assets/images/module1/
     - assets/images/score/
     - assets/images/profile/
+    - assets/images/blobs/
     - .env
 
   
