@@ -8,7 +8,7 @@ final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 156, 27, 255),
   ),
-  textTheme: GoogleFonts.ptSansTextTheme(),
+  textTheme: GoogleFonts.openSansTextTheme(),
 );
 
 void main() async {
