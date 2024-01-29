@@ -201,16 +201,16 @@ final List module = [
       const SizedBox(),
       HeadImage(
           image: Image.asset(
-        'assets/images/module1/fmcg.png',
-        height: 300,
+        'assets/images/module1/pg1.png',
+        height: 500,
       )),
-      const Header(
-        text: 'FMCG\nCategory ',
-        //bgColor: Color.fromARGB(255, 151, 192, 232),
-        topPadding: 20,
-        sidePadding: 30,
-        bottomPadding: 20,
-      ),
+      // const Header(
+      //   text: 'FMCG\nCategory ',
+      //   //bgColor: Color.fromARGB(255, 151, 192, 232),
+      //   topPadding: 20,
+      //   sidePadding: 30,
+      //   bottomPadding: 20,
+      // ),
       const SizedBox()
     ],
     [
@@ -221,16 +221,17 @@ final List module = [
         textColor: Color.fromARGB(255, 151, 192, 232),
       ),
       const Header(text: 'FMCG?', bottomPadding: 35, sidePadding: 30),
-      const Heading(
+      const Header(
           text: 'Fast Moving Consumer Goods',
+          fontSize: 20,
           bgColor: Colors.yellow,
-          bottomPadding: 35),
-      BodyImage(
+          bottomPadding: 20),
+      HeadImage(
           image: Image.asset(
         'assets/images/module1/pg2.png',
-        height: 250,
-        width: double.infinity,
+        height: 300,
       )),
+      const SizedBox(),
     ],
     [
       const Body(text: 'Examples :', fontSize: 24),
@@ -267,7 +268,8 @@ final List module = [
           image: Image.asset(
         'assets/images/module1/pg4.png',
         height: 500,
-      ))
+      )),
+      const SizedBox(),
     ],
     [
       const Heading(
@@ -275,11 +277,11 @@ final List module = [
           fontSize: 25,
           topPadding: 20,
           bottomPadding: 10),
-      const Body(
+      const Header(
           text: 'Consumer buying decision varies based on product types  ',
           // bgColor: Color.fromARGB(255, 112, 217, 255),
           bgColor: Colors.yellow,
-          align: TextAlign.center,
+          fontSize: 14,
           bottomPadding: 20),
       BodyImage(
           image: Image.asset(
@@ -337,7 +339,10 @@ final List module = [
           text: 'Types of Distribution', bottomPadding: 30, topPadding: 20),
       BodyImage(image: Image.asset('assets/images/module1/pg8_1.png')),
       const Body(
-          text: 'Direct Distribution', align: TextAlign.center, topPadding: 5),
+          text: 'Direct Distribution',
+          align: TextAlign.center,
+          topPadding: 5,
+          weight: FontWeight.bold),
       BodyImage(
           image: Image.asset(
         'assets/images/module1/pg8_3.png',
@@ -346,7 +351,9 @@ final List module = [
       const Body(
           text: 'Indirect Distribution',
           align: TextAlign.center,
+          weight: FontWeight.bold,
           topPadding: 5),
+      const SizedBox(),
     ],
     [
       const Heading(
@@ -391,7 +398,8 @@ final List module = [
           image: Image.asset(
         'assets/images/module1/pg10.png',
         height: 400,
-      ))
+      )),
+      const SizedBox(),
     ],
     [
       BodyImage(
@@ -404,6 +412,7 @@ final List module = [
           align: TextAlign.center,
           text:
               'Nielsen is a global company that provides valuable insights into consumer behavior and marketing information by collecting data that measures what consumers watch and what they buy. This is how they classify outlets:'),
+      const SizedBox(),
     ],
     [
       const Heading(
@@ -476,6 +485,7 @@ final List module = [
           text:
               'Weighted distribution allows you to identify stores in a channel based on their weight in the sales of a category or a product.'),
       BodyImage(image: Image.asset('assets/images/module1/pg16.png')),
+      const SizedBox(),
     ],
     [
       const Header(
@@ -511,6 +521,7 @@ final List module = [
           topPadding: 0,
           text:
               'The product is present in many stores, but not in the ones that are most important to the business.'),
+      const SizedBox(),
     ],
     [
       const Heading(text: '2. Retailer Satisfaction ', topPadding: 20),
@@ -522,7 +533,8 @@ final List module = [
       const BulletPoint(
           text:
               'Hence, understanding the satisfaction levels of retailers that the distributors cater to is very important and this is done through channel satisfaction surveys'),
-      BodyImage(image: Image.asset('assets/images/module1/pg17.png'))
+      BodyImage(image: Image.asset('assets/images/module1/pg17.png')),
+      const SizedBox(),
     ],
     [
       const Heading(text: '3.Market Coverage ', topPadding: 20),
@@ -530,7 +542,8 @@ final List module = [
       const Body(
           text:
               'Determine the optimal level of market coverage. This involves decisions on whether to focus on specific regions, urban or rural areas, or target a broad national or international market.',
-          topPadding: 10)
+          topPadding: 10),
+      const SizedBox(),
     ],
     [
       const Heading(text: 'Ansoff Matrix', topPadding: 20),
@@ -562,7 +575,8 @@ final List module = [
           text: 'Diversification (entering new markets with new products)'),
       Body(
           text:
-              'It helps businesses assess and choose growth strategies based on their current product and market situations.')
+              'It helps businesses assess and choose growth strategies based on their current product and market situations.'),
+      const SizedBox(),
     ],
     [
       const Heading(
@@ -574,6 +588,7 @@ final List module = [
           text:
               'Design an efficient distribution network that minimizes transportation costs and ensures timely product delivery. Consider factors such as the number and location of warehouses, distribution centers, and transportation routes.',
           topPadding: 15),
+      const SizedBox(),
     ],
     [
       const Heading(text: '5. Route Planning', topPadding: 20),
@@ -583,7 +598,8 @@ final List module = [
       )),
       const Body(
           text:
-              'Plan distribution routes to optimize delivery schedules and minimize transportation costs. ')
+              'Plan distribution routes to optimize delivery schedules and minimize transportation costs. '),
+      const SizedBox(),
     ],
     [
       const Heading(text: '6. Merchandizing', topPadding: 20),
@@ -599,6 +615,7 @@ final List module = [
       Body(
           text:
               'POSM is an acronym for Point of Sale Marketing or Point of Sale Materials and is used by brands to convey their message or communicate information to the consumers at the point of sale. BTL marketing focuses and targets a specific segment of people- for instance, dropping leaflets in a particular area or putting up a banner at the bus stop.'),
+      const SizedBox(),
     ],
     [
       const Heading(text: 'POP', topPadding: 20),
@@ -613,6 +630,7 @@ final List module = [
       BulletPoint(
           text:
               'When brands place their products in the stores, in the aisles, on the shelves that customers use to choose what they want to buy- it is the Point of Purchase, whereas POS, ie. Point of Sales means the place where the transaction/ sale occurs- the cash counter or the checkout area at the retail store.'),
+      const SizedBox(),
     ],
     [
       const Heading(text: 'POS', topPadding: 20),
@@ -632,7 +650,8 @@ final List module = [
               'Well! These same candies are available in the chocolate and munchies section of the store (POP).'),
       BulletPoint(
           text:
-              'But putting a few pieces of the candies right before the exit is a part of the brand’s marketing strategy incorporated in a robust system at the store.')
+              'But putting a few pieces of the candies right before the exit is a part of the brand’s marketing strategy incorporated in a robust system at the store.'),
+      const SizedBox(),
     ],
     [
       Heading(text: 'Why is visibility important?', topPadding: 20),
@@ -640,6 +659,7 @@ final List module = [
           image: Image.asset(
         'assets/images/module1/pg25.png',
       )),
+      const SizedBox(),
     ],
     [
       Heading(text: 'Types of Visibility ', topPadding: 20),
@@ -661,7 +681,8 @@ final List module = [
       Body(
           text:
               'The primary goal of primary visibility is to attract immediate attention, increase brand awareness, and encourage quick purchasing decisions.',
-          topPadding: 0)
+          topPadding: 0),
+      const SizedBox(),
     ],
     [
       Body(
@@ -681,7 +702,8 @@ final List module = [
       Body(
           text:
               'Secondary visibility aims to capture the attention of shoppers who may not have been drawn to the primary locations. It provides an opportunity for products to be discovered during more extensive shopping trips',
-          topPadding: 0)
+          topPadding: 0),
+      const SizedBox(),
     ],
     [
       BodyImage(
@@ -699,7 +721,8 @@ final List module = [
       BodyImage(image: Image.asset('assets/images/module1/pg28_2.png')),
       Body(
           text:
-              'Shelf analytics is the process of using data and insights to analyze and optimize product placement on retail shelves. It involves leveraging technology and analytics to enhance visibility, improve product performance, and drive sales within a retail environment.')
+              'Shelf analytics is the process of using data and insights to analyze and optimize product placement on retail shelves. It involves leveraging technology and analytics to enhance visibility, improve product performance, and drive sales within a retail environment.'),
+      const SizedBox(),
     ],
     [
       Heading(
@@ -712,12 +735,14 @@ final List module = [
       BodyImage(image: Image.asset('assets/images/module1/pg29_4.png')),
       Body(text: 'Case 1:', weight: FontWeight.bold, fontSize: 18),
       BodyImage(image: Image.asset('assets/images/module1/pg29_1.png')),
+      const SizedBox(),
     ],
     [
       Body(text: 'Case 2:', weight: FontWeight.bold, fontSize: 18),
       BodyImage(image: Image.asset('assets/images/module1/pg29_2.png')),
       Body(text: 'Case 3:', weight: FontWeight.bold, fontSize: 18),
       BodyImage(image: Image.asset('assets/images/module1/pg29_3.png')),
+      const SizedBox(),
     ],
     [
       Heading(text: 'Visibility & Shelf Space', topPadding: 20),
@@ -750,6 +775,7 @@ final List module = [
       Body(
           text:
               'Other factors: Average height of an Indian -> 170 cm (Men), 155 cm (Women):'),
+      const SizedBox(),
     ],
   ],
 ];
