@@ -1,3 +1,5 @@
+import 'package:e_learning/data/quiz_data.dart';
+import 'package:e_learning/model/quiz_data.dart';
 import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
@@ -163,10 +165,11 @@ class TabularColumn {
 }
 
 class QuizButton {
-  const QuizButton({
-    this.topPadding = 10,
-  });
+  const QuizButton(
+      {this.topPadding = 10, required this.isFinal, required this.quizData});
   final double topPadding;
+  final bool isFinal;
+  final List<QuizData> quizData;
 }
 
 class ImageSlider {
@@ -198,7 +201,6 @@ final List moduleTitle = [
 final List module = [
   [
     [
-      const SizedBox(),
       HeadImage(
           image: Image.asset(
         'assets/images/module1/pg1.png',
@@ -490,7 +492,6 @@ final List module = [
     [
       const Header(
           topPadding: 20,
-          contPadding: 10,
           text:
               'Numeric distribution is based on the number of outlets that carry a product – outlets that list at least one of the product’s stock-keeping units (SKUs)',
           bgColor: Colors.lightBlue,
@@ -498,8 +499,6 @@ final List module = [
           fontSize: 14),
       const Header(
           topPadding: 10,
-          contPadding: 10,
-          sidePadding: 30,
           text:
               'Weight of a store in WD = (total sales of the category in the store ÷ total sales of the category in all stores of the channel) × 100',
           bgColor: Colors.lightBlue,

@@ -1,5 +1,174 @@
 import 'package:e_learning/model/quiz_data.dart';
 
+final List<QuizData> quiz1 = [
+  const QuizData(
+    answer: "Toothpaste",
+    options: ["Personal Computer", "Luxury car", "Toothpaste", "Refrigerator"],
+    question: "Which of the following is an example of an FMCG product? ",
+  ),
+  const QuizData(
+      answer: "Rapid sales turnover",
+      options: [
+        "Long shelf life",
+        "Slow sales turnover",
+        "Rapid sales turnover",
+        "High-cost manufacturing"
+      ],
+      question: "FMCG products are known for?"),
+  const QuizData(
+    answer: "High involvement purchase",
+    options: [
+      "Low involvement purchase",
+      "Routine purchase",
+      "High involvement purchase",
+      "Impulse purchase"
+    ],
+    question: "Buying a house or a car is an example of?",
+  ),
+  const QuizData(
+    answer: "Personal relevance and importance",
+    options: [
+      "Price alone",
+      "Personal relevance and importance",
+      "Brand popularity",
+      "Sales promotions"
+    ],
+    question:
+        "In the context of consumer behavior, the level of involvement is influenced by",
+  ),
+  const QuizData(
+    answer: "Habit and routine",
+    options: [
+      "Extensive research",
+      "Emotional connections",
+      "Brand loyalty",
+      "Habit and routine"
+    ],
+    question:
+        "For low involvement products, consumers are more likely to rely on",
+  ),
+  const QuizData(
+    answer: "Impulse purchase",
+    options: [
+      "High involvement purchase",
+      "Impulse purchase",
+      "Complex decision-making process",
+      "Extended problem-solving purchase"
+    ],
+    question:
+        "Buying a cup of coffee or a snack from a vending machine is an example of?",
+  ),
+];
+
+final List<QuizData> quiz2 = [
+  const QuizData(
+    answer: "Ansoff Matrix",
+    options: [
+      "BCG Matrix",
+      "SWOT Analysis",
+      "PESTLE Analysis",
+      "Ansoff Matrix"
+    ],
+    question:
+        "Market Penetration, Market Development, Product Development, and Diversification are growth strategies commonly associated with which matrix used in marketing strategy?",
+  ),
+  const QuizData(
+    answer: "Transporting products from manufacturer to consumer",
+    options: [
+      "Managing customer relationships",
+      "Transporting products from manufacturer to consumer",
+      "Generating advertising campaigns",
+      "Conducting market research"
+    ],
+    question: "What is a key function of a Distribution Channel?",
+  ),
+  const QuizData(
+    answer: "Utilizing electronic point-of-sale systems",
+    options: [
+      "Conducting surveys with consumers",
+      "Observing employee behavior",
+      "Utilizing electronic point-of-sale systems",
+      "Analyzing weather patterns"
+    ],
+    question: "How does Nielsen RMS typically collect sales data?",
+  ),
+  const QuizData(
+    answer: "The relative importance of each store based on its sales volume",
+    options: [
+      "The weight of each product in terms of physical mass",
+      "The relative importance of each store based on its sales volume",
+      "The distribution of products based on their packaging weight",
+      "The total weight of products sold in a specific category"
+    ],
+    question: "Weighted Distribution in Nielsen RMS takes into account:",
+  ),
+  const QuizData(
+    answer: "Indirect Distribution",
+    options: [
+      "Direct-to-Consumer (DTC)",
+      "Omnichannel Distribution",
+      "Indirect Distribution",
+      "E-commerce Distribution"
+    ],
+    question:
+        "Which distribution channel is commonly used for FMCG products, involving multiple intermediaries such as wholesalers and retailers?",
+  ),
+];
+
+final List<QuizData> quiz3 = [
+  const QuizData(
+    answer: "Building long-term brand loyalty",
+    options: [
+      "Building long-term brand loyalty",
+      "Targeting niche markets",
+      "Achieving one-time sales spikes",
+      "Minimizing brand visibility"
+    ],
+    question: "What is the primary goal of FMCG advertising and promotions?",
+  ),
+  const QuizData(
+    answer: "Providing entertainment in retail stores to attract customers",
+    options: [
+      "Offering discounts on retail products",
+      "Providing entertainment in retail stores to attract customers",
+      "Exclusively selling entertainment products",
+      "Receiving training in retail management"
+    ],
+    question: "What is the concept of 'retail-tainment' in merchandising?",
+  ),
+  const QuizData(
+    answer: "Point of Purchase",
+    options: [
+      "Price of Products",
+      "Point of Purchase",
+      "Promotion of Products",
+      "Place of Purchase"
+    ],
+    question: "What does POP stand for in the context of retail?",
+  ),
+  const QuizData(
+    answer: "Cash registers and checkout areas",
+    options: [
+      "Displays showcasing products",
+      "Cash registers and checkout areas",
+      "Marketing promotions in-store",
+      "Product demonstration booths"
+    ],
+    question:
+        "Which of the following best describes Point of Sale (POS) systems?",
+  ),
+  const QuizData(
+    answer: "To optimize product placement on shelves",
+    options: [
+      "To organize staff schedules",
+      "To create visual displays in-store",
+      "To manage inventory levels",
+      "To optimize product placement on shelves"
+    ],
+    question: "What is the purpose of a planogram in merchandising?",
+  ),
+];
+
 final List<QuizData> quizDataList1 = [
   const QuizData(
     answer: "Hair Dryer",

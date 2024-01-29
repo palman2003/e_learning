@@ -11,10 +11,14 @@ import 'package:http/http.dart' as http;
 class QuizSplash extends StatefulWidget {
   const QuizSplash({
     required this.quizData,
+    required this.isFinal,
     super.key,
   });
 
   final List<QuizData> quizData;
+  final bool isFinal;
+
+
   @override
   State<QuizSplash> createState() {
     return _QuizSplashState();
@@ -384,16 +388,14 @@ class _QuizSplashState extends State<QuizSplash> {
                             if (!mounted) {
                               return;
                             }
-
-                            Navigator.of(context).pop();
-
+                            
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => QuizPage(
                                   retry: responseData['retry'],
                                   quizData: widget.quizData,
-                                  isFinal: false,
+                                  isFinal: widget.isFinal,
                                 ),
                               ),
                             );
