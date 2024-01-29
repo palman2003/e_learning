@@ -394,10 +394,12 @@ class _ModulePageState extends State<ModulePage> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Image.asset(
-                    //   "assets/images/module1/quiz.png",
-                    //   height: 300,
-                    // ),
+                    SizedBox(
+                      height: 150,
+                    ),
+                    Image.asset(
+                      "assets/images/module1/quiz.png",
+                    ),
                     // Text(
                     //   "Now that you have gone through the course content, you will have to take a quiz which will cover all the topics of this module. You will have a total of 17 questions out of which you should get at least 11 of them right to proceed to the next section.",
                     //   style: Theme.of(context).textTheme.bodyLarge,

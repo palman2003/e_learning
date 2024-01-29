@@ -292,6 +292,7 @@ final List module = [
       )),
       const SizedBox(),
     ],
+    [QuizButton(isFinal: false, quizData: quiz1)],
     [
       const Heading(
         text: 'HIP and LIP',
@@ -499,6 +500,7 @@ final List module = [
           fontSize: 14),
       const Header(
           topPadding: 10,
+          sidePadding: 30,
           text:
               'Weight of a store in WD = (total sales of the category in the store ÷ total sales of the category in all stores of the channel) × 100',
           bgColor: Colors.lightBlue,
@@ -652,6 +654,7 @@ final List module = [
               'But putting a few pieces of the candies right before the exit is a part of the brand’s marketing strategy incorporated in a robust system at the store.'),
       const SizedBox(),
     ],
+    [QuizButton(isFinal: false, quizData: quiz2)],
     [
       Heading(text: 'Why is visibility important?', topPadding: 20),
       BodyImage(
@@ -775,6 +778,9 @@ final List module = [
           text:
               'Other factors: Average height of an Indian -> 170 cm (Men), 155 cm (Women):'),
       const SizedBox(),
+    ],
+    [
+      QuizButton(isFinal: false, quizData: quiz3),
     ],
   ],
 ];
