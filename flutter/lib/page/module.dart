@@ -220,13 +220,16 @@ class _ModulePageState extends State<ModulePage> {
             } else if (currentData is Header) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(
-                    30, currentData.topPadding, 30, currentData.bottomPadding),
+                    currentData.sidePadding,
+                    currentData.topPadding,
+                    currentData.sidePadding,
+                    currentData.bottomPadding),
                 child: Container(
                   // height: 100,
                   // width: MediaQuery.of(context).size.width - 20,
                   color: currentData.bgColor,
                   padding: EdgeInsets.symmetric(
-                      horizontal: 30, vertical: currentData.topPadding),
+                      horizontal: 30, vertical: currentData.contPadding),
                   // padding: EdgeInsets.fromLTRB(
                   //     30, currentData.topPadding, 30, currentData.bottomPadding),
                   child: Text(
@@ -318,8 +321,8 @@ class _ModulePageState extends State<ModulePage> {
               );
             } else if (currentData is BulletPoint) {
               return Padding(
-                padding: EdgeInsets.fromLTRB(
-                    30, currentData.topPadding, 30, currentData.bottomPadding),
+                padding: EdgeInsets.fromLTRB(30.0 + currentData.leftPadding,
+                    currentData.topPadding, 30, currentData.bottomPadding),
                 child: Text(
                   //◉
                   "⁍ ${currentData.text}",
