@@ -213,18 +213,22 @@ class _ModulePageState extends State<ModulePage> {
             var currentData = widget.moduleData[sectionIndex][index];
             if (currentData is BodyImage) {
               return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                  padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
                   child: currentData.image);
             } else if (currentData is HeadImage) {
               return currentData.image;
             } else if (currentData is Header) {
-              return Container(
-                // height: 100,
-                width: MediaQuery.of(context).size.width - 20,
-                color: currentData.bgColor,
+              return Padding(
                 padding: EdgeInsets.fromLTRB(
                     30, currentData.topPadding, 30, currentData.bottomPadding),
-                child: Center(
+                child: Container(
+                  // height: 100,
+                  // width: MediaQuery.of(context).size.width - 20,
+                  color: currentData.bgColor,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 30, vertical: currentData.topPadding),
+                  // padding: EdgeInsets.fromLTRB(
+                  //     30, currentData.topPadding, 30, currentData.bottomPadding),
                   child: Text(
                     currentData.text,
                     style: GoogleFonts.merriweather().copyWith(
@@ -323,7 +327,7 @@ class _ModulePageState extends State<ModulePage> {
                   style: GoogleFonts.merriweather().copyWith(
                     fontSize: 14,
                     // color: Color.fromARGB(255, 64, 64, 64),
-                    // fontWeight: FontWeight.bold,
+                    fontWeight: currentData.weight,
                     backgroundColor: currentData.bgColor,
                     color: currentData.textColor,
                     // wordSpacing: 3,
@@ -369,7 +373,7 @@ class _ModulePageState extends State<ModulePage> {
                     fontSize: currentData.fontSize,
                     // color: Color.fromARGB(255, 64, 64, 64),
                     backgroundColor: currentData.bgColor,
-                    // fontWeight: FontWeight.bold,
+                    fontWeight: currentData.weight,
                     color: currentData.textColor,
                     // wordSpacing: 3,
                   ),
