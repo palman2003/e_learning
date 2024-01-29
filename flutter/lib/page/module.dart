@@ -37,6 +37,7 @@ class ModulePage extends StatefulWidget {
 
 class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
+  TextStyle fontTheme = GoogleFonts.roboto();
 
   Future<void> loadQuiz(BuildContext context) async {
     if (!mounted) {
@@ -224,7 +225,7 @@ class _ModulePageState extends State<ModulePage> {
                 child: Center(
                   child: Text(
                     currentData.text,
-                    style: GoogleFonts.merriweather().copyWith(
+                    style: fontTheme.copyWith(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: currentData.textColor,
@@ -274,7 +275,7 @@ class _ModulePageState extends State<ModulePage> {
                     Flexible(
                       child: Text(
                         currentData.text,
-                        style: GoogleFonts.merriweather().copyWith(
+                        style: fontTheme.copyWith(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                           color: currentData.textColor,
@@ -294,7 +295,7 @@ class _ModulePageState extends State<ModulePage> {
                 child: Text(
                   "◉    ${currentData.text}",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.merriweather().copyWith(
+                  style: fontTheme.copyWith(
                     fontSize: 14,
                     // color: Color.fromARGB(255, 64, 64, 64),
                     // fontWeight: FontWeight.bold,
@@ -311,7 +312,7 @@ class _ModulePageState extends State<ModulePage> {
                 child: Text(
                   "◉    ${currentData.text}",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.merriweather().copyWith(
+                  style: fontTheme.copyWith(
                       fontSize: 14,
                       // color: Color.fromARGB(255, 64, 64, 64),
                       // fontWeight: FontWeight.bold,
@@ -339,7 +340,7 @@ class _ModulePageState extends State<ModulePage> {
                     30, currentData.topPadding, 30, currentData.bottomPadding),
                 child: Text(
                   currentData.text,
-                  style: GoogleFonts.merriweather().copyWith(
+                  style: fontTheme.copyWith(
                     fontSize: 14,
                     // color: Color.fromARGB(255, 64, 64, 64),
                     backgroundColor: currentData.bgColor,

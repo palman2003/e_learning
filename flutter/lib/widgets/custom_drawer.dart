@@ -31,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer,
             ),
-            child: Image.asset("assets/images/cavinkare_logo.png"),
+            child: Image.asset("assets/images/splash.png"),
           ),
           ListTile(
             leading: const Icon(Icons.home),
