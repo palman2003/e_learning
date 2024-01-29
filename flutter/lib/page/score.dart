@@ -13,14 +13,14 @@ class ScorePage extends StatefulWidget {
   ScorePage({
     required this.score,
     required this.totalQuestions,
-    required this.retry,
-    this.isFinal = false,
+    this.retry,
+    required this.isFinal,
     super.key,
   });
 
   bool isFinal;
   final int score;
-  final int retry;
+  final int? retry;
   final int totalQuestions;
 
   @override
@@ -87,11 +87,15 @@ class _ScorePageState extends State<ScorePage> {
                             : 'Failed',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                          color: (widget.score / widget.totalQuestions) * 100 >= 60 ? Colors.green : Colors.red
-                          // color: Colors.black,
-                        ),
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                (widget.score / widget.totalQuestions) * 100 >=
+                                        60
+                                    ? Colors.green
+                                    : Colors.red
+                            // color: Colors.black,
+                            ),
                       ),
                       const SizedBox(
                         height: 20,
@@ -99,7 +103,7 @@ class _ScorePageState extends State<ScorePage> {
                       Text(
                         (widget.score / widget.totalQuestions) * 100 >= 60
                             ? 'Hurray $username! \n You have completed the module successfully'
-                            : 'Oops $username! \n You have failed the test. Good luck at the next attempt\n Remaining attempts: ${widget.retry}',
+                            : 'Oops $username! \n You have failed the test. Good luck at the next attempt',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 18,
@@ -107,6 +111,16 @@ class _ScorePageState extends State<ScorePage> {
                           // color: Colors.black,
                         ),
                       ),
+                      if (widget.isFinal)
+                        Text(
+                          'Remaining attempts: ${widget.retry}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            // color: Colors.black,
+                          ),
+                        ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -155,66 +169,19 @@ class _ScorePageState extends State<ScorePage> {
               padding: const EdgeInsets.only(bottom: 80),
               width: MediaQuery.of(context).size.width * 0.7,
               child: ElevatedButton(
-                onPressed: isCertificateLoading
-                    ? () {}
-                    : widget.isFinal
-                        ? () async {
-                            try {
-                              setState(() {
-                                isCertificateLoading = true;
-                              });
-
-                              var response = await http.get(
-                                Uri.parse(
-                                    "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/$username/$college/$email"),
-                              );
-
-                              setState(() {
-                                isCertificateLoading = false;
-                              });
-
-                              var responseData = jsonDecode(response.body);
-
-                              if (response.statusCode > 399) {
-                                throw responseData["message"];
-                              }
-
-                              if (!mounted) {
-                                return;
-                              }
-
-                              ScaffoldMessenger.of(context).clearSnackBars();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(responseData["message"]),
-                                ),
-                              );
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => ShowCaseWidget(
-                                      builder: Builder(
-                                    builder: (context) => const HomePage(
-                                      isFirstlogin: false,
-                                    ),
-                                  )),
-                                ),
-                              );
-                            } catch (e) {
-                              print(e);
-                            }
-                          }
-                        : () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => ShowCaseWidget(
-                                    builder: Builder(
-                                  builder: (context) => const HomePage(
-                                    isFirstlogin: false,
-                                  ),
-                                )),
-                              ),
-                            );
-                          },
+                onPressed: () {
+                  Navigator.pop(context);
+                  // Navigator.of(context).pushReplacement(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ShowCaseWidget(
+                  //         builder: Builder(
+                  //       builder: (context) => const HomePage(
+                  //         isFirstlogin: false,
+                  //       ),
+                  //     )),
+                  //   ),
+                  // );
+                },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: const Color.fromARGB(255, 68, 67, 67),
                   backgroundColor: const Color.fromARGB(255, 255, 105, 0),
@@ -223,16 +190,14 @@ class _ScorePageState extends State<ScorePage> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: isCertificateLoading
-                    ? const CircularProgressIndicator()
-                    : Text(
-                        widget.isFinal ? "Generate Certificate" : 'Continue',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                child: Text(
+                  'Continue',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
             ),
           ),

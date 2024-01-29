@@ -15,18 +15,18 @@ class ModulePage extends StatefulWidget {
     required this.moduleData,
     required this.appBarTitle,
     required this.title,
-    required this.isFinal,
-    required this.quizData,
+    // required this.isFinal,
+    // required this.quizData,
     required this.moduleIndex,
     super.key,
   });
 
   final List moduleData;
   final String appBarTitle;
-  final bool isFinal;
+  // final bool isFinal;
   final String title;
   final int moduleIndex;
-  final List<QuizData> quizData;
+  // final List<QuizData> quizData;
 
   @override
   State<StatefulWidget> createState() {
@@ -38,7 +38,7 @@ class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   TextStyle fontTheme = GoogleFonts.roboto();
 
-  Future<void> loadQuiz(BuildContext context) async {
+  Future<void> loadQuiz(BuildContext context, bool isFinal, List<QuizData> quizData) async {
     if (!mounted) {
       return;
     }
@@ -61,11 +61,11 @@ class _ModulePageState extends State<ModulePage> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => QuizSplash(
-                      quizData: widget.quizData,
+                      quizData: quizData,
+                      isFinal: isFinal
                     ),
                   ),
                 );
@@ -221,7 +221,7 @@ class _ModulePageState extends State<ModulePage> {
             } else if (currentData is Header) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(
-                    30, currentData.topPadding, 30, currentData.bottomPadding),
+                    currentData.sidePadding, currentData.topPadding, currentData.sidePadding, currentData.bottomPadding),
                 child: Container(
                   // height: 100,
                   // width: MediaQuery.of(context).size.width - 20,
@@ -392,18 +392,18 @@ class _ModulePageState extends State<ModulePage> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      "assets/images/module1/quiz.png",
-                      height: 300,
-                    ),
-                    Text(
-                      "Now that you have gone through the course content, you will have to take a quiz which will cover all the topics of this module. You will have a total of 17 questions out of which you should get at least 11 of them right to proceed to the next section.",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                    // Image.asset(
+                    //   "assets/images/module1/quiz.png",
+                    //   height: 300,
+                    // ),
+                    // Text(
+                    //   "Now that you have gone through the course content, you will have to take a quiz which will cover all the topics of this module. You will have a total of 17 questions out of which you should get at least 11 of them right to proceed to the next section.",
+                    //   style: Theme.of(context).textTheme.bodyLarge,
+                    // ),
                     const SizedBox(height: 50),
                     ElevatedButton(
                       onPressed: () {
-                        loadQuiz(context);
+                        loadQuiz(context, currentData.isFinal, currentData.quizData);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

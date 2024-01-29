@@ -46,6 +46,20 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void updateProgress(String email) async {
+    if (!widget.isFinal) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScorePage(
+            score: score,
+            totalQuestions: widget.quizData.length,
+            isFinal: widget.isFinal,
+          ),
+        ),
+      );
+      return;
+    }
+
     for (var element in quizState) {
       if (element.correctAnswer == element.selectedAnswer) {
         score++;
@@ -97,6 +111,19 @@ class _QuizPageState extends State<QuizPage> {
         ),
       );
 
+      if ((score / widget.quizData.length) * 100 > 60) {
+        http.get(
+          Uri.parse(
+              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${prefs!.getString("username")}/${prefs!.getString("college")}/${prefs!.getString("email")}"),
+        );
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Your certificate is sent to your email"),
+          ),
+        );
+      }
+
       setState(() {
         isLoading = false;
       });
@@ -118,137 +145,19 @@ class _QuizPageState extends State<QuizPage> {
         ),
       );
     } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            error.toString(),
+            "Something went wrong."
           ),
         ),
       );
     }
-
-    // if (!widget.isFinal) {
-    //   try {
-    //     setState(() {
-    //       isLoading = true;
-    //     });
-
-    //     var response = await http.post(
-    //       Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
-    //       headers: {"Content-Type": "application/json"},
-    //       body: json.encode(
-    //         {
-    //           "email": email,
-    //           "module": 0,
-    //         },
-    //       ),
-    //     );
-
-    //     setState(() {
-    //       isLoading = false;
-    //     });
-
-    //     var responseData = jsonDecode(response.body);
-
-    //     if (response.statusCode > 399) {
-    //       throw responseData["message"];
-    //     }
-
-    //     if (!mounted) {
-    //       return;
-    //     }
-
-    //     Navigator.pop(context);
-    //     Navigator.pushReplacement(
-    //       context,
-    //       MaterialPageRoute(
-    //         builder: (context) => ScorePage(
-    //           score: score,
-    //           totalQuestions: widget.quizData.length,
-    //           isFinal: widget.isFinal,
-    //           retry: widget.retry,
-    //         ),
-    //       ),
-    //     );
-    //   } catch (error) {
-    //     setState(() {
-    //       isLoading = false;
-    //     });
-
-    //     if (!mounted) {
-    //       return;
-    //     }
-    //     ScaffoldMessenger.of(context).clearSnackBars();
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         content: Text(
-    //           error.toString(),
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // } else {
-    //   try {
-    //     setState(() {
-    //       isLoading = true;
-    //     });
-
-    //     var response = await http.post(
-    //       Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/result"),
-    //       headers: {"Content-Type": "application/json"},
-    //       body: json.encode(
-    //         {
-    //           "email": email,
-    //           "score": score,
-    //         },
-    //       ),
-    //     );
-
-    //     setState(() {
-    //       isLoading = false;
-    //     });
-
-    //     var responseData = jsonDecode(response.body);
-
-    //     if (response.statusCode > 399) {
-    //       throw responseData["message"];
-    //     }
-
-    //     if (!mounted) {
-    //       return;
-    //     }
-
-    //     Navigator.pop(context);
-    //     Navigator.pushReplacement(
-    //       context,
-    //       MaterialPageRoute(
-    //         builder: (context) => ScorePage(
-    //           score: score,
-    //           totalQuestions: widget.quizData.length,
-    //           isFinal: widget.isFinal,
-    //           retry: widget.retry,
-    //         ),
-    //       ),
-    //     );
-    //   } catch (error) {
-    //     setState(() {
-    //       isLoading = false;
-    //     });
-
-    //     if (!mounted) {
-    //       return;
-    //     }
-    //     ScaffoldMessenger.of(context).clearSnackBars();
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         content: Text(
-    //           error.toString(),
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // }
   }
 
   void quizIndexHandler(value) async {
@@ -496,18 +405,20 @@ class _QuizPageState extends State<QuizPage> {
                               ],
                             ),
                             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            child: isLoading ? const CircularProgressIndicator() : Text(
-                              _quizIndex == widget.quizData.length - 1
-                                  ? "Complete"
-                                  : "Next",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                            child: isLoading
+                                ? const CircularProgressIndicator()
+                                : Text(
+                                    _quizIndex == widget.quizData.length - 1
+                                        ? "Complete"
+                                        : "Next",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
                                   ),
-                            ),
                           ),
                         ),
                         const SizedBox(width: 20),

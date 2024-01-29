@@ -63,9 +63,9 @@ class CourseTile extends StatelessWidget {
                     moduleData: moduleData,
                     appBarTitle: "Module $moduleIndex",
                     title: title,
-                    quizData: quizData,
+                    // quizData: quizData,
                     moduleIndex: moduleIndex,
-                    isFinal: isFinal,
+                    // isFinal: isFinal,
                   ),
                 ),
               );
