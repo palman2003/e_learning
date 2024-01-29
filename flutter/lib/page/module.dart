@@ -36,6 +36,7 @@ class ModulePage extends StatefulWidget {
 
 class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
+  TextStyle fontTheme = GoogleFonts.roboto();
 
   Future<void> loadQuiz(BuildContext context) async {
     if (!mounted) {
@@ -306,7 +307,7 @@ class _ModulePageState extends State<ModulePage> {
                     Flexible(
                       child: Text(
                         currentData.text,
-                        style: GoogleFonts.merriweather().copyWith(
+                        style: fontTheme.copyWith(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                           color: currentData.textColor,
@@ -327,7 +328,7 @@ class _ModulePageState extends State<ModulePage> {
                   //◉
                   "⁍ ${currentData.text}",
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.merriweather().copyWith(
+                  style: fontTheme.copyWith(
                     fontSize: 14,
                     // color: Color.fromARGB(255, 64, 64, 64),
                     fontWeight: currentData.weight,
