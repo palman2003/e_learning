@@ -44,7 +44,8 @@ class ImageProgressState extends State<ImageProgress> {
                 width: 100,
                 height: 100,
                 child: CustomPaint(
-                  painter: RoundedCircularProgressPainter(widget.completed/widget.total),
+                  painter: RoundedCircularProgressPainter(
+                      widget.completed / widget.total),
                   child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -83,7 +84,7 @@ class ImageProgressState extends State<ImageProgress> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "Complete the 100 image upload to proceed with the next module",
+                      "Upload images of 100 shops to move on to the next level",
                       style: GoogleFonts.poppins().copyWith(fontSize: 12),
                     ),
                   ],

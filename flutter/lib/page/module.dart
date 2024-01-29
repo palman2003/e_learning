@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_learning/data/module_data.dart';
 import 'package:e_learning/model/quiz_data.dart';
@@ -84,6 +83,7 @@ class _ModulePageState extends State<ModulePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: const Color.fromARGB(255, 153, 0, 255),
@@ -214,10 +214,36 @@ class _ModulePageState extends State<ModulePage> {
             var currentData = widget.moduleData[sectionIndex][index];
             if (currentData is BodyImage) {
               return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
                   child: currentData.image);
             } else if (currentData is HeadImage) {
               return currentData.image;
+            } else if (currentData is Header) {
+              return Padding(
+                padding: EdgeInsets.fromLTRB(
+                    30, currentData.topPadding, 30, currentData.bottomPadding),
+                child: Container(
+                  // height: 100,
+                  // width: MediaQuery.of(context).size.width - 20,
+                  color: currentData.bgColor,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 30, vertical: currentData.topPadding),
+                  // padding: EdgeInsets.fromLTRB(
+                  //     30, currentData.topPadding, 30, currentData.bottomPadding),
+                  child: Text(
+                    currentData.text,
+                    style: GoogleFonts.merriweather().copyWith(
+                      fontSize: currentData.fontSize,
+                      fontWeight: FontWeight.bold,
+                      color: currentData.textColor,
+                      // backgroundColor: currentData.bgColor
+                      wordSpacing: 5,
+                    ),
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                  ),
+                ),
+              );
             } else if (currentData is Heading) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(
@@ -225,13 +251,14 @@ class _ModulePageState extends State<ModulePage> {
                 child: Center(
                   child: Text(
                     currentData.text,
-                    style: fontTheme.copyWith(
-                        fontSize: 20,
+                    style: GoogleFonts.merriweather().copyWith(
+                        fontSize: currentData.fontSize,
                         fontWeight: FontWeight.bold,
                         color: currentData.textColor,
                         backgroundColor: currentData.bgColor
                         // wordSpacing: 5,
                         ),
+                    textAlign: TextAlign.center,
                     softWrap: true,
                   ),
                 ),
@@ -247,7 +274,9 @@ class _ModulePageState extends State<ModulePage> {
                     final row = entry.value;
                     return TableRow(
                       decoration: rowIndex == 0
-                          ? const BoxDecoration(color: Colors.yellow)
+                          ? BoxDecoration(
+                              color: Color.fromARGB(255, 151, 192, 232),
+                            )
                           : null,
                       children: row.map((cell) {
                         return TableCell(
@@ -293,12 +322,13 @@ class _ModulePageState extends State<ModulePage> {
                 padding: EdgeInsets.fromLTRB(
                     30, currentData.topPadding, 30, currentData.bottomPadding),
                 child: Text(
-                  "◉    ${currentData.text}",
+                  //◉
+                  "⁍ ${currentData.text}",
                   textAlign: TextAlign.start,
                   style: fontTheme.copyWith(
                     fontSize: 14,
                     // color: Color.fromARGB(255, 64, 64, 64),
-                    // fontWeight: FontWeight.bold,
+                    fontWeight: currentData.weight,
                     backgroundColor: currentData.bgColor,
                     color: currentData.textColor,
                     // wordSpacing: 3,
@@ -312,7 +342,7 @@ class _ModulePageState extends State<ModulePage> {
                 child: Text(
                   "◉    ${currentData.text}",
                   textAlign: TextAlign.start,
-                  style: fontTheme.copyWith(
+                  style: GoogleFonts.dmSerifDisplay().copyWith(
                       fontSize: 14,
                       // color: Color.fromARGB(255, 64, 64, 64),
                       // fontWeight: FontWeight.bold,
@@ -340,14 +370,15 @@ class _ModulePageState extends State<ModulePage> {
                     30, currentData.topPadding, 30, currentData.bottomPadding),
                 child: Text(
                   currentData.text,
-                  style: fontTheme.copyWith(
-                    fontSize: 14,
+                  style: GoogleFonts.merriweather().copyWith(
+                    fontSize: currentData.fontSize,
                     // color: Color.fromARGB(255, 64, 64, 64),
                     backgroundColor: currentData.bgColor,
-                    // fontWeight: FontWeight.bold,
+                    fontWeight: currentData.weight,
                     color: currentData.textColor,
                     // wordSpacing: 3,
                   ),
+                  textAlign: currentData.align,
                 ),
               );
             } else if (currentData is QuizButton) {

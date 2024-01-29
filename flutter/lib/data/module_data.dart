@@ -1,14 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
-class Heading {
-  const Heading({
+class Header {
+  const Header({
     required this.text,
-    this.topPadding = 20,
+    this.topPadding = 0,
+    this.fontSize = 40,
     this.bottomPadding = 0,
+    this.sidePadding = 0,
     this.textColor = const Color.fromARGB(255, 48, 48, 48),
     this.bgColor = Colors.transparent,
   });
   final String text;
+  final Color textColor;
+  final Color bgColor;
+  final double topPadding;
+  final double fontSize;
+  final double sidePadding;
+  final double bottomPadding;
+}
+
+class Heading {
+  const Heading({
+    required this.text,
+    this.topPadding = 0,
+    this.bottomPadding = 0,
+    this.fontSize = 22,
+    this.textColor = const Color.fromARGB(255, 48, 48, 48),
+    this.bgColor = Colors.transparent,
+  });
+  final String text;
+  final double fontSize;
   final Color textColor;
   final Color bgColor;
   final double topPadding;
@@ -34,19 +56,25 @@ class Body {
   const Body(
       {required this.text,
       this.topPadding = 10,
+      this.weight = FontWeight.normal,
+      this.align = TextAlign.start,
+      this.fontSize = 16,
       this.bottomPadding = 10,
       this.textColor = const Color.fromARGB(255, 48, 48, 48),
       this.bgColor = Colors.transparent});
   final String text;
+  final FontWeight weight;
   final Color textColor;
   final Color bgColor;
-
+  final double fontSize;
+  final TextAlign align;
   final double topPadding;
   final double bottomPadding;
 }
 
 class BulletPoint {
   const BulletPoint({
+    this.weight = FontWeight.normal,
     required this.text,
     this.topPadding = 10,
     this.bottomPadding = 10,
@@ -57,6 +85,7 @@ class BulletPoint {
   final double topPadding;
   final Color textColor;
   final Color bgColor;
+  final FontWeight weight;
 
   final double bottomPadding;
 }
@@ -65,7 +94,7 @@ class SubBulletPoint {
   const SubBulletPoint(
       {required this.text,
       this.topPadding = 0,
-      this.bottomPadding = 10,
+      this.bottomPadding = 5,
       this.leftPadding = 20,
       this.bgColor = Colors.transparent,
       this.textColor = Colors.black});
@@ -117,10 +146,10 @@ class TabularColumn {
     this.headerTextStyle = const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
-      backgroundColor: Colors.yellow,
+      backgroundColor: Color.fromARGB(255, 151, 192, 232),
     ),
     this.cellTextStyle = const TextStyle(
-      fontSize: 14,
+      fontSize: 16,
     ),
   });
 
@@ -165,648 +194,400 @@ final List moduleTitle = [
 final List module = [
   [
     [
+      const SizedBox(),
       HeadImage(
-        image: Image.asset(
-          "assets/images/module1/FMCG and FMCD.png",
-          fit: BoxFit.fitWidth,
-        ),
+          image: Image.asset(
+        'assets/images/module1/fmcg.png',
+        height: 300,
+      )),
+      const Header(
+        text: 'FMCG\nCategory ',
+        //bgColor: Color.fromARGB(255, 151, 192, 232),
+        topPadding: 20,
+        bottomPadding: 20,
       ),
-      const Boxes(data: [
-        "Productive Display",
-        "Store design",
-        "Free Product sample",
-        "Discount and coupons",
-        "Point of sale"
+      const SizedBox()
+    ],
+    [
+      const Header(
+        text: 'What is',
+        topPadding: 10,
+        textColor: Color.fromARGB(255, 151, 192, 232),
+      ),
+      const Header(text: 'FMCG?', bottomPadding: 35),
+      const Heading(
+          text: 'Fast Moving Consumer Goods',
+          bgColor: Colors.yellow,
+          bottomPadding: 35),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg2.png',
+        height: 250,
+        width: double.infinity,
+      )),
+    ],
+    [
+      const Body(text: 'Examples :', fontSize: 24),
+      const BulletPoint(
+          text: 'Personal Care products -> Shampoo, Face Wash, Soap etc',
+          bottomPadding: 0),
+      const BulletPoint(
+          text:
+              'Packaged Food & Beverages -> Chips, Juices, Carbonated drinks etc',
+          bottomPadding: 0),
+      const BulletPoint(
+          text: 'Laundry -> Detergent etc, Over the counter Medicines'),
+      const Body(
+          text:
+              'The term FMCG has been defined to include products that are consumed at least once a month',
+          bgColor: Colors.yellow,
+          bottomPadding: 0),
+      const Body(
+        text:
+            'These are sold under  national brands in consumer packages, sold through a wide spared distribution network and consumed directly by the consumers.',
+      ),
+      const Body(text: 'Top players in FMCG: ', fontSize: 18, bottomPadding: 0),
+      ImageSlider(imageList: [
+        'assets/images/module1/pg3_1.png',
+        'assets/images/module1/pg3_2.png',
+        'assets/images/module1/pg3_3.png',
+        'assets/images/module1/pg3_4.png',
+      ], height: 10, verticalPadding: 0),
+      const SizedBox(),
+    ],
+    [
+      const Heading(text: 'Classification', topPadding: 40),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg4.png',
+        height: 500,
+      ))
+    ],
+    [
+      const Heading(
+          text: 'How do consumers make choices? ',
+          fontSize: 25,
+          topPadding: 20,
+          bottomPadding: 10),
+      const Body(
+          text: 'Consumer buying decision varies based on product types  ',
+          // bgColor: Color.fromARGB(255, 112, 217, 255),
+          bgColor: Colors.yellow,
+          align: TextAlign.center,
+          bottomPadding: 20),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg5.png',
+        height: 350,
+      )),
+      SizedBox(),
+    ],
+    [
+      const Heading(
+        text: 'HIP and LIP',
+        fontSize: 32,
+        topPadding: 20,
+      ),
+      const Heading(
+          text: 'High Involvement (HIP):', fontSize: 16, topPadding: 20),
+      const Body(
+          text:
+              'Products for which the buyer is prepared to spend considerable time and effort in searching.',
+          topPadding: 0),
+      const Heading(text: 'Low Involvement (LIP): ', fontSize: 16),
+      const Body(
+          text:
+              'Products which are bought frequently and with a minimum of thought and effort',
+          topPadding: 0),
+      const TabularColumn(data: [
+        ['High Involvement ', 'Low involvement'],
+        ['Similar Brand Offering ', 'Unique Brand Offering '],
+        ['Dissonance reducing buying behavior ', 'Complex buying behavior'],
+        ['Habitual Buying behavior', 'Variety seeking behavior']
+      ]),
+      SizedBox(),
+    ],
+    [
+      Heading(
+          text: 'Distribution and Decision Making ',
+          bottomPadding: 10,
+          topPadding: 20),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg6.png',
+        height: 300,
+      )),
+      Body(
+          text:
+              'The distribution of Fast-Moving Consumer Goods (FMCG) involves getting products from manufacturers to end consumers as efficiently and effectively as possible.'),
+      Body(
+          text:
+              'Decision-making in FMCG distribution is crucial for ensuring products are available at the right time and place, optimizing supply chain efficiency, and meeting customer demands.',
+          bgColor: Colors.yellow),
+      SizedBox(),
+    ],
+    [
+      Heading(text: 'Types of Distribution', bottomPadding: 30, topPadding: 20),
+      BodyImage(image: Image.asset('assets/images/module1/pg8_1.png')),
+      Body(text: 'Direct Distribution', align: TextAlign.center, topPadding: 5),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg8_3.png',
+        height: 350,
+      )),
+      Body(
+          text: 'Indirect Distribution',
+          align: TextAlign.center,
+          topPadding: 5),
+    ],
+    [
+      const Heading(
+          text: 'Pros and Cons of Direct and Indirect distribution',
+          topPadding: 20,
+          bottomPadding: 15),
+      const Heading(
+          text: 'Direct Distribution', fontSize: 18, bgColor: Colors.yellow),
+      TabularColumn(data: [
+        ['Pros', 'Cons'],
+        [
+          'You have total control over how the product is marketed and sold',
+          'More time-consuming and expensive for some business owners'
+        ],
+        [
+          'No fighting with competitors for shelf space at retailers.',
+          'Limited market coverage.'
+        ]
       ]),
       const Heading(
-        text: "FMCG and FMCD Industry",
-      ),
-      const SubHeading(
-        text: "FMCG -> Fast Moving Consumer Goods",
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const BulletPoint(text: "Products that are: "),
-      const SubBulletPoint(
-          text: "consumed 𝗮𝘁 𝗹𝗲𝗮𝘀𝘁 𝗼𝗻𝗰𝗲 𝗮 𝗺𝗼𝗻𝘁𝗵"),
-      const SubBulletPoint(text: "sold under the  in consumer packages"),
-      const SubBulletPoint(
-          text:
-              "sold through a wide spared 𝗱𝗶𝘀𝘁𝗿𝗶𝗯𝘂𝘁𝗶𝗼𝗻 𝗻𝗲𝘁𝘄𝗼𝗿𝗸"),
-      const SubBulletPoint(
-          text: "consumed 𝗱𝗶𝗿𝗲𝗰𝘁𝗹𝘆 𝗯𝘆 𝘁𝗵𝗲 𝗰𝗼𝗻𝘀𝘂𝗺𝗲𝗿𝘀."),
-      const SubHeading(
-        text: "FMCD -> Fast Moving Consumer Durables",
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const BulletPoint(
-          text:
-              "Products that are 𝗻𝗼𝗻-𝗱𝘂𝗿𝗮𝗯𝗹𝗲 and have a 𝗹𝗼𝗻𝗴𝗲𝗿 𝘂𝘀𝗮𝗴𝗲 𝗽𝗲𝗿𝗶𝗼𝗱. They also differ basis the buying decision."),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Some Examples of FMCG and FMCD"),
-      const SubHeading(text: "FMCG", bottomPadding: 0),
-      ImageSlider(
-        imageList: [
-          'assets/images/module1/fmcg1.png',
-          'assets/images/module1/fmcg2.png',
+          text: 'Indirect Distribution', fontSize: 18, bgColor: Colors.yellow),
+      const TabularColumn(data: [
+        ['Pros', 'Cons'],
+        [
+          'Distribution agents specialize in getting products into as many markets as possible',
+          'Distribution agents and retailers will share in your profits'
         ],
-        height: 100,
-        verticalPadding: 10,
-      ),
-      const SubHeading(text: "FMCD", bottomPadding: 0, topPadding: 0),
-      ImageSlider(
-        imageList: [
-          'assets/images/module1/fmcd1.png',
-          'assets/images/module1/fmcd2.png',
-        ],
-        height: 100,
-        verticalPadding: 10,
-      ),
-      const SizedBox()
+        [
+          'Retailers know their local markets and how best to sell your product there.',
+          'Retailers may sell your competitors’ products alongside yours.'
+        ]
+      ]),
+      SizedBox(),
     ],
     [
-      const SubHeading(text: "Companies"),
-      const BulletPoint(
-          text:
-              "FMCG: 𝗨𝗻𝗶𝗹𝗲𝘃𝗲𝗿, 𝗣&𝗚, 𝗜𝗧𝗖, 𝗖𝗮𝘃𝗶𝗻𝗞𝗮𝗿𝗲, 𝗚𝗲𝗻𝗲𝗿𝗮𝗹 𝗠𝗶𝗹𝗹𝘀"),
-      const BulletPoint(
-          text:
-              "FMCD: 𝗛𝗣, 𝗪𝗵𝗶𝗿𝗹𝗽𝗼𝗼𝗹, 𝗩𝗼𝗹𝘁𝗮𝘀, 𝗣𝗵𝗶𝗹𝗶𝗽𝘀, 𝗛𝗶𝘁𝗮𝗰𝗵𝗶"),
-      const SubHeading(text: "Products"),
-      const Body(text: "FMCG", bgColor: Color.fromARGB(255, 255, 224, 130)),
-      const SubBulletPoint(
-          text: "Personal Care products -> Shampoo, Face Wash, Soap etc"),
-      const SubBulletPoint(
-          text:
-              "Packaged Food & Beverages -> Chips, Juices, Carbonated drinks etc"),
-      const SubBulletPoint(text: "Laundry -> Detergent etc"),
-      const Body(text: "FMCD", bgColor: Color.fromARGB(255, 255, 224, 130)),
-      const SubBulletPoint(text: "Automobile -> Cars, Bikes, Trucks etc"),
-      const SubBulletPoint(
-          text:
-              "Household appliances -> Washing Machine, Iron, Oven, Vacuum Cleaner etc"),
-      const SubBulletPoint(
-          text: "Electronic gadgets -> Smart Phones, Laptops etc"),
+      Heading(
+          text: 'Key Consideration for Distribution ',
+          topPadding: 20,
+          bottomPadding: 20),
+      // Spacer(),
+      HeadImage(
+          image: Image.asset(
+        'assets/images/module1/pg10.png',
+        height: 400,
+      ))
     ],
     [
-      const Heading(text: "Buying Decision"),
-      BodyImage(
-          image: Image.asset("assets/images/module1/buying_decision.png")),
-      const BulletPoint(
-          text:
-              "While FMCG and FMCD companies will have products to sell, but how a person ends up buying is still a blackbox"),
-      const BulletPoint(
-          text:
-              "We do 𝗡𝗢𝗧 know what all went into purchasing a particular product."),
-      const Body(text: "However, in general it consists of 𝟔 𝐬𝐭𝐞𝐩𝐬:"),
-      const SubBulletPoint(text: "Need recognition"),
-      const SubBulletPoint(text: "Information search"),
-      const SubBulletPoint(text: "Alternative evaluation"),
-      const SubBulletPoint(text: "Purchase decision"),
-      const SubBulletPoint(text: "Completing the purchase"),
-      const SubBulletPoint(text: "Post purchase evaluation"),
-      //
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Buying Decision in context of FMCG and FMCD"),
-      const SubHeading(text: "Types of buying decision"),
       BodyImage(
         image: Image.asset(
-          "assets/images/module1/buying_decisions_types.png",
-          //fit: BoxFit.fitWidth,
-          width: 300,
+          'assets/images/module1/pg11.png',
           height: 300,
         ),
       ),
-      const BulletPoint(
+      Body(
+          align: TextAlign.center,
           text:
-              "Steps involved in decision making would also depend on the type of product"),
-      const BulletPoint(text: 'Basis the same, products can be classified as'),
-      const Body(
-        text: 'Low Involvement (LIP):',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-          text:
-              'Products which are 𝗯𝗼𝘂𝗴𝗵𝘁 𝗳𝗿𝗲𝗾𝘂𝗲𝗻𝘁𝗹𝘆 and with a minimum of thought and effort'),
-      const Body(
-        text: 'High Involvement (HIP):',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-          text:
-              'Products for which the buyer is prepared to 𝘀𝗽𝗲𝗻𝗱 𝗰𝗼𝗻𝘀𝗶𝗱𝗲𝗿𝗮𝗯𝗹𝗲 𝘁𝗶𝗺𝗲 and effort in searching.'),
-      const BulletPoint(
-          text:
-              'Generally, LIP -> FMCG products, while HIP -> Durable & Luxury products'),
-      const BulletPoint(
-          text:
-              'This is applicable across various categories in the FMCG space'),
-      const SizedBox(),
+              'Nielsen is a global company that provides valuable insights into consumer behavior and marketing information by collecting data that measures what consumers watch and what they buy. This is how they classify outlets:'),
     ],
     [
-      const Heading(text: "Low Involvement & High Involvement Purchase"),
+      Heading(text: '1. Channel Selection', topPadding: 20, bottomPadding: 10),
       BodyImage(
         image: Image.asset(
-          "assets/images/module1/buying_decisions.png",
-          //fit: BoxFit.fitWidth,
-          // width: 300,
-          // height: 300,
+          'assets/images/module1/pg12_1.png',
         ),
       ),
+      Body(
+        text:
+            'Super Market: large shopping  store where customers choose their products which are organized systematically into sections',
+      ),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg12_2.png',
+      )),
+      Body(
+          text:
+              'Chemist: shop where medicines are sold, and where you can buy cosmetics and some household goods',
+          topPadding: 10),
+      SizedBox(),
     ],
     [
-      const SubHeading(text: 'Categories within FMCG'),
-      const BulletPoint(
-          text:
-              'Now that we have seen the difference in buying decision, it should be noted that within FMCG itself – there are a lot of categories.'),
-      const BulletPoint(text: "𝗖𝗮𝘃𝗶𝗻𝗞𝗮𝗿𝗲 is an 𝗙𝗠𝗖𝗚 company."),
-      const BulletPoint(
-          text:
-              "Process of selling products under any category requires distribution - which we will see it in the next slide"),
       BodyImage(
-        image: Image.asset(
-          "assets/images/module1/fmcg_categories.png",
-          fit: BoxFit.fill,
-          // width: 100,
-          // height: 300,
-        ),
-      ),
-      const SizedBox(),
+          image: Image.asset(
+        'assets/images/module1/pg12_3.png',
+      )),
+      Body(
+          text:
+              'Hyper Market:  large retail establishments that are a culmination of departmental stores and supermarkets ',
+          topPadding: 10),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg12_4.png',
+      )),
+      Body(
+          text:
+              'Grocers: A store primarily focused on selling food and consumable products',
+          topPadding: 10),
+      SizedBox(),
     ],
     [
-      const Heading(text: 'Distribution'),
       BodyImage(
-        image: Image.asset(
-          "assets/images/module1/distribution.png",
-          fit: BoxFit.fill,
-          // width: 100,
-          // height: 300,
-        ),
-      ),
-      const BulletPoint(
+          image: Image.asset(
+        'assets/images/module1/pg12_5.png',
+      )),
+      Body(
           text:
-              'Activity of selling products from manufacturers to the consumers',
-          bgColor: Color.fromARGB(255, 255, 224, 130)),
-      const BulletPoint(
+              'Paan Plus: Small scale Kirana store focused in selling small SKUs and ready to eat snacks',
+          topPadding: 10),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg12_6.png',
+        width: 200,
+      )),
+      Body(
           text:
-              'Two types ->  𝗗𝗶𝗿𝗲𝗰𝘁 𝗮𝗻𝗱 𝗜𝗻𝗱𝗶𝗿𝗲𝗰𝘁 𝗗𝗶𝘀𝘁𝗿𝗶𝗯𝘂𝘁𝗶𝗼𝗻 (Majority of the FMCG entities follow Indirect Distribution '),
-      const SubHeading(text: "Direct Distribution - Schematics"),
-      BodyImage(
-        image: Image.asset(
-          'assets/images/module1/direct_distribution.png',
-          fit: BoxFit.fill,
-        ),
-      ),
-      const SubHeading(text: "Indirect Distribution - Schematics"),
-      BodyImage(
-        image: Image.asset(
-          'assets/images/module1/indirect_distribution.png',
-          fit: BoxFit.fill,
-        ),
-      ),
-      const SizedBox()
+              'Cosmetics: A store primarily focused on selling personal care products ',
+          topPadding: 10),
+      SizedBox(),
     ],
     [
-      const SubHeading(text: 'Direct Distribution'),
-      const Body(text: 'Pros', bgColor: Color.fromARGB(255, 255, 224, 130)),
-      const BulletPoint(
+      Heading(text: 'Quality of distribution ', topPadding: 20),
+      BulletPoint(
           text:
-              'You have 𝘁𝗼𝘁𝗮𝗹 𝗰𝗼𝗻𝘁𝗿𝗼𝗹 over how the product is marketed and sold'),
-      const BulletPoint(
-          text: 'No fighting with competitors for shelf space at retailers.'),
-      const Body(text: 'Cons', bgColor: Color.fromARGB(255, 255, 224, 130)),
-      const BulletPoint(
-          text: 'More time-consuming and expensive for some business owners'),
-      const BulletPoint(text: '𝗟𝗶𝗺𝗶𝘁𝗲𝗱 𝗺𝗮𝗿𝗸𝗲𝘁 𝗰𝗼𝘃𝗲𝗿𝗮𝗴𝗲.'),
-      const SubHeading(text: 'Indirect Distribution'),
-      const Body(text: 'Pros', bgColor: Color.fromARGB(255, 255, 224, 130)),
-      const BulletPoint(
+              'The weighted distribution is the percentage of points of sale where a product is available, assigning to each of them a weight proportional to their sales',
+          topPadding: 10),
+      BulletPoint(
           text:
-              'Distribution agents specialize in getting products into as many markets as possible'),
-      const BulletPoint(
-          text:
-              'Retailers know their local markets and how best to sell your product there'),
-      const Body(text: 'Cons', bgColor: Color.fromARGB(255, 255, 224, 130)),
-      const BulletPoint(
-          text: 'Distribution agents and retailers will share in your profits'),
-      const BulletPoint(
-          text:
-              'Retailers may sell your competitors’ products alongside yours.'),
-      const SizedBox()
+              'Weighted distribution allows you to identify stores in a channel based on their weight in the sales of a category or a product.'),
+      BodyImage(image: Image.asset('assets/images/module1/pg16.png')),
     ],
     [
-      const Heading(text: 'Importance of Distribution'),
-      const BulletPoint(
+      Header(
+          topPadding: 20,
           text:
-              'For a product to be sold – it should be available and visible'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/case1.png",
-          fit: BoxFit.fill,
-          // width: 100,
-          // height: 300,
-        ),
-      ),
-      const BulletPoint(
+              'Numeric distribution is based on the number of outlets that carry a product – outlets that list at least one of the product’s stock-keeping units (SKUs)',
+          bgColor: Colors.lightBlue,
+          fontSize: 14),
+      Header(
+          topPadding: 10,
           text:
-              '𝗖𝗮𝘀𝗲 𝟭 -> Product A & B available, but only Product A is visible. Product A has higher chances of getting sold'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/case2.png",
-          fit: BoxFit.fill,
-          // width: 100,
-          // height: 300,
-        ),
-      ),
-      const BulletPoint(
-          text:
-              '𝗖𝗮𝘀𝗲 𝟮 -> Product A is available but not visible. Product B is not available. Product A has slightly lower chances of getting sold (solely due to availability)'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/case3.png",
-          fit: BoxFit.fill,
-          // width: 100,
-          // height: 300,
-        ),
-      ),
-      const BulletPoint(
-          text:
-              '𝗖𝗮𝘀𝗲 𝟯 -> Product B is available and visible. Product B has higher chances of getting sold'),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Importance of Distribution"),
-      const BulletPoint(
-          text:
-              'Being just available is not enough -> it should be available in the 𝗿𝗶𝗴𝗵𝘁 𝗽𝗹𝗮𝗰𝗲𝘀/𝗼𝘂𝘁𝗹𝗲𝘁𝘀'),
-      const BulletPoint(
-          text:
-              'An example of proper distribution is placing products where there has been consistent sales historically.'),
-      const SubBulletPoint(
-          text:
-              "If Chik is best sold in UP, it makes sense to have a good distribution system than entering a market where the penetration is low"),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/shampoo.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const BulletPoint(
-          text:
-              "Another example would be availability in the right outlets -> like how 𝘀𝗮𝗰𝗵𝗲𝘁𝘀 𝗮𝗿𝗲 𝗯𝗲𝘀𝘁 𝘀𝗼𝗹𝗱 𝗶𝗻 𝗞𝗶𝗿𝗮𝗻𝗮 𝘀𝘁𝗼𝗿𝗲𝘀 𝗮𝗻𝗱 𝗕𝗼𝘁𝘁𝗹𝗲𝘀 𝗶𝗻 𝗦𝘂𝗽𝗲𝗿 𝗠𝗮𝗿𝗸𝗲𝘁"),
-      const BulletPoint(
-          text:
-              "Kirana stores and Super Markets are not the only types of outlets available – next we will look at the different types of outlets"),
-      const SubHeading(text: "Different types of Outlets"),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/class_of_outlets.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "General Trade vs Modern trade"),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/trade.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const TabularColumn(
-        data: [
-          ["General Trade", "Modern Trade"],
-          [
-            "Usually comprises one store",
-            "Comprises chains across many locations"
-          ],
-          [
-            "Operated by an entrepreneur and maybe their family",
-            "Run by investors or management teams"
-          ],
-          [
-            "Major focus on interpersonal relationships",
-            "Minimal focus on interpersonal relationships between store and consumer"
-          ],
-          [
-            "Limited space that limits visual merchandising strategy",
-            "Spacious to accommodate visual merchandising props and equipment"
-          ],
-        ],
-      ),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "As per Nielsen – types of outlets"),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/nielsen.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const Body(
-          text:
-              "Nielsen is a global company that provides valuable insights into consumer behavior and marketing information by collecting data that measures what consumers watch and what they buy. This is how they classify outlets:"),
-      const BulletPoint(
-          text:
-              '𝗚𝗿𝗼𝗰𝗲𝗿𝘀: A store primarily focused on selling food and consumable products.'),
-      const BulletPoint(
-          text:
-              '𝗖𝗵𝗲𝗺𝗶𝘀𝘁: shop where drugs and medicines are sold or given out, and where you can buy cosmetics and some household goods'),
-      const BulletPoint(
-          text:
-              '𝗖𝗼𝘀𝗺𝗲𝘁𝗶𝗰𝘀: shop where personal care products are sold'),
-      const BulletPoint(
-          text:
-              '𝗣𝗮𝗮𝗻 𝗣𝗹𝘂𝘀: small scale Kirana store focussed in selling small SKUs and ready to eat snacks'),
-      const BulletPoint(
-          text:
-              '𝗦𝘂𝗽𝗲𝗿 𝗠𝗮𝗿𝗸𝗲𝘁: large shopping store where customers choose their products which are organized systematically into sections'),
-      const BulletPoint(
-          text:
-              '𝗛𝘆𝗽𝗲𝗿 𝗠𝗮𝗿𝗸𝗲𝘁:  large retail establishments that are a culmination of departmental stores and supermarkets '),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Some examples of Outlets"),
-      ImageSlider(
-        imageList: [
-          "assets/images/module1/outlet1.png",
-          "assets/images/module1/outlet2.png",
-          "assets/images/module1/outlet3.png",
-          "assets/images/module1/outlet4.png",
-        ],
-        height: 200,
-        verticalPadding: 50,
-      ),
-      const Heading(text: 'Channel Satisfaction'),
-      const BulletPoint(
-          text:
-              'Not just distribution strategy, keeping the outlets satisfied is equally important for the betterment of sales'),
-      const BulletPoint(
-          text:
-              'Hence, understanding the satisfaction levels of retailers that the distributors cater to is very important and this is done through channel satisfaction surveys'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/channel_satisfaction_1.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Factors affecting channel satisfaction"),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/channel_satisfaction.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const Body(text: 'Some factors that affect the satisfaction level:'),
-      const BulletPoint(text: 'Margin provided on the product'),
-      const BulletPoint(
-          text:
-              'Credit given to the outlet -> loan made between company and the retailer'),
-      const BulletPoint(
-          text:
-              'Damages/Returns -> Damaged goods returned back to company at no additional cost + returns'),
-      const BulletPoint(
-          text:
-              'Fill rate -> percentage of customer orders that are immediately fulfilled by available stock. Also known as demand satisfaction rate'),
-      const BulletPoint(text: 'Stable market rates'),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: 'Merchandizing'),
-      const BulletPoint(
-          text:
-              'Merchandizing -> promotion of the sale of goods that can employ pricing, special offer, display, & other techniques '),
-      const SubHeading(text: 'Importance of Merchandizing'),
-      const Body(
-          text:
-              '1. Enhanced visibility of the product \n2.Improved shopping experience \n3.Increased sales \n4.Competitive advantage'),
-      const SubHeading(text: 'Different strategies for Merchandizing'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/merchandizing_1.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Different strategies for Merchandizing"),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/merchandizing.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const Heading(text: 'Important KPIs in Merchandizing'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/kpi.png",
-          fit: BoxFit.fill,
-          // height: 300,
-        ),
-      ),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Shelf Analytics"),
-      const SubHeading(text: 'Importance of Display Merchandize'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/display_merchandize.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const BulletPoint(text: 'Display of product information makes easy to:'),
-      const SubBulletPoint(
-        text: 'Introduce',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-        text: 'Explain',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-        text: 'Show',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-        text: 'Sell',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const BulletPoint(
-          text:
-              'Not just for the product, effective display helps establish, promote & enhance the store’s visual image '),
-      const BulletPoint(
-          text:
-              'Display also helps the shopper in making it easier for them to self select'),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: "Different types of Display Merchandize"),
-      ImageSlider(
-        imageList: [
-          "assets/images/module1/merch1.png",
-          "assets/images/module1/merch2.png",
-          "assets/images/module1/merch3.png",
-          "assets/images/module1/merch4.png",
-          "assets/images/module1/merch5.png",
-        ],
-        height: 200,
-        verticalPadding: 50,
-      ),
-      const BulletPoint(text: 'Different types of Display:'),
-      const SubBulletPoint(
-        text: 'Floor Stand',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-        text: 'Showcase',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-        text: 'End cap unit',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-        text: 'Checkout display',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const SubBulletPoint(
-        text: 'Digital Pop display',
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const BulletPoint(
-          text:
-              'Display is majorly classified into two on the basis of its purpose:'),
-      const SubBulletPoint(text: 'Point of Sale Display'),
-      const SubBulletPoint(text: 'Point of Purchase Display'),
-      const SizedBox()
-    ],
-    [
-      const Heading(text: 'Point of Sale Display'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/POS.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const BulletPoint(
-        text: "POS - Point of Sale",
-        bgColor: Color.fromARGB(255, 255, 224, 130),
-      ),
-      const BulletPoint(
-          text:
-              "Point of Sale Display is used to influence a shopper’s decision"),
-      const BulletPoint(text: "It is present only in specific spaces"),
-      const BulletPoint(text: "Ideally away from the category"),
-      const BulletPoint(text: "It is targeted to influence a specific group"),
-      const BulletPoint(
-          text:
-              "Best for individually packaged items like food & confectioneries"),
-      const SizedBox(),
-    ],
-    [
-      const Heading(text: 'Point of Purchase Display'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/POP.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const BulletPoint(
-          text: "POP - Point of Purchase",
-          bgColor: Color.fromARGB(255, 255, 224, 130)),
-      const BulletPoint(
-          text:
-              "Point of Purchase Display is used to capture the attention of shopper"),
-      const BulletPoint(text: "It can be placed anywhere in the store"),
-      const BulletPoint(
-          text: "Usually placed next to the space of the same category."),
-      const BulletPoint(
-          text: "Offers flexibility in targeting different groups"),
-      const BulletPoint(text: "Suitable for a wide variety of products"),
-      const SizedBox(),
-    ],
-    [
-      const Heading(text: 'Brand Blocking & POSM (Example)'),
-      BodyImage(
-        image: Image.asset(
-          "assets/images/module1/BrandBlocking.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const Body(
-          text:
-              'Companies take up Brand Blocking - for creating distinction by placing products together in block formation to enhance visibility'),
-      const Body(
-          text:
-              'This strategy is very useful in the case of launching new variants of same product.'),
-      const SizedBox(),
-    ],
-    [
-      const Heading(text: 'Visibility'),
-      const Body(
-          text: 'Visibility -> Primary & Secondary',
-          bgColor: Color.fromARGB(255, 255, 224, 130)),
-      ImageSlider(
-        imageList: [
-          "assets/images/module1/visiblity_1.png",
-          "assets/images/module1/visiblity_2.png"
-        ],
-        height: 200,
-        verticalPadding: 0,
-      ),
-      const SizedBox(),
-      const BulletPoint(
+              'Weight of a store in WD = (total sales of the category in the store ÷ total sales of the category in all stores of the channel) × 100',
+          bgColor: Colors.lightBlue,
+          fontSize: 14),
+      BulletPoint(
+          text: 'If numerical distribution < weighted distribution: ',
+          weight: FontWeight.bold,
+          topPadding: 10,
+          bottomPadding: 5),
+      Body(
           topPadding: 0,
           text:
-              "We looked into how availability and visibility is important for better sales. "),
-      const BulletPoint(
+              'The product is present in fewer stores, but those stores have a greater impact on the business.'),
+      BulletPoint(
+          text: 'If numerical distribution > weighted distribution: ',
+          bottomPadding: 5,
+          weight: FontWeight.bold),
+      Body(
+          topPadding: 0,
           text:
-              "In addition to these – we should also be cognizant about the different types of visibility"),
-      const BulletPoint(
-          text: "They are broadly classified into Primary and Secondary"),
-      const BulletPoint(
-          text:
-              'Primary Visibility is when the product is kept along with the other products of the same category '),
-      const SubBulletPoint(
-          text:
-              'The decision for this depends on various factors including Market Share/How well the product sells.'),
-      const SubBulletPoint(
-          text:
-              'Shopkeeper -> More interested in giving more shelf space to the products that are sold quickly. '),
-      const BulletPoint(
-          text:
-              'Secondary Visibility -> if in case there is no space available, companies request for an additional space outside of the category presence to display their products'),
-      const SizedBox(),
+              'The product is present in many stores, but not in the ones that are most important to the business.'),
     ],
     [
-      const Heading(text: 'Visibility & Shelf Space'),
+      Heading(text: '2. Retailer Satisfaction ', topPadding: 20),
+      BulletPoint(
+          text:
+              'Not just distribution strategy, keeping the outlets satisfied is equally important for the betterment of sales',
+          topPadding: 20,
+          bottomPadding: 5),
+      BulletPoint(
+          text:
+              'Hence, understanding the satisfaction levels of retailers that the distributors cater to is very important and this is done through channel satisfaction surveys'),
+      BodyImage(image: Image.asset('assets/images/module1/pg17.png'))
+    ],
+    [
+      Heading(text: '3.Market Coverage ', topPadding: 20),
+      BodyImage(image: Image.asset('assets/images/module1/pg18.png')),
+      Body(
+          text:
+              'Determine the optimal level of market coverage. This involves decisions on whether to focus on specific regions, urban or rural areas, or target a broad national or international market.',
+          topPadding: 10)
+    ],
+    [
+      Heading(text: 'Ansoff Matrix', topPadding: 20),
       BodyImage(
-        image: Image.asset(
-          "assets/images/module1/shelf_space.png",
-          fit: BoxFit.fill,
-        ),
-      ),
-      const BulletPoint(
+          image: Image.asset(
+        'assets/images/module1/pg19.png',
+      )),
+      Body(
           text:
-              'For a shopkeeper -> he want to drive sales: at times he might place top selling products at eye-level'),
-      const BulletPoint(
-          text:
-              'Other factors: Average height of an Indian -> 170 cm (Men), 155 cm (Women)'),
-      const SizedBox(),
+              'The Ansoff Matrix is a strategic tool that categorizes growth strategies into four quadrants: Market Penetration (selling existing products in existing markets), Market Development (introducing existing products to new markets), Product Development (creating and launching new products in existing markets), and Diversification (entering new markets with new products). It helps businesses assess and choose growth strategies based on their current product and market situations.')
     ],
     [
-      const QuizButton(),
-    ]
+      Heading(
+          text: '4. Distribution Network Design:',
+          topPadding: 20,
+          bottomPadding: 0),
+      BodyImage(image: Image.asset('assets/images/module1/pg20.png')),
+      Body(
+          text:
+              'Design an efficient distribution network that minimizes transportation costs and ensures timely product delivery. Consider factors such as the number and location of warehouses, distribution centers, and transportation routes.',
+          topPadding: 15),
+    ],
+    [
+      Heading(text: '5. Route Planning', topPadding: 20),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg21.png',
+      )),
+      Body(
+          text:
+              'Plan distribution routes to optimize delivery schedules and minimize transportation costs. ')
+    ],
+    [
+      Heading(text: '6. Merchandizing', topPadding: 20),
+      BodyImage(image: Image.asset('assets/images/module1/pg22.png')),
+      Body(
+          text:
+              'Promotion of the sale of goods that can employ pricing, special offer, display, & other techniques '),
+      Body(
+          text: 'Types of Merchandising :',
+          topPadding: 20,
+          fontSize: 16,
+          weight: FontWeight.bold),
+      Body(
+          text:
+              'POSM is an acronym for Point of Sale Marketing or Point of Sale Materials and is used by brands to convey their message or communicate information to the consumers at the point of sale. BTL marketing focuses and targets a specific segment of people- for instance, dropping leaflets in a particular area or putting up a banner at the bus stop.')
+    ],
+    [
+      Heading(text: 'POP', topPadding: 20),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg24.png',
+        height: 250,
+      )),
+      Body(
+          topPadding: 5,
+          text:
+              'POP, ie. Point of Purchase is anything that the customers interact with while deciding whether to buy the product or not. When brands place their products in the stores, in the aisles, on the shelves that customers use to choose what they want to buy- it is the Point of Purchase, whereas POS, ie. Point of Sales means the place where the transaction/ sale occurs- the cash counter or the checkout area at the retail store.')
+    ],
+    [
+      Heading(text: 'POS', topPadding: 20),
+      BodyImage(
+          image: Image.asset(
+        'assets/images/module1/pg25.png',
+        height: 250,
+      )),
+      Body(
+          topPadding: 5,
+          text:
+              'POS (Point of Sale) refers to interactions between the product and customer. These interactions could be at the time of transactions and exit. Remember the chocolate, mint, and candy shelves placed around the billing counter? Well! These same candies are available in the chocolate and munchies section of the store (POP). But putting a few pieces of the candies right before the exit is a part of the brand’s marketing strategy incorporated in a robust system at the store. ')
+    ],
   ],
 ];
