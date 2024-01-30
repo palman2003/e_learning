@@ -38,7 +38,8 @@ class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   TextStyle fontTheme = GoogleFonts.roboto();
 
-  Future<void> loadQuiz(BuildContext context, bool isFinal, List<QuizData> quizData) async {
+  Future<void> loadQuiz(
+      BuildContext context, bool isFinal, List<QuizData> quizData) async {
     if (!mounted) {
       return;
     }
@@ -63,10 +64,8 @@ class _ModulePageState extends State<ModulePage> {
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => QuizSplash(
-                      quizData: quizData,
-                      isFinal: isFinal
-                    ),
+                    builder: (context) =>
+                        QuizSplash(quizData: quizData, isFinal: isFinal),
                   ),
                 );
               },
@@ -221,13 +220,16 @@ class _ModulePageState extends State<ModulePage> {
             } else if (currentData is Header) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(
-                    currentData.sidePadding, currentData.topPadding, currentData.sidePadding, currentData.bottomPadding),
+                    currentData.sidePadding,
+                    currentData.topPadding,
+                    currentData.sidePadding,
+                    currentData.bottomPadding),
                 child: Container(
                   // height: 100,
                   // width: MediaQuery.of(context).size.width - 20,
                   color: currentData.bgColor,
                   padding: EdgeInsets.symmetric(
-                      horizontal: 30, vertical: currentData.topPadding),
+                      horizontal: 30, vertical: currentData.contPadding),
                   // padding: EdgeInsets.fromLTRB(
                   //     30, currentData.topPadding, 30, currentData.bottomPadding),
                   child: Text(
@@ -319,8 +321,8 @@ class _ModulePageState extends State<ModulePage> {
               );
             } else if (currentData is BulletPoint) {
               return Padding(
-                padding: EdgeInsets.fromLTRB(
-                    30, currentData.topPadding, 30, currentData.bottomPadding),
+                padding: EdgeInsets.fromLTRB(30.0 + currentData.leftPadding,
+                    currentData.topPadding, 30, currentData.bottomPadding),
                 child: Text(
                   //◉
                   "⁍ ${currentData.text}",
@@ -392,10 +394,12 @@ class _ModulePageState extends State<ModulePage> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Image.asset(
-                    //   "assets/images/module1/quiz.png",
-                    //   height: 300,
-                    // ),
+                    SizedBox(
+                      height: 150,
+                    ),
+                    Image.asset(
+                      "assets/images/module1/quiz.png",
+                    ),
                     // Text(
                     //   "Now that you have gone through the course content, you will have to take a quiz which will cover all the topics of this module. You will have a total of 17 questions out of which you should get at least 11 of them right to proceed to the next section.",
                     //   style: Theme.of(context).textTheme.bodyLarge,
@@ -403,7 +407,8 @@ class _ModulePageState extends State<ModulePage> {
                     const SizedBox(height: 50),
                     ElevatedButton(
                       onPressed: () {
-                        loadQuiz(context, currentData.isFinal, currentData.quizData);
+                        loadQuiz(
+                            context, currentData.isFinal, currentData.quizData);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
