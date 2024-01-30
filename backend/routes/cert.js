@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require("fs");
 const PDFDocument = require("pdfkit");
 const nodemailer = require("nodemailer");
+const axios = require("axios");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -13,8 +14,8 @@ const transporter = nodemailer.createTransport({
 });
 
 // Example usage
-const templatePath =
-  "Blue and Yellow Minimalist Employee of the Month Certificate (2).png"; // Replace with your template image path
+const templateUrl =
+  "https://raw.githubusercontent.com/NaveenAkash-K/e_learning/780ddb2304129744fd6ee9b141c4b8911dfae96d/backend/Blue%20and%20Yellow%20Minimalist%20Employee%20of%20the%20Month%20Certificate%20(2).png"; // Replace with your template image URL
 
 // Define the route to generate and serve the certificate
 router.get("/:userName/:college/:email", async (req, res) => {
@@ -25,6 +26,10 @@ router.get("/:userName/:college/:email", async (req, res) => {
 
     console.log(userName, email, college);
 
+    // Fetch the image from the URL
+    const response = await axios.get(templateUrl, { responseType: "arraybuffer" });
+    const templateBuffer = Buffer.from(response.data);
+
     // Generate the certificate in-memory
     const pdfDoc = new PDFDocument({ layout: "landscape", size: "A4" });
 
@@ -32,7 +37,7 @@ router.get("/:userName/:college/:email", async (req, res) => {
     const templateWidth = 595.28;
     const templateHeight = 841.89;
     const yPos = (pdfDoc.page.height - templateHeight) / 2;
-    pdfDoc.image(templatePath, 0, 0, { scale: 0.424 });
+    pdfDoc.image(templateBuffer, 0, 0, { scale: 0.424 });
     pdfDoc
       .font("Helvetica-Bold")
       .fontSize(25)
@@ -51,10 +56,6 @@ router.get("/:userName/:college/:email", async (req, res) => {
       pdfDoc.on("end", () => resolve(Buffer.concat(chunks)));
       pdfDoc.end();
     });
-
-    // Send the generated certificate as a response
-    //res.setHeader('Content-Type', 'application/pdf');
-    //res.setHeader('Content-Disposition', `attachment; filename=${userName}_${college}_certificate.pdf`);
 
     // Create mail options with the PDF buffer
     const mailOptions = {

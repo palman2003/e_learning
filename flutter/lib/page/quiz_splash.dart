@@ -326,6 +326,18 @@ class _QuizSplashState extends State<QuizSplash> {
                               });
 
                               try {
+                                if (!widget.isFinal) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => QuizPage(
+                                        quizData: widget.quizData,
+                                        isFinal: widget.isFinal,
+                                      ),
+                                    ),
+                                  );
+                                  return;
+                                }
                                 var response = await http.post(
                                   Uri.parse(
                                       "${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retryCheck"),

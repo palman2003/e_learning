@@ -14,13 +14,13 @@ class QuizPage extends StatefulWidget {
   const QuizPage({
     required this.quizData,
     required this.isFinal,
-    required this.retry,
+    this.retry,
     super.key,
   });
 
   final List<QuizData> quizData;
   final bool isFinal;
-  final int retry;
+  final int? retry;
 
   @override
   State<StatefulWidget> createState() {
@@ -46,6 +46,12 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void updateProgress(String email) async {
+    for (var element in quizState) {
+      if (element.correctAnswer == element.selectedAnswer) {
+        score++;
+      }
+    }
+    
     if (!widget.isFinal) {
       Navigator.pushReplacement(
         context,
@@ -60,11 +66,6 @@ class _QuizPageState extends State<QuizPage> {
       return;
     }
 
-    for (var element in quizState) {
-      if (element.correctAnswer == element.selectedAnswer) {
-        score++;
-      }
-    }
     setState(() {
       isLoading = true;
     });

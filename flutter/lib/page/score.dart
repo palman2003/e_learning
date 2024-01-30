@@ -29,7 +29,6 @@ class ScorePage extends StatefulWidget {
 
 class _ScorePageState extends State<ScorePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
-  bool isCertificateLoading = false;
 
   String getImage(double score) {
     if (score >= 90 && score <= 100) {
