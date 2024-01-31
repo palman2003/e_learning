@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
       city: user.city,
       intro: user.introduction,
       username: user.username,
-      progress: progress,
+      progress: user.Module,
     });
 
     //set the introduction to true

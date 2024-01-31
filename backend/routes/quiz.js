@@ -28,9 +28,9 @@ router.post("/complete", async (req, res) => {
     if (user.Module[module] == false) {
       user.Module[module] = true;
       await user.save();
-      res.status(200).send({ increment: true });
+      res.status(200).send({ completed: false });
     } else {
-      res.status(200).send({ increment: false });
+      res.status(200).send({ completed: true });
     }
   } catch (error) {
     console.log(error);

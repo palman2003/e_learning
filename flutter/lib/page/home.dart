@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/page/intro.dart';
 import 'package:e_learning/page/module.dart';
@@ -7,9 +9,11 @@ import 'package:e_learning/widgets/image_progress.dart';
 import 'package:e_learning/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/data/module_data.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.isFirstlogin});
@@ -29,7 +33,13 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _six = GlobalKey();
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
-  late int progress = prefs!.getInt("progress")!;
+  List<String> listOfPrefKeys = [
+    "isIntroFinished",
+    "isModuleFinished",
+    "isInstructionFinished",
+    "isImageUploadFinished",
+    "isCaseStudyFinished",
+  ];
 
   final List<Color> mainColors = [
     const Color.fromARGB(255, 147, 232, 146),
@@ -64,68 +74,197 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void introTap() async {
-    dynamic data = await Navigator.of(context).push<int>(
-      MaterialPageRoute(
-        builder: (context) => IntroPage(),
-      ),
-    );
-    if (data is int) {
-      setState(() {
-        progress = data;
-      });
-    }
-  }
-
-  void contentTap() async {
-    Navigator.push<int>(
-      context,
-      MaterialPageRoute(
-        builder: ((context) => ModulePage(
-            moduleData: module[0],
-            appBarTitle: "Learning Module",
-            title: "Hello",
-            // isFinal: false,
-            // quizData: quizDataList1,
-            moduleIndex: 1)),
-      ),
-    );
-  }
-
-  void instructionTap() {
-    Navigator.push<int>(
-      context,
-      MaterialPageRoute(
-        builder: ((context) => ModulePage(
-            moduleData: module[1],
-            appBarTitle: "Instructions for Live Project ",
-            title: "Hello",
-            // isFinal: false,
-            // quizData: quizDataList1,
-            moduleIndex: 1)),
-      ),
-    );
-  }
-
-  void caseStudyTap() {
-    Navigator.push<int>(
-      context,
-      MaterialPageRoute(
-        builder: ((context) => ModulePage(
-            moduleData: module[2],
-            appBarTitle: "Test Your Knowledge",
-            title: "Hello",
-            // isFinal: false,
-            // quizData: quizDataList1,
-            moduleIndex: 1)),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final String? username = prefs?.getString("username");
-    int progress = prefs!.getInt("progress")!;
+
+    int progress = 0;
+    int credits = 0;
+
+    void introTap() async {
+      if ((prefs!.getBool("isIntroFinished")!)) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => IntroPage(),
+          ),
+        );
+        return;
+      }
+
+      try {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {
+              "email": prefs!.getString("email"),
+              "module": 0,
+            },
+          ),
+        );
+
+        if (!(prefs!.getBool("isIntroFinished")!)) {
+          await prefs!.setBool("isIntroFinished", true);
+
+          setState(() {
+            ++progress;
+            credits += 200;
+          });
+        }
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => IntroPage(),
+          ),
+        );
+      } catch (error) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error.toString(),
+            ),
+          ),
+        );
+      }
+    }
+
+    void contentTap() async {
+      void progressIncrementer() {
+        setState(() {
+          progress++;
+          credits += 200;
+        });
+      }
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => ModulePage(
+              moduleData: module[0],
+              appBarTitle: "Learning Module",
+              title: "Hello",
+              // isFinal: false,
+              // quizData: quizDataList1,
+              progressHandler: progressIncrementer,
+              moduleIndex: 1)),
+        ),
+      );
+    }
+
+    void instructionTap() async {
+      print(prefs!.getBool("isInstructionFinished")!);
+      if ((prefs!.getBool("isInstructionFinished")!)) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ModulePage(
+                moduleData: module[1],
+                appBarTitle: "Instructions for Live Project",
+                title: "Hello",
+                // isFinal: false,
+                // quizData: quizDataList1,
+                moduleIndex: 1),
+          ),
+        );
+        return;
+      }
+
+      try {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {
+              "email": prefs!.getString("email"),
+              "module": 2,
+            },
+          ),
+        );
+
+        await prefs!.setBool("isInstructionFinished", true);
+
+        setState(() {
+          ++progress;
+          credits += 200;
+        });
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ModulePage(
+                moduleData: module[1],
+                appBarTitle: "Instructions for Live Project",
+                title: "Hello",
+                // isFinal: false,
+                // quizData: quizDataList1,
+                moduleIndex: 1),
+          ),
+        );
+      } catch (error) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error.toString(),
+            ),
+          ),
+        );
+      }
+    }
+
+    void caseStudyTap() async {
+      if (!(prefs!.getBool("isCaseStudyFinished")!)) {
+        await prefs!.setBool("isCaseStudyFinished", true);
+
+        setState(() {
+          ++progress;
+          credits += 200;
+        });
+
+        try {
+          http.post(
+            Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode(
+              {
+                "email": prefs!.getString("email"),
+                "module": 4,
+              },
+            ),
+          );
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => ModulePage(
+                  moduleData: module[2],
+                  appBarTitle: "Test Your Knowledge",
+                  title: "Hello",
+                  // isFinal: false,
+                  // quizData: quizDataList1,
+                  moduleIndex: 1)),
+            ),
+          );
+        } catch (error) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                error.toString(),
+              ),
+            ),
+          );
+        }
+      }
+    }
+
+    for (var element in listOfPrefKeys) {
+      if (prefs!.getBool(element)!) {
+        progress++;
+        credits += 200;
+      }
+    }
+
+    print(progress);
 
     return Scaffold(
       key: scaffoldKey,
@@ -167,7 +306,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   Text(
-                    '1240',
+                    credits.toString(),
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           color:
