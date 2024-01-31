@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
       MaterialPageRoute(
         builder: ((context) => ModulePage(
             moduleData: module[0],
-            appBarTitle: "Module 1",
+            appBarTitle: "Learning Module",
             title: "Hello",
             // isFinal: false,
             // quizData: quizDataList1,
@@ -92,10 +92,35 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void quiz1Tap() {}
+  void instructionTap() {
+    Navigator.push<int>(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => ModulePage(
+            moduleData: module[1],
+            appBarTitle: "Instructions for Live Project ",
+            title: "Hello",
+            // isFinal: false,
+            // quizData: quizDataList1,
+            moduleIndex: 1)),
+      ),
+    );
+  }
 
-  void quiz2Tap() {}
-  void caseStudyTap() {}
+  void caseStudyTap() {
+    Navigator.push<int>(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => ModulePage(
+            moduleData: module[2],
+            appBarTitle: "Test Your Knowledge",
+            title: "Hello",
+            // isFinal: false,
+            // quizData: quizDataList1,
+            moduleIndex: 1)),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -353,9 +378,9 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 20),
                   Expanded(
                     child: GestureDetector(
-                      onTap: quiz1Tap,
+                      onTap: instructionTap,
                       child: Showcase(
-                        title: 'Introduction to the live project',
+                        title: 'Instructions for Live Project ',
                         description: 'Take Quiz here',
                         key: _five,
                         child: Container(
@@ -409,7 +434,7 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.white,
                                 ),
                                 child: Text(
-                                  "Introduction to the live project",
+                                  "Instructions for Live Project ",
                                   maxLines: 2,
                                   style: Theme.of(context)
                                       .textTheme
@@ -438,74 +463,6 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               Row(
                 children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: quiz2Tap,
-                      child: Container(
-                        height: 160,
-                        decoration: BoxDecoration(
-                          color: mainColors[3],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5.0),
-                          ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0, 1),
-                              blurRadius: 5,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Spacer(),
-                            Container(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 50, 5),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                ),
-                                color: boxColors[3],
-                              ),
-                              child: Text(
-                                "04",
-                                style: GoogleFonts.playfairDisplay().copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color.fromARGB(255, 37, 37, 37),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 60,
-                              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(5),
-                                  bottomLeft: Radius.circular(5),
-                                ),
-                                color: Colors.white,
-                              ),
-                              child: Text(
-                                "Test your Knowledge",
-                                maxLines: 2,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
                   Expanded(
                     child: GestureDetector(
                       onTap: caseStudyTap,

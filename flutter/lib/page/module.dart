@@ -36,7 +36,7 @@ class ModulePage extends StatefulWidget {
 
 class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
-  TextStyle fontTheme = GoogleFonts.roboto();
+  TextStyle fontTheme = GoogleFonts.dmSerifDisplay();
 
   Future<void> loadQuiz(
       BuildContext context, bool isFinal, List<QuizData> quizData) async {
@@ -213,10 +213,13 @@ class _ModulePageState extends State<ModulePage> {
             var currentData = widget.moduleData[sectionIndex][index];
             if (currentData is BodyImage) {
               return Padding(
-                  padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
+                  padding:
+                      EdgeInsets.fromLTRB(30, currentData.topPadding, 30, 0),
                   child: currentData.image);
             } else if (currentData is HeadImage) {
-              return currentData.image;
+              return Padding(
+                  padding: EdgeInsets.fromLTRB(0, currentData.topPadding, 0, 0),
+                  child: currentData.image);
             } else if (currentData is Header) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(
@@ -234,7 +237,7 @@ class _ModulePageState extends State<ModulePage> {
                   //     30, currentData.topPadding, 30, currentData.bottomPadding),
                   child: Text(
                     currentData.text,
-                    style: GoogleFonts.merriweather().copyWith(
+                    style: GoogleFonts.dmSerifDisplay().copyWith(
                       fontSize: currentData.fontSize,
                       fontWeight: FontWeight.bold,
                       color: currentData.textColor,
@@ -253,7 +256,7 @@ class _ModulePageState extends State<ModulePage> {
                 child: Center(
                   child: Text(
                     currentData.text,
-                    style: GoogleFonts.merriweather().copyWith(
+                    style: GoogleFonts.dmSerifDisplay().copyWith(
                         fontSize: currentData.fontSize,
                         fontWeight: FontWeight.bold,
                         color: currentData.textColor,
@@ -287,8 +290,14 @@ class _ModulePageState extends State<ModulePage> {
                             child: Text(
                               cell,
                               style: rowIndex == 0
-                                  ? currentData.headerTextStyle
-                                  : currentData.cellTextStyle,
+                                  ? GoogleFonts.dmSerifDisplay().copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      backgroundColor:
+                                          Color.fromARGB(255, 151, 192, 232),
+                                    )
+                                  : GoogleFonts.dmSerifDisplay()
+                                      .copyWith(fontSize: 16),
                             ),
                           ),
                         );
@@ -324,11 +333,11 @@ class _ModulePageState extends State<ModulePage> {
                 padding: EdgeInsets.fromLTRB(30.0 + currentData.leftPadding,
                     currentData.topPadding, 30, currentData.bottomPadding),
                 child: Text(
-                  //◉
-                  "⁍ ${currentData.text}",
+                  //◉⁍
+                  "◉ ${currentData.text}",
                   textAlign: TextAlign.start,
                   style: fontTheme.copyWith(
-                    fontSize: 14,
+                    fontSize: 16,
                     // color: Color.fromARGB(255, 64, 64, 64),
                     fontWeight: currentData.weight,
                     backgroundColor: currentData.bgColor,
@@ -372,7 +381,7 @@ class _ModulePageState extends State<ModulePage> {
                     30, currentData.topPadding, 30, currentData.bottomPadding),
                 child: Text(
                   currentData.text,
-                  style: GoogleFonts.merriweather().copyWith(
+                  style: GoogleFonts.dmSerifDisplay().copyWith(
                     fontSize: currentData.fontSize,
                     // color: Color.fromARGB(255, 64, 64, 64),
                     backgroundColor: currentData.bgColor,
@@ -395,7 +404,15 @@ class _ModulePageState extends State<ModulePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 150,
+                      height: 100,
+                    ),
+                    Text(
+                      'Quiz Time...',
+                      style: fontTheme.copyWith(
+                          fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 50,
                     ),
                     Image.asset(
                       "assets/images/module1/quiz.png",
@@ -415,15 +432,16 @@ class _ModulePageState extends State<ModulePage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                           side: const BorderSide(
-                            color: Color.fromARGB(255, 139, 0, 232),
-                            width: 2,
+                            color: Color.fromARGB(255, 219, 229, 18),
+                            width: 3,
                           ),
                         ),
                       ),
                       child: const Text(
                         'Take Quiz',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 139, 0, 232),
+                          color: Colors.black,
+                          // color: Color.fromARGB(255, 139, 0, 232),
                         ),
                       ),
                     ),
