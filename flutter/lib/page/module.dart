@@ -38,6 +38,7 @@ class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   TextStyle fontTheme = GoogleFonts.dmSerifDisplay();
   int minWordCount = 300;
+  int wordCount = 0;
   Future<void> loadQuiz(
       BuildContext context, bool isFinal, List<QuizData> quizData) async {
     if (!mounted) {
@@ -489,7 +490,27 @@ class _ModulePageState extends State<ModulePage> {
                         border: OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.text,
-                      maxLines: null, // Allows for multiline input
+                      maxLines: null,
+                      onChanged: (text) {
+                        // Update the word count when the text changes
+                        int wordCount = text.trim().split(' ').isEmpty
+                            ? 0
+                            : text.trim().split(' ').length;
+                        setState(() {
+                          currentData.wordCount = wordCount;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Word Count: ${currentData.wordCount} / ${minWordCount}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
                     ),
                     SizedBox(height: 16),
                     ElevatedButton(
