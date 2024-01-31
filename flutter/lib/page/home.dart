@@ -285,7 +285,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         leading: Showcase(
           title: 'Drawer',
-          description: 'View your profile and logout via this',
+          description: 'Navigate across screens over here',
           key: _one,
           child: IconButton(
               onPressed: () {
@@ -533,7 +533,8 @@ class _HomePageState extends State<HomePage> {
                       onTap: instructionTap,
                       child: Showcase(
                         title: 'Instructions for Live Project ',
-                        description: 'Take Quiz here',
+                        description:
+                            'Learn how to upload images in the other app',
                         key: _five,
                         child: Container(
                           height: 160,

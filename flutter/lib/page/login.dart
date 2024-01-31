@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   bool isLoading = false;
-
+  bool isForgotPassLoading = false;
   void login() async {
     if (!_loginFormKey.currentState!.validate()) {
       return;
@@ -65,8 +65,10 @@ class _LoginPageState extends State<LoginPage> {
       await prefs?.setString("branch", responseData["branch"]);
       await prefs?.setBool("isIntroFinished", responseData["progress"][0]);
       await prefs?.setBool("isModuleFinished", responseData["progress"][1]);
-      await prefs?.setBool("isInstructionFinished", responseData["progress"][2]);
-      await prefs?.setBool("isImageUploadFinished", responseData["progress"][3]);
+      await prefs?.setBool(
+          "isInstructionFinished", responseData["progress"][2]);
+      await prefs?.setBool(
+          "isImageUploadFinished", responseData["progress"][3]);
       await prefs?.setBool("isCaseStudyFinished", responseData["progress"][4]);
 
       setState(() {
@@ -136,6 +138,9 @@ class _LoginPageState extends State<LoginPage> {
       );
       return;
     }
+    setState(() {
+      isForgotPassLoading = true;
+    });
 
     try {
       var response = await http.post(
@@ -179,6 +184,10 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       );
+    } finally {
+      setState(() {
+        isForgotPassLoading = false;
+      });
     }
   }
 
@@ -297,14 +306,15 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(fontSize: 12),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        // const SizedBox(height: 5),
                         TextButton(
-                          onPressed: forgetPassword,
-                          child: const Text(
-                            "Forget Password",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ),
+                            onPressed: forgetPassword,
+                            child: isForgotPassLoading
+                                ? CircularProgressIndicator()
+                                : const Text(
+                                    "Forgot Password?",
+                                    style: TextStyle(fontSize: 12),
+                                  )),
                       ],
                     ),
                   ),
