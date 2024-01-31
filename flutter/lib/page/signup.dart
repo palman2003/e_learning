@@ -30,6 +30,7 @@ class _SignupPageState extends State<SignupPage> {
   late SharedPreferences prefs;
 
   bool isFinalPage = false;
+  bool isLoading = false;
 
   String? enteredEmail;
   String? enteredPassword;
@@ -39,6 +40,10 @@ class _SignupPageState extends State<SignupPage> {
     if (!_signupFormKey.currentState!.validate()) {
       return;
     }
+
+    setState(() {
+      isLoading = true;
+    });
 
     try {
       var response = await http.post(
@@ -94,6 +99,10 @@ class _SignupPageState extends State<SignupPage> {
         ),
       );
     }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -349,16 +358,19 @@ class _SignupPageState extends State<SignupPage> {
                         const SizedBox(height: 15),
                         InkWell(
                           borderRadius: BorderRadius.circular(8),
-                          onTap: isFinalPage
-                              ? signup
-                              : (() {
-                                  if (_signupFormKey.currentState!.validate()) {
-                                    _signupFormKey.currentState!.save();
-                                    setState(() {
-                                      isFinalPage = !isFinalPage;
-                                    });
-                                  }
-                                }),
+                          onTap: isLoading
+                              ? () {}
+                              : isFinalPage
+                                  ? signup
+                                  : (() {
+                                      if (_signupFormKey.currentState!
+                                          .validate()) {
+                                        _signupFormKey.currentState!.save();
+                                        setState(() {
+                                          isFinalPage = !isFinalPage;
+                                        });
+                                      }
+                                    }),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
@@ -369,13 +381,15 @@ class _SignupPageState extends State<SignupPage> {
                               vertical: 15,
                             ),
                             child: Center(
-                              child: Text(
-                                isFinalPage ? "Signup" : "Next",
-                                style: const TextStyle(
-                                  // color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: isLoading
+                                  ? CircularProgressIndicator()
+                                  : Text(
+                                      isFinalPage ? "Signup" : "Next",
+                                      style: const TextStyle(
+                                        // color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),

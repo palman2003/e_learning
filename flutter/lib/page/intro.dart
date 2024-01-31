@@ -10,8 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class IntroPage extends StatelessWidget {
   IntroPage({super.key});
 
-  SharedPreferences? prefs = SharedPreferencesManager.preferences;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,45 +87,8 @@ class IntroPage extends StatelessWidget {
                       Spacer(),
                       InkWell(
                         splashColor: Colors.transparent,
-                        onTap: () async {
-                          try {
-                            var response = await http.post(
-                              Uri.parse(
-                                  "${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
-                              headers: {"Content-Type": "application/json"},
-                              body: jsonEncode(
-                                {
-                                  "email": prefs!.getString("email"),
-                                  "module": 0,
-                                },
-                              ),
-                            );
-
-                            var responseData = jsonDecode(response.body);
-
-                            print(responseData);
-
-                            if (response.statusCode > 399) {
-                              throw responseData["message"];
-                            }
-
-                            if (responseData["increment"]) {
-                              await prefs!.setInt(
-                                  "progress", (prefs!.getInt("progress")!) + 1);
-                            }
-
-                            Navigator.of(context).pop(prefs!.getInt("progress")!);
-
-                          } catch (error) {
-                            ScaffoldMessenger.of(context).clearSnackBars();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  error.toString(),
-                                ),
-                              ),
-                            );
-                          }
+                        onTap: () {
+                          Navigator.of(context).pop();
                         },
                         child: Container(
                           decoration: const BoxDecoration(

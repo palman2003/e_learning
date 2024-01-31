@@ -53,6 +53,8 @@ class _LoginPageState extends State<LoginPage> {
         throw responseData["message"];
       }
 
+      print(responseData);
+
       await prefs?.setString("token", responseData["token"]);
       await prefs?.setString("email", responseData["email"]);
       await prefs?.setString("username", responseData["username"]);
@@ -61,7 +63,11 @@ class _LoginPageState extends State<LoginPage> {
       await prefs?.setString("city", responseData["city"]);
       await prefs?.setString("college", responseData["college"]);
       await prefs?.setString("branch", responseData["branch"]);
-      await prefs?.setInt("progress", responseData["progress"]);
+      await prefs?.setBool("isIntroFinished", responseData["progress"][0]);
+      await prefs?.setBool("isModuleFinished", responseData["progress"][1]);
+      await prefs?.setBool("isInstructionFinished", responseData["progress"][2]);
+      await prefs?.setBool("isImageUploadFinished", responseData["progress"][3]);
+      await prefs?.setBool("isCaseStudyFinished", responseData["progress"][4]);
 
       setState(() {
         isLoading = false;

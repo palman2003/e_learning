@@ -17,6 +17,7 @@ class ModulePage extends StatefulWidget {
     required this.title,
     // required this.isFinal,
     // required this.quizData,
+    this.progressHandler,
     required this.moduleIndex,
     super.key,
   });
@@ -26,6 +27,7 @@ class ModulePage extends StatefulWidget {
   // final bool isFinal;
   final String title;
   final int moduleIndex;
+  final void Function()? progressHandler;
   // final List<QuizData> quizData;
 
   @override
@@ -142,27 +144,22 @@ class _ModulePageState extends State<ModulePage> {
               onPressed: () async {
                 if ((sectionIndex == widget.moduleData.length - 2)) {
                   try {
-                    var response = await http.post(
-                      Uri.parse(
-                          "${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
-                      headers: {"Content-Type": "application/json"},
-                      body: jsonEncode(
-                        {
-                          "email": prefs!.getString("email"),
-                          "module": 1,
-                        },
-                      ),
-                    );
-
-                    var responseData = jsonDecode(response.body);
-
-                    if (response.statusCode > 399) {
-                      throw responseData["message"];
-                    }
-
-                    if (responseData["increment"]) {
-                      await prefs!
-                          .setInt("progress", (prefs!.getInt("progress")!) + 1);
+                    if (!(prefs!.getBool("isModuleFinished")!)) {
+                      http.post(
+                        Uri.parse(
+                            "${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+                        headers: {"Content-Type": "application/json"},
+                        body: jsonEncode(
+                          {
+                            "email": prefs!.getString("email"),
+                            "module": 1,
+                          },
+                        ),
+                      );
+                      await prefs!.setBool("isModuleFinished", true);
+                      if (widget.progressHandler != null) {
+                        widget.progressHandler!();
+                      }
                     }
                   } catch (error) {
                     ScaffoldMessenger.of(context).clearSnackBars();
