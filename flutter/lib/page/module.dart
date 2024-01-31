@@ -39,7 +39,8 @@ class ModulePage extends StatefulWidget {
 class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   TextStyle fontTheme = GoogleFonts.dmSerifDisplay();
-
+  int minWordCount = 300;
+  int wordCount = 0;
   Future<void> loadQuiz(
       BuildContext context, bool isFinal, List<QuizData> quizData) async {
     if (!mounted) {
@@ -465,6 +466,137 @@ class _ModulePageState extends State<ModulePage> {
                     enableInfiniteScroll: false,
                     autoPlay: true,
                   ),
+                ),
+              );
+            } else if (currentData is CaseStudy) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16, top: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      currentData.question,
+                      style: fontTheme.copyWith(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 16),
+                    TextField(
+                      controller: currentData.controller,
+                      decoration: InputDecoration(
+                        hintText: 'Enter your answer here...',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.text,
+                      maxLines: null,
+                      onChanged: (text) {
+                        // Update the word count when the text changes
+                        int wordCount = text.trim().split(' ').isEmpty
+                            ? 0
+                            : text.trim().split(' ').length;
+                        setState(() {
+                          currentData.wordCount = wordCount;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Word Count: ${currentData.wordCount} / ${minWordCount}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Confirmation'),
+                              content: const SingleChildScrollView(
+                                child: Text(
+                                    'Do you really want to submit your answer?'),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    int wordCount;
+                                    if (currentData.controller.text
+                                        .trim()
+                                        .split(' ')
+                                        .isEmpty) {
+                                      wordCount = 0;
+                                    } else {
+                                      wordCount = currentData.controller.text
+                                          .trim()
+                                          .split(' ')
+                                          .length;
+                                    }
+
+                                    if (wordCount >= minWordCount) {
+                                      String answer =
+                                          currentData.controller.text;
+                                      print('User\'s answer: $answer');
+                                      currentData.controller.clear();
+                                      setState(() {
+                                        sectionIndex++;
+                                      });
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text(
+                                              'Answer submitted successfully'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text('Insuffcient answer'),
+                                          content: Text(
+                                              'Please write at least $minWordCount words.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  child: const Text('Confirm'),
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Text('Submit'),
+                    ),
+                  ],
                 ),
               );
             }

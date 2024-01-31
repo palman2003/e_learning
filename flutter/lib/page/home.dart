@@ -351,9 +351,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       backgroundColor:
                           Theme.of(context).colorScheme.primaryContainer,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).colorScheme.onPrimaryContainer,
-                      ),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                          // Theme.of(context).colorScheme.onPrimaryContainer,
+                          Color.fromARGB(210, 45, 208, 17)),
                       value: progress / 5,
                     ),
                   ),

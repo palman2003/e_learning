@@ -185,6 +185,19 @@ class ImageSlider {
   final double verticalPadding;
 }
 
+class CaseStudy {
+  CaseStudy(
+      {required this.question, required this.controller, this.wordCount = 0});
+  final String question;
+  final TextEditingController controller;
+  var wordCount;
+}
+
+TextEditingController answerController1 = TextEditingController();
+TextEditingController answerController2 = TextEditingController();
+TextEditingController answerController3 = TextEditingController();
+TextEditingController answerController4 = TextEditingController();
+
 final List moduleTitle = [
   "Shelf Analytics",
   "Title 2",
@@ -683,7 +696,47 @@ final List module = [
           image: Image.asset(
         'assets/images/module1/pg25.png',
       )),
+      const Body(
+          text: 'Impulse purchase:',
+          weight: FontWeight.bold,
+          bottomPadding: 0,
+          topPadding: 20),
+      const Body(
+          text:
+              'FMCG products often rely on impulse purchases. If a product is prominently displayed and visible to consumers, it increases the likelihood of them making unplanned purchases..'),
+      const Body(
+          text: 'Brand Recognition:',
+          weight: FontWeight.bold,
+          bottomPadding: 0),
+      const Body(
+          text:
+              'Visibility enhances brand recognition. When consumers consistently see a product on store shelves or online, it strengthens brand recall, which is essential for brand loyalty and repeat purchases.'),
       const SizedBox(),
+    ],
+    [
+      const Body(
+          text: 'Consumer Engagement: ',
+          weight: FontWeight.bold,
+          bottomPadding: 0),
+      const Body(
+          text:
+              'Visible products attract the attention of consumers, leading to increased engagement. Eye-catching displays and packaging can prompt consumers to interact with the product, read labels, and consider a purchase.'),
+      const Body(
+          text: 'Competitive Advantage:',
+          weight: FontWeight.bold,
+          bottomPadding: 0),
+      const Body(
+          text:
+              'In crowded retail spaces, having visible products provides a competitive advantage. It helps a brand stand out from competitors, especially when consumers have numerous choices for similar products.'),
+      const Body(
+          text: 'Promotional Effectiveness: ',
+          weight: FontWeight.bold,
+          bottomPadding: 0),
+      const Body(
+          text:
+              'Visibility is crucial for the success of promotions and marketing campaigns. Whether it\'s an in-store promotion or an online marketing initiative, the visibility of the product is directly tied to the effectiveness of the promotional effort. ',
+          weight: FontWeight.bold,
+          bottomPadding: 0),
     ],
     [
       const Heading(text: 'Types of Visibility ', topPadding: 20),
@@ -809,9 +862,9 @@ final List module = [
   ],
   [
     [
-      Heading(
+      const Heading(
           text: 'Instructions for Live Project',
-          fontSize: 30,
+          fontSize: 25,
           bottomPadding: 30,
           topPadding: 20),
       BodyImage(image: Image.asset('assets/images/module2/pg1.png'))
@@ -819,20 +872,37 @@ final List module = [
   ],
   [
     [
-      SizedBox(),
-      Heading(text: 'Case study ', fontSize: 30, bottomPadding: 20),
-      Body(
+      const SizedBox(),
+      const Heading(text: 'Case study ', fontSize: 30, bottomPadding: 20),
+      const Body(
           align: TextAlign.center,
           text:
               'XYZ Supermart, a prominent retail chain, faced challenges with product visibility and sales performance across its stores. To address these issues, the company decided to implement a comprehensive shelf planogram strategy. The goal was to enhance the customer shopping experience, improve product visibility, and ultimately drive sales.')
     ],
     [
-      BulletPoint(
-          text: 'Give 3 ideas to improve the visibility in a kirana store'),
-      BulletPoint(text: 'Give 3 ideas on POP activity'),
-      BulletPoint(text: 'Please list the type of shops that your visited'),
-      BulletPoint(
-          text: 'What are the categories which are placed next to each other'),
+      CaseStudy(
+          question: 'Give 3 ideas to improve the visibility in a kirana store',
+          controller: answerController1),
+      const SizedBox()
+    ],
+    [
+      CaseStudy(
+          question: 'Give 3 ideas on POP activity',
+          controller: answerController2),
+      const SizedBox()
+    ],
+    [
+      CaseStudy(
+          question: 'Please list the type of shops that your visited',
+          controller: answerController3),
+      const SizedBox()
+    ],
+    [
+      CaseStudy(
+          question:
+              'What are the categories which are placed next to each other',
+          controller: answerController4),
+      const SizedBox()
     ],
   ],
 ];
