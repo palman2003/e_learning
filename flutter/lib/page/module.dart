@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_learning/data/module_data.dart';
 import 'package:e_learning/model/quiz_data.dart';
+import 'package:e_learning/page/quiz.dart';
 import 'package:e_learning/page/quiz_splash.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
@@ -65,10 +66,13 @@ class _ModulePageState extends State<ModulePage> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
+                Navigator.pushReplacement(
+                  context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        QuizSplash(quizData: quizData, isFinal: isFinal),
+                    builder: (context) => QuizPage(
+                      quizData: quizData,
+                      isFinal: isFinal,
+                    ),
                   ),
                 );
               },
