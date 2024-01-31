@@ -185,6 +185,17 @@ class ImageSlider {
   final double verticalPadding;
 }
 
+class CaseStudy {
+  CaseStudy({required this.question, required this.controller});
+  final String question;
+  final TextEditingController controller;
+}
+
+TextEditingController answerController1 = TextEditingController();
+TextEditingController answerController2 = TextEditingController();
+TextEditingController answerController3 = TextEditingController();
+TextEditingController answerController4 = TextEditingController();
+
 final List moduleTitle = [
   "Shelf Analytics",
   "Title 2",
@@ -811,7 +822,7 @@ final List module = [
     [
       Heading(
           text: 'Instructions for Live Project',
-          fontSize: 30,
+          fontSize: 25,
           bottomPadding: 30,
           topPadding: 20),
       BodyImage(image: Image.asset('assets/images/module2/pg1.png'))
@@ -827,12 +838,29 @@ final List module = [
               'XYZ Supermart, a prominent retail chain, faced challenges with product visibility and sales performance across its stores. To address these issues, the company decided to implement a comprehensive shelf planogram strategy. The goal was to enhance the customer shopping experience, improve product visibility, and ultimately drive sales.')
     ],
     [
-      BulletPoint(
-          text: 'Give 3 ideas to improve the visibility in a kirana store'),
-      BulletPoint(text: 'Give 3 ideas on POP activity'),
-      BulletPoint(text: 'Please list the type of shops that your visited'),
-      BulletPoint(
-          text: 'What are the categories which are placed next to each other'),
+      CaseStudy(
+          question: 'Give 3 ideas to improve the visibility in a kirana store',
+          controller: answerController1),
+      SizedBox()
+    ],
+    [
+      CaseStudy(
+          question: 'Give 3 ideas on POP activity',
+          controller: answerController2),
+      SizedBox()
+    ],
+    [
+      CaseStudy(
+          question: 'Please list the type of shops that your visited',
+          controller: answerController3),
+      SizedBox()
+    ],
+    [
+      CaseStudy(
+          question:
+              'What are the categories which are placed next to each other',
+          controller: answerController4),
+      SizedBox()
     ],
   ],
 ];
