@@ -244,6 +244,7 @@ class _HomePageState extends State<HomePage> {
                   moduleIndex: 1)),
             ),
           );
+          return;
         } catch (error) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -255,6 +256,18 @@ class _HomePageState extends State<HomePage> {
           );
         }
       }
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => ModulePage(
+              moduleData: module[2],
+              appBarTitle: "Test Your Knowledge",
+              title: "Hello",
+              // isFinal: false,
+              // quizData: quizDataList1,
+              moduleIndex: 1)),
+        ),
+      );
     }
 
     for (var element in listOfPrefKeys) {
