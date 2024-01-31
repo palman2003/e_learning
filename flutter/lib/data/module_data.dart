@@ -1,6 +1,7 @@
 import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/model/quiz_data.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class Header {
@@ -115,7 +116,7 @@ class SubBulletPoint {
 class BodyImage {
   const BodyImage({
     required this.image,
-    this.topPadding = 0,
+    this.topPadding = 20,
     this.bottomPadding = 0,
   });
   final Image image;
@@ -202,10 +203,11 @@ final List module = [
   [
     [
       HeadImage(
+          topPadding: 100,
           image: Image.asset(
-        'assets/images/module1/pg1.png',
-        height: 500,
-      )),
+            'assets/images/module1/pg1.png',
+            // height: 700,
+          )),
       // const Header(
       //   text: 'FMCG\nCategory ',
       //   //bgColor: Color.fromARGB(255, 151, 192, 232),
@@ -249,7 +251,6 @@ final List module = [
       const Body(
           text:
               'The term FMCG has been defined to include products that are consumed at least once a month',
-          bgColor: Colors.yellow,
           bottomPadding: 0),
       const Body(
         text:
@@ -268,7 +269,7 @@ final List module = [
       const Heading(text: 'Classification', topPadding: 40),
       BodyImage(
           image: Image.asset(
-        'assets/images/module1/pg4.png',
+        'assets/images/module1/pg2_1.png',
         height: 500,
       )),
       const SizedBox(),
@@ -292,32 +293,49 @@ final List module = [
       )),
       const SizedBox(),
     ],
-    [QuizButton(isFinal: false, quizData: quiz1)],
     [
       const Heading(
         text: 'HIP and LIP',
         fontSize: 32,
         topPadding: 20,
       ),
-      const Heading(
-          text: 'High Involvement (HIP):', fontSize: 16, topPadding: 20),
+      const Body(
+          weight: FontWeight.bold,
+          text: 'High Involvement (HIP):',
+          fontSize: 16,
+          topPadding: 20),
       const Body(
           text:
               'Products for which the buyer is prepared to spend considerable time and effort in searching.',
           topPadding: 0),
-      const Heading(text: 'Low Involvement (LIP): ', fontSize: 16),
+      const Body(
+          text: 'Low Involvement (LIP): ',
+          fontSize: 16,
+          weight: FontWeight.bold),
       const Body(
           text:
               'Products which are bought frequently and with a minimum of thought and effort',
           topPadding: 0),
       const TabularColumn(data: [
-        ['High Involvement ', 'Low involvement'],
-        ['Similar Brand Offering ', 'Unique Brand Offering '],
-        ['Dissonance reducing buying behavior ', 'Complex buying behavior'],
-        ['Habitual Buying behavior', 'Variety seeking behavior']
+        [
+          'Degree of Involvement',
+          'Similar Brand Offering ',
+          'Unique Brand Offering '
+        ],
+        [
+          'High \nInvolvement',
+          'Dissonance reducing buying behavior ',
+          'Complex buying behavior'
+        ],
+        [
+          'Low \ninvolvement',
+          'Habitual Buying behavior',
+          'Variety seeking behavior'
+        ]
       ]),
       const SizedBox(),
     ],
+    [QuizButton(isFinal: false, quizData: quiz1)],
     [
       const Heading(
           text: 'Distribution and Decision Making ',
@@ -332,9 +350,9 @@ final List module = [
           text:
               'The distribution of Fast-Moving Consumer Goods (FMCG) involves getting products from manufacturers to end consumers as efficiently and effectively as possible.'),
       const Body(
-          text:
-              'Decision-making in FMCG distribution is crucial for ensuring products are available at the right time and place, optimizing supply chain efficiency, and meeting customer demands.',
-          bgColor: Colors.yellow),
+        text:
+            'Decision-making in FMCG distribution is crucial for ensuring products are available at the right time and place, optimizing supply chain efficiency, and meeting customer demands.',
+      ),
       const SizedBox(),
     ],
     [
@@ -363,8 +381,7 @@ final List module = [
           text: 'Pros and Cons of Direct and Indirect distribution',
           topPadding: 20,
           bottomPadding: 15),
-      const Heading(
-          text: 'Direct Distribution', fontSize: 18, bgColor: Colors.yellow),
+      const Heading(text: 'Direct Distribution', fontSize: 18),
       const TabularColumn(data: [
         ['Pros', 'Cons'],
         [
@@ -376,8 +393,7 @@ final List module = [
           'Limited market coverage.'
         ]
       ]),
-      const Heading(
-          text: 'Indirect Distribution', fontSize: 18, bgColor: Colors.yellow),
+      const Heading(text: 'Indirect Distribution', fontSize: 18),
       const TabularColumn(data: [
         ['Pros', 'Cons'],
         [
@@ -441,9 +457,10 @@ final List module = [
     ],
     [
       BodyImage(
+          topPadding: 40,
           image: Image.asset(
-        'assets/images/module1/pg12_3.png',
-      )),
+            'assets/images/module1/pg12_3.png',
+          )),
       const Body(
           text:
               'Hyper Market:  large retail establishments that are a culmination of departmental stores and supermarkets ',
@@ -460,9 +477,10 @@ final List module = [
     ],
     [
       BodyImage(
+          topPadding: 40,
           image: Image.asset(
-        'assets/images/module1/pg12_5.png',
-      )),
+            'assets/images/module1/pg12_5.png',
+          )),
       const Body(
           text:
               'Paan Plus: Small scale Kirana store focused in selling small SKUs and ready to eat snacks',
@@ -479,11 +497,14 @@ final List module = [
       const SizedBox(),
     ],
     [
-      const Heading(text: 'Quality of distribution ', topPadding: 20),
+      const Heading(
+        text: 'Quality of distribution ',
+        topPadding: 20,
+      ),
       const BulletPoint(
           text:
               'The weighted distribution is the percentage of points of sale where a product is available, assigning to each of them a weight proportional to their sales',
-          topPadding: 10),
+          topPadding: 20),
       const BulletPoint(
           text:
               'Weighted distribution allows you to identify stores in a channel based on their weight in the sales of a category or a product.'),
@@ -492,7 +513,7 @@ final List module = [
     ],
     [
       const Header(
-          topPadding: 20,
+          topPadding: 40,
           text:
               'Numeric distribution is based on the number of outlets that carry a product – outlets that list at least one of the product’s stock-keeping units (SKUs)',
           bgColor: Colors.lightBlue,
@@ -501,6 +522,7 @@ final List module = [
       const Header(
           topPadding: 10,
           sidePadding: 30,
+          bottomPadding: 10,
           text:
               'Weight of a store in WD = (total sales of the category in the store ÷ total sales of the category in all stores of the channel) × 100',
           bgColor: Colors.lightBlue,
@@ -555,26 +577,26 @@ final List module = [
       const Body(
           text:
               'The Ansoff Matrix is a strategic tool that categorizes growth strategies into four quadrants: '),
-      BulletPoint(
+      const BulletPoint(
           topPadding: 0,
           bottomPadding: 5,
           text:
               'Market Penetration (selling existing products in existing markets) '),
-      BulletPoint(
+      const BulletPoint(
           topPadding: 0,
           bottomPadding: 5,
           text:
               'Market Development (introducing existing products to new markets)'),
-      BulletPoint(
+      const BulletPoint(
           topPadding: 0,
           bottomPadding: 5,
           text:
               'Product Development (creating and launching new products in existing markets)'),
-      BulletPoint(
+      const BulletPoint(
           topPadding: 0,
           bottomPadding: 10,
           text: 'Diversification (entering new markets with new products)'),
-      Body(
+      const Body(
           text:
               'It helps businesses assess and choose growth strategies based on their current product and market situations.'),
       const SizedBox(),
@@ -613,7 +635,7 @@ final List module = [
           topPadding: 20,
           fontSize: 16,
           weight: FontWeight.bold),
-      Body(
+      const Body(
           text:
               'POSM is an acronym for Point of Sale Marketing or Point of Sale Materials and is used by brands to convey their message or communicate information to the consumers at the point of sale. BTL marketing focuses and targets a specific segment of people- for instance, dropping leaflets in a particular area or putting up a banner at the bus stop.'),
       const SizedBox(),
@@ -625,10 +647,10 @@ final List module = [
         'assets/images/module1/pg23.png',
         height: 250,
       )),
-      BulletPoint(
+      const BulletPoint(
           text:
               'POP, ie. Point of Purchase is anything that the customers interact with while deciding whether to buy the product or not.'),
-      BulletPoint(
+      const BulletPoint(
           text:
               'When brands place their products in the stores, in the aisles, on the shelves that customers use to choose what they want to buy- it is the Point of Purchase, whereas POS, ie. Point of Sales means the place where the transaction/ sale occurs- the cash counter or the checkout area at the retail store.'),
       const SizedBox(),
@@ -640,23 +662,23 @@ final List module = [
         'assets/images/module1/pg24.png',
         height: 250,
       )),
-      BulletPoint(
+      const BulletPoint(
           text:
               'POS (Point of Sale) refers to interactions between the product and customer. '),
-      BulletPoint(
+      const BulletPoint(
           text:
               'These interactions could be at the time of transactions and exit. Remember the chocolate, mint, and candy shelves placed around the billing counter?'),
-      BulletPoint(
+      const BulletPoint(
           text:
               'Well! These same candies are available in the chocolate and munchies section of the store (POP).'),
-      BulletPoint(
+      const BulletPoint(
           text:
               'But putting a few pieces of the candies right before the exit is a part of the brand’s marketing strategy incorporated in a robust system at the store.'),
       const SizedBox(),
     ],
     [QuizButton(isFinal: false, quizData: quiz2)],
     [
-      Heading(text: 'Why is visibility important?', topPadding: 20),
+      const Heading(text: 'Why is visibility important?', topPadding: 20),
       BodyImage(
           image: Image.asset(
         'assets/images/module1/pg25.png',
@@ -664,44 +686,46 @@ final List module = [
       const SizedBox(),
     ],
     [
-      Heading(text: 'Types of Visibility ', topPadding: 20),
-      Body(
+      const Heading(text: 'Types of Visibility ', topPadding: 20),
+      const Body(
           text: 'Primary visibility ',
           weight: FontWeight.bold,
           bottomPadding: 0,
           topPadding: 20),
-      Body(
+      const Body(
           text:
               'It refers to the initial and most prominent placement of a product on store shelves or in a retail space.'),
       BodyImage(image: Image.asset('assets/images/module1/pg26.png')),
-      BulletPoint(text: 'Location:', weight: FontWeight.bold, topPadding: 0),
-      Body(
+      const BulletPoint(
+          text: 'Location:', weight: FontWeight.bold, topPadding: 0),
+      const Body(
           text:
               'Products with primary visibility are typically positioned at eye level or in prime locations within a store, making them immediately noticeable to shoppers.',
           topPadding: 0),
-      BulletPoint(text: 'Purpose:', weight: FontWeight.bold),
-      Body(
+      const BulletPoint(text: 'Purpose:', weight: FontWeight.bold),
+      const Body(
           text:
               'The primary goal of primary visibility is to attract immediate attention, increase brand awareness, and encourage quick purchasing decisions.',
           topPadding: 0),
       const SizedBox(),
     ],
     [
-      Body(
+      const Body(
           text: 'Secondary visibility ',
           weight: FontWeight.bold,
           bottomPadding: 0),
-      Body(
+      const Body(
           text:
               'It refers to the additional or supplementary placement of products in areas beyond the primary, high-traffic zones.'),
       BodyImage(image: Image.asset('assets/images/module1/pg27.png')),
-      BulletPoint(text: 'Location:', weight: FontWeight.bold, topPadding: 0),
-      Body(
+      const BulletPoint(
+          text: 'Location:', weight: FontWeight.bold, topPadding: 0),
+      const Body(
           text:
               'Products with secondary visibility may be positioned on lower or upper shelves, in mid-aisle displays, or in less central areas of the store.',
           topPadding: 0),
-      BulletPoint(text: 'Purpose:', weight: FontWeight.bold),
-      Body(
+      const BulletPoint(text: 'Purpose:', weight: FontWeight.bold),
+      const Body(
           text:
               'Secondary visibility aims to capture the attention of shoppers who may not have been drawn to the primary locations. It provides an opportunity for products to be discovered during more extensive shopping trips',
           topPadding: 0),
@@ -714,73 +738,101 @@ final List module = [
             'assets/images/module1/pg28_1.png',
             height: 300,
           )),
-      Header(
+      const Header(
           text: 'Shelf analytics ',
           fontSize: 24,
           contPadding: 15,
           topPadding: 10,
           bgColor: Color.fromARGB(255, 237, 105, 127)),
       BodyImage(image: Image.asset('assets/images/module1/pg28_2.png')),
-      Body(
+      const Body(
           text:
               'Shelf analytics is the process of using data and insights to analyze and optimize product placement on retail shelves. It involves leveraging technology and analytics to enhance visibility, improve product performance, and drive sales within a retail environment.'),
       const SizedBox(),
     ],
     [
-      Heading(
+      const Heading(
           text: 'Importance of Shelf Space', topPadding: 20, bottomPadding: 15),
-      Header(
+      const Header(
           text: 'For a product to be sold – it should be available and visible',
           fontSize: 16,
           contPadding: 10,
           bgColor: Color.fromARGB(255, 119, 230, 237)),
       BodyImage(image: Image.asset('assets/images/module1/pg29_4.png')),
-      Body(text: 'Case 1:', weight: FontWeight.bold, fontSize: 18),
+      const Body(text: 'Case 1:', weight: FontWeight.bold, fontSize: 18),
       BodyImage(image: Image.asset('assets/images/module1/pg29_1.png')),
       const SizedBox(),
     ],
     [
-      Body(text: 'Case 2:', weight: FontWeight.bold, fontSize: 18),
+      const Body(text: 'Case 2:', weight: FontWeight.bold, fontSize: 18),
       BodyImage(image: Image.asset('assets/images/module1/pg29_2.png')),
-      Body(text: 'Case 3:', weight: FontWeight.bold, fontSize: 18),
+      const Body(text: 'Case 3:', weight: FontWeight.bold, fontSize: 18),
       BodyImage(image: Image.asset('assets/images/module1/pg29_3.png')),
       const SizedBox(),
     ],
     [
-      Heading(text: 'Visibility & Shelf Space', topPadding: 20),
+      const Heading(text: 'Visibility & Shelf Space', topPadding: 20),
       BodyImage(image: Image.asset('assets/images/module1/pg30.png')),
-      Body(
+      const Body(
           text: 'Science behind Shelf utilization',
           weight: FontWeight.bold,
           fontSize: 18,
           bottomPadding: 0),
-      Body(
+      const Body(
           text: 'Shelves can be divided in 4 various zones:', bottomPadding: 5),
-      BulletPoint(
+      const BulletPoint(
           text: 'Bottom most zone – very low chances of visibility',
           leftPadding: 15,
           bottomPadding: 0,
           topPadding: 0),
-      BulletPoint(
+      const BulletPoint(
           text: 'Zone II – slightly higher chances',
           leftPadding: 15,
           bottomPadding: 0,
           topPadding: 5),
-      BulletPoint(
+      const BulletPoint(
           text: 'Golden Zone – best chances of visibility ',
           leftPadding: 15,
           bottomPadding: 0,
           topPadding: 5),
-      Body(
+      const Body(
           text:
               'For a shopkeeper -> he want to drive sales: at times he might place top selling products at eye-level. '),
-      Body(
+      const Body(
           text:
               'Other factors: Average height of an Indian -> 170 cm (Men), 155 cm (Women):'),
       const SizedBox(),
     ],
     [
       QuizButton(isFinal: false, quizData: quiz3),
+    ],
+  ],
+  [
+    [
+      Heading(
+          text: 'Instructions for Live Project',
+          fontSize: 30,
+          bottomPadding: 30,
+          topPadding: 20),
+      BodyImage(image: Image.asset('assets/images/module2/pg1.png'))
+    ]
+  ],
+  [
+    [
+      SizedBox(),
+      Heading(text: 'Case study ', fontSize: 30, bottomPadding: 20),
+      Body(
+          align: TextAlign.center,
+          text:
+              'XYZ Supermart, a prominent retail chain, faced challenges with product visibility and sales performance across its stores. To address these issues, the company decided to implement a comprehensive shelf planogram strategy. The goal was to enhance the customer shopping experience, improve product visibility, and ultimately drive sales.')
+    ],
+    [
+      BulletPoint(
+          text: 'Give 3 ideas to improve the visibility in a kirana store'),
+      BulletPoint(text: 'Give 3 ideas on POP activity'),
+      BulletPoint(text: 'Please list the type of shops that your visited'),
+      BulletPoint(
+          text: 'What are the categories which are placed next to each other'),
     ],
   ],
 ];

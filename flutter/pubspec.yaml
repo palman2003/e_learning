@@ -73,6 +73,7 @@ flutter:
     # - assets/images/doodad.jpg
     - assets/images/
     - assets/images/module1/
+    - assets/images/module2/
     - assets/images/score/
     - assets/images/profile/
     - assets/images/blobs/
