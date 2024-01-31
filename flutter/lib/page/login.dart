@@ -68,6 +68,10 @@ class _LoginPageState extends State<LoginPage> {
       await prefs?.setBool("isInstructionFinished", responseData["progress"][2]);
       await prefs?.setBool("isImageUploadFinished", responseData["progress"][3]);
       await prefs?.setBool("isCaseStudyFinished", responseData["progress"][4]);
+      await prefs?.setBool("caseStudy1", responseData["caseStudy1"]);
+      await prefs?.setBool("caseStudy2", responseData["caseStudy2"]);
+      await prefs?.setBool("caseStudy3", responseData["caseStudy3"]);
+      await prefs?.setBool("caseStudy4", responseData["caseStudy4"]);
 
       setState(() {
         isLoading = false;

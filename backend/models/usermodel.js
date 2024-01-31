@@ -49,7 +49,19 @@ const userSchema = new schema(
     retries: {
       type: Number,
       default: 3,
-    }
+    },
+    caseStudy1: {
+      type: String,
+    },
+    caseStudy2: {
+      type: String,
+    },
+    caseStudy3: {
+      type: String,
+    },
+    caseStudy4: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
