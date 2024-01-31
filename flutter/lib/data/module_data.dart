@@ -282,7 +282,7 @@ final List module = [
       const Heading(text: 'Classification', topPadding: 40),
       BodyImage(
           image: Image.asset(
-        'assets/images/module1/pg2_1.png',
+        'assets/images/module1/pg4.png',
         height: 500,
       )),
       const SizedBox(),
@@ -735,7 +735,6 @@ final List module = [
       const Body(
           text:
               'Visibility is crucial for the success of promotions and marketing campaigns. Whether it\'s an in-store promotion or an online marketing initiative, the visibility of the product is directly tied to the effectiveness of the promotional effort. ',
-          weight: FontWeight.bold,
           bottomPadding: 0),
     ],
     [

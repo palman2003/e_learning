@@ -1,4 +1,5 @@
 import 'package:e_learning/page/login.dart';
+import 'package:e_learning/page/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +10,7 @@ final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 156, 27, 255),
   ),
-  textTheme: GoogleFonts.dmSerifDisplayTextTheme(),
+  textTheme: GoogleFonts.ptSansTextTheme(),
 );
 
 void main() async {
