@@ -29,9 +29,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: AnswerPage(
-        quizData: quiz1,
-      ),
+      home: SplashPage(),
     );
   }
 }

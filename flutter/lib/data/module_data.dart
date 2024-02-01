@@ -285,7 +285,7 @@ final List module = [
       BodyImage(
           image: Image.asset(
         'assets/images/module1/pg4.png',
-        height: 500,
+        height: 400,
       )),
       const SizedBox(),
     ],
