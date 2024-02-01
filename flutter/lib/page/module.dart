@@ -272,8 +272,8 @@ class _ModulePageState extends State<ModulePage> {
               );
             } else if (currentData is TabularColumn) {
               return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 10, vertical: currentData.padding),
                 child: Table(
                   border: TableBorder.all(),
                   children: currentData.data.asMap().entries.map((entry) {
@@ -282,7 +282,7 @@ class _ModulePageState extends State<ModulePage> {
                     return TableRow(
                       decoration: rowIndex == 0
                           ? BoxDecoration(
-                              color: Color.fromARGB(255, 151, 192, 232),
+                              color: currentData.color,
                             )
                           : null,
                       children: row.map((cell) {
@@ -295,8 +295,7 @@ class _ModulePageState extends State<ModulePage> {
                                   ? GoogleFonts.dmSerifDisplay().copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      backgroundColor:
-                                          Color.fromARGB(255, 151, 192, 232),
+                                      backgroundColor: currentData.color,
                                     )
                                   : GoogleFonts.dmSerifDisplay()
                                       .copyWith(fontSize: 16),

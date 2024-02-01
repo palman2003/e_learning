@@ -51,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
         score++;
       }
     }
-    
+
     if (!widget.isFinal) {
       Navigator.pushReplacement(
         context,
@@ -153,9 +153,7 @@ class _QuizPageState extends State<QuizPage> {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            "Something went wrong."
-          ),
+          content: Text("Something went wrong."),
         ),
       );
     }
@@ -336,7 +334,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     const SizedBox(height: 20),
                     SizedBox(
-                      height: 440,
+                      height: MediaQuery.of(context).size.height - 370,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -359,7 +357,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                     ),
-                    const Spacer(),
+                    // const Spacer(),
                     Row(
                       children: [
                         const SizedBox(width: 20),
