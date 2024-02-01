@@ -53,6 +53,12 @@ router.post("/login", async (req, res) => {
       caseStudy2: user.caseStudy2 === String,
       caseStudy3: user.caseStudy3 === String,
       caseStudy4: user.caseStudy4 === String,
+      isQuiz1Finished: user.isQuiz1Finished,
+      isQuiz2Finished: user.isQuiz2Finished,
+      isQuiz3Finished: user.isQuiz3Finished,
+      quiz1Retry: user.quiz1Retry,
+      quiz2Retry: user.quiz2Retry,
+      quiz3Retry: user.quiz3Retry,
     });
 
     //set the introduction to true

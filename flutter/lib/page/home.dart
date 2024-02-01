@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
 
       try {
         http.post(
-          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/complete"),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(
             {
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
 
       try {
         http.post(
-          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/complete"),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(
             {
@@ -222,7 +222,7 @@ class _HomePageState extends State<HomePage> {
 
         try {
           http.post(
-            Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+            Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/complete"),
             headers: {"Content-Type": "application/json"},
             body: jsonEncode(
               {
@@ -530,7 +530,15 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 20),
                   Expanded(
                     child: GestureDetector(
-                      onTap: instructionTap,
+                      // onTap: instructionTap,
+                      onTap: () {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Module not accessible yet"),
+                          ),
+                        );
+                      },
                       child: Showcase(
                         title: 'Instructions for Live Project ',
                         description:
@@ -618,7 +626,15 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: caseStudyTap,
+                      // onTap: caseStudyTap,
+                      onTap: () {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Module not accessible yet"),
+                          ),
+                        );
+                      },
                       child: Container(
                         height: 160,
                         decoration: BoxDecoration(

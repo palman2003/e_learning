@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:e_learning/data/city.dart';
 import 'package:e_learning/page/login.dart';
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +29,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _collegeController = TextEditingController();
   final TextEditingController _branchController = TextEditingController();
-  late SharedPreferences prefs;
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
 
   bool isFinalPage = false;
   bool isLoading = false;
@@ -86,6 +87,7 @@ class _SignupPageState extends State<SignupPage> {
           content: Text("Registration Successful. Please Login"),
         ),
       );
+
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
