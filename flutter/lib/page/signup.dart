@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:e_learning/data/city.dart';
 import 'package:e_learning/page/login.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,8 @@ class _SignupPageState extends State<SignupPage> {
   bool isFinalPage = false;
   bool isLoading = false;
 
+  String? selectedCity;
+
   String? enteredEmail;
   String? enteredPassword;
   String? enteredUsername;
@@ -56,7 +59,7 @@ class _SignupPageState extends State<SignupPage> {
             "email": enteredEmail!.toLowerCase(),
             "password": enteredPassword,
             "phno": _phoneNumberController.text,
-            "city": _cityController.text.toUpperCase(),
+            "city": selectedCity,
             "college": _collegeController.text.toUpperCase(),
             "branch": _branchController.text.toUpperCase()
           },
@@ -81,7 +84,7 @@ class _SignupPageState extends State<SignupPage> {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Regsitration Successful. Please Login"),
+          content: Text("Registration Successful. Please Login"),
         ),
       );
 
@@ -105,6 +108,17 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  List<String> getCitiesList() {
+    return City.values.map((city) => city.toString().split('.').last).toList();
+  }
+
+  List<String> cities = [];
+  _SignupPageState() {
+    cities = getCitiesList();
+    selectedCity = null;
+    print(cities);
   }
 
   @override
@@ -141,10 +155,6 @@ class _SignupPageState extends State<SignupPage> {
                               TextFormField(
                                 controller: _usernameController,
                                 decoration: InputDecoration(
-                                  // contentPadding: const EdgeInsets.symmetric(
-                                  //   vertical: 15,
-                                  //   horizontal: 15,
-                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -161,9 +171,6 @@ class _SignupPageState extends State<SignupPage> {
                                       username.trim().isEmpty) {
                                     return "The username should not be empty";
                                   }
-                                  // if (!isEmail(username.trim())) {
-                                  //   return "Enter a valid username";
-                                  // }
                                   return null;
                                 },
                               ),
@@ -172,10 +179,6 @@ class _SignupPageState extends State<SignupPage> {
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
-                                  // contentPadding: const EdgeInsets.symmetric(
-                                  //   vertical: 15,
-                                  //   horizontal: 15,
-                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -202,10 +205,6 @@ class _SignupPageState extends State<SignupPage> {
                                 controller: _passwordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
-                                  // contentPadding: const EdgeInsets.symmetric(
-                                  //   vertical: 15,
-                                  //   horizontal: 15,
-                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -232,10 +231,6 @@ class _SignupPageState extends State<SignupPage> {
                                 controller: _confirmPasswordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
-                                  // contentPadding: const EdgeInsets.symmetric(
-                                  //   vertical: 15,
-                                  //   horizontal: 15,
-                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -284,24 +279,35 @@ class _SignupPageState extends State<SignupPage> {
                                 },
                               ),
                               const SizedBox(height: 15),
-                              TextFormField(
-                                controller: _cityController,
-                                textCapitalization:
-                                    TextCapitalization.characters,
+                              DropdownButtonFormField<String>(
+                                value: selectedCity,
                                 decoration: InputDecoration(
-                                  // contentPadding: const EdgeInsets.symmetric(
-                                  //   vertical: 15,
-                                  //   horizontal: 15,
-                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   labelText: "Resident City",
                                   prefixIcon: const Icon(Icons.location_city),
                                 ),
-                                validator: (city) {
-                                  if (city == null || city.trim().isEmpty) {
-                                    return "Please enter your city name";
+                                items: [
+                                  DropdownMenuItem(
+                                    value: null,
+                                    child: Text("Please select your city"),
+                                  ),
+                                  ...cities.map((String city) {
+                                    return DropdownMenuItem<String>(
+                                      value: city,
+                                      child: Text(city),
+                                    );
+                                  }).toList(),
+                                ],
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    selectedCity = value;
+                                  });
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please select your city";
                                   }
                                   return null;
                                 },
@@ -312,10 +318,6 @@ class _SignupPageState extends State<SignupPage> {
                                 textCapitalization:
                                     TextCapitalization.characters,
                                 decoration: InputDecoration(
-                                  // contentPadding: const EdgeInsets.symmetric(
-                                  //   vertical: 15,
-                                  //   horizontal: 15,
-                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -336,10 +338,6 @@ class _SignupPageState extends State<SignupPage> {
                                 textCapitalization:
                                     TextCapitalization.characters,
                                 decoration: InputDecoration(
-                                  // contentPadding: const EdgeInsets.symmetric(
-                                  //   vertical: 15,
-                                  //   horizontal: 15,
-                                  // ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -388,7 +386,6 @@ class _SignupPageState extends State<SignupPage> {
                                   : Text(
                                       isFinalPage ? "Signup" : "Next",
                                       style: const TextStyle(
-                                        // color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
