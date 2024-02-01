@@ -902,27 +902,30 @@ final List module = [
     ],
     [
       CaseStudy(
-          question: 'Give 3 ideas to improve the visibility in a kirana store',
-          controller: answerController1),
+        question: 'Give 3 ideas to improve the visibility in a kirana store',
+        controller: answerController1,
+      ),
       const SizedBox()
     ],
     [
       CaseStudy(
-          question: 'Give 3 ideas on POP activity',
-          controller: answerController2),
+        question: 'Give 3 ideas on POP activity',
+        controller: answerController2,
+      ),
       const SizedBox()
     ],
     [
       CaseStudy(
-          question: 'Please list the type of shops that your visited',
-          controller: answerController3),
+        question: 'Please list the type of shops that your visited',
+        controller: answerController3,
+      ),
       const SizedBox()
     ],
     [
       CaseStudy(
-          question:
-              'What are the categories which are placed next to each other',
-          controller: answerController4),
+        question: 'What are the categories which are placed next to each other',
+        controller: answerController4,
+      ),
       const SizedBox()
     ],
   ],

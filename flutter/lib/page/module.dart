@@ -40,7 +40,7 @@ class ModulePage extends StatefulWidget {
 class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   TextStyle fontTheme = GoogleFonts.dmSerifDisplay();
-  int minWordCount = 300;
+  int minWordCount = 5;
   int wordCount = 0;
   Future<void> loadQuiz(
       BuildContext context, bool isFinal, List<QuizData> quizData) async {
@@ -505,7 +505,7 @@ class _ModulePageState extends State<ModulePage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        'Word Count: ${currentData.wordCount} / ${minWordCount}',
+                        'Minimum Word Count: ${currentData.wordCount} / ${minWordCount}',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
@@ -533,7 +533,7 @@ class _ModulePageState extends State<ModulePage> {
                                   child: const Text('Cancel'),
                                 ),
                                 TextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     Navigator.of(context).pop();
                                     int wordCount;
                                     if (currentData.controller.text
@@ -551,11 +551,133 @@ class _ModulePageState extends State<ModulePage> {
                                     if (wordCount >= minWordCount) {
                                       String answer =
                                           currentData.controller.text;
-                                      print('User\'s answer: $answer');
+
+                                      if (currentData.controller ==
+                                          answerController1) {
+                                        try {
+                                          http.post(
+                                            Uri.parse(
+                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")!}/1",
+                                            ),
+                                            headers: {
+                                              "Content-Type": "application/json"
+                                            },
+                                            body: jsonEncode(
+                                              {"data": answer},
+                                            ),
+                                          );
+                                          await prefs!
+                                              .setBool("caseStudy1", true);
+                                        } catch (e) {
+                                          print(e);
+                                        }
+                                      }
+                                      if (currentData.controller ==
+                                          answerController2) {
+                                        try {
+                                          http.post(
+                                            Uri.parse(
+                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")}/2",
+                                            ),
+                                            headers: {
+                                              "Content-Type": "application/json"
+                                            },
+                                            body: jsonEncode(
+                                              {"data": answer},
+                                            ),
+                                          );
+                                          await prefs!
+                                              .setBool("caseStudy2", true);
+                                        } catch (e) {
+                                        } catch (e) {}
+                                      }
+                                      if (currentData.controller ==
+                                          answerController3) {
+                                        try {
+                                          http.post(
+                                            Uri.parse(
+                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")}/3",
+                                            ),
+                                            headers: {
+                                              "Content-Type": "application/json"
+                                            },
+                                            body: jsonEncode(
+                                              {"data": answer},
+                                            ),
+                                          );
+                                          await prefs!
+                                              .setBool("caseStudy3", true);
+                                        } catch (e) {
+                                        } catch (e) {}
+                                      }
+                                      if (currentData.controller ==
+                                          answerController4) {
+                                        if ((prefs!.getBool("caseStudy4")!)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  "Already completed"),
+                                            ),
+                                          );
+                                          return;
+                                        }
+
+                                        if (!(prefs!.getBool("caseStudy1")!) ||
+                                            !(prefs!.getBool("caseStudy2")!) ||
+                                            !(prefs!.getBool("caseStudy3")!)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  "Please complete all the previous questions first"),
+                                            ),
+                                          );
+                                          return;
+                                        }
+                                        try {
+                                          http.post(
+                                            Uri.parse(
+                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")}/4",
+                                            ),
+                                            headers: {
+                                              "Content-Type": "application/json"
+                                            },
+                                            body: jsonEncode(
+                                              {"data": answer},
+                                            ),
+                                          );
+
+                                          http.get(
+                                            Uri.parse(
+                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${prefs!.getString("username")}/${prefs!.getString("college")}/${prefs!.getString("email")}",
+                                            ),
+                                          );
+
+                                          await prefs!
+                                              .setBool("caseStudy4", true);
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: Text(
+                                                  'Certificate is sent to your email'),
+                                              content: Text(
+                                                  "Please check your email"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('OK'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                          return;
+                                        } catch (e) {}
+                                      }
+
                                       currentData.controller.clear();
-                                      setState(() {
-                                        sectionIndex++;
-                                      });
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(

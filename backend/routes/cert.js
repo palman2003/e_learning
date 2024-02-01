@@ -4,6 +4,7 @@ const fs = require("fs");
 const PDFDocument = require("pdfkit");
 const nodemailer = require("nodemailer");
 const axios = require("axios");
+const User = require("../models/usermodel");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -11,6 +12,42 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL,
     pass: process.env.PASSWD,
   },
+});
+
+router.post("/caseStudy-data/:email/:module", async (req, res) => {
+  try {
+    const data = req.body.data;
+    const email = req.params.email;
+    const module = req.params.module;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "user not found" });
+    }
+
+    console.log(module == 1 );
+
+    if (module == 1) {
+      console.log("eheheh");
+      user.caseStudy1 = data;
+      await user.save();
+    }
+    if (module == 2) {
+      user.caseStudy2 = data;
+      await user.save();
+    }
+    if (module == 3) {
+      user.caseStudy3 = data;
+      await user.save();
+    }
+    if (module == 4) {
+      user.caseStudy4 = data;
+      await user.save();
+    }
+    res.status(200).json({message: "Successful"});
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 // Example usage
@@ -27,7 +64,9 @@ router.get("/:userName/:college/:email", async (req, res) => {
     console.log(userName, email, college);
 
     // Fetch the image from the URL
-    const response = await axios.get(templateUrl, { responseType: "arraybuffer" });
+    const response = await axios.get(templateUrl, {
+      responseType: "arraybuffer",
+    });
     const templateBuffer = Buffer.from(response.data);
 
     // Generate the certificate in-memory
