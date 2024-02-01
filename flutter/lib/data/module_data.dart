@@ -150,6 +150,8 @@ class Boxes {
 class TabularColumn {
   const TabularColumn({
     required this.data,
+    this.padding = 30,
+    this.color = Colors.white,
     this.headerTextStyle = const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
@@ -159,7 +161,8 @@ class TabularColumn {
       fontSize: 16,
     ),
   });
-
+  final double padding;
+  final Color color;
   final List<List<String>> data;
   final TextStyle headerTextStyle;
   final TextStyle cellTextStyle;
@@ -238,12 +241,11 @@ final List module = [
     ],
     [
       const Header(
-        text: 'What is',
+        text: 'What is FMCG?',
         topPadding: 10,
-        sidePadding: 30,
-        textColor: Color.fromARGB(255, 151, 192, 232),
+        bottomPadding: 20,
+        sidePadding: 10,
       ),
-      const Header(text: 'FMCG?', bottomPadding: 35, sidePadding: 30),
       const Header(
           text: 'Fast Moving Consumer Goods',
           fontSize: 20,
@@ -289,7 +291,7 @@ final List module = [
       BodyImage(
           image: Image.asset(
         'assets/images/module1/pg4.png',
-        height: 500,
+        height: 400,
       )),
       const SizedBox(),
     ],
@@ -314,44 +316,64 @@ final List module = [
     ],
     [
       const Heading(
-        text: 'HIP and LIP',
-        fontSize: 32,
-        topPadding: 20,
-      ),
-      const Body(
-          weight: FontWeight.bold,
-          text: 'High Involvement (HIP):',
-          fontSize: 16,
-          topPadding: 20),
-      const Body(
-          text:
-              'Products for which the buyer is prepared to spend considerable time and effort in searching.',
-          topPadding: 0),
-      const Body(
-          text: 'Low Involvement (LIP): ',
-          fontSize: 16,
-          weight: FontWeight.bold),
-      const Body(
-          text:
-              'Products which are bought frequently and with a minimum of thought and effort',
-          topPadding: 0),
-      const TabularColumn(data: [
-        [
-          'Degree of Involvement',
-          'Similar Brand Offering ',
-          'Unique Brand Offering '
-        ],
+          text: 'HIP and LIP', fontSize: 32, topPadding: 20, bottomPadding: 30),
+      // const Body(
+      //     weight: FontWeight.bold,
+      //     text: 'High Involvement (HIP):',
+      //     fontSize: 16,
+      //     topPadding: 20),
+      // const Body(
+      //     text:
+      //         'Products for which the buyer is prepared to spend considerable time and effort in searching.',
+      //     topPadding: 0),
+      // const Body(
+      //     text: 'Low Involvement (LIP): ',
+      //     fontSize: 16,
+      //     weight: FontWeight.bold),
+      // const Body(
+      //     text:
+      //         'Products which are bought frequently and with a minimum of thought and effort',
+      //     topPadding: 0),
+      const TabularColumn(
+          padding: 0,
+          color: Color.fromARGB(255, 94, 164, 234),
+          data: [
+            [
+              'Degree of Involvement',
+              'Similar Brand Offering ',
+              'Unique Brand Offering '
+            ],
+          ]),
+      TabularColumn(padding: 0, data: [
         [
           'High \nInvolvement',
           'Dissonance reducing buying behavior ',
           'Complex buying behavior'
         ],
+      ]),
+      TabularColumn(
+          color: Color.fromARGB(255, 207, 231, 255),
+          padding: 0,
+          data: [
+            [
+              'High Involvement (HIP): products for which the buyer is prepared to spend considerable time and effort in searching.'
+            ]
+          ]),
+      TabularColumn(padding: 0, data: [
         [
           'Low \ninvolvement',
           'Habitual Buying behavior',
           'Variety seeking behavior'
         ]
       ]),
+      TabularColumn(
+          color: Color.fromARGB(255, 151, 192, 232),
+          padding: 0,
+          data: [
+            [
+              'Low Involvement (LIP): products which are bought frequently and with a minimum of thought and effort'
+            ]
+          ]),
       const SizedBox(),
     ],
     [QuizButton(isFinal: false, quizData: quiz1, quizNumber: 1)],

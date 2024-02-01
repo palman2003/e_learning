@@ -119,7 +119,6 @@ class _QuizPageState extends State<QuizPage> {
         await prefs!.setInt("quiz3Retry", prefs!.getInt("quiz3Retry")! - 1);
       }
     }
-
     if (!widget.isFinal) {
       if (!mounted) {
         return;
@@ -407,7 +406,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     const SizedBox(height: 20),
                     SizedBox(
-                      height: 440,
+                      height: MediaQuery.of(context).size.height - 370,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -430,7 +429,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                     ),
-                    const Spacer(),
+                    // const Spacer(),
                     Row(
                       children: [
                         const SizedBox(width: 20),
