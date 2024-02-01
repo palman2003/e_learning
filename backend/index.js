@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const reset = require("./routes/reset");
 const quiz = require("./routes/quiz");
 const cert = require("./routes/cert");
+const moduleRoute = require("./routes/module");
 const app = express();
 const cors = require("cors");
 const helmet = require("helmet");
@@ -41,6 +42,8 @@ app.use("/v1/api/quiz", quiz);
 
 //route configuration for certificate generation
 app.use("/v1/api/certificate", cert);
+
+app.use("/v1/api/module", moduleRoute);
 
 app.use("/test", (req, res) => {
   res.json({ message: "Hello from server" });

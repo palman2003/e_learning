@@ -14,6 +14,7 @@ class QuizPage extends StatefulWidget {
   const QuizPage({
     required this.quizData,
     required this.isFinal,
+    this.quizNumber,
     this.retry,
     super.key,
   });
@@ -21,6 +22,7 @@ class QuizPage extends StatefulWidget {
   final List<QuizData> quizData;
   final bool isFinal;
   final int? retry;
+  final int? quizNumber;
 
   @override
   State<StatefulWidget> createState() {
@@ -51,8 +53,78 @@ class _QuizPageState extends State<QuizPage> {
         score++;
       }
     }
-    
+
+    if ((score / widget.quizData.length) * 100 > 90) {
+      if (widget.quizNumber == 1) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/1"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz1Finished", true);
+      }
+      if (widget.quizNumber == 2) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/2"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz2Finished", true);
+      }
+      if (widget.quizNumber == 3) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/3"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz3Finished", true);
+      }
+    }
+
+    if ((score / widget.quizData.length) * 100 < 90) {
+      if (widget.quizNumber == 1) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retry/1"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setInt("quiz1Retry", prefs!.getInt("quiz1Retry")! - 1);
+      }
+      if (widget.quizNumber == 2) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retry/2"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setInt("quiz2Retry", prefs!.getInt("quiz2Retry")! - 1);
+      }
+      if (widget.quizNumber == 3) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retry/3"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setInt("quiz3Retry", prefs!.getInt("quiz3Retry")! - 1);
+      }
+    }
+
     if (!widget.isFinal) {
+      if (!mounted) {
+        return;
+      }
+      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -71,7 +143,7 @@ class _QuizPageState extends State<QuizPage> {
     });
     try {
       var response = await http.post(
-        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete"),
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/complete"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
@@ -112,7 +184,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
       );
 
-      if ((score / widget.quizData.length) * 100 > 60) {
+      if ((score / widget.quizData.length) * 100 > 90) {
         http.get(
           Uri.parse(
               "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${prefs!.getString("username")}/${prefs!.getString("college")}/${prefs!.getString("email")}"),
@@ -153,9 +225,7 @@ class _QuizPageState extends State<QuizPage> {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            "Something went wrong."
-          ),
+          content: Text("Something went wrong."),
         ),
       );
     }
@@ -245,6 +315,7 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
+    score = 0;
     return PopScope(
       canPop: false,
       child: Scaffold(

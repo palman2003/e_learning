@@ -46,7 +46,27 @@ const userSchema = new schema(
       type: Boolean,
       default: true,
     },
-    retries: {
+    isQuiz1Finished: {
+      type: Boolean,
+      default: false,
+    },
+    isQuiz2Finished: {
+      type: Boolean,
+      default: false,
+    },
+    isQuiz3Finished: {
+      type: Boolean,
+      default: false,
+    },
+    quiz1Retry: {
+      type: Number,
+      default: 3,
+    },
+    quiz2Retry: {
+      type: Number,
+      default: 3,
+    },
+    quiz3Retry: {
       type: Number,
       default: 3,
     },

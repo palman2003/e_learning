@@ -166,10 +166,16 @@ class TabularColumn {
 }
 
 class QuizButton {
-  const QuizButton(
-      {this.topPadding = 10, required this.isFinal, required this.quizData});
+  const QuizButton({
+    this.topPadding = 10,
+    required this.isFinal,
+    required this.quizData,
+    required this.quizNumber,
+  });
+
   final double topPadding;
   final bool isFinal;
+  final int quizNumber;
   final List<QuizData> quizData;
 }
 
@@ -348,7 +354,7 @@ final List module = [
       ]),
       const SizedBox(),
     ],
-    [QuizButton(isFinal: false, quizData: quiz1)],
+    [QuizButton(isFinal: false, quizData: quiz1, quizNumber: 1)],
     [
       const Heading(
           text: 'Distribution and Decision Making ',
@@ -689,7 +695,7 @@ final List module = [
               'But putting a few pieces of the candies right before the exit is a part of the brand’s marketing strategy incorporated in a robust system at the store.'),
       const SizedBox(),
     ],
-    [QuizButton(isFinal: false, quizData: quiz2)],
+    [QuizButton(isFinal: false, quizData: quiz2, quizNumber: 2)],
     [
       const Heading(text: 'Why is visibility important?', topPadding: 20),
       BodyImage(
@@ -856,7 +862,7 @@ final List module = [
       const SizedBox(),
     ],
     [
-      QuizButton(isFinal: false, quizData: quiz3),
+      QuizButton(isFinal: false, quizData: quiz3, quizNumber: 3),
     ],
   ],
   [
