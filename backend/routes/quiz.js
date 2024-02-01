@@ -18,50 +18,55 @@ router.post("/result", async (req, res) => {
   }
 });
 
-router.post("/complete", async (req, res) => {
+router.post("/complete/:number", async (req, res) => {
   try {
-    const { email, module } = req.body;
+    const { email } = req.body;
+    const number = req.params.number;
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "user not found" });
     }
-    if (user.Module[module] == false) {
-      user.Module[module] = true;
-      await user.save();
-      res.status(200).send({ completed: false });
-    } else {
-      res.status(200).send({ completed: true });
+
+    if (number == 1) {
+      user.isQuiz1Finished = true;
     }
+    
+    if (number == 2) {
+      user.isQuiz2Finished = true;
+    }
+    
+    if (number == 3) {
+      user.isQuiz3Finished = true;
+    }
+
+    await user.save();
+    res.send();
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "internal server error" });
   }
 });
 
-router.post("/retryCheck", async (req, res) => {
+router.post("/retry/:number", async (req, res) => {
   try {
+    const number = req.params.number;
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "user not found" });
     }
-    return res.status(200).json({ retry: user.retries, score: user.Score });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "internal server error" });
-  }
-});
-
-router.post("/retry-decrement", async (req, res) => {
-  try {
-    const { email } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "user not found" });
+    if (number == 1) {
+      user.quiz1Retry = user.quiz1Retry - 1;
     }
-    user.retries = user.retries - 1;
-    user.save();
-    return res.status(400).send();
+    if (number == 2) {
+      user.quiz2Retry = user.quiz2Retry - 1;
+    }
+    if (number == 3) {
+      user.quiz3Retry = user.quiz3Retry - 1;
+    }
+    await user.save();
+    return res.status(200).send();
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "internal server error" });

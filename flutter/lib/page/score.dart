@@ -33,11 +33,13 @@ class _ScorePageState extends State<ScorePage> {
   String getImage(double score) {
     if (score >= 90 && score <= 100) {
       return 'assets/images/score/excellent.webp';
-    } else if (score >= 75 && score < 90) {
-      return 'assets/images/score/welldone.webp';
-    } else if (score >= 60 && score < 75) {
-      return 'assets/images/score/goodjob.webp';
-    } else {
+    } 
+    // else if (score >= 75 && score < 90) {
+    //   return 'assets/images/score/welldone.webp';
+    // } else if (score >9 && score < 75) {
+    //   return 'assets/images/score/goodjob.webp';
+    // } 
+    else {
       return 'assets/images/score/needsimprovement.webp';
     }
   }
@@ -81,7 +83,7 @@ class _ScorePageState extends State<ScorePage> {
                         height: 10,
                       ),
                       Text(
-                        (widget.score / widget.totalQuestions) * 100 >= 60
+                        (widget.score / widget.totalQuestions) * 100 >= 90
                             ? 'Passed!'
                             : 'Failed',
                         textAlign: TextAlign.center,
@@ -90,7 +92,7 @@ class _ScorePageState extends State<ScorePage> {
                             fontWeight: FontWeight.bold,
                             color:
                                 (widget.score / widget.totalQuestions) * 100 >=
-                                        60
+                                        90
                                     ? Colors.green
                                     : Colors.red
                             // color: Colors.black,
@@ -100,7 +102,7 @@ class _ScorePageState extends State<ScorePage> {
                         height: 20,
                       ),
                       Text(
-                        (widget.score / widget.totalQuestions) * 100 >= 60
+                        (widget.score / widget.totalQuestions) * 100 > 90
                             ? 'Hurray $username! \n You have completed the module successfully'
                             : 'Oops $username! \n You have failed the test. Good luck at the next attempt',
                         textAlign: TextAlign.center,
