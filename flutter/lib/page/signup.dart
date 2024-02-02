@@ -60,8 +60,8 @@ class _SignupPageState extends State<SignupPage> {
             "password": enteredPassword,
             "phno": _phoneNumberController.text,
             "city": selectedCity,
-            "college": _collegeController.text.toUpperCase(),
-            "branch": _branchController.text.toUpperCase()
+            "college": _collegeController.text,
+            "branch": _branchController.text
           },
         ),
       );
@@ -87,7 +87,6 @@ class _SignupPageState extends State<SignupPage> {
           content: Text("Registration Successful. Please Login"),
         ),
       );
-
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -315,8 +314,7 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 15),
                               TextFormField(
                                 controller: _collegeController,
-                                textCapitalization:
-                                    TextCapitalization.characters,
+                                textCapitalization: TextCapitalization.words,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
@@ -335,8 +333,7 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 15),
                               TextFormField(
                                 controller: _branchController,
-                                textCapitalization:
-                                    TextCapitalization.characters,
+                                textCapitalization: TextCapitalization.words,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
