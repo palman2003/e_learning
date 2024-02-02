@@ -8,18 +8,22 @@ class AnswerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: Colors.white,
+        title: Text(
+          "Answers",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             children: [
-              SizedBox(
-                height: 40,
-              ),
-              Text(
-                'Answers',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: quizData.length,
@@ -35,6 +39,16 @@ class AnswerPage extends StatelessWidget {
                     ),
                   );
                 },
+              ),
+              SizedBox(height: 40),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Continue"),
+                ),
               ),
             ],
           ),

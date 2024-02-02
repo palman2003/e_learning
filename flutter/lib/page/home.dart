@@ -530,15 +530,15 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 20),
                   Expanded(
                     child: GestureDetector(
-                      // onTap: instructionTap,
-                      onTap: () {
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Module not accessible yet"),
-                          ),
-                        );
-                      },
+                      onTap: instructionTap,
+                      // onTap: () {
+                      //   ScaffoldMessenger.of(context).clearSnackBars();
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(
+                      //       content: Text("Module not accessible yet"),
+                      //     ),
+                      //   );
+                      // },
                       child: Showcase(
                         title: 'Instructions for Live Project ',
                         description:
@@ -626,15 +626,15 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      // onTap: caseStudyTap,
-                      onTap: () {
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Module not accessible yet"),
-                          ),
-                        );
-                      },
+                      onTap: caseStudyTap,
+                      // onTap: () {
+                      //   ScaffoldMessenger.of(context).clearSnackBars();
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(
+                      //       content: Text("Module not accessible yet"),
+                      //     ),
+                      //   );
+                      // },
                       child: Container(
                         height: 160,
                         decoration: BoxDecoration(

@@ -378,7 +378,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height - 200,
+                height: MediaQuery.of(context).size.height - 140,
                 margin: const EdgeInsets.fromLTRB(10, 0, 15, 0),
                 padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
                 decoration: const BoxDecoration(
@@ -396,6 +396,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
                       "Select right answer",
@@ -429,7 +430,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                     ),
-                    // const Spacer(),
+                    const Spacer(),
                     Row(
                       children: [
                         const SizedBox(width: 20),

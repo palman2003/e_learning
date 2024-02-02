@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_learning/data/module_data.dart';
+import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/model/quiz_data.dart';
 import 'package:e_learning/page/quiz.dart';
 import 'package:e_learning/page/quiz_splash.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
+import 'package:e_learning/widgets/answer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,7 +45,7 @@ class ModulePage extends StatefulWidget {
 class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   TextStyle fontTheme = GoogleFonts.dmSerifDisplay();
-  int minWordCount = 3;
+  int minWordCount = 300;
   int wordCount = 0;
   Future<void> loadQuiz(BuildContext context, bool isFinal,
       List<QuizData> quizData, int quizNumber) async {
@@ -54,9 +56,22 @@ class _ModulePageState extends State<ModulePage> {
         return;
       }
       if (prefs!.getInt("quiz1Retry")! == 0) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/1"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz1Finished", true);
         Navigator.push(
-            context, MaterialPageRoute(builder: ((context) => Placeholder())));
-
+          context,
+          MaterialPageRoute(
+            builder: ((context) => AnswerPage(
+                  quizData: quiz1,
+                )),
+          ),
+        );
         return;
       }
     }
@@ -67,9 +82,22 @@ class _ModulePageState extends State<ModulePage> {
         return;
       }
       if (prefs!.getInt("quiz2Retry")! == 0) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/2"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz2Finished", true);
         Navigator.push(
-            context, MaterialPageRoute(builder: ((context) => Placeholder())));
-
+          context,
+          MaterialPageRoute(
+            builder: ((context) => AnswerPage(
+                  quizData: quiz2,
+                )),
+          ),
+        );
         return;
       }
     }
@@ -80,8 +108,22 @@ class _ModulePageState extends State<ModulePage> {
         return;
       }
       if (prefs!.getInt("quiz3Retry")! == 0) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/3"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz3Finished", true);
         Navigator.push(
-            context, MaterialPageRoute(builder: ((context) => Placeholder())));
+          context,
+          MaterialPageRoute(
+            builder: ((context) => AnswerPage(
+                  quizData: quiz3,
+                )),
+          ),
+        );
         return;
       }
     }
@@ -839,17 +881,44 @@ class _ModulePageState extends State<ModulePage> {
                                               context: context,
                                               builder: (context) {
                                                 TextEditingController
-                                                    confirmedName =
+                                                    confirmedUsername =
                                                     TextEditingController();
+                                                TextEditingController
+                                                    confirmedCollegeName =
+                                                    TextEditingController();
+
+                                                confirmedUsername.text = prefs!
+                                                    .getString("username")!;
+                                                confirmedCollegeName.text =
+                                                    prefs!
+                                                        .getString("college")!;
 
                                                 return AlertDialog(
                                                   title: Text(
-                                                      "Please confirm your name for certificate generation"),
-                                                  content: TextField(
-                                                    controller: confirmedName,
-                                                    decoration: InputDecoration(
-                                                      labelText: "Your Name",
-                                                    ),
+                                                      "Please confirm your details for certificate generation"),
+                                                  content: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      TextField(
+                                                        controller:
+                                                            confirmedUsername,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              "Your Name",
+                                                        ),
+                                                      ),
+                                                      TextField(
+                                                        controller:
+                                                            confirmedCollegeName,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              "College Name",
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                   actions: [
                                                     TextButton(
@@ -876,7 +945,7 @@ class _ModulePageState extends State<ModulePage> {
 
                                                           http.get(
                                                             Uri.parse(
-                                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${confirmedName.text}/${prefs!.getString("college")}/${prefs!.getString("email")}",
+                                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${confirmedUsername.text}/${confirmedCollegeName.text}/${prefs!.getString("email")}",
                                                             ),
                                                           );
 
