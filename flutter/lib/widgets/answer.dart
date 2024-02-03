@@ -1,5 +1,6 @@
 import 'package:e_learning/model/quiz_data.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AnswerPage extends StatelessWidget {
   AnswerPage({super.key, required this.quizData});
@@ -10,18 +11,15 @@ class AnswerPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
-        title: Text(
-          "Answers",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        backgroundColor: Color.fromARGB(255, 153, 0, 255),
+        title: Text("Answers",
+            style: GoogleFonts.dmSerifDisplay()
+                .copyWith(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
           child: Column(
             children: [
               ListView.builder(
@@ -32,10 +30,12 @@ class AnswerPage extends StatelessWidget {
                   return ListTile(
                     title: Text(
                       '${index + 1} ) ${data.question}',
+                      style: GoogleFonts.dmSerifDisplay(),
                     ),
                     subtitle: Text(
                       'Answer: ${data.answer}',
-                      style: TextStyle(color: Colors.green),
+                      style: GoogleFonts.dmSerifDisplay()
+                          .copyWith(color: Colors.green),
                     ),
                   );
                 },

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:e_learning/utils/validators.dart';
+import 'package:e_learning/utils/validators.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';

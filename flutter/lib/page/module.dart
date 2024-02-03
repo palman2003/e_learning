@@ -568,7 +568,13 @@ class _ModulePageState extends State<ModulePage> {
                     //   "Now that you have gone through the course content, you will have to take a quiz which will cover all the topics of this module. You will have a total of 17 questions out of which you should get at least 11 of them right to proceed to the next section.",
                     //   style: Theme.of(context).textTheme.bodyLarge,
                     // ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 25),
+                    Text(
+                      'Note : You have to score atleast 90% to pass this test',
+                      style: GoogleFonts.dmSerifDisplay()
+                          .copyWith(fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(height: 25),
                     ElevatedButton(
                       onPressed: () {
                         loadQuiz(context, currentData.isFinal,
@@ -713,6 +719,7 @@ class _ModulePageState extends State<ModulePage> {
                                     onPressed: () async {
                                       Navigator.of(context).pop();
                                       int wordCount;
+
                                       if (currentData.controller.text
                                           .trim()
                                           .split(' ')
@@ -790,6 +797,9 @@ class _ModulePageState extends State<ModulePage> {
                                         }
 
                                         currentData.controller.clear();
+                                        setState(() {
+                                          currentData.wordCount = 0;
+                                        });
                                         if (currentData.controller !=
                                             answerController4)
                                           showDialog(
@@ -995,6 +1005,9 @@ class _ModulePageState extends State<ModulePage> {
                                         }
 
                                         currentData.controller.clear();
+                                        setState(() {
+                                          currentData.wordCount = 0;
+                                        });
                                       } else {
                                         showDialog(
                                           context: context,
