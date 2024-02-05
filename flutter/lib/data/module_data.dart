@@ -421,13 +421,15 @@ final List instruction = [
       topPadding: 30,
     ),
     const SizedBox(),
+  ],[
     const Body(topPadding: 20, text: "Step 3: Administrate the survey"),
     const Body(
         topPadding: 20,
         text:
             "You should present very close to the shop while you administrating the survey"),
     const SizedBox()
-  ],
+
+  ]
 ];
 
 final List caseStudy = [
