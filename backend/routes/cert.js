@@ -28,7 +28,6 @@ router.post("/caseStudy-data/:email/:module", async (req, res) => {
     console.log(module == 1 );
 
     if (module == 1) {
-      console.log("eheheh");
       user.caseStudy1 = data;
       await user.save();
     }
@@ -41,6 +40,10 @@ router.post("/caseStudy-data/:email/:module", async (req, res) => {
       await user.save();
     }
     if (module == 4) {
+      user.caseStudy4 = data;
+      await user.save();
+    }
+    if (module == 5) {
       user.caseStudy4 = data;
       await user.save();
     }

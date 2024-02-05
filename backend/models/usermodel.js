@@ -82,6 +82,9 @@ const userSchema = new schema(
     caseStudy4: {
       type: String,
     },
+    caseStudy5: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

@@ -81,6 +81,7 @@ flutter:
     - assets/images/score/
     - assets/images/profile/
     - assets/images/blobs/
+    - assets/images/instruction/
     - .env
 
   

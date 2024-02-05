@@ -213,19 +213,243 @@ TextEditingController answerController1 = TextEditingController();
 TextEditingController answerController2 = TextEditingController();
 TextEditingController answerController3 = TextEditingController();
 TextEditingController answerController4 = TextEditingController();
+TextEditingController answerController5 = TextEditingController();
 
-final List moduleTitle = [
-  "Shelf Analytics",
-  "Title 2",
-  "Title 3",
-  "Title 4",
-  "Title 5",
-  "Title 6",
-  "Title 7",
-  "Title 8",
-  "Title 9",
-  "Title 10",
-  "Title 11",
+final List instruction = [
+  [
+    const Heading(
+      text: 'Instructions for Live Project',
+      fontSize: 25,
+      bottomPadding: 30,
+      topPadding: 20,
+    ),
+    BodyImage(
+      image: Image.asset('assets/images/instruction/circle.png'),
+    ),
+    const SizedBox()
+  ],
+  [
+    Heading(text: "Watch the Video on how to operate the app", topPadding: 20),
+    YouTubeVideo(text: 'Hello'),
+    SizedBox(),
+  ],
+  [
+    const Body(
+        fontSize: 20,
+        topPadding: 20,
+        align: TextAlign.justify,
+        text:
+            "Now that you are aware of the principles behind distribution and sales. Now to do the activity in real time."),
+    BodyImage(
+      image: Image.asset(
+        'assets/images/instruction/app.png',
+        fit: BoxFit.cover,
+      ),
+    ),
+    const SizedBox()
+  ],
+  [
+    const Heading(
+      text: "Follow the steps to identify the distributor",
+      topPadding: 20,
+    ),
+    const Body(
+        text: "Step 1: Log in with your registered Mobile Number",
+        bottomPadding: 0),
+    BodyImage(
+      image: Image.asset(
+        'assets/images/instruction/step 1.png',
+        fit: BoxFit.fitHeight,
+        height: 500,
+      ),
+      bottomPadding: 0,
+      topPadding: 30,
+    ),
+    const SizedBox()
+  ],
+  [
+    const Body(
+        topPadding: 20,
+        text:
+            "Step 2: Use Fetch Location to identity the distributor near you"),
+    BodyImage(
+      image: Image.asset(
+        'assets/images/instruction/step 2.png',
+        fit: BoxFit.fitHeight,
+        height: 500,
+      ),
+      bottomPadding: 0,
+      topPadding: 30,
+    ),
+    const SizedBox(),
+  ],
+  [
+    const Body(
+        topPadding: 20,
+        text:
+            "Step 3: Click on the Distributors location “Shop icon in yellow color"),
+    const Body(
+        text:
+            "Step 4: Click on the Google map icon to identify the distributor location color."),
+    BodyImage(
+      image: Image.asset(
+        'assets/images/instruction/step 3.png',
+        fit: BoxFit.fitHeight,
+        height: 500,
+      ),
+      bottomPadding: 0,
+      topPadding: 30,
+    ),
+    const Body(
+      topPadding: 20,
+      text:
+          "Step 5: Visit the distributor location and Make your observations in the below link",
+    ),
+    const Body(
+      topPadding: 20,
+      text: "https://admin.gosurvey.in/survey/UMCAK1IC",
+      align: TextAlign.center,
+    ),
+    const SizedBox()
+  ],
+  [
+    const Heading(text: "Data Collection -> Distributer", topPadding: 20),
+    const Body(
+        text: "Distributor is an agent who supplies goods to the retailer "),
+    const Body(text: "1)  Now select a distributor from the app"),
+    const Body(text: "2)  Note the address of the distributor from the app"),
+    const Body(text: "3)  Visit the distributor location"),
+    const Body(
+        text: "Make your observations in the below link",
+        align: TextAlign.center,
+        topPadding: 40),
+    const Body(
+        text: "https://admin.gosurvey.in/survey/UMCAK1IC",
+        align: TextAlign.center),
+    const SizedBox()
+  ],
+  [
+    const Body(
+      topPadding: 20,
+      text:
+          "Now that you have completed the distributor verification, lets check the retailer",
+      align: TextAlign.center,
+    ),
+    const Body(
+        text:
+            "Retailer is a person or business that sells goods to the public in relatively small quantities for use or consumption"),
+    const SizedBox()
+  ],
+  [
+    const Heading(
+      text: "Data collection -> Retailer",
+      topPadding: 20,
+    ),
+    const Body(
+      text:
+          "1) In the outlet survey app as per the video you can choose the distance in which you want to locate the shops.",
+    ),
+    const Body(
+      text:
+          "2) Record the below Type of shop, Type of products available in the shop, Type of products seen on the shelf, retailer satisfaction in the app.",
+    ),
+    const Body(
+      text:
+          "3) If you cannot find FMCG outlets tagged in the app, you can add new outlets as well.",
+    ),
+    const SizedBox()
+  ],
+  [
+    const Heading(
+      text: "Data collection -> Adding New Outlets",
+      topPadding: 20,
+    ),
+    const Body(
+      text:
+          "New outlets are those outlets which do not have CavinKare Products. Add Outlets relevant to FMGC does not irrelevant outlets like Electronic shops, Cloth shops, Shoe shops etc..",
+    ),
+    const Body(text: "Refer to this to understand the brand of Cavinkare"),
+    const Body(text: "https://cavinkare.com/brands/"),
+    const SizedBox()
+  ],
+  [
+    const Heading(
+      text: "Follow the steps to identify the distributor",
+      topPadding: 20,
+    ),
+    const Body(text: "Step 1: Log in with your registered Mobile Number"),
+    const Body(
+        text: "Step 1: Log in with your registered Mobile Number",
+        bottomPadding: 0),
+    BodyImage(
+      image: Image.asset(
+        'assets/images/instruction/step 1.png',
+        fit: BoxFit.fitHeight,
+        height: 500,
+      ),
+      bottomPadding: 0,
+      topPadding: 30,
+    ),
+    const SizedBox()
+  ],
+  [
+    const Body(topPadding: 20, text: "Step 2: Click on “Add New outlet”"),
+    BodyImage(
+      image: Image.asset(
+        'assets/images/instruction/step 2.png',
+        fit: BoxFit.fitHeight,
+        height: 500,
+      ),
+      bottomPadding: 0,
+      topPadding: 30,
+    ),
+    const SizedBox(),
+    const Body(topPadding: 20, text: "Step 3: Administrate the survey"),
+    const Body(
+        topPadding: 20,
+        text:
+            "You should present very close to the shop while you administrating the survey"),
+    SizedBox()
+  ],
+];
+
+final List caseStudy = [
+  [
+    const SizedBox(),
+    const Heading(text: 'Case study ', fontSize: 30, bottomPadding: 20),
+    const Body(
+        align: TextAlign.center,
+        text:
+            'XYZ Supermart, a prominent outlet , faces declining sales. To address these issues the outlet decides to review its product assortment, store layout and its merchandising. The goal is to enhance the customer shopping experience, improve product visibility, have right assortment and ultimately drive sales. What are your recommendations/ideas  for the same.')
+  ],
+  [
+    CaseStudy(
+      question: 'Give 3 examples of POPs that are merchandised at outlets',
+      controller: answerController1,
+    ),
+    const SizedBox()
+  ],
+  [
+    CaseStudy(
+      question: 'Please list the type of shops that you visited',
+      controller: answerController2,
+    ),
+    const SizedBox()
+  ],
+  [
+    CaseStudy(
+      question: 'What category would you place next to shampoo category',
+      controller: answerController4,
+    ),
+    const SizedBox()
+  ],
+  [
+    CaseStudy(
+      question: 'Where are fairness creams placed next to',
+      controller: answerController5,
+    ),
+    const SizedBox()
+  ],
 ];
 
 final List module = [
@@ -351,14 +575,14 @@ final List module = [
               'Unique Brand Offering '
             ],
           ]),
-      TabularColumn(padding: 0, data: [
+      const TabularColumn(padding: 0, data: [
         [
           'High \nInvolvement',
           'Dissonance reducing buying behavior ',
           'Complex buying behavior'
         ],
       ]),
-      TabularColumn(
+      const TabularColumn(
           color: Color.fromARGB(255, 207, 231, 255),
           padding: 0,
           data: [
@@ -366,7 +590,7 @@ final List module = [
               'High Involvement (HIP): products for which the buyer is prepared to spend considerable time and effort in searching.'
             ]
           ]),
-      TabularColumn(padding: 0, data: [
+      const TabularColumn(padding: 0, data: [
         [
           'Low \ninvolvement',
           'Habitual Buying behavior',
@@ -894,6 +1118,7 @@ final List module = [
       QuizButton(isFinal: false, quizData: quiz3, quizNumber: 3),
     ],
   ],
+<<<<<<< HEAD
   [
     [
       const Heading(
@@ -943,4 +1168,6 @@ final List module = [
       const SizedBox()
     ],
   ],
+=======
+>>>>>>> 28d86a710e20f5dc76b22811141b64645b736509
 ];

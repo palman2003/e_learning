@@ -76,7 +76,7 @@ class ImageProgressState extends State<ImageProgress> {
                   children: [
                     const SizedBox(height: 10),
                     Text(
-                      "Image Upload",
+                      "Module 04",
                       style: GoogleFonts.poppins().copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
