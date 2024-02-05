@@ -51,7 +51,7 @@ class ModulePage extends StatefulWidget {
 class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   TextStyle fontTheme = GoogleFonts.dmSerifDisplay();
-  int minWordCount = 3;
+  int minWordCount = 300;
   int wordCount = 0;
   VideoPlayerController? _controller;
   late Future<void> _initializeVideoPlayerFuture;
