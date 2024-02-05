@@ -903,9 +903,7 @@ final List module = [
           topPadding: 20),
       BodyImage(image: Image.asset('assets/images/module2/pg1.png'))
     ],
-    [
-      YouTubeVideo(text: 'Hello'),
-    ]
+    [YouTubeVideo(text: 'Hello'), SizedBox()]
   ],
   [
     [
