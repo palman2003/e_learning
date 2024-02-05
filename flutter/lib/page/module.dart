@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chewie/chewie.dart';
 import 'package:e_learning/data/module_data.dart';
 import 'package:e_learning/data/quiz_data.dart';
 import 'package:e_learning/model/quiz_data.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -60,6 +62,14 @@ class _ModulePageState extends State<ModulePage> {
     _controller!.setLooping(true);
     _controller!.setVolume(1);
     super.initState();
+  }
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -662,7 +672,7 @@ class _ModulePageState extends State<ModulePage> {
               );
             } else if (currentData is YouTubeVideo) {
               return Padding(
-                padding: EdgeInsets.fromLTRB(70, 16, 70, 16),
+                padding: const EdgeInsets.fromLTRB(70, 16, 70, 16),
                 child: Column(children: [
                   FutureBuilder(
                       future: _initializeVideoPlayerFuture,
@@ -670,21 +680,24 @@ class _ModulePageState extends State<ModulePage> {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return AspectRatio(
                             aspectRatio: 0.5,
-                            child: VideoPlayer(_controller!),
+                            child: Chewie(
+                              controller: ChewieController(
+                                  videoPlayerController: _controller!),
+                            ),
                           );
                         } else {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         }
                       })),
                   ElevatedButton.icon(
                     label: _controller!.value.isPlaying
-                        ? Text('Pause')
-                        : Text('Play'),
+                        ? const Text('Pause')
+                        : const Text('Play'),
                     icon: _controller!.value.isPlaying
-                        ? Icon(Icons.pause)
-                        : Icon(Icons.play_arrow),
+                        ? const Icon(Icons.pause)
+                        : const Icon(Icons.play_arrow),
                     onPressed: () {
                       setState(() {
                         if (_controller!.value.isPlaying) {
@@ -696,6 +709,24 @@ class _ModulePageState extends State<ModulePage> {
                     },
                   )
                 ]),
+              );
+            } else if (currentData is Url) {
+              return Padding(
+                padding: EdgeInsets.fromLTRB(
+                  30,
+                  currentData.topPadding,
+                  30,
+                  currentData.bottomPadding,
+                ),
+                child: TextButton(
+                  child: Text(currentData.url),
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      onSurface: Colors.transparent),
+                  onPressed: () {
+                    _launchURL(currentData.url);
+                  },
+                ),
               );
             } else if (currentData is CaseStudy) {
               wordCount = 0;
@@ -745,7 +776,7 @@ class _ModulePageState extends State<ModulePage> {
                         if (currentData.controller == answerController1 &&
                             prefs!.getBool("caseStudy1")!) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text("Already Submitted"),
                             ),
                           );
@@ -782,7 +813,7 @@ class _ModulePageState extends State<ModulePage> {
                         if (currentData.controller == answerController3 &&
                             prefs!.getBool("caseStudy4")!) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text("Already Submitted"),
                             ),
                           );
@@ -1018,7 +1049,7 @@ class _ModulePageState extends State<ModulePage> {
                                                         .getString("college")!;
 
                                                 return AlertDialog(
-                                                  title: Text(
+                                                  title: const Text(
                                                       "Please confirm your details for certificate generation"),
                                                   content: Column(
                                                     mainAxisSize:
@@ -1028,7 +1059,7 @@ class _ModulePageState extends State<ModulePage> {
                                                         controller:
                                                             confirmedUsername,
                                                         decoration:
-                                                            InputDecoration(
+                                                            const InputDecoration(
                                                           labelText:
                                                               "Your Name",
                                                         ),
@@ -1037,7 +1068,7 @@ class _ModulePageState extends State<ModulePage> {
                                                         controller:
                                                             confirmedCollegeName,
                                                         decoration:
-                                                            InputDecoration(
+                                                            const InputDecoration(
                                                           labelText:
                                                               "College Name",
                                                         ),
@@ -1049,7 +1080,8 @@ class _ModulePageState extends State<ModulePage> {
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                       },
-                                                      child: Text("Cancel"),
+                                                      child:
+                                                          const Text("Cancel"),
                                                     ),
                                                     ElevatedButton(
                                                       onPressed: () async {
@@ -1088,9 +1120,9 @@ class _ModulePageState extends State<ModulePage> {
                                                             builder:
                                                                 (context) =>
                                                                     AlertDialog(
-                                                              title: Text(
+                                                              title: const Text(
                                                                   'Certificate is sent to your email'),
-                                                              content: Text(
+                                                              content: const Text(
                                                                   "Please check your email"),
                                                               actions: [
                                                                 TextButton(
@@ -1099,8 +1131,9 @@ class _ModulePageState extends State<ModulePage> {
                                                                     Navigator.pop(
                                                                         context);
                                                                   },
-                                                                  child: Text(
-                                                                      'OK'),
+                                                                  child:
+                                                                      const Text(
+                                                                          'OK'),
                                                                 ),
                                                               ],
                                                             ),

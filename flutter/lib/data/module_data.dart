@@ -64,6 +64,18 @@ class SubHeading {
   final double bottomPadding;
 }
 
+class Url {
+  const Url(
+      {required this.url,
+      this.topPadding = 0,
+      this.bottomPadding = 0,
+      this.align = TextAlign.center});
+  final String url;
+  final double topPadding;
+  final double bottomPadding;
+  final TextAlign align;
+}
+
 class Body {
   const Body(
       {required this.text,
@@ -228,11 +240,11 @@ final List instruction = [
     ),
     const SizedBox()
   ],
-  [
-    Heading(text: "Watch the Video on how to operate the app", topPadding: 20),
-    YouTubeVideo(text: 'Hello'),
-    SizedBox(),
-  ],
+  // [
+  //   Heading(text: "Watch the Video on how to operate the app", topPadding: 20),
+  //   YouTubeVideo(text: 'Hello'),
+  //   SizedBox(),
+  // ],
   [
     const Body(
         fontSize: 20,
@@ -243,7 +255,8 @@ final List instruction = [
     BodyImage(
       image: Image.asset(
         'assets/images/instruction/app.png',
-        fit: BoxFit.cover,
+        // fit: BoxFit.cover,
+        // height: 300,
       ),
     ),
     const SizedBox()
@@ -259,8 +272,8 @@ final List instruction = [
     BodyImage(
       image: Image.asset(
         'assets/images/instruction/step 1.png',
-        fit: BoxFit.fitHeight,
-        height: 500,
+        // fit: BoxFit.fitHeight,
+        // height: 500,
       ),
       bottomPadding: 0,
       topPadding: 30,
@@ -305,9 +318,8 @@ final List instruction = [
       text:
           "Step 5: Visit the distributor location and Make your observations in the below link",
     ),
-    const Body(
-      topPadding: 20,
-      text: "https://admin.gosurvey.in/survey/UMCAK1IC",
+    const Url(
+      url: "https://admin.gosurvey.in/survey/UMCAK1IC",
       align: TextAlign.center,
     ),
     const SizedBox()
@@ -322,22 +334,28 @@ final List instruction = [
     const Body(
         text: "Make your observations in the below link",
         align: TextAlign.center,
-        topPadding: 40),
-    const Body(
-        text: "https://admin.gosurvey.in/survey/UMCAK1IC",
+        topPadding: 40,
+        bottomPadding: 0),
+    const Url(
+        url: "https://admin.gosurvey.in/survey/UMCAK1IC",
         align: TextAlign.center),
     const SizedBox()
   ],
   [
-    const Body(
+    const Heading(
       topPadding: 20,
       text:
           "Now that you have completed the distributor verification, lets check the retailer",
-      align: TextAlign.center,
     ),
     const Body(
         text:
             "Retailer is a person or business that sells goods to the public in relatively small quantities for use or consumption"),
+    const SizedBox()
+  ],
+  [
+    const Heading(
+        text: "Watch the Video on how to operate the app", topPadding: 20),
+    const YouTubeVideo(text: 'Hello'),
     const SizedBox()
   ],
   [
@@ -369,7 +387,7 @@ final List instruction = [
           "New outlets are those outlets which do not have CavinKare Products. Add Outlets relevant to FMGC does not irrelevant outlets like Electronic shops, Cloth shops, Shoe shops etc..",
     ),
     const Body(text: "Refer to this to understand the brand of Cavinkare"),
-    const Body(text: "https://cavinkare.com/brands/"),
+    const Url(url: "https://cavinkare.com/brands/"),
     const SizedBox()
   ],
   [
@@ -377,15 +395,14 @@ final List instruction = [
       text: "Follow the steps to identify the distributor",
       topPadding: 20,
     ),
-    const Body(text: "Step 1: Log in with your registered Mobile Number"),
     const Body(
         text: "Step 1: Log in with your registered Mobile Number",
         bottomPadding: 0),
     BodyImage(
       image: Image.asset(
         'assets/images/instruction/step 1.png',
-        fit: BoxFit.fitHeight,
-        height: 500,
+        // fit: BoxFit.fitHeight,
+        height: 300,
       ),
       bottomPadding: 0,
       topPadding: 30,
@@ -409,7 +426,7 @@ final List instruction = [
         topPadding: 20,
         text:
             "You should present very close to the shop while you administrating the survey"),
-    SizedBox()
+    const SizedBox()
   ],
 ];
 
@@ -421,6 +438,13 @@ final List caseStudy = [
         align: TextAlign.center,
         text:
             'XYZ Supermart, a prominent outlet , faces declining sales. To address these issues the outlet decides to review its product assortment, store layout and its merchandising. The goal is to enhance the customer shopping experience, improve product visibility, have right assortment and ultimately drive sales. What are your recommendations/ideas  for the same.')
+  ],
+  [
+    CaseStudy(
+      question: 'Give 3 ideas to improve the visibility in a kirana store',
+      controller: answerController3,
+    ),
+    const SizedBox()
   ],
   [
     CaseStudy(
@@ -597,7 +621,7 @@ final List module = [
           'Variety seeking behavior'
         ]
       ]),
-      TabularColumn(
+      const TabularColumn(
           color: Color.fromARGB(255, 207, 231, 255),
           padding: 0,
           data: [
@@ -1118,56 +1142,4 @@ final List module = [
       QuizButton(isFinal: false, quizData: quiz3, quizNumber: 3),
     ],
   ],
-<<<<<<< HEAD
-  [
-    [
-      const Heading(
-          text: 'Instructions for Live Project',
-          fontSize: 25,
-          bottomPadding: 30,
-          topPadding: 20),
-      BodyImage(image: Image.asset('assets/images/module2/pg1.png'))
-    ],
-    [YouTubeVideo(text: 'Hello'), SizedBox()]
-  ],
-  [
-    [
-      const SizedBox(),
-      const Heading(text: 'Case study ', fontSize: 30, bottomPadding: 20),
-      const Body(
-          align: TextAlign.center,
-          text:
-              'XYZ Supermart, a prominent retail chain, faced challenges with product visibility and sales performance across its stores. To address these issues, the company decided to implement a comprehensive shelf planogram strategy. The goal was to enhance the customer shopping experience, improve product visibility, and ultimately drive sales.')
-    ],
-    [
-      CaseStudy(
-        question: 'Give 3 ideas to improve the visibility in a kirana store',
-        controller: answerController1,
-      ),
-      const SizedBox()
-    ],
-    [
-      CaseStudy(
-        question: 'Give 3 ideas on POP activity',
-        controller: answerController2,
-      ),
-      const SizedBox()
-    ],
-    [
-      CaseStudy(
-        question: 'Please list the type of shops that your visited',
-        controller: answerController3,
-      ),
-      const SizedBox()
-    ],
-    [
-      CaseStudy(
-        question: 'What are the categories which are placed next to each other',
-        controller: answerController4,
-      ),
-      const SizedBox()
-    ],
-  ],
-=======
->>>>>>> 28d86a710e20f5dc76b22811141b64645b736509
 ];
