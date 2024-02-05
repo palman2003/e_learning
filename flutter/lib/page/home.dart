@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => ModulePage(
-                moduleData: module[1],
+                moduleData: instruction,
                 appBarTitle: "Instructions for Live Project",
                 title: "Hello",
                 // isFinal: false,
@@ -191,7 +191,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => ModulePage(
-                moduleData: module[1],
+                moduleData: instruction,
                 appBarTitle: "Instructions for Live Project",
                 title: "Hello",
                 // isFinal: false,
@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage> {
             context,
             MaterialPageRoute(
               builder: ((context) => ModulePage(
-                  moduleData: module[2],
+                  moduleData: caseStudy,
                   appBarTitle: "Test Your Knowledge",
                   title: "Hello",
                   // isFinal: false,
@@ -260,7 +260,7 @@ class _HomePageState extends State<HomePage> {
         context,
         MaterialPageRoute(
           builder: ((context) => ModulePage(
-              moduleData: module[2],
+              moduleData: caseStudy,
               appBarTitle: "Test Your Knowledge",
               title: "Hello",
               // isFinal: false,

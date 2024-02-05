@@ -662,15 +662,15 @@ class _ModulePageState extends State<ModulePage> {
                     SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        // if (currentData.controller == answerController1 &&
-                        //     prefs!.getBool("caseStudy1")!) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     SnackBar(
-                        //       content: Text("Already Submitted"),
-                        //     ),
-                        //   );
-                        //   return;
-                        // }
+                        if (currentData.controller == answerController1 &&
+                            prefs!.getBool("caseStudy1")!) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Already Submitted"),
+                            ),
+                          );
+                          return;
+                        }
 
                         if (currentData.controller == answerController2 &&
                             prefs!.getBool("caseStudy2")!) {
@@ -683,6 +683,15 @@ class _ModulePageState extends State<ModulePage> {
                         }
                         if (currentData.controller == answerController3 &&
                             prefs!.getBool("caseStudy3")!) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Already Submitted"),
+                            ),
+                          );
+                          return;
+                        }
+                        if (currentData.controller == answerController3 &&
+                            prefs!.getBool("caseStudy4")!) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text("Already Submitted"),
@@ -788,10 +797,29 @@ class _ModulePageState extends State<ModulePage> {
                                                 .setBool("caseStudy3", true);
                                           } catch (e) {}
                                         }
+                                        if (currentData.controller ==
+                                            answerController4) {
+                                          try {
+                                            http.post(
+                                              Uri.parse(
+                                                "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")}/4",
+                                              ),
+                                              headers: {
+                                                "Content-Type":
+                                                    "application/json"
+                                              },
+                                              body: jsonEncode(
+                                                {"data": answer},
+                                              ),
+                                            );
+                                            await prefs!
+                                                .setBool("caseStudy4", true);
+                                          } catch (e) {}
+                                        }
 
                                         currentData.controller.clear();
                                         if (currentData.controller !=
-                                            answerController4)
+                                            answerController5)
                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
@@ -850,7 +878,7 @@ class _ModulePageState extends State<ModulePage> {
                                             currentData.controller.text;
                                         if (currentData.controller ==
                                             answerController4) {
-                                          if ((prefs!.getBool("caseStudy4")!)) {
+                                          if ((prefs!.getBool("caseStudy5")!)) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -866,7 +894,9 @@ class _ModulePageState extends State<ModulePage> {
                                               !(prefs!
                                                   .getBool("caseStudy2")!) ||
                                               !(prefs!
-                                                  .getBool("caseStudy3")!)) {
+                                                  .getBool("caseStudy3")!) ||
+                                              !(prefs!
+                                                  .getBool("caseStudy4")!)) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -878,120 +908,115 @@ class _ModulePageState extends State<ModulePage> {
                                           }
 
                                           showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                TextEditingController
-                                                    confirmedUsername =
-                                                    TextEditingController();
-                                                TextEditingController
-                                                    confirmedCollegeName =
-                                                    TextEditingController();
+                                            context: context,
+                                            builder: (context) {
+                                              TextEditingController
+                                                  confirmedUsername =
+                                                  TextEditingController();
+                                              TextEditingController
+                                                  confirmedCollegeName =
+                                                  TextEditingController();
 
-                                                confirmedUsername.text = prefs!
-                                                    .getString("username")!;
-                                                confirmedCollegeName.text =
-                                                    prefs!
-                                                        .getString("college")!;
+                                              confirmedUsername.text =
+                                                  prefs!.getString("username")!;
+                                              confirmedCollegeName.text =
+                                                  prefs!.getString("college")!;
 
-                                                return AlertDialog(
-                                                  title: Text(
-                                                      "Please confirm your details for certificate generation"),
-                                                  content: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      TextField(
-                                                        controller:
-                                                            confirmedUsername,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              "Your Name",
-                                                        ),
+                                              return AlertDialog(
+                                                title: Text(
+                                                    "Please confirm your details for certificate generation"),
+                                                content: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    TextField(
+                                                      controller:
+                                                          confirmedUsername,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        labelText: "Your Name",
                                                       ),
-                                                      TextField(
-                                                        controller:
-                                                            confirmedCollegeName,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              "College Name",
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Text("Cancel"),
                                                     ),
-                                                    ElevatedButton(
-                                                      onPressed: () async {
-                                                        try {
-                                                          http.post(
-                                                            Uri.parse(
-                                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")}/4",
-                                                            ),
-                                                            headers: {
-                                                              "Content-Type":
-                                                                  "application/json"
-                                                            },
-                                                            body: jsonEncode(
-                                                              {"data": answer},
-                                                            ),
-                                                          );
-
-                                                          http.get(
-                                                            Uri.parse(
-                                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${confirmedUsername.text}/${confirmedCollegeName.text}/${prefs!.getString("email")}",
-                                                            ),
-                                                          );
-
-                                                          await prefs!.setBool(
-                                                              "caseStudy4",
-                                                              true);
-                                                          if (!mounted) {
-                                                            return;
-                                                          }
-
-                                                          Navigator.pop(
-                                                              context);
-
-                                                          showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (context) =>
-                                                                    AlertDialog(
-                                                              title: Text(
-                                                                  'Certificate is sent to your email'),
-                                                              content: Text(
-                                                                  "Please check your email"),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                  child: Text(
-                                                                      'OK'),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          );
-
-                                                          return;
-                                                        } catch (e) {
-                                                          print(e);
-                                                        }
-                                                      },
-                                                      child: Text("Submit"),
+                                                    TextField(
+                                                      controller:
+                                                          confirmedCollegeName,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        labelText:
+                                                            "College Name",
+                                                      ),
                                                     ),
                                                   ],
-                                                );
-                                              });
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text("Cancel"),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () async {
+                                                      try {
+                                                        http.post(
+                                                          Uri.parse(
+                                                            "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")}/5",
+                                                          ),
+                                                          headers: {
+                                                            "Content-Type":
+                                                                "application/json"
+                                                          },
+                                                          body: jsonEncode(
+                                                            {"data": answer},
+                                                          ),
+                                                        );
+
+                                                        http.get(
+                                                          Uri.parse(
+                                                            "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${confirmedUsername.text}/${confirmedCollegeName.text}/${prefs!.getString("email")}",
+                                                          ),
+                                                        );
+
+                                                        await prefs!.setBool(
+                                                            "caseStudy5", true);
+                                                        if (!mounted) {
+                                                          return;
+                                                        }
+
+                                                        Navigator.pop(context);
+
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) =>
+                                                              AlertDialog(
+                                                            title: Text(
+                                                                'Certificate is sent to your email'),
+                                                            content: Text(
+                                                                "Please check your email"),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child:
+                                                                    Text('OK'),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+
+                                                        return;
+                                                      } catch (e) {
+                                                        print(e);
+                                                      }
+                                                    },
+                                                    child: Text("Submit"),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
                                         }
 
                                         currentData.controller.clear();

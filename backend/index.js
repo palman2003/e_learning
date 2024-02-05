@@ -11,6 +11,7 @@ const moduleRoute = require("./routes/module");
 const app = express();
 const cors = require("cors");
 const helmet = require("helmet");
+const csv = require("./routes/csv");
 
 app.use(helmet());
 app.use(cors());
@@ -44,6 +45,8 @@ app.use("/v1/api/quiz", quiz);
 app.use("/v1/api/certificate", cert);
 
 app.use("/v1/api/module", moduleRoute);
+
+app.use("/v1/api/csv", csv);
 
 app.use("/test", (req, res) => {
   res.json({ message: "Hello from server" });
