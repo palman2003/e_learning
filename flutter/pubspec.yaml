@@ -75,6 +75,7 @@ flutter:
     # - assets/images/appbar_icon.png
     # - assets/images/doodad.jpg
     - assets/images/
+    - assets/videos/
     - assets/images/module1/
     - assets/images/module2/
     - assets/images/score/

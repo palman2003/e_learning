@@ -228,7 +228,11 @@ final List instruction = [
     ),
     const SizedBox()
   ],
-  [YouTubeVideo(text: 'Hello'), SizedBox()],
+  [
+    Heading(text: "Watch the Video on how to operate the app", topPadding: 20),
+    YouTubeVideo(text: 'Hello'),
+    SizedBox(),
+  ],
   [
     const Body(
         fontSize: 20,

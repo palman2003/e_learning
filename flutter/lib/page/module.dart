@@ -644,15 +644,15 @@ class _ModulePageState extends State<ModulePage> {
               );
             } else if (currentData is YouTubeVideo) {
               return Padding(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.fromLTRB(70,16,70,16),
                 child: Column(children: [
-                  Text('This is a Youtube video'),
                   FutureBuilder(
                       future: _initializeVideoPlayerFuture,
                       builder: ((context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return AspectRatio(
-                            aspectRatio: _controller!.value.aspectRatio,
+                            aspectRatio: 0.5,
+
                             child: VideoPlayer(_controller!),
                           );
                         } else {
@@ -661,7 +661,9 @@ class _ModulePageState extends State<ModulePage> {
                           );
                         }
                       })),
-                  IconButton(
+                  ElevatedButton.icon(
+                    label: _controller!.value.isPlaying ? Text('Pause'):Text('Play'),
+                    icon: _controller!.value.isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow),
                     onPressed: () {
                       setState(() {
                         if (_controller!.value.isPlaying) {
@@ -671,7 +673,6 @@ class _ModulePageState extends State<ModulePage> {
                         }
                       });
                     },
-                    icon: Icon(Icons.play_arrow),
                   )
                 ]),
               );
@@ -980,103 +981,109 @@ class _ModulePageState extends State<ModulePage> {
                                           }
 
                                           showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              TextEditingController
-                                                  confirmedUsername =
-                                                  TextEditingController();
-                                              TextEditingController
-                                                  confirmedCollegeName =
-                                                  TextEditingController();
+                                              context: context,
+                                              builder: (context) {
+                                                TextEditingController
+                                                    confirmedUsername =
+                                                    TextEditingController();
+                                                TextEditingController
+                                                    confirmedCollegeName =
+                                                    TextEditingController();
 
-                                              confirmedUsername.text =
-                                                  prefs!.getString("username")!;
-                                              confirmedCollegeName.text =
-                                                  prefs!.getString("college")!;
+                                                confirmedUsername.text = prefs!
+                                                    .getString("username")!;
+                                                confirmedCollegeName.text =
+                                                    prefs!
+                                                        .getString("college")!;
 
-                                              return AlertDialog(
-                                                title: Text(
-                                                    "Please confirm your details for certificate generation"),
-                                                content: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    TextField(
-                                                      controller:
-                                                          confirmedUsername,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        labelText: "Your Name",
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      "Please confirm your details for certificate generation"),
+                                                  content: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      TextField(
+                                                        controller:
+                                                            confirmedUsername,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              "Your Name",
+                                                        ),
                                                       ),
-                                                    ),
-                                                    TextField(
-                                                      controller:
-                                                          confirmedCollegeName,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        labelText:
-                                                            "College Name",
+                                                      TextField(
+                                                        controller:
+                                                            confirmedCollegeName,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              "College Name",
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text("Cancel"),
+                                                    ],
                                                   ),
-                                                  ElevatedButton(
-                                                    onPressed: () async {
-                                                      try {
-                                                        http.post(
-                                                          Uri.parse(
-                                                            "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")}/5",
-                                                          ),
-                                                          headers: {
-                                                            "Content-Type":
-                                                                "application/json"
-                                                          },
-                                                          body: jsonEncode(
-                                                            {"data": answer},
-                                                          ),
-                                                        );
-
-                                                        http.get(
-                                                          Uri.parse(
-                                                            "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${confirmedUsername.text}/${confirmedCollegeName.text}/${prefs!.getString("email")}",
-                                                          ),
-                                                        );
-
-                                                        await prefs!.setBool(
-                                                            "caseStudy5", true);
-                                                        if (!mounted) {
-                                                          return;
-                                                        }
-
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
                                                         Navigator.pop(context);
+                                                      },
+                                                      child: Text("Cancel"),
+                                                    ),
+                                                    ElevatedButton(
+                                                      onPressed: () async {
+                                                        try {
+                                                          http.post(
+                                                            Uri.parse(
+                                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/caseStudy-data/${prefs!.getString("email")}/5",
+                                                            ),
+                                                            headers: {
+                                                              "Content-Type":
+                                                                  "application/json"
+                                                            },
+                                                            body: jsonEncode(
+                                                              {"data": answer},
+                                                            ),
+                                                          );
 
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) =>
-                                                              AlertDialog(
-                                                            title: Text(
-                                                                'Certificate is sent to your email'),
-                                                            content: Text(
-                                                                "Please check your email"),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child:
-                                                                    Text('OK'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
+                                                          http.get(
+                                                            Uri.parse(
+                                                              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${confirmedUsername.text}/${confirmedCollegeName.text}/${prefs!.getString("email")}",
+                                                            ),
+                                                          );
+
+                                                          await prefs!.setBool(
+                                                              "caseStudy5",
+                                                              true);
+                                                          if (!mounted) {
+                                                            return;
+                                                          }
+
+                                                          Navigator.pop(
+                                                              context);
+
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (context) =>
+                                                                    AlertDialog(
+                                                              title: Text(
+                                                                  'Certificate is sent to your email'),
+                                                              content: Text(
+                                                                  "Please check your email"),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child: Text(
+                                                                      'OK'),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
 
                                                           return;
                                                         } catch (e) {

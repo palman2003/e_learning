@@ -53,6 +53,7 @@ router.post("/login", async (req, res) => {
       caseStudy2: user.caseStudy2 === String,
       caseStudy3: user.caseStudy3 === String,
       caseStudy4: user.caseStudy4 === String,
+      caseStudy5: user.caseStudy5 === String,
       isQuiz1Finished: user.isQuiz1Finished,
       isQuiz2Finished: user.isQuiz2Finished,
       isQuiz3Finished: user.isQuiz3Finished,
