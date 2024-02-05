@@ -1,7 +1,3 @@
-import 'package:e_learning/data/quiz_data.dart';
-import 'package:e_learning/page/login.dart';
-import 'package:e_learning/page/signup.dart';
-import 'package:e_learning/widgets/answer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';

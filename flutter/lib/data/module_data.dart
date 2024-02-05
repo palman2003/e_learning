@@ -25,6 +25,13 @@ class Header {
   final double bottomPadding;
 }
 
+class YouTubeVideo {
+  const YouTubeVideo({
+    required this.text,
+  });
+  final String text;
+}
+
 class Heading {
   const Heading({
     required this.text,
@@ -221,6 +228,7 @@ final List instruction = [
     ),
     const SizedBox()
   ],
+  [YouTubeVideo(text: 'Hello'), SizedBox()],
   [
     const Body(
         fontSize: 20,
@@ -585,8 +593,8 @@ final List module = [
           'Variety seeking behavior'
         ]
       ]),
-      const TabularColumn(
-          color: Color.fromARGB(255, 151, 192, 232),
+      TabularColumn(
+          color: Color.fromARGB(255, 207, 231, 255),
           padding: 0,
           data: [
             [
@@ -642,7 +650,7 @@ final List module = [
           topPadding: 20,
           bottomPadding: 15),
       const Heading(text: 'Direct Distribution', fontSize: 18),
-      const TabularColumn(data: [
+      const TabularColumn(color: Color.fromARGB(255, 94, 164, 234), data: [
         ['Pros', 'Cons'],
         [
           'You have total control over how the product is marketed and sold',
@@ -654,7 +662,7 @@ final List module = [
         ]
       ]),
       const Heading(text: 'Indirect Distribution', fontSize: 18),
-      const TabularColumn(data: [
+      const TabularColumn(color: Color.fromARGB(255, 94, 164, 234), data: [
         ['Pros', 'Cons'],
         [
           'Distribution agents specialize in getting products into as many markets as possible',
@@ -688,7 +696,7 @@ final List module = [
         ),
       ),
       const Body(
-          align: TextAlign.center,
+          align: TextAlign.justify,
           text:
               'Nielsen is a global company that provides valuable insights into consumer behavior and marketing information by collecting data that measures what consumers watch and what they buy. This is how they classify outlets:'),
       const SizedBox(),
