@@ -25,6 +25,13 @@ class Header {
   final double bottomPadding;
 }
 
+class YouTubeVideo {
+  const YouTubeVideo({
+    required this.text,
+  });
+  final String text;
+}
+
 class Heading {
   const Heading({
     required this.text,
@@ -895,6 +902,9 @@ final List module = [
           bottomPadding: 30,
           topPadding: 20),
       BodyImage(image: Image.asset('assets/images/module2/pg1.png'))
+    ],
+    [
+      YouTubeVideo(text: 'Hello'),
     ]
   ],
   [
