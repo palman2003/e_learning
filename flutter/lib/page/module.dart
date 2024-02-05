@@ -20,6 +20,7 @@ class ModulePage extends StatefulWidget {
     required this.moduleData,
     required this.appBarTitle,
     required this.title,
+    this.isInstruction = false,
     // required this.isFinal,
     // required this.quizData,
     this.progressHandler,
@@ -35,6 +36,7 @@ class ModulePage extends StatefulWidget {
   final int quiz1Page = 7;
   final int quiz2Page = 26;
   final int quiz3Page = 35;
+  final bool isInstruction;
   final void Function()? progressHandler;
   // final List<QuizData> quizData;
 
@@ -250,72 +252,81 @@ class _ModulePageState extends State<ModulePage> {
             ),
             const Spacer(),
             IconButton(
-              onPressed: () async {
-                if (!prefs!.getBool("isQuiz1Finished")! &&
-                    sectionIndex + 1 == widget.quiz1Page) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Please complete the quiz first"),
-                    ),
-                  );
-                  return;
-                }
-                if (!prefs!.getBool("isQuiz2Finished")! &&
-                    sectionIndex + 1 == widget.quiz2Page) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Please complete the quiz first"),
-                    ),
-                  );
-                  return;
-                }
-                if (!prefs!.getBool("isQuiz3Finished")! &&
-                    sectionIndex + 1 == widget.quiz3Page) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Please complete the quiz first"),
-                    ),
-                  );
-                  return;
-                }
-
-                if ((sectionIndex == widget.moduleData.length - 2)) {
-                  try {
-                    if (!(prefs!.getBool("isModuleFinished")!)) {
-                      http.post(
-                        Uri.parse(
-                            "${dotenv.env["BACKEND_API_BASE_URL"]}/module/complete"),
-                        headers: {"Content-Type": "application/json"},
-                        body: jsonEncode(
-                          {
-                            "email": prefs!.getString("email"),
-                            "module": 1,
-                          },
-                        ),
-                      );
-                      await prefs!.setBool("isModuleFinished", true);
-                      if (widget.progressHandler != null) {
-                        widget.progressHandler!();
+              onPressed: widget.isInstruction
+                  ? () {
+                      if (!(sectionIndex + 1 == widget.moduleData.length)) {
+                        setState(() {
+                          sectionIndex++;
+                        });
                       }
+                      return;
                     }
-                  } catch (error) {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          error.toString(),
-                        ),
-                      ),
-                    );
-                  }
-                }
+                  : () async {
+                      if (!prefs!.getBool("isQuiz1Finished")! &&
+                          sectionIndex + 1 == widget.quiz1Page) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Please complete the quiz first"),
+                          ),
+                        );
+                        return;
+                      }
+                      if (!prefs!.getBool("isQuiz2Finished")! &&
+                          sectionIndex + 1 == widget.quiz2Page) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Please complete the quiz first"),
+                          ),
+                        );
+                        return;
+                      }
+                      if (!prefs!.getBool("isQuiz3Finished")! &&
+                          sectionIndex + 1 == widget.quiz3Page) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Please complete the quiz first"),
+                          ),
+                        );
+                        return;
+                      }
 
-                if (!(sectionIndex == widget.moduleData.length - 1)) {
-                  setState(() {
-                    sectionIndex++;
-                  });
-                }
-              },
+                      if ((sectionIndex == widget.moduleData.length - 2)) {
+                        try {
+                          if (!(prefs!.getBool("isModuleFinished")!)) {
+                            http.post(
+                              Uri.parse(
+                                  "${dotenv.env["BACKEND_API_BASE_URL"]}/module/complete"),
+                              headers: {"Content-Type": "application/json"},
+                              body: jsonEncode(
+                                {
+                                  "email": prefs!.getString("email"),
+                                  "module": 1,
+                                },
+                              ),
+                            );
+                            await prefs!.setBool("isModuleFinished", true);
+                            if (widget.progressHandler != null) {
+                              widget.progressHandler!();
+                            }
+                          }
+                        } catch (error) {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                error.toString(),
+                              ),
+                            ),
+                          );
+                        }
+                      }
+
+                      if (!(sectionIndex == widget.moduleData.length - 1)) {
+                        setState(() {
+                          sectionIndex++;
+                        });
+                      }
+                    },
               icon: const Icon(
                 Icons.arrow_forward_ios_rounded,
                 // color: Colors.white,
@@ -334,6 +345,13 @@ class _ModulePageState extends State<ModulePage> {
               });
             }
           } else if (details.primaryVelocity! < -300) {
+            if (!(sectionIndex + 1 == widget.moduleData.length)) {
+              setState(() {
+                sectionIndex++;
+              });
+              return;
+            }
+
             if (!(sectionIndex == widget.moduleData.length - 1)) {
               if (!prefs!.getBool("isQuiz1Finished")! &&
                   sectionIndex + 1 == widget.quiz1Page) {
@@ -644,7 +662,7 @@ class _ModulePageState extends State<ModulePage> {
               );
             } else if (currentData is YouTubeVideo) {
               return Padding(
-                padding: EdgeInsets.fromLTRB(70,16,70,16),
+                padding: EdgeInsets.fromLTRB(70, 16, 70, 16),
                 child: Column(children: [
                   FutureBuilder(
                       future: _initializeVideoPlayerFuture,
@@ -652,7 +670,6 @@ class _ModulePageState extends State<ModulePage> {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return AspectRatio(
                             aspectRatio: 0.5,
-
                             child: VideoPlayer(_controller!),
                           );
                         } else {
@@ -662,8 +679,12 @@ class _ModulePageState extends State<ModulePage> {
                         }
                       })),
                   ElevatedButton.icon(
-                    label: _controller!.value.isPlaying ? Text('Pause'):Text('Play'),
-                    icon: _controller!.value.isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+                    label: _controller!.value.isPlaying
+                        ? Text('Pause')
+                        : Text('Play'),
+                    icon: _controller!.value.isPlaying
+                        ? Icon(Icons.pause)
+                        : Icon(Icons.play_arrow),
                     onPressed: () {
                       setState(() {
                         if (_controller!.value.isPlaying) {

@@ -161,6 +161,7 @@ class _HomePageState extends State<HomePage> {
                 moduleData: instruction,
                 appBarTitle: "Instructions for Live Project",
                 title: "Hello",
+                isInstruction: true,
                 // isFinal: false,
                 // quizData: quizDataList1,
                 moduleIndex: 1),
