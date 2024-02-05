@@ -51,7 +51,7 @@ class ModulePage extends StatefulWidget {
 class _ModulePageState extends State<ModulePage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   TextStyle fontTheme = GoogleFonts.dmSerifDisplay();
-  int minWordCount = 300;
+  int minWordCount = 3;
   int wordCount = 0;
   VideoPlayerController? _controller;
   late Future<void> _initializeVideoPlayerFuture;
@@ -801,7 +801,7 @@ class _ModulePageState extends State<ModulePage> {
                           );
                           return;
                         }
-                        if (currentData.controller == answerController3 &&
+                        if (currentData.controller == answerController4 &&
                             prefs!.getBool("caseStudy4")!) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -810,8 +810,8 @@ class _ModulePageState extends State<ModulePage> {
                           );
                           return;
                         }
-                        if (currentData.controller == answerController3 &&
-                            prefs!.getBool("caseStudy4")!) {
+                        if (currentData.controller == answerController5 &&
+                            prefs!.getBool("caseStudy5")!) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Already Submitted"),
@@ -837,7 +837,7 @@ class _ModulePageState extends State<ModulePage> {
                                   child: const Text('Cancel'),
                                 ),
                                 if (!(currentData.controller ==
-                                    answerController4))
+                                    answerController5))
                                   TextButton(
                                     onPressed: () async {
                                       Navigator.of(context).pop();
@@ -942,23 +942,21 @@ class _ModulePageState extends State<ModulePage> {
                                         setState(() {
                                           currentData.wordCount = 0;
                                         });
-                                        if (currentData.controller !=
-                                            answerController5)
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                              title: const Text(
-                                                  'Answer submitted successfully'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text('OK'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text(
+                                                'Answer submitted successfully'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          ),
+                                        );
                                       } else {
                                         showDialog(
                                           context: context,
@@ -1002,7 +1000,7 @@ class _ModulePageState extends State<ModulePage> {
                                         String answer =
                                             currentData.controller.text;
                                         if (currentData.controller ==
-                                            answerController4) {
+                                            answerController5) {
                                           if ((prefs!.getBool("caseStudy5")!)) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(

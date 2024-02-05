@@ -442,21 +442,21 @@ final List caseStudy = [
   [
     CaseStudy(
       question: 'Give 3 ideas to improve the visibility in a kirana store',
-      controller: answerController3,
-    ),
-    const SizedBox()
-  ],
-  [
-    CaseStudy(
-      question: 'Give 3 examples of POPs that are merchandised at outlets',
       controller: answerController1,
     ),
     const SizedBox()
   ],
   [
     CaseStudy(
-      question: 'Please list the type of shops that you visited',
+      question: 'Give 3 examples of POPs that are merchandised at outlets',
       controller: answerController2,
+    ),
+    const SizedBox()
+  ],
+  [
+    CaseStudy(
+      question: 'Please list the type of shops that you visited',
+      controller: answerController3,
     ),
     const SizedBox()
   ],
