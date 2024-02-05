@@ -12,6 +12,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:video_player/video_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ModulePage extends StatefulWidget {
   const ModulePage({
@@ -47,12 +49,29 @@ class _ModulePageState extends State<ModulePage> {
   TextStyle fontTheme = GoogleFonts.dmSerifDisplay();
   int minWordCount = 300;
   int wordCount = 0;
+  VideoPlayerController? _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+  @override
+  void initState() {
+    _controller = VideoPlayerController.asset('assets/videos/vid1.mp4');
+    _initializeVideoPlayerFuture = _controller!.initialize();
+    _controller!.setLooping(true);
+    _controller!.setVolume(1);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
+  }
+
   Future<void> loadQuiz(BuildContext context, bool isFinal,
       List<QuizData> quizData, int quizNumber) async {
     if (quizNumber == 1) {
       if (prefs!.getBool("isQuiz1Finished")!) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Already Finished")));
+            .showSnackBar(const SnackBar(content: Text("Already Finished")));
         return;
       }
       if (prefs!.getInt("quiz1Retry")! == 0) {
@@ -78,7 +97,7 @@ class _ModulePageState extends State<ModulePage> {
     if (quizNumber == 2) {
       if (prefs!.getBool("isQuiz2Finished")!) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Already Finished")));
+            .showSnackBar(const SnackBar(content: Text("Already Finished")));
         return;
       }
       if (prefs!.getInt("quiz2Retry")! == 0) {
@@ -104,7 +123,7 @@ class _ModulePageState extends State<ModulePage> {
     if (quizNumber == 3) {
       if (prefs!.getBool("isQuiz3Finished")!) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Already Finished")));
+            .showSnackBar(const SnackBar(content: Text("Already Finished")));
         return;
       }
       if (prefs!.getInt("quiz3Retry")! == 0) {
@@ -235,7 +254,7 @@ class _ModulePageState extends State<ModulePage> {
                 if (!prefs!.getBool("isQuiz1Finished")! &&
                     sectionIndex + 1 == widget.quiz1Page) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text("Please complete the quiz first"),
                     ),
                   );
@@ -244,7 +263,7 @@ class _ModulePageState extends State<ModulePage> {
                 if (!prefs!.getBool("isQuiz2Finished")! &&
                     sectionIndex + 1 == widget.quiz2Page) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text("Please complete the quiz first"),
                     ),
                   );
@@ -253,7 +272,7 @@ class _ModulePageState extends State<ModulePage> {
                 if (!prefs!.getBool("isQuiz3Finished")! &&
                     sectionIndex + 1 == widget.quiz3Page) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text("Please complete the quiz first"),
                     ),
                   );
@@ -320,7 +339,7 @@ class _ModulePageState extends State<ModulePage> {
                   sectionIndex + 1 == widget.quiz1Page) {
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text("Please complete the quiz first"),
                   ),
                 );
@@ -331,7 +350,7 @@ class _ModulePageState extends State<ModulePage> {
                 ScaffoldMessenger.of(context).clearSnackBars();
 
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text("Please complete the quiz first"),
                   ),
                 );
@@ -342,7 +361,7 @@ class _ModulePageState extends State<ModulePage> {
                 ScaffoldMessenger.of(context).clearSnackBars();
 
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text("Please complete the quiz first"),
                   ),
                 );
@@ -550,7 +569,7 @@ class _ModulePageState extends State<ModulePage> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     Text(
@@ -558,7 +577,7 @@ class _ModulePageState extends State<ModulePage> {
                       style: fontTheme.copyWith(
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     Image.asset(
@@ -623,6 +642,39 @@ class _ModulePageState extends State<ModulePage> {
                   ),
                 ),
               );
+            } else if (currentData is YouTubeVideo) {
+              return Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(children: [
+                  Text('This is a Youtube video'),
+                  FutureBuilder(
+                      future: _initializeVideoPlayerFuture,
+                      builder: ((context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return AspectRatio(
+                            aspectRatio: _controller!.value.aspectRatio,
+                            child: VideoPlayer(_controller!),
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      })),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        if (_controller!.value.isPlaying) {
+                          _controller!.pause();
+                        } else {
+                          _controller!.play();
+                        }
+                      });
+                    },
+                    icon: Icon(Icons.play_arrow),
+                  )
+                ]),
+              );
             } else if (currentData is CaseStudy) {
               wordCount = 0;
               return Padding(
@@ -635,10 +687,10 @@ class _ModulePageState extends State<ModulePage> {
                       style: fontTheme.copyWith(
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextField(
                       controller: currentData.controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Enter your answer here...',
                         border: OutlineInputBorder(),
                       ),
@@ -654,18 +706,18 @@ class _ModulePageState extends State<ModulePage> {
                         });
                       },
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
                         'Minimum Word Count: ${currentData.wordCount} / ${minWordCount}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
                         // if (currentData.controller == answerController1 &&
@@ -681,7 +733,7 @@ class _ModulePageState extends State<ModulePage> {
                         if (currentData.controller == answerController2 &&
                             prefs!.getBool("caseStudy2")!) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text("Already Submitted"),
                             ),
                           );
@@ -690,7 +742,7 @@ class _ModulePageState extends State<ModulePage> {
                         if (currentData.controller == answerController3 &&
                             prefs!.getBool("caseStudy3")!) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text("Already Submitted"),
                             ),
                           );
@@ -805,14 +857,14 @@ class _ModulePageState extends State<ModulePage> {
                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
-                                              title: Text(
+                                              title: const Text(
                                                   'Answer submitted successfully'),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () {
                                                     Navigator.pop(context);
                                                   },
-                                                  child: Text('OK'),
+                                                  child: const Text('OK'),
                                                 ),
                                               ],
                                             ),
@@ -821,7 +873,8 @@ class _ModulePageState extends State<ModulePage> {
                                         showDialog(
                                           context: context,
                                           builder: (context) => AlertDialog(
-                                            title: Text('Insuffcient answer'),
+                                            title: const Text(
+                                                'Insuffcient answer'),
                                             content: Text(
                                                 'Please write at least $minWordCount words.'),
                                             actions: [
@@ -829,7 +882,7 @@ class _ModulePageState extends State<ModulePage> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: Text('OK'),
+                                                child: const Text('OK'),
                                               ),
                                             ],
                                           ),
@@ -863,7 +916,7 @@ class _ModulePageState extends State<ModulePage> {
                                           if ((prefs!.getBool("caseStudy4")!)) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
-                                              SnackBar(
+                                              const SnackBar(
                                                 content:
                                                     Text("Already completed"),
                                               ),
@@ -879,7 +932,7 @@ class _ModulePageState extends State<ModulePage> {
                                                   .getBool("caseStudy3")!)) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
-                                              SnackBar(
+                                              const SnackBar(
                                                 content: Text(
                                                     "Please complete all the previous questions first"),
                                               ),
@@ -904,7 +957,7 @@ class _ModulePageState extends State<ModulePage> {
                                                         .getString("college")!;
 
                                                 return AlertDialog(
-                                                  title: Text(
+                                                  title: const Text(
                                                       "Please confirm your details for certificate generation"),
                                                   content: Column(
                                                     mainAxisSize:
@@ -914,7 +967,7 @@ class _ModulePageState extends State<ModulePage> {
                                                         controller:
                                                             confirmedUsername,
                                                         decoration:
-                                                            InputDecoration(
+                                                            const InputDecoration(
                                                           labelText:
                                                               "Your Name",
                                                         ),
@@ -923,7 +976,7 @@ class _ModulePageState extends State<ModulePage> {
                                                         controller:
                                                             confirmedCollegeName,
                                                         decoration:
-                                                            InputDecoration(
+                                                            const InputDecoration(
                                                           labelText:
                                                               "College Name",
                                                         ),
@@ -935,7 +988,8 @@ class _ModulePageState extends State<ModulePage> {
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                       },
-                                                      child: Text("Cancel"),
+                                                      child:
+                                                          const Text("Cancel"),
                                                     ),
                                                     ElevatedButton(
                                                       onPressed: () async {
@@ -974,9 +1028,9 @@ class _ModulePageState extends State<ModulePage> {
                                                             builder:
                                                                 (context) =>
                                                                     AlertDialog(
-                                                              title: Text(
+                                                              title: const Text(
                                                                   'Certificate is sent to your email'),
-                                                              content: Text(
+                                                              content: const Text(
                                                                   "Please check your email"),
                                                               actions: [
                                                                 TextButton(
@@ -985,8 +1039,9 @@ class _ModulePageState extends State<ModulePage> {
                                                                     Navigator.pop(
                                                                         context);
                                                                   },
-                                                                  child: Text(
-                                                                      'OK'),
+                                                                  child:
+                                                                      const Text(
+                                                                          'OK'),
                                                                 ),
                                                               ],
                                                             ),
@@ -997,7 +1052,8 @@ class _ModulePageState extends State<ModulePage> {
                                                           print(e);
                                                         }
                                                       },
-                                                      child: Text("Submit"),
+                                                      child:
+                                                          const Text("Submit"),
                                                     ),
                                                   ],
                                                 );
@@ -1012,7 +1068,8 @@ class _ModulePageState extends State<ModulePage> {
                                         showDialog(
                                           context: context,
                                           builder: (context) => AlertDialog(
-                                            title: Text('Insuffcient answer'),
+                                            title: const Text(
+                                                'Insuffcient answer'),
                                             content: Text(
                                                 'Please write at least $minWordCount words.'),
                                             actions: [
@@ -1020,7 +1077,7 @@ class _ModulePageState extends State<ModulePage> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: Text('OK'),
+                                                child: const Text('OK'),
                                               ),
                                             ],
                                           ),
@@ -1034,7 +1091,7 @@ class _ModulePageState extends State<ModulePage> {
                           },
                         );
                       },
-                      child: Text('Submit'),
+                      child: const Text('Submit'),
                     ),
                   ],
                 ),
