@@ -619,7 +619,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               Showcase(
                 child: ImageProgress(total: 100, completed: 0),
-                title: 'Upload Progerss',
+                title: 'Upload Progress',
                 description: 'Keep Track of your image upload progress here',
                 key: _six,
               ),

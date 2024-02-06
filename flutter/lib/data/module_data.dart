@@ -268,6 +268,7 @@ final List instruction = [
     ),
     const Body(
         text: "Step 1: Log in with your registered Mobile Number",
+        weight: FontWeight.bold,
         bottomPadding: 0),
     BodyImage(
       image: Image.asset(
@@ -283,6 +284,7 @@ final List instruction = [
   [
     const Body(
         topPadding: 20,
+        weight: FontWeight.bold,
         text:
             "Step 2: Use Fetch Location to identity the distributor near you"),
     BodyImage(
@@ -299,9 +301,11 @@ final List instruction = [
   [
     const Body(
         topPadding: 20,
+        weight: FontWeight.bold,
         text:
             "Step 3: Click on the Distributors location “Shop icon in yellow color"),
     const Body(
+        weight: FontWeight.bold,
         text:
             "Step 4: Click on the Google map icon to identify the distributor location color."),
     BodyImage(
@@ -315,6 +319,7 @@ final List instruction = [
     ),
     const Body(
       topPadding: 20,
+      weight: FontWeight.bold,
       text:
           "Step 5: Visit the distributor location and Make your observations in the below link",
     ),
@@ -397,6 +402,7 @@ final List instruction = [
     ),
     const Body(
         text: "Step 1: Log in with your registered Mobile Number",
+        weight: FontWeight.bold,
         bottomPadding: 0),
     BodyImage(
       image: Image.asset(
@@ -410,7 +416,11 @@ final List instruction = [
     const SizedBox()
   ],
   [
-    const Body(topPadding: 20, text: "Step 2: Click on “Add New outlet”"),
+    const Body(
+      topPadding: 20,
+      weight: FontWeight.bold,
+      text: "Step 2: Click on “Add New outlet”",
+    ),
     BodyImage(
       image: Image.asset(
         'assets/images/instruction/step 2.png',
@@ -421,14 +431,19 @@ final List instruction = [
       topPadding: 30,
     ),
     const SizedBox(),
-  ],[
-    const Body(topPadding: 20, text: "Step 3: Administrate the survey"),
+  ],
+  [
+    const Body(
+      topPadding: 20,
+      text: "Step 3: Administrate the survey",
+        weight: FontWeight.bold,
+
+    ),
     const Body(
         topPadding: 20,
         text:
             "You should present very close to the shop while you administrating the survey"),
     const SizedBox()
-
   ]
 ];
 
