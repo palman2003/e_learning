@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       var responseData = jsonDecode(response.body);
-
+      print(responseData);
       if (response.statusCode > 399) {
         throw responseData["message"];
       }
@@ -55,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
       await prefs?.setString("token", responseData["token"]);
       await prefs?.setString("email", responseData["email"]);
       await prefs?.setString("username", responseData["username"]);
+      await prefs?.setString("userId", responseData["userId"]);
       await prefs?.setString("phno", responseData["phno"]);
       await prefs?.setString("city", responseData["city"]);
       await prefs?.setString("college", responseData["college"]);

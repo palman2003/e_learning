@@ -1,7 +1,17 @@
+import 'package:e_learning/model/quiz_data.dart';
+import 'package:e_learning/page/quiz.dart';
 import 'package:flutter/material.dart';
 
 class QuizSplash extends StatefulWidget {
-  const QuizSplash({super.key});
+  const QuizSplash({
+    required this.quizData,
+    required this.moduleIndex,
+    super.key,
+  });
+
+  final int moduleIndex;
+
+  final List<QuizData> quizData;
   @override
   State<QuizSplash> createState() {
     return _QuizSplashState();
@@ -310,7 +320,18 @@ class _QuizSplashState extends State<QuizSplash> {
             padding: const EdgeInsets.only(bottom: 30),
             child: ElevatedButton(
               onPressed: () {
-                // loadQuiz(context);
+                Navigator.of(context).pop();
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => QuizPage(
+                      quizData: widget.quizData,
+                      isFinal: true,
+                      moduleIndex: widget.moduleIndex,
+                    ),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,

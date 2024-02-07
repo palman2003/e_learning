@@ -6,18 +6,22 @@ import 'package:google_fonts/google_fonts.dart';
 class CourseTile extends StatelessWidget {
   CourseTile({
     required this.title,
-    required this.index,
+    required this.moduleIndex,
     required this.moduleData,
     required this.heroTag,
-    this.quizDataList,
+    required this.quizData,
+    required this.isFinal,
+    this.isIntro = false,
     super.key,
   });
 
-  final List<QuizData>? quizDataList;
+  final List<QuizData> quizData;
   final List moduleData;
   final String title;
   final String heroTag;
-  final int index;
+  final int moduleIndex;
+  final bool isFinal;
+  final bool isIntro;
 
   final List<Color> mainColors = [
     const Color.fromARGB(255, 147, 232, 146),
@@ -43,25 +47,30 @@ class CourseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int colorSelector = index - 1;
+    int colorSelector = moduleIndex - 1;
 
-    if (index >= boxColors.length) {
-      colorSelector = index % boxColors.length;
+    if (moduleIndex >= boxColors.length) {
+      colorSelector = moduleIndex % boxColors.length;
     }
 
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ModulePage(
-              heroTag: heroTag,
-              moduleData: moduleData,
-              appBarTitle: "Module $index",
-              title: title,
-            ),
-          ),
-        );
-      },
+      onTap: isIntro
+          ? () {}
+          : () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ModulePage(
+                    heroTag: heroTag,
+                    moduleData: moduleData,
+                    appBarTitle: "Module $moduleIndex",
+                    title: title,
+                    quizData: quizData,
+                    moduleIndex: moduleIndex,
+                    isFinal: isFinal,
+                  ),
+                ),
+              );
+            },
       child: Container(
         width: double.infinity,
         height: 175,
@@ -91,7 +100,7 @@ class CourseTile extends StatelessWidget {
                 color: boxColors[colorSelector],
               ),
               child: Text(
-                index < 10 ? "0$index" : index.toString(),
+                moduleIndex < 10 ? "0$moduleIndex" : moduleIndex.toString(),
                 style: GoogleFonts.playfairDisplay().copyWith(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

@@ -31,7 +31,6 @@ class _SplashPageState extends State<SplashPage> {
     if (token == null) {
       Navigator.pushReplacement(
         context,
-        // For testing its routed to Signup
         MaterialPageRoute(
           builder: ((context) => const SignupPage()),
         ),

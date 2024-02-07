@@ -4,14 +4,12 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const user = require("./routes/user");
 const mongoose = require("mongoose");
-const reset=require('./routes/reset');
-const quiz=require('./routes/quiz');
+const reset = require("./routes/reset");
+const quiz = require("./routes/quiz");
 const cert = require("./routes/cert");
 const app = express();
 const cors = require("cors");
-const helmet=require('helmet');
-
-
+const helmet = require("helmet");
 
 app.use(helmet());
 app.use(cors());
@@ -39,7 +37,7 @@ app.use("/v1/api/user", user);
 app.use("/v1/api/reset", reset);
 
 //route configuration for quiz data
-app.use("/v1/api/quiz",quiz);
+app.use("/v1/api/quiz", quiz);
 
 //route configuration for certificate generation
-app.use('/v1/api/certificate',cert);
+app.use("/v1/api/certificate", cert);
