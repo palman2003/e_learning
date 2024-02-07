@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require("fs");
 const PDFDocument = require("pdfkit");
 const nodemailer = require("nodemailer");
-const axios = require("axios");
+//const axios = require("axios");
 const User = require("../models/usermodel");
 
 const transporter = nodemailer.createTransport({
@@ -60,8 +60,8 @@ router.post("/caseStudy-data/:email/:module", async (req, res) => {
 });
 
 // Example usage
-const templateUrl =
-  "https://raw.githubusercontent.com/NaveenAkash-K/e_learning/780ddb2304129744fd6ee9b141c4b8911dfae96d/backend/Blue%20and%20Yellow%20Minimalist%20Employee%20of%20the%20Month%20Certificate%20(2).png"; // Replace with your template image URL
+const templateUrl ="template1.jpeg"
+ // Replace with your template image URL
 
 // Define the route to generate and serve the certificate
 router.get("/:userName/:college/:email", async (req, res) => {
@@ -75,27 +75,34 @@ router.get("/:userName/:college/:email", async (req, res) => {
     // Fetch the image from the URL
     const response = await axios.get(templateUrl, {
       responseType: "arraybuffer",
-    });
+    }); 
+    
     const templateBuffer = Buffer.from(response.data);
 
     // Generate the certificate in-memory
     const pdfDoc = new PDFDocument({ layout: "landscape", size: "A4" });
 
+    const date= new Date();
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let month=date.getMonth();
+    let year=date.getFullYear();
+    let str=months[month]+","+year.toString();
+
     // Your certificate generation logic
     const templateWidth = 595.28;
     const templateHeight = 841.89;
     const yPos = (pdfDoc.page.height - templateHeight) / 2;
-    pdfDoc.image(templateBuffer, 0, 0, { scale: 0.424 });
+    pdfDoc.image(templateUrl, 0, 0, { scale: 0.665 });
     pdfDoc
       .font("Helvetica-Bold")
       .fontSize(25)
       .fillColor("black")
-      .text(userName, 100, 295.5, { align: "center" });
+      .text(userName, 100, 280, { align: "center" });
     pdfDoc
       .font("Helvetica-Bold")
-      .fontSize(25)
+      .fontSize(17)
       .fillColor("black")
-      .text(college, 110, 340, { align: "center" });
+      .text(str, 530, 362, { align: "center" });
 
     // Convert the PDF document to a buffer
     const pdfBuffer = await new Promise((resolve, reject) => {
@@ -104,6 +111,8 @@ router.get("/:userName/:college/:email", async (req, res) => {
       pdfDoc.on("end", () => resolve(Buffer.concat(chunks)));
       pdfDoc.end();
     });
+    
+        
 
     // Create mail options with the PDF buffer
     const mailOptions = {

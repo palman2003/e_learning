@@ -85,6 +85,9 @@ const userSchema = new schema(
     caseStudy5: {
       type: String,
     },
+    nop:{
+        type:Number,
+    }
   },
   { timestamps: true }
 );
