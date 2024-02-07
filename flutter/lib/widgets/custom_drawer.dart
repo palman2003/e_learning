@@ -4,13 +4,13 @@ import 'package:e_learning/page/home.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({super.key});
-
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
-
   @override
   Widget build(BuildContext context) {
     void logout() async {
@@ -32,7 +32,7 @@ class CustomDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer,
             ),
-            child: Image.asset("assets/images/cavinkare_logo.png"),
+            child: Image.asset("assets/images/splash.png"),
           ),
           ListTile(
             leading: const Icon(Icons.home),
@@ -41,7 +41,12 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomePage(),
+                  builder: (context) => ShowCaseWidget(
+                      builder: Builder(
+                    builder: (context) => const HomePage(
+                      isFirstlogin: false,
+                    ),
+                  )),
                 ),
               );
             },
@@ -56,6 +61,32 @@ class CustomDrawer extends StatelessWidget {
                   builder: (context) => ProfilePage(),
                 ),
               );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.mail_outline),
+            title: const Text("Mail us"),
+            onTap: () async {
+              String? encodeQueryParameters(Map<String, String> params) {
+                return params.entries
+                    .map((MapEntry<String, String> e) =>
+                        '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                    .join('&');
+              }
+
+              final Uri emailUri = Uri(
+                scheme: 'mailto',
+                path: 'subashvelusamy10@gmail.com',
+                query: encodeQueryParameters(<String, String>{
+                  'subject': 'Example Subject & Symbols are allowed!',
+                  'body': 'Hello'
+                }),
+              );
+              if (await canLaunchUrl(emailUri)) {
+                launchUrl(emailUri);
+              } else {
+                throw Exception('Could not launch the email Uri');
+              }
             },
           ),
           ListTile(

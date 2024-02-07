@@ -60,13 +60,12 @@ class CourseTile extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ModulePage(
-                    heroTag: heroTag,
                     moduleData: moduleData,
                     appBarTitle: "Module $moduleIndex",
                     title: title,
-                    quizData: quizData,
+                    // quizData: quizData,
                     moduleIndex: moduleIndex,
-                    isFinal: isFinal,
+                    // isFinal: isFinal,
                   ),
                 ),
               );

@@ -14,13 +14,15 @@ class QuizPage extends StatefulWidget {
   const QuizPage({
     required this.quizData,
     required this.isFinal,
-    required this.moduleIndex,
+    this.quizNumber,
+    this.retry,
     super.key,
   });
 
   final List<QuizData> quizData;
   final bool isFinal;
-  final int moduleIndex;
+  final int? retry;
+  final int? quizNumber;
 
   @override
   State<StatefulWidget> createState() {
@@ -45,129 +47,190 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
-  void updateProgress(String email, int score) async {
+  void updateProgress(String email) async {
+    for (var element in quizState) {
+      if (element.correctAnswer == element.selectedAnswer) {
+        score++;
+      }
+    }
+
+    if ((score / widget.quizData.length) * 100 > 90) {
+      if (widget.quizNumber == 1) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/1"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz1Finished", true);
+      }
+      if (widget.quizNumber == 2) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/2"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz2Finished", true);
+      }
+      if (widget.quizNumber == 3) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/complete/3"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setBool("isQuiz3Finished", true);
+      }
+    }
+
+    if ((score / widget.quizData.length) * 100 < 90) {
+      if (widget.quizNumber == 1) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retry/1"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setInt("quiz1Retry", prefs!.getInt("quiz1Retry")! - 1);
+      }
+      if (widget.quizNumber == 2) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retry/2"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setInt("quiz2Retry", prefs!.getInt("quiz2Retry")! - 1);
+      }
+      if (widget.quizNumber == 3) {
+        http.post(
+          Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retry/3"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(
+            {"email": prefs!.getString("email")},
+          ),
+        );
+        await prefs!.setInt("quiz3Retry", prefs!.getInt("quiz3Retry")! - 1);
+      }
+    }
     if (!widget.isFinal) {
-      try {
-        setState(() {
-          isLoading = true;
-        });
-
-        var response = await http.post(
-          Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/complete"),
-          headers: {"Content-Type": "application/json"},
-          body: json.encode(
-            {
-              "email": email,
-              "module": widget.moduleIndex - 1,
-            },
+      if (!mounted) {
+        return;
+      }
+      
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScorePage(
+            score: score,
+            totalQuestions: widget.quizData.length,
+            isFinal: widget.isFinal,
           ),
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var response = await http.post(
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/complete"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            "email": prefs!.getString("email"),
+            "module": 2,
+          },
+        ),
+      );
+
+      http.post(
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/retry-decrement"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            "email": prefs!.getString("email"),
+          },
+        ),
+      );
+
+      var responseData = jsonDecode(response.body);
+
+      if (response.statusCode > 399) {
+        throw responseData["message"];
+      }
+
+      if (responseData["increment"]) {
+        await prefs!.setInt("progress", (prefs!.getInt("progress")!) + 1);
+      }
+
+      http.post(
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/quiz/result"),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(
+          {
+            "email": email,
+            "score": (score / widget.quizData.length) * 100,
+          },
+        ),
+      );
+
+      if ((score / widget.quizData.length) * 100 > 90) {
+        http.get(
+          Uri.parse(
+              "${dotenv.env["BACKEND_API_BASE_URL"]}/certificate/${prefs!.getString("username")}/${prefs!.getString("college")}/${prefs!.getString("email")}"),
         );
-
-        setState(() {
-          isLoading = false;
-        });
-
-        var responseData = jsonDecode(response.body);
-
-        if (response.statusCode > 399) {
-          throw responseData["message"];
-        }
-
-        if (!mounted) {
-          return;
-        }
-
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScorePage(
-              score: score,
-              totalQuestions: widget.quizData.length,
-              isFinal: widget.isFinal,
-            ),
-          ),
-        );
-      } catch (error) {
-        setState(() {
-          isLoading = false;
-        });
-
-        if (!mounted) {
-          return;
-        }
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              error.toString(),
-            ),
+          const SnackBar(
+            content: Text("Your certificate is sent to your email"),
           ),
         );
       }
-    } else {
-      try {
-        setState(() {
-          isLoading = true;
-        });
 
-        var response = await http.post(
-          Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/quiz/result"),
-          headers: {"Content-Type": "application/json"},
-          body: json.encode(
-            {
-              "email": email,
-              "score": score,
-            },
-          ),
-        );
+      setState(() {
+        isLoading = false;
+      });
 
-        setState(() {
-          isLoading = false;
-        });
-
-        var responseData = jsonDecode(response.body);
-
-        if (response.statusCode > 399) {
-          throw responseData["message"];
-        }
-
-        if (!mounted) {
-          return;
-        }
-
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScorePage(
-              score: score,
-              totalQuestions: widget.quizData.length,
-              isFinal: widget.isFinal,
-            ),
-          ),
-        );
-      } catch (error) {
-        setState(() {
-          isLoading = false;
-        });
-
-        if (!mounted) {
-          return;
-        }
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              error.toString(),
-            ),
-          ),
-        );
+      if (!mounted) {
+        return;
       }
+
+      // Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScorePage(
+            score: score,
+            totalQuestions: widget.quizData.length,
+            isFinal: widget.isFinal,
+            retry: widget.retry,
+          ),
+        ),
+      );
+    } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Something went wrong."),
+        ),
+      );
     }
   }
 
-  void quizIndexHandler(value) {
+  void quizIndexHandler(value) async {
     if (value == 1) {
       if (_selectedQuizValue == null) {
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -192,42 +255,6 @@ class _QuizPageState extends State<QuizPage> {
         }
       }
 
-      if (_quizIndex == widget.quizData.length - 1) {
-        quizState.add(
-          QuizState(
-            correctAnswer: widget.quizData[_quizIndex].answer,
-            questionIndex: _quizIndex,
-            selectedAnswer:
-                widget.quizData[_quizIndex].options[_selectedQuizValue],
-          ),
-        );
-
-        for (var element in quizState) {
-          if (element.selectedAnswer ==
-              widget.quizData[element.questionIndex].answer) {
-            ++score;
-          }
-        }
-        print("$score/${widget.quizData.length}");
-        // print("QuizState after all questions:");
-        // for (var element in quizState) {
-        //   print(
-        //       "QuestionIndex: ${element.questionIndex}, CorrectAnswer: ${element.correctAnswer}, SelectedAnswer: ${element.selectedAnswer}");
-        // }
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScorePage(
-              score: score,
-              totalQuestions: widget.quizData.length,
-              isFinal: widget.isFinal,
-            ),
-          ),
-        );
-        return;
-      }
-
       for (var element in quizState) {
         if (_quizIndex + 1 == element.questionIndex) {
           setState(() {
@@ -247,6 +274,10 @@ class _QuizPageState extends State<QuizPage> {
               widget.quizData[_quizIndex].options[_selectedQuizValue],
         ),
       );
+      if (_quizIndex == widget.quizData.length - 1) {
+        updateProgress(prefs!.getString('email')!);
+        return;
+      }
       setState(() {
         _selectedQuizValue = null;
         _quizIndex++;
@@ -283,8 +314,7 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    final String? email = prefs?.getString("email");
-
+    score = 0;
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -295,26 +325,26 @@ class _QuizPageState extends State<QuizPage> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  const SizedBox(width: 20),
-                  InkWell(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(100),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Ink(
-                      width: 45,
-                      height: 50,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        ),
-                      ),
-                      child: const Icon(Icons.arrow_back_ios_new_rounded),
-                    ),
-                  ),
+                  // const SizedBox(width: 20),
+                  // InkWell(
+                  //   borderRadius: const BorderRadius.all(
+                  //     Radius.circular(100),
+                  //   ),
+                  //   onTap: () {
+                  //     Navigator.pop(context);
+                  //   },
+                  //   child: Ink(
+                  //     width: 45,
+                  //     height: 50,
+                  //     decoration: const BoxDecoration(
+                  //       color: Colors.white,
+                  //       borderRadius: BorderRadius.all(
+                  //         Radius.circular(100),
+                  //       ),
+                  //     ),
+                  //     child: const Icon(Icons.arrow_back_ios_new_rounded),
+                  //   ),
+                  // ),
                   const Spacer(),
                   Text(
                     "${_quizIndex + 1} of ${widget.quizData.length}",
@@ -324,7 +354,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                   ),
                   const Spacer(),
-                  const SizedBox(width: 65)
+                  // const SizedBox(width: 65)
                 ],
               ),
               Container(
@@ -348,7 +378,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height - 200,
+                height: MediaQuery.of(context).size.height - 140,
                 margin: const EdgeInsets.fromLTRB(10, 0, 15, 0),
                 padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
                 decoration: const BoxDecoration(
@@ -366,6 +396,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
                       "Select right answer",
@@ -376,7 +407,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     const SizedBox(height: 20),
                     SizedBox(
-                      height: 440,
+                      height: MediaQuery.of(context).size.height - 370,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -427,10 +458,8 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                         const Spacer(),
                         InkWell(
-                          onTap: _quizIndex == widget.quizData.length - 1
-                              ? () {
-                                  updateProgress(email!, score);
-                                }
+                          onTap: isLoading
+                              ? () {}
                               : () {
                                   quizIndexHandler(1);
                                 },
@@ -448,18 +477,20 @@ class _QuizPageState extends State<QuizPage> {
                               ],
                             ),
                             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            child: Text(
-                              _quizIndex == widget.quizData.length - 1
-                                  ? "Complete"
-                                  : "Next",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                            child: isLoading
+                                ? const CircularProgressIndicator()
+                                : Text(
+                                    _quizIndex == widget.quizData.length - 1
+                                        ? "Complete"
+                                        : "Next",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
                                   ),
-                            ),
                           ),
                         ),
                         const SizedBox(width: 20),

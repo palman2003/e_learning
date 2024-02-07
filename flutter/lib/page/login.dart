@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:e_learning/page/forget_password.dart';
 import 'package:e_learning/page/home.dart';
 import 'package:e_learning/page/signup.dart';
+import 'package:e_learning/page/tour_intro.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning/utils/validators.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   bool isLoading = false;
-
+  bool isForgotPassLoading = false;
   void login() async {
     if (!_loginFormKey.currentState!.validate()) {
       return;
@@ -36,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       var response = await http.post(
-        Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/user/login"),
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/user/login"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
@@ -47,10 +49,11 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       var responseData = jsonDecode(response.body);
-      print(responseData);
       if (response.statusCode > 399) {
         throw responseData["message"];
       }
+
+      print(responseData);
 
       await prefs?.setString("token", responseData["token"]);
       await prefs?.setString("email", responseData["email"]);
@@ -60,6 +63,24 @@ class _LoginPageState extends State<LoginPage> {
       await prefs?.setString("city", responseData["city"]);
       await prefs?.setString("college", responseData["college"]);
       await prefs?.setString("branch", responseData["branch"]);
+      await prefs?.setBool("isIntroFinished", responseData["progress"][0]);
+      await prefs?.setBool("isModuleFinished", responseData["progress"][1]);
+      await prefs?.setBool(
+          "isInstructionFinished", responseData["progress"][2]);
+      await prefs?.setBool(
+          "isImageUploadFinished", responseData["progress"][3]);
+      await prefs?.setBool("isCaseStudyFinished", responseData["progress"][4]);
+      await prefs?.setBool("caseStudy1", responseData["caseStudy1"]);
+      await prefs?.setBool("caseStudy2", responseData["caseStudy2"]);
+      await prefs?.setBool("caseStudy3", responseData["caseStudy3"]);
+      await prefs?.setBool("caseStudy4", responseData["caseStudy4"]);
+      await prefs?.setBool("caseStudy5", responseData["caseStudy5"]);
+      await prefs?.setBool("isQuiz1Finished", responseData["isQuiz1Finished"]);
+      await prefs?.setBool("isQuiz2Finished", responseData["isQuiz2Finished"]);
+      await prefs?.setBool("isQuiz3Finished", responseData["isQuiz3Finished"]);
+      await prefs?.setInt("quiz1Retry", responseData["quiz1Retry"]);
+      await prefs?.setInt("quiz2Retry", responseData["quiz2Retry"]);
+      await prefs?.setInt("quiz3Retry", responseData["quiz3Retry"]);
 
       setState(() {
         isLoading = false;
@@ -68,12 +89,28 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) {
         return;
       }
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      );
+
+      if (responseData["intro"]) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => TourIntro()),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ShowCaseWidget(
+              builder: Builder(
+                builder: (context) => const HomePage(
+                  isFirstlogin: false,
+                ),
+              ),
+            ),
+          ),
+        );
+      }
     } catch (error) {
       setState(() {
         isLoading = false;
@@ -112,11 +149,14 @@ class _LoginPageState extends State<LoginPage> {
       );
       return;
     }
+    setState(() {
+      isForgotPassLoading = true;
+    });
 
     try {
       var response = await http.post(
         Uri.parse(
-            "http://${dotenv.env["MY_IP"]}:3000/v1/api/reset/forgot-password"),
+            "${dotenv.env["BACKEND_API_BASE_URL"]}/reset/forgot-password"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(
           {
@@ -155,6 +195,10 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       );
+    } finally {
+      setState(() {
+        isForgotPassLoading = false;
+      });
     }
   }
 
@@ -273,24 +317,15 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(fontSize: 12),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        // const SizedBox(height: 5),
                         TextButton(
-                          onPressed: forgetPassword,
-                          child: const Text(
-                            "Forget Password",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ),
-                            );
-                          },
-                          child: const Text("Test Navigate"),
-                        )
+                            onPressed: forgetPassword,
+                            child: isForgotPassLoading
+                                ? CircularProgressIndicator()
+                                : const Text(
+                                    "Forgot Password?",
+                                    style: TextStyle(fontSize: 12),
+                                  )),
                       ],
                     ),
                   ),

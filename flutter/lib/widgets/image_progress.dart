@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class ImageProgress extends StatefulWidget {
-  ImageProgress({super.key, required this.progress});
-  double progress;
+  ImageProgress({
+    super.key,
+    required this.completed,
+    required this.total,
+  });
+  double completed;
+  double total;
   @override
   ImageProgressState createState() => ImageProgressState();
 }
@@ -12,10 +18,10 @@ class ImageProgressState extends State<ImageProgress> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       // width: MediaQuery.of(context).size.width,
       height: 140,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
           Radius.circular(5.0),
@@ -34,16 +40,17 @@ class ImageProgressState extends State<ImageProgress> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 width: 100,
                 height: 100,
                 child: CustomPaint(
-                  painter: RoundedCircularProgressPainter(widget.progress),
+                  painter: RoundedCircularProgressPainter(
+                      widget.completed / widget.total),
                   child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
+                        const Text(
                           'Status',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -51,8 +58,8 @@ class ImageProgressState extends State<ImageProgress> {
                           ),
                         ),
                         Text(
-                          '25/100',
-                          style: TextStyle(
+                          '${widget.completed.toInt()}/${widget.total.toInt()}',
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 86, 86, 86),
                           ),
@@ -62,22 +69,22 @@ class ImageProgressState extends State<ImageProgress> {
                   ),
                 ),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
-                      "Image Upload",
+                      "Module 04",
                       style: GoogleFonts.poppins().copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
-                      "Complete the 100 image upload to proceed with the next module",
+                      "Upload images of 100 shops to move on to the next level",
                       style: GoogleFonts.poppins().copyWith(fontSize: 12),
                     ),
                   ],
@@ -99,13 +106,13 @@ class RoundedCircularProgressPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint backgroundPaint = Paint()
-      ..color = Color.fromARGB(255, 224, 177, 255)
+      ..color = const Color.fromARGB(255, 224, 177, 255)
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 10.0
       ..style = PaintingStyle.stroke;
 
     Paint progressPaint = Paint()
-      ..color = Color.fromARGB(255, 153, 0, 255)
+      ..color = const Color.fromARGB(255, 153, 0, 255)
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 10.0
       ..style = PaintingStyle.stroke;

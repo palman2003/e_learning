@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:e_learning/utils/validators.dart';
+import 'package:e_learning/utils/validators.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -23,7 +24,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   final _resetFormKey = GlobalKey<FormState>();
   final otpController = TextEditingController();
   final focusNode = FocusNode();
-
+  bool isLoading = false;
   late String enteredOTP;
 
   final _passwordController = TextEditingController();
@@ -32,7 +33,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   void verifyOTP() async {
     var response = await http.post(
-      Uri.parse("http://${dotenv.env["MY_IP"]}:3000/v1/api/reset/verify-otp"),
+      Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/reset/verify-otp"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(
         {
@@ -79,27 +80,39 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     if (!_resetFormKey.currentState!.validate()) {
       return;
     }
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var response = await http.post(
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/reset/reset-password"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
+            "email": widget.email,
+            "password": _passwordController.text,
+            "otp": enteredOTP,
+          },
+        ),
+      );
 
-    var response = await http.post(
-      Uri.parse(
-          "http://${dotenv.env["MY_IP"]}:3000/v1/api/reset/reset-password"),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode(
-        {
-          "email": widget.email,
-          "password": _passwordController.text,
-          "otp": enteredOTP,
-        },
-      ),
-    );
+      var responseData = jsonDecode(response.body);
 
-    var responseData = jsonDecode(response.body);
+      if (!mounted) {
+        return;
+      }
 
-    if (!mounted) {
-      return;
-    }
-
-    if (response.statusCode > 399) {
+      if (response.statusCode > 399) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              responseData["message"],
+            ),
+          ),
+        );
+        return;
+      }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -108,18 +121,25 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           ),
         ),
       );
-      return;
-    }
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          responseData["message"],
-        ),
-      ),
-    );
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
 
-    Navigator.pop(context);
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            error.toString(),
+          ),
+        ),
+      );
+    } finally {
+      Navigator.pop(context);
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -166,15 +186,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       color: Colors.grey,
                     ),
                   ),
-                  const Text(
-                    "naveen.akash0904@gmail.com",
+                  Text(
+                    widget.email,
                   ),
                   const SizedBox(height: 40),
                   const Text(
                     "OTP gets automatically verified after entered",
-                    style: TextStyle(
-                      color: Colors.grey
-                    ),
+                    style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 10),
                   Directionality(
@@ -329,13 +347,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       padding: const EdgeInsets.symmetric(
                         vertical: 15,
                       ),
-                      child: const Center(
-                        child: Text(
-                          "Reset",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                      child: Center(
+                        child: isLoading
+                            ? const CircularProgressIndicator()
+                            : const Text(
+                                "Reset",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                       ),
                     ),
                   ),

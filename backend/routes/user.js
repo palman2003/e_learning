@@ -28,6 +28,16 @@ router.post("/login", async (req, res) => {
       process.env.SECRET_KEY
     );
 
+    let progress = 0;
+
+    user.Module.forEach((ele) => {
+      if(ele){
+        progress++;
+      }
+    });
+
+    console.log(progress);
+
     res.json({
       token,
       email: user.email,
@@ -38,12 +48,24 @@ router.post("/login", async (req, res) => {
       city: user.city,
       intro: user.introduction,
       username: user.username,
+      progress: user.Module,
+      caseStudy1: user.caseStudy1 === String,
+      caseStudy2: user.caseStudy2 === String,
+      caseStudy3: user.caseStudy3 === String,
+      caseStudy4: user.caseStudy4 === String,
+      caseStudy5: user.caseStudy5 === String,
+      isQuiz1Finished: user.isQuiz1Finished,
+      isQuiz2Finished: user.isQuiz2Finished,
+      isQuiz3Finished: user.isQuiz3Finished,
+      quiz1Retry: user.quiz1Retry,
+      quiz2Retry: user.quiz2Retry,
+      quiz3Retry: user.quiz3Retry,
     });
 
     //set the introduction to true
 
-    if(user.introduction==false){
-      user.introduction=true;
+    if(user.introduction==true){
+      user.introduction=false;
       await user.save();
     }
   } catch (error) {

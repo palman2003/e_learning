@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -41,7 +42,13 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: ((context) => const HomePage()),
+        builder: ((context) => ShowCaseWidget(
+              builder: Builder(
+                builder: (context) => const HomePage(
+                  isFirstlogin: false,
+                ),
+              ),
+            )),
       ),
     );
   }
@@ -53,6 +60,7 @@ class _SplashPageState extends State<SplashPage> {
     try {
       var result = await db.collection('failSafe').findOne();
 
+      await db.close();
       if (!result["allow"]) {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
@@ -67,8 +75,6 @@ class _SplashPageState extends State<SplashPage> {
       }
     } catch (e) {
       debugPrint("Error: $e");
-    } finally {
-      await db.close();
     }
   }
 
@@ -83,24 +89,28 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/splash.png',
-              width: 150,
-              height: 150,
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'E-Learning App',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/splash.png',
+                // width: 150,
+                // height: 150,
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              const Text(
+                "Let's Learn",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                  color: Color.fromARGB(255, 0, 69, 187),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
