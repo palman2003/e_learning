@@ -85,8 +85,12 @@ const userSchema = new schema(
     caseStudy5: {
       type: String,
     },
+    nop: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("test_users", userSchema);
+module.exports = mongoose.model("users", userSchema);

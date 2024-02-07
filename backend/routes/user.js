@@ -3,12 +3,14 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/usermodel");
+const Module = require("../models/modulemodel");
 
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
     // Find the user by username
+    const module = await Module.findOne({});
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
@@ -20,8 +22,6 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    
-
     // Generate a JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email },
@@ -31,7 +31,7 @@ router.post("/login", async (req, res) => {
     let progress = 0;
 
     user.Module.forEach((ele) => {
-      if(ele){
+      if (ele) {
         progress++;
       }
     });
@@ -60,12 +60,14 @@ router.post("/login", async (req, res) => {
       quiz1Retry: user.quiz1Retry,
       quiz2Retry: user.quiz2Retry,
       quiz3Retry: user.quiz3Retry,
+      nop: user.nop,
+      isCaseStudyOpen: module.isCaseStudyOpen,
     });
 
     //set the introduction to true
 
-    if(user.introduction==true){
-      user.introduction=false;
+    if (user.introduction == true) {
+      user.introduction = false;
       await user.save();
     }
   } catch (error) {

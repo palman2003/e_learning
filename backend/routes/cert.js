@@ -7,7 +7,13 @@ const axios = require("axios");
 const User = require("../models/usermodel");
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: "Outlook365",
+  host: "smtp.office365.com",
+  port: "587",
+  tls: {
+    ciphers: "SSLv3",
+    rejectUnauthorized: false,
+  },
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWD,
@@ -25,7 +31,7 @@ router.post("/caseStudy-data/:email/:module", async (req, res) => {
       return res.status(400).json({ message: "user not found" });
     }
 
-    console.log(module == 1 );
+    console.log(module == 1);
 
     if (module == 1) {
       user.caseStudy1 = data;
@@ -47,7 +53,7 @@ router.post("/caseStudy-data/:email/:module", async (req, res) => {
       user.caseStudy4 = data;
       await user.save();
     }
-    res.status(200).json({message: "Successful"});
+    res.status(200).json({ message: "Successful" });
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }

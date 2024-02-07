@@ -81,6 +81,8 @@ class _LoginPageState extends State<LoginPage> {
       await prefs?.setInt("quiz1Retry", responseData["quiz1Retry"]);
       await prefs?.setInt("quiz2Retry", responseData["quiz2Retry"]);
       await prefs?.setInt("quiz3Retry", responseData["quiz3Retry"]);
+      await prefs?.setInt("nop", responseData["nop"]);
+      await prefs!.setBool("isCaseStudyOpen", responseData["isCaseStudyOpen"]);
 
       setState(() {
         isLoading = false;

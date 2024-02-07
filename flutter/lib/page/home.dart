@@ -74,9 +74,17 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  late double nop;
+  late bool isCaseStudyOpen;
+
   @override
   Widget build(BuildContext context) {
     final String? username = prefs?.getString("username");
+    
+    setState(() {
+      nop = prefs!.getInt("nop")!.toDouble();
+      isCaseStudyOpen = prefs!.getBool("isCaseStudyOpen")!;
+    });
 
     int progress = 0;
     int credits = 0;
@@ -618,7 +626,10 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 20),
               Showcase(
-                child: ImageProgress(total: 100, completed: 0),
+                child: ImageProgress(
+                  total: 100,
+                  completed: nop,
+                ),
                 title: 'Upload Progress',
                 description: 'Keep Track of your image upload progress here',
                 key: _six,
@@ -628,15 +639,16 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: caseStudyTap,
-                      // onTap: () {
-                      //   ScaffoldMessenger.of(context).clearSnackBars();
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(
-                      //       content: Text("Module not accessible yet"),
-                      //     ),
-                      //   );
-                      // },
+                      onTap: isCaseStudyOpen
+                          ? caseStudyTap
+                          : () {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Module not accessible yet"),
+                                ),
+                              );
+                            },
                       child: Container(
                         height: 160,
                         decoration: BoxDecoration(

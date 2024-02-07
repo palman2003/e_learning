@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/usermodel");
 const router = express.Router();
+const Module = require("../models/modulemodel");
 
 router.post("/complete", async (req, res) => {
   try {
@@ -19,6 +20,26 @@ router.post("/complete", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "internal server error" });
+  }
+});
+
+router.get("/check", async (req, res) => {
+  try {
+    const data = await Module.findOne({});
+    res.json({ isCaseStudyOpen: data.isCaseStudyOpen });
+  } catch (error) {
+    res.status(400).json({ message: "Internal server error" });
+  }
+});
+
+router.post("/NOP", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    res.json({ nop: user.nop });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "Internal server error" });
   }
 });
 
