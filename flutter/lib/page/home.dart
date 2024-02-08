@@ -80,10 +80,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final String? username = prefs?.getString("username");
-    
+
     setState(() {
       nop = prefs!.getInt("nop")!.toDouble();
-      isCaseStudyOpen = prefs!.getBool("isCaseStudyOpen")!;
+      isCaseStudyOpen = nop >= 100;
     });
 
     int progress = 0;
