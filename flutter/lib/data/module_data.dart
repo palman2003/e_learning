@@ -261,90 +261,101 @@ final List instruction = [
     ),
     const SizedBox()
   ],
-  [
-    const Heading(
-      text: "Follow the steps to identify the distributor",
-      topPadding: 20,
-    ),
-    const Body(
-        text: "Step 1: Log in with your registered Mobile Number",
-        weight: FontWeight.bold,
-        bottomPadding: 0),
-    BodyImage(
-      image: Image.asset(
-        'assets/images/instruction/step 1.png',
-        // fit: BoxFit.fitHeight,
-        // height: 500,
-      ),
-      bottomPadding: 0,
-      topPadding: 30,
-    ),
-    const SizedBox()
-  ],
-  [
-    const Body(
-        topPadding: 20,
-        weight: FontWeight.bold,
-        text:
-            "Step 2: Use Fetch Location to identity the distributor near you"),
-    BodyImage(
-      image: Image.asset(
-        'assets/images/instruction/step 2.png',
-        fit: BoxFit.fitHeight,
-        height: 500,
-      ),
-      bottomPadding: 0,
-      topPadding: 30,
-    ),
-    const SizedBox(),
-  ],
-  [
-    const Body(
-        topPadding: 20,
-        weight: FontWeight.bold,
-        text:
-            "Step 3: Click on the Distributors location “Shop icon in yellow color"),
-    const Body(
-        weight: FontWeight.bold,
-        text:
-            "Step 4: Click on the Google map icon to identify the distributor location color."),
-    BodyImage(
-      image: Image.asset(
-        'assets/images/instruction/step 3.png',
-        fit: BoxFit.fitHeight,
-        height: 500,
-      ),
-      bottomPadding: 0,
-      topPadding: 30,
-    ),
-    const Body(
-      topPadding: 20,
-      weight: FontWeight.bold,
-      text:
-          "Step 5: Visit the distributor location and Make your observations in the below link",
-    ),
-    const Url(
-      url: "https://admin.gosurvey.in/survey/UMCAK1IC",
-      align: TextAlign.center,
-    ),
-    const SizedBox()
-  ],
+  // [
+  //   const Heading(
+  //     text: "Follow the steps to identify the distributor",
+  //     topPadding: 20,
+  //   ),
+  //   const Body(
+  //       text: "Step 1: Log in with your registered Mobile Number",
+  //       weight: FontWeight.bold,
+  //       bottomPadding: 0),
+  //   BodyImage(
+  //     image: Image.asset(
+  //       'assets/images/instruction/step 1.png',
+  //       // fit: BoxFit.fitHeight,
+  //       // height: 500,
+  //     ),
+  //     bottomPadding: 0,
+  //     topPadding: 30,
+  //   ),
+  //   const SizedBox()
+  // ],
+  // [
+  //   const Body(
+  //       topPadding: 20,
+  //       weight: FontWeight.bold,
+  //       text:
+  //           "Step 2: Use Fetch Location to identity the distributor near you"),
+  //   BodyImage(
+  //     image: Image.asset(
+  //       'assets/images/instruction/step 2.png',
+  //       fit: BoxFit.fitHeight,
+  //       height: 500,
+  //     ),
+  //     bottomPadding: 0,
+  //     topPadding: 30,
+  //   ),
+  //   const SizedBox(),
+  // ],
+  // [
+  //   const Body(
+  //       topPadding: 20,
+  //       weight: FontWeight.bold,
+  //       text:
+  //           "Step 3: Click on the Distributors location “Shop icon in yellow color"),
+  //   const Body(
+  //       weight: FontWeight.bold,
+  //       text:
+  //           "Step 4: Click on the Google map icon to identify the distributor location color."),
+  //   BodyImage(
+  //     image: Image.asset(
+  //       'assets/images/instruction/step 3.png',
+  //       fit: BoxFit.fitHeight,
+  //       height: 500,
+  //     ),
+  //     bottomPadding: 0,
+  //     topPadding: 30,
+  //   ),
+  //   const Body(
+  //     topPadding: 20,
+  //     weight: FontWeight.bold,
+  //     text:
+  //         "Step 5: Visit the distributor location and Make your observations in the below link",
+  //   ),
+  //   const Url(
+  //     url: "https://admin.gosurvey.in/survey/UMCAK1IC",
+  //     align: TextAlign.center,
+  //   ),
+  //   const SizedBox()
+  // ],
   [
     const Heading(text: "Data Collection -> Distributer", topPadding: 20),
     const Body(
         text: "Distributor is an agent who supplies goods to the retailer "),
-    const Body(text: "1)  Now select a distributor from the app"),
-    const Body(text: "2)  Note the address of the distributor from the app"),
-    const Body(text: "3)  Visit the distributor location"),
     const Body(
-        text: "Make your observations in the below link",
-        align: TextAlign.center,
-        topPadding: 40,
-        bottomPadding: 0),
-    const Url(
-        url: "https://admin.gosurvey.in/survey/UMCAK1IC",
-        align: TextAlign.center),
+      weight: FontWeight.bold,
+      text: "Follow the steps to identify the distributor",
+    ),
+    Header(
+      bgColor: Colors.blue,
+      fontSize: 16,
+      contPadding: 10,
+      topPadding: 10,
+      sidePadding: 30,
+      text:
+          'Please note“Shop icon in yellow colour” is the location of distributor',
+    ),
+    YouTubeVideo(text: 'Hello'),
     const SizedBox()
+  ],
+  [
+    Body(
+        fontSize: 24,
+        align: TextAlign.justify,
+        topPadding: 200,
+        text:
+            'Successfully completed the data collection task of the distributor'),
   ],
   [
     const Heading(
@@ -389,7 +400,7 @@ final List instruction = [
     ),
     const Body(
       text:
-          "New outlets are those outlets which do not have CavinKare Products. Add Outlets relevant to FMGC does not irrelevant outlets like Electronic shops, Cloth shops, Shoe shops etc..",
+          "New outlets are those outlets which do not have CavinKare Products. Add Outlets relevant to FMCG does not irrelevant outlets like Electronic shops, Cloth shops, Shoe shops etc..",
     ),
     const Body(text: "Refer to this to understand the brand of Cavinkare"),
     const Url(url: "https://cavinkare.com/brands/"),
@@ -436,13 +447,12 @@ final List instruction = [
     const Body(
       topPadding: 20,
       text: "Step 3: Administrate the survey",
-        weight: FontWeight.bold,
-
+      weight: FontWeight.bold,
     ),
     const Body(
         topPadding: 20,
         text:
-            "You should present very close to the shop while you administrating the survey"),
+            "You should be present very close to the shop while you administrating the survey"),
     const SizedBox()
   ]
 ];
