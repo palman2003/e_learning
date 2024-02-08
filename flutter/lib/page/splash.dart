@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:e_learning/page/blank.dart';
 // ignore: unused_import
 import 'package:e_learning/page/home.dart';
@@ -8,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:http/http.dart' as http;
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -21,6 +24,46 @@ class _SplashPageState extends State<SplashPage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   // ignore: prefer_typing_uninitialized_variables
   late var db;
+
+  void checkNOP() async {
+    try {
+      if (prefs!.getString("email") == null) {
+        return;
+      }
+
+      var response = await http.post(
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/NOP"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"email": prefs!.getString("email")!}),
+      );
+
+      var responseData = jsonDecode(response.body);
+
+      if (response.statusCode > 399) {
+        throw responseData["message"];
+      }
+
+      await prefs!.setInt("nop", responseData["nop"]);
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void checkModule() async {
+    try {
+      var response = await http.get(
+        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/check"),
+      );
+
+      var responseData = jsonDecode(response.body);
+
+      if (response.statusCode > 399) {
+        throw responseData["message"];
+      }
+
+      await prefs!.setBool("isCaseStudyOpen", responseData["isCaseStudyOpen"]);
+    } catch (error) {}
+  }
 
   void checkToken() {
     String? token = prefs?.getString("token");
@@ -71,6 +114,8 @@ class _SplashPageState extends State<SplashPage> {
         );
         return;
       } else {
+        checkNOP();
+        checkModule();
         checkToken();
       }
     } catch (e) {

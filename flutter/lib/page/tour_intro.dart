@@ -1,15 +1,18 @@
 import 'package:e_learning/page/home.dart';
+import 'package:e_learning/utils/shared_preferences_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:showcaseview/showcaseview.dart';
 
 class TourIntro extends StatelessWidget {
   TourIntro({super.key});
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         body: Padding(
       padding: const EdgeInsets.all(30.0),
       child: Column(
@@ -85,7 +88,8 @@ class TourIntro extends StatelessWidget {
                 Radius.circular(10),
               ),
               child: Ink(
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 242, 211, 255),
                   borderRadius: BorderRadius.all(
