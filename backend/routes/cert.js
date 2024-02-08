@@ -62,7 +62,7 @@ router.post("/caseStudy-data/:email/:module", async (req, res) => {
 });
 
 // Example usage
-const templateUrl ="template1.jpeg"
+const templateUrl ="https://raw.githubusercontent.com/NaveenAkash-K/e_learning/main/backend/template1.jpeg"
  // Replace with your template image URL
 
 // Define the route to generate and serve the certificate
