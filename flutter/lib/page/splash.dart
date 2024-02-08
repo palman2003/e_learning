@@ -49,21 +49,21 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
-  void checkModule() async {
-    try {
-      var response = await http.get(
-        Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/check"),
-      );
+  // void checkModule() async {
+  //   try {
+  //     var response = await http.get(
+  //       Uri.parse("${dotenv.env["BACKEND_API_BASE_URL"]}/module/check"),
+  //     );
 
-      var responseData = jsonDecode(response.body);
+  //     var responseData = jsonDecode(response.body);
 
-      if (response.statusCode > 399) {
-        throw responseData["message"];
-      }
+  //     if (response.statusCode > 399) {
+  //       throw responseData["message"];
+  //     }
 
-      await prefs!.setBool("isCaseStudyOpen", responseData["isCaseStudyOpen"]);
-    } catch (error) {}
-  }
+  //     await prefs!.setBool("isCaseStudyOpen", responseData["isCaseStudyOpen"]);
+  //   } catch (error) {}
+  // }
 
   void checkToken() {
     String? token = prefs?.getString("token");
@@ -115,7 +115,7 @@ class _SplashPageState extends State<SplashPage> {
         return;
       } else {
         checkNOP();
-        checkModule();
+        // checkModule();
         checkToken();
       }
     } catch (e) {
