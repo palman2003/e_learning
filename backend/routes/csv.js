@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require('multer');
-const csvParser = require('csv-parser');
+const csv = require('csv-parser');
 const json2csv = require("json2csv").Parser;
 const User = require("../models/usermodel");
 const upload = multer();
@@ -24,18 +24,22 @@ router.get("/fetch", async (req, res) => {
   }
 });
 
-router.post('/upload', upload.single('csvFile'),(req, res) => {
+router.post('/upload', upload.single('csvData'),(req, res) => {
   try{
     const csvData = req.file.buffer.toString();
-    
+    console.log(csvData)
     if (!csvData) {
       return res.status(400).send('CSV data is required.');
   }
   
-  const parsedData = csvParser(csvData, { headers: true });
-    parsedData
-        .on('data', async (data) => {
+  const parser = csv({ headers: true });
+  //console.log(parsedData)
+    parser
+        .on('data',async (data) => {
+          console.log('Parsed data:', data);
           try {
+            const email = data._0;
+            const nop = parseInt(data._1);
             // Find the user in MongoDB based on the email
             const user = await User.findOne({ email });
 
@@ -51,7 +55,16 @@ router.post('/upload', upload.single('csvFile'),(req, res) => {
             console.error(`Error updating NOP for user ${email}: ${error}`);
         }
             
-        })
+        });
+        parser.on('end', () => {
+          console.log('CSV data processed successfully.');
+          res.send('CSV data processed successfully.');})
+
+        const Readable = require('stream').Readable;
+        const stream = new Readable();
+        stream.push(csvData);
+        stream.push(null);
+        stream.pipe(parser);
   }
   catch(error){
     console.log(error);
