@@ -252,13 +252,13 @@ final List instruction = [
         align: TextAlign.justify,
         text:
             "Now that you are aware of the principles behind distribution and sales. Now to do the activity in real time."),
-    BodyImage(
-      image: Image.asset(
-        'assets/images/instruction/app.png',
-        // fit: BoxFit.cover,
-        // height: 300,
-      ),
-    ),
+    Body(
+        fontSize: 20,
+        text:
+            'Download the survey app  from the below link and use your registered phone number to log in'),
+    const Url(
+        url:
+            'https://install.appcenter.ms/orgs/citpl-internal-apps/apps/ck-survey-app/distribution_groups/ck%20survey%20app'),
     const SizedBox()
   ],
   // [
