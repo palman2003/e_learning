@@ -1,4 +1,5 @@
 import 'package:e_learning/page/login.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:e_learning/page/profile.dart';
 import 'package:e_learning/page/home.dart';
 import 'package:e_learning/utils/shared_preferences_manager.dart';
@@ -13,6 +14,14 @@ class CustomDrawer extends StatelessWidget {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   @override
   Widget build(BuildContext context) {
+    Future<void> _launchURL(String url) async {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
     void logout() async {
       await prefs?.clear();
 
@@ -76,10 +85,10 @@ class CustomDrawer extends StatelessWidget {
 
               final Uri emailUri = Uri(
                 scheme: 'mailto',
-                path: 'subashvelusamy10@gmail.com',
+                path: 'ciacoordinator@cavinkare.com',
                 query: encodeQueryParameters(<String, String>{
-                  'subject': 'Example Subject & Symbols are allowed!',
-                  'body': 'Hello'
+                  'subject': 'Query Support',
+                  'body': 'Please post your queries here'
                 }),
               );
               if (await canLaunchUrl(emailUri)) {
@@ -87,6 +96,14 @@ class CustomDrawer extends StatelessWidget {
               } else {
                 throw Exception('Could not launch the email Uri');
               }
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.get_app),
+            title: const Text("Get App"),
+            onTap: () {
+              _launchURL(
+                  "https://install.appcenter.ms/orgs/citpl-internal-apps/apps/ck-survey-app/distribution_groups/ck%20survey%20app");
             },
           ),
           ListTile(
