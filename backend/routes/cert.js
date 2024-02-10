@@ -75,11 +75,11 @@ router.get("/:userName/:college/:email", async (req, res) => {
     console.log(userName, email, college);
 
     // Fetch the image from the URL
-    const response = await axios.get(templateUrl, {
-      responseType: "arraybuffer",
-    }); 
+    //const response = await axios.get(templateUrl, {
+      //responseType: "arraybuffer",
+   // }); 
     
-    const templateBuffer = Buffer.from(response.data);
+   // const templateBuffer = Buffer.from(response.data);
 
     // Generate the certificate in-memory
     const pdfDoc = new PDFDocument({ layout: "landscape", size: "A4" });
