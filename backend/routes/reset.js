@@ -6,7 +6,15 @@ const bcrypt = require("bcrypt");
 const User = require("../models/usermodel");
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: "Outlook365",
+
+  host: "smtp.office365.com",
+  port: "587",
+  tls: {
+    ciphers: "SSLv3",
+    rejectUnauthorized: false,
+
+  },
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWD,
