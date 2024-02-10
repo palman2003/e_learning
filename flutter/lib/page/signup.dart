@@ -278,38 +278,45 @@ class _SignupPageState extends State<SignupPage> {
                                 },
                               ),
                               const SizedBox(height: 15),
-                              DropdownButtonFormField<String>(
-                                value: selectedCity,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
+                              Container(
+                                child: DropdownButtonFormField<String>(
+                                  value: selectedCity,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    labelText: "Resident City",
+                                    prefixIcon: const Icon(Icons.location_city),
                                   ),
-                                  labelText: "Resident City",
-                                  prefixIcon: const Icon(Icons.location_city),
+                                  items: [
+                                    DropdownMenuItem(
+                                      value: null,
+                                      child: Text("Please select your city"),
+                                    ),
+                                    ...cities.map((String city) {
+                                      String displayedCity = city.length > 20
+                                          ? '${city.substring(0, 20)}\n${city.substring(20)}'
+                                          : city;
+                                      return DropdownMenuItem<String>(
+                                        value: city,
+                                        child: Text(
+                                          displayedCity,
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ],
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      selectedCity = value;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Please select your city";
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                items: [
-                                  DropdownMenuItem(
-                                    value: null,
-                                    child: Text("Please select your city"),
-                                  ),
-                                  ...cities.map((String city) {
-                                    return DropdownMenuItem<String>(
-                                      value: city,
-                                      child: Text(city),
-                                    );
-                                  }).toList(),
-                                ],
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    selectedCity = value;
-                                  });
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Please select your city";
-                                  }
-                                  return null;
-                                },
                               ),
                               const SizedBox(height: 15),
                               TextFormField(
