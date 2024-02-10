@@ -24,7 +24,7 @@ router.get("/fetch", async (req, res) => {
   }
 });
 
-router.post('/upload', upload.single('csvData'),(req, res) => {
+router.post('/upload', upload.single('csvFile'),(req, res) => {
   try{
     const csvData = req.file.buffer.toString();
     console.log(csvData)
